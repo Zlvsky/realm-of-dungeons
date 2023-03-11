@@ -1,6 +1,7 @@
 require("dotenv").config();
 import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 import { loginUser } from "./controllers/account/login";
 import { createUser } from "./controllers/account/register";
 
@@ -17,6 +18,7 @@ mongoose.connection.on("connected", function () {
 });
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "../../client/appClient";
 import Checkbox from "../../components/common/forms/Checkbox";
 import Form from "../../components/common/forms/Form";
 import Input from "../../components/common/forms/Input";
 import Header from "../../components/common/text/Header";
 import FullWrapper from "../../components/layouts/page-wrappers/FullWrapper";
+import setCookies from "../../utils/cookies/setCookie";
 
 function SignIn() {
   const [accountName, setAccountName] = useState("");
@@ -13,7 +15,19 @@ function SignIn() {
   const [repeatPassword, setRepeatPassword] = useState("");
   const [terms, setTerms] = useState(false);
 
-  const onSubmit = () => {};
+  const navigate = useNavigate();
+
+  const onSubmit = async () => {
+    const data = {
+      accountname: accountName,
+      password: password
+    };
+    const response = await login(data);
+    if(response.status !== 200) return console.log(response);
+    console.log("success", response.data);
+    setCookies(response.data.token);
+    navigate("/start");
+  };
 
   return (
     <FullWrapper>
@@ -25,7 +39,7 @@ function SignIn() {
           <Header>SignIn</Header>
         </div>
         <div className="w-full">
-          <Form id="signup" submitBtn={"CREATE ACCOUNT"} onSubmit={onSubmit}>
+          <Form id="signup" submitBtn={"LOGIN"} onSubmit={onSubmit}>
             <Input
               label="Account name:"
               name="accountname"

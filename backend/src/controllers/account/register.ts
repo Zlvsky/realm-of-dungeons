@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { IUserRegister } from "../../types/account/IUser";
-import UserRegister from "../../schemas/account/registerSchema";
+import { IUser } from "../../types/account/MainInterfaces";
+import User from "../../schemas/account/userSchema";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const newUser: IUserRegister = new UserRegister({
+    const newUser: IUser = new User({
       accountname: req.body.accountname,
       email: req.body.email,
       password: req.body.password,

@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { User } from "../../schemas/account/userSchema";
+import User from "../../schemas/account/userSchema";
 
 
 const JWT_SECRET = "mysecretkey";
 
 export const loginUser = async (req: Request, res: Response) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ accountname: req.body.accountname });
 
     if (!user) {
       return res.status(404).send("User not found");

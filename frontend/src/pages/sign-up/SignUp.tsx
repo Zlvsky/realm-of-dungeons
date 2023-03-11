@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { register } from '../../client/appClient';
 import Checkbox from '../../components/common/forms/Checkbox';
 import Form from '../../components/common/forms/Form';
 import Input from '../../components/common/forms/Input';
@@ -13,9 +14,19 @@ function SignUp() {
     const [repeatPassword, setRepeatPassword] = useState("");
     const [terms, setTerms] = useState(false);
 
-    const onSubmit = () => {
+    const navigate = useNavigate();
 
-    }
+    const onSubmit = async () => {
+      const data = {
+        accountname: accountName,
+        email: email,
+        password: password,
+      };
+      const response = await register(data);
+      if (response.status !== 200) return console.log(response);
+      console.log("success", response.data);
+      navigate("/signin");
+    };
 
     return (
       <FullWrapper>

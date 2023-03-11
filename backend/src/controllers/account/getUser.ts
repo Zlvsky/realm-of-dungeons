@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { User } from "../../schemas/account/userSchema";
+import User from "../../schemas/account/userSchema";
 
 export const getUserData = async (req: any, res: Response) => {
   try {
