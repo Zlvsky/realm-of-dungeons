@@ -6,7 +6,7 @@ const getUserIdFromToken = (authHeader?: string): string => {
   }
 
   // Extract token from Authorization header
-  const token = authHeader.split(" ")[1];
+  const token = authHeader;
 
   try {
     // Verify and decode token

@@ -1,20 +1,25 @@
 import { AxiosError } from "axios";
 import axiosClient from "../../axiosClient";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
-export interface signInInterface {
-  accountname: string;
-  password: string;
+export interface creaeteCharacterInterface {
+  nickname: string;
+  class: string;
 }
 
-export const signInService = async (body: signInInterface) => {
+export const createCharacterService = async (body: creaeteCharacterInterface) => {
   const jwt = Cookies.get("jwt");
   try {
     const res = await axiosClient.post(
-      "/login",
+      "/user/createCharacter",
       {
-        accountname: body.accountname,
-        password: body.password,
+        nickname: body.nickname,
+        class: body.class,
+      },
+      {
+        headers: {
+          authorization: jwt,
+        },
       }
     );
     const result = {

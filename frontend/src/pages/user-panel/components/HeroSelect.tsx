@@ -2,31 +2,22 @@ import React from 'react';
 import Button from '../../../components/common/button/Button';
 import SubHeader from '../../../components/common/text/SubHeader';
 
-interface HeroSelectInterface {
-  hero: {
-    id: string;
-    name: string;
-    class: string;
-    level: number;
-    avatar: string;
-  };
-}
+import { ICharacter } from '../../../interfaces/CharacterInterface';
 
-function HeroSelect({ hero }: HeroSelectInterface) {
-
-    const handleEnter = () => {
-
-    }
+function HeroSelect({ hero }: ICharacter) {
+  const handleEnter = () => {};
 
   return (
-    <div className="flex row gap-10 max-w-xl">
+    <div className="flex row gap-10 max-w-xl justify-center">
       <div className="">
-        <img src={""} alt="" />
+        <img src={hero.avatar} alt="" width={200}/>
       </div>
       <div className="flex flex-col gap-3 text-left">
-        <SubHeader>{hero.name}</SubHeader>
+        <SubHeader>{hero.nickname}</SubHeader>
         <p className="text-secondary font-sans">Class: {hero.class}</p>
-        <p className="text-secondary font-sans">Level: {hero.level}</p>
+        <p className="text-secondary font-sans">
+          Level: {hero.progression.level}
+        </p>
         <Button onClick={handleEnter}>ENTER</Button>
       </div>
     </div>

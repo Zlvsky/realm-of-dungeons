@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import { loginUser } from "./controllers/account/login";
 import { createUser } from "./controllers/account/register";
+import { createCharacter, getCharacterById, getUserCharacters } from "./controllers/account/characters";
 
 const uri = process.env.MONGO_CONNECTION_URL;
 if(!uri) throw new Error(".env file is not created")
@@ -26,8 +27,14 @@ app.get("/", (req: any, res: any) => {
   res.send("Hello, world!");
 });
 
+// LOGIN AND REGISTER
 app.post("/register", createUser);
 app.post("/login", loginUser);
+
+// USER ACTIONCS
+app.post("/user/createCharacter", createCharacter);
+app.post("/user/getCharacter/:id", getCharacterById);
+app.get("/user/getUserCharacters", getUserCharacters);
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {

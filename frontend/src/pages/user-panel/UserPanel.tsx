@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { getCharacters } from '../../client/appClient';
 import Button from '../../components/common/button/Button';
 import Header from '../../components/common/text/Header';
 import FullWrapper from '../../components/layouts/page-wrappers/FullWrapper';
@@ -7,6 +8,15 @@ import HeroSelect from './components/HeroSelect';
 
 function UserPanel() {
     const [listOfHeroes, setListOfHeroes] = useState([]);
+
+    useEffect(() => {
+      const getCharactersList = async () => {
+        const response = await getCharacters();
+        if(response.status !== 200) return console.log(response.data);
+        setListOfHeroes(response.data);
+      }
+      getCharactersList();
+    }, [])
 
     const ListedHeroes = () => {
         return (
@@ -27,7 +37,7 @@ function UserPanel() {
           </div>
           <div className="w-full">
             <ListedHeroes />
-            <div>
+            <div className='flex justify-center'>
               <Link to="/createhero">
                 <Button bgColor="borderBrown">CREATE NEW HERO</Button>
               </Link>

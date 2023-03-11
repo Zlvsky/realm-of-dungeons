@@ -3,9 +3,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../../schemas/account/userSchema";
 
-
-const JWT_SECRET = "mysecretkey";
-
 export const loginUser = async (req: Request, res: Response) => {
   try {
     const user = await User.findOne({ accountname: req.body.accountname });
@@ -20,7 +17,7 @@ export const loginUser = async (req: Request, res: Response) => {
       return res.status(401).send("Invalid credentials");
     }
 
-    const token = jwt.sign({ userId: user._id }, JWT_SECRET);
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET!);
 
     return res.status(200).json({ token });
   } catch (err) {
