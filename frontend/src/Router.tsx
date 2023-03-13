@@ -7,6 +7,7 @@ import SignUp from "./pages/sign-up/SignUp";
 import Cookies from "js-cookie";
 import UserPanel from "./pages/user-panel/UserPanel";
 import CreateHero from "./pages/create-hero/CreateHero";
+import Game from "./game/Game";
 
 function Router() {
   const user = Cookies.get("jwt");
@@ -24,6 +25,7 @@ function Router() {
         >
           <Route path="/start" element={<UserPanel />} />
           <Route path="/createhero" element={<CreateHero />} />
+          <Route path="/game" element={<Game />} />
         </Route>
         <Route index path="/" element={<Home />} />
       </Routes>

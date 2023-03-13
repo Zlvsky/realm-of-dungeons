@@ -1,11 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/common/button/Button';
 import SubHeader from '../../../components/common/text/SubHeader';
 
 import { ICharacter } from '../../../interfaces/CharacterInterface';
 
 function HeroSelect({ hero }: ICharacter) {
-  const handleEnter = () => {};
+  const navigate = useNavigate();
+  const handleEnter = () => {
+    navigate("/game");
+  };
 
   return (
     <div className="flex row gap-10 max-w-xl justify-center">
