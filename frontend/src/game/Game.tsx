@@ -4,16 +4,25 @@ import { Stage } from "@pixi/react";
 import FullWrapper from '../components/layouts/page-wrappers/FullWrapper';
 import Menu from './components/Menu';
 import btnImg from "../assets/images/btn.png";
+import { useDispatch, useSelector } from 'react-redux';
+import { getGameDimensions, setScale } from '../redux/reducers/gameSlice';
+import GameStage from './components/GameStage';
 
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 const aspectRatio = 16 / 9;
 
 
 function Game() {
+    const [currentStage, setCurrentStage] = useState("");
     const [size, setSize] = useState({
         width: 800,
-        height: 450
-    }); 
+        height: 450,
+        scaleW: 1,
+        scaleH: 1,
+    });
+    const dispatch = useDispatch();
+    const gameDim = useSelector(getGameDimensions);
+    
     useEffect(() => {
         function updateSize() {
           const width = window.innerWidth;
@@ -28,9 +37,14 @@ function Game() {
             // If the window is taller than 16:9, set the width to fill the window
             newHeight = width / aspectRatio;
           }
+          const scaleW = newWidth / gameDim.dimensions.width;
+          const scaleH = newHeight / gameDim.dimensions.height
+          
           setSize({
             width: newWidth,
             height: newHeight,
+            scaleW: scaleW,
+            scaleH: scaleH
           });
         }
         window.addEventListener("resize", updateSize);
@@ -47,7 +61,8 @@ function Game() {
             raf={true}
             options={{ autoDensity: true }}
           >
-            <Menu />
+            <Menu size={size} setCurrentStage={setCurrentStage} />
+            <GameStage size={size} stage={currentStage} />
           </Stage>
         </div>
       </FullWrapper>

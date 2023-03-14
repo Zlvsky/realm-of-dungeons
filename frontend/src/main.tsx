@@ -8,9 +8,9 @@ import Router from "./Router";
 
 import './index.css'
 
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
-
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+root.render(
   <React.StrictMode>
     <Provider store={store}>
         <Router />
