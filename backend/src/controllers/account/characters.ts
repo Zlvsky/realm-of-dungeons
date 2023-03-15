@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import mongoose from "mongoose";
 import getCharacterAvatar from "../../gameUtils/characters/getAvatar";
 import getBaseStatistics from "../../gameUtils/characters/getBaseStatistics";
 import { Character } from "../../schemas/account/characterSchema";
@@ -40,10 +41,11 @@ export const getCharacterById = async (req: Request, res: Response) => {
   if (!character) {
     return res.status(404).json({ message: "Character not found" });
   }
-
+  
   // Check if authenticated user owns the character (implementation of this step is outside the scope of this answer)
   const userId: any = getUserIdFromToken(req.headers.authorization);
-  if (character.owner !== userId) {
+  const userIdObject = mongoose.Types.ObjectId.createFromHexString(userId)
+  if (character.owner === userIdObject) {
     return res.status(403).json({ message: "Unauthorized" });
   }
 

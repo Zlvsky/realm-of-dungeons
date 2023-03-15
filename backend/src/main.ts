@@ -33,7 +33,7 @@ app.post("/login", loginUser);
 
 // USER ACTIONCS
 app.post("/user/createCharacter", createCharacter);
-app.post("/user/getCharacter/:id", getCharacterById);
+app.get("/user/getCharacter/:id", getCharacterById);
 app.get("/user/getUserCharacters", getUserCharacters);
 
 const port = process.env.PORT || 8080;

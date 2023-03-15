@@ -2,6 +2,7 @@ import { signUpService, signUpInterface } from "./services/auth/registerService"
 import { signInInterface, signInService } from "./services/auth/loginService";
 import { creaeteCharacterInterface, createCharacterService } from "./services/characters/createCharacterService";
 import { getCharactersService } from "./services/characters/getCharactersService";
+import { getUserCharacterService } from "./services/characters/getUserCharacterService";
 
 // REGISTER AND LOGIN
 export async function register(body: signUpInterface) {
@@ -20,4 +21,8 @@ export async function createCharacter(body: creaeteCharacterInterface) {
 
 export async function getCharacters() {
   return await getCharactersService();
+}
+
+export async function getUserCharacter(id: string) {
+  return await getUserCharacterService(id)
 }

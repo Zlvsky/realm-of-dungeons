@@ -8,6 +8,7 @@ import { ICharacter } from '../../../interfaces/CharacterInterface';
 function HeroSelect({ hero }: ICharacter) {
   const navigate = useNavigate();
   const handleEnter = () => {
+    localStorage.setItem("hero", hero._id);
     navigate("/game");
   };
 

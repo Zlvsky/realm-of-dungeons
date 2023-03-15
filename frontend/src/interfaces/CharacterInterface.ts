@@ -1,5 +1,6 @@
 export interface ICharacter {
     hero: {
+        _id: string,
         owner: string;
         nickname: string;
         avatar: string;
