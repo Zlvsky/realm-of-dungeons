@@ -9,7 +9,7 @@ import GameWorld from "./components/GameWorld";
 import GameStage from "./game-context/GameStage";
 
 
-PIXI.BaseTexture.defaultOptions.scaleMode = PIXI.SCALE_MODES.NEAREST;
+PIXI.BaseTexture.defaultOptions.scaleMode = PIXI.SCALE_MODES.LINEAR;
 const ROOT_WIDTH = 1666;
 const ROOT_HEIGHT = 937;
 const ASPECT_RATIO = 16 / 9;

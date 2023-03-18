@@ -1,13 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@layer base {
-  @font-face {
+@font-face {
     font-family: "Fondamento";
     font-weight: 500;
     src: url("./assets/fonts/Fondamento-Regular.ttf");
   }
+@layer base {
+  
 }
 
 * {
