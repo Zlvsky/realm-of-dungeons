@@ -1,51 +1,66 @@
-import React, { useCallback, useRef, useEffect } from "react";
-import { Stage, Container, Sprite, Text, Graphics } from "@pixi/react";
-import QuestsBg from "../../.././assets/images/game-world/quests.png";
-import { TextStyle } from "pixi.js";
+import React, { useState, useEffect } from "react";
+import { Container } from "@pixi/react";
+import { useSelector } from "react-redux";
+import { getHero } from "../../../redux/reducers/gameSlice";
+import SelectQuest from "./components/SelectQuest";
+
+const mockedData = [
+  {
+    id: 1,
+    description:
+      "In this idle MMO game, players explore challenging dungeons, level up their characters, and acquire powerful gear. With minimal active gameplay required, it's perfect for those seeking a relaxing but rewarding gaming experience",
+    duration: 180,
+    rewards: {
+      gold: 152,
+      xp: 50,
+    },
+  },
+  {
+    id: 2,
+    description:
+      "In this idle MMO game, players explore challenging dungeons, level up their characters, and acquire powerful gear. With minimal active gameplay required, it's perfect for those seeking a relaxing but rewarding gaming experience",
+    duration: 240,
+    rewards: {
+      gold: 132,
+      xp: 40,
+    },
+  },
+  {
+    id: 3,
+    description:
+      "In this idle MMO game, players explore challenging dungeons, level up their characters, and acquire powerful gear. With minimal active gameplay required, it's perfect for those seeking a relaxing but rewarding gaming experience",
+    duration: 120,
+    rewards: {
+      gold: 252,
+      xp: 20,
+    },
+  },
+];
 
 
 function Quests() {
-  const graph = useRef<any>(null);
-  const questFrame = useCallback((g: any) => {
-    g.clear();
-    g.beginFill(0x29221c, 0.9);
-    g.lineStyle(4, 0x29221c, 1);
-    g.moveTo(250, 50);
-    g.lineTo(250, 50);
-    g.lineTo(1065, 50);
-    g.lineTo(1065, 900);
-    g.lineTo(250, 900);
-    g.lineTo(250, 50);
-    g.endFill();
-  }, []);
+  const [questsData, setQuestsData] = useState<any>(null);
+  const hero = useSelector(getHero);
+
+  useEffect(() => {
+    const getQuestsData = async () => {
+      setQuestsData(mockedData);
+    }
+    if (hero?.activeQuest === null) getQuestsData();
+  }, [])
+  
+  console.log(hero);
 
   return (
     <Container position={[0, 2]}>
-      <Sprite image={QuestsBg} width={1316} height={935} />
-      <Graphics draw={questFrame} zIndex={0} />
-      <Text
-        x={400}
-        y={72}
-        text={"AVAILABLE QUESTS"}
-        style={
-          new TextStyle({
-            align: "center",
-            // fontFamily: "sans-serif",
-            fontSize: 56,
-            fill: ["#C02E07"], // gradient
-            // stroke: "#96663E",
-            // strokeThickness: 0,
-            // letterSpacing: 0,
-            dropShadow: true,
-            // wordWrap: true,
-            // wordWrapWidth: 440,
-          })
-        }
-      />
+      {hero?.activeQuest === null && questsData !== null ? (
+        <SelectQuest questsData={questsData} />
+      ) : (
+        <></>
+      )}
     </Container>
   );
 
-  // return <Graphics draw={draw} ref={graph} />;
 }
 
 export default Quests;

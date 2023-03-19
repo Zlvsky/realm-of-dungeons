@@ -9,7 +9,7 @@ const initialState: any = {
     scaleH: 1,
   },
   hero: {},
-  currentStage: "hero",
+  currentStage: "quests",
 };
 
 export const gameSlice = createSlice({

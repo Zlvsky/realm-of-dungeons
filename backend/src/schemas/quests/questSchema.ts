@@ -13,9 +13,15 @@ const QuestSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  reward: {
-    type: Number,
-    required: true,
+  rewards: {
+    gold: {
+      type: Number,
+      required: true,
+    },
+    xp: {
+      type: Number,
+      required: true,
+    },
   },
   startTime: {
     type: Date,

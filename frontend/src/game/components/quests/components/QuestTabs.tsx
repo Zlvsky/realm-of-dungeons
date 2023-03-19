@@ -1,0 +1,40 @@
+import React, { useState } from 'react';
+import { Stage, Container, Sprite, Text, Graphics } from "@pixi/react";
+import { TextStyle } from 'pixi.js';
+import ArrowIcon from "../../../../assets/images/arrow_white.png";
+
+function QuestTabs({ selectedQuest, setSelectedQuest }: any) {
+  const questsNames = ["QUEST 1", "QUEST 2", "QUEST 3"];
+  return (
+    <Container position={[0, 100]}>
+        {questsNames.map((el, index) => {
+            return (
+              <Container x={350 + index * 252} y={72} key={index}>
+                <Text
+                  x={0}
+                  y={0}
+                  text={el}
+                  interactive={true}
+                  cursor="pointer"
+                  style={
+                    new TextStyle({
+                      align: "center",
+                      fontFamily: "sans-serif",
+                      fontSize: 24,
+                      fill: ["#BCBCBC"],
+                    })
+                  }
+                  onclick={() => setSelectedQuest(index)}
+                />
+                {selectedQuest === (index) && (
+                    <Sprite image={ArrowIcon} position={[40 , 30]} />
+                )}
+                
+              </Container>
+            );
+        })}
+    </Container>
+  );
+}
+
+export default QuestTabs;
