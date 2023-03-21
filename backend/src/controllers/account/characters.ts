@@ -44,6 +44,11 @@ export const getCharacterById = async (req: Request, res: Response) => {
   
   // Check if authenticated user owns the character (implementation of this step is outside the scope of this answer)
   const userId: any = getUserIdFromToken(req.headers.authorization);
+
+  if (userId === null) {
+    return res.status(403).json({ message: "Unauthorized" });
+  }
+
   const userIdObject = mongoose.Types.ObjectId.createFromHexString(userId)
   if (character.owner === userIdObject) {
     return res.status(403).json({ message: "Unauthorized" });

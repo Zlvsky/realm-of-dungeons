@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-const getUserIdFromToken = (authHeader?: string): string => {
+const getUserIdFromToken = (authHeader?: string): any => {
   if (!authHeader) {
     throw new Error("Authorization header not found");
   }
@@ -15,7 +15,7 @@ const getUserIdFromToken = (authHeader?: string): string => {
     };
     return decodedToken.userId;
   } catch (error) {
-    throw new Error("Invalid token");
+    return null;
   }
 };
 

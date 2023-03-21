@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { Stage, Container, Sprite, Text, Graphics } from "@pixi/react";
+import { Container, Sprite, Text, Graphics } from "@pixi/react";
 import QuestsBg from "../../../.././assets/images/game-world/quests.png";
 import HourglassIcon from "../../../../assets/images/icons/gui/hourglass.png"
 import GoldIcon from "../../../../assets/images/icons/gui/gold-icon.png"

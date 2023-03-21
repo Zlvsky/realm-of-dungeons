@@ -3,6 +3,7 @@ import { Container } from "@pixi/react";
 import { useSelector } from "react-redux";
 import { getHero } from "../../../redux/reducers/gameSlice";
 import SelectQuest from "./components/SelectQuest";
+import QuestProgress from "./components/QuestProgress";
 
 const mockedData = [
   {
@@ -53,10 +54,13 @@ function Quests() {
 
   return (
     <Container position={[0, 2]}>
-      {hero?.activeQuest === null && questsData !== null ? (
+      {
+      // hero?.activeQuest === null && questsData !== null 
+      false
+      ? (
         <SelectQuest questsData={questsData} />
       ) : (
-        <></>
+        <QuestProgress />
       )}
     </Container>
   );
