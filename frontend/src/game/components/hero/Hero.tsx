@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
-import { Stage, Container, Sprite, Text, Graphics } from "@pixi/react";
+import { Stage, Container, Sprite, Text, Graphics, TilingSprite } from "@pixi/react";
+import BgPattern from "../../../assets/images/dark_wall.png" 
 
 function Hero() {
   const draw = useCallback((g: any) => {
@@ -15,8 +16,14 @@ function Hero() {
     g.endFill();
   }, []);
   return (
-      <Graphics draw={draw} />
-    
+    <Container position={[0, 2]}>
+      <TilingSprite
+        image={BgPattern}
+        width={1315}
+        height={935}
+        tilePosition={{ x: 0, y: 0 }}
+      />
+    </Container>
   );
 }
 

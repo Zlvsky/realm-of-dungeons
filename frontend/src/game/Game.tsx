@@ -26,7 +26,8 @@ function Game() {
 
   useEffect(() => {
     const fetchHero = async () => {
-      const heroId: any = localStorage.getItem("hero");
+      const heroId = localStorage.getItem("hero");
+      if (heroId === null) return setLoading(false);
       const response = await getUserCharacter(heroId);
       if(response.status !== 200) return () => {console.log(response.data); setLoading(false)};
       dispatch(setHero(response.data));
