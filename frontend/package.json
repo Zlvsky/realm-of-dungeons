@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@pixi/interaction": "^6.5.9",
     "@pixi/react": "^7.0.3",
     "@reduxjs/toolkit": "^1.9.3",
     "autoprefixer": "^10.4.13",

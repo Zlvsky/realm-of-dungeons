@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import { Stage, Container, Sprite, Text, Graphics, TilingSprite } from "@pixi/react";
 import BgPattern from "../../../assets/images/dark_wall.png" 
+import HeroEquipment from "./components/HeroEquipment";
 
 function Hero() {
   const draw = useCallback((g: any) => {
@@ -23,6 +24,7 @@ function Hero() {
         height={935}
         tilePosition={{ x: 0, y: 0 }}
       />
+      <HeroEquipment />
     </Container>
   );
 }
