@@ -4,10 +4,9 @@ import { Graphics } from "@pixi/react";
 interface IItemSlot {
     x: number;
     y: number;
-    onDrop: Function;
 }
 
-const ItemSlot = ({ x, y, onDrop }: IItemSlot) => {
+const ItemSlot = ({ x, y }: IItemSlot) => {
   const handleDragStart = (event: any) => {
     // Called when an item starts being dragged
     // Store the item data for use in handleDrop later
@@ -18,7 +17,6 @@ const ItemSlot = ({ x, y, onDrop }: IItemSlot) => {
     // Called when an item is dropped onto the item slot
     const itemData = event.data.itemData;
     if (itemData) {
-      onDrop(itemData.itemId);
       event.data.itemData = null;
     }
   };

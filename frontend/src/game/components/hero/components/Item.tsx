@@ -1,82 +1,59 @@
-import React, {useRef} from "react";
+import React, {useState,useRef} from "react";
 import { Sprite, Text } from "@pixi/react";
-import { InteractionData, InteractionEvent } from "@pixi/interaction";
 import PIXI, { TextStyle } from "pixi.js";
 import AxePng from "../../../../assets/images/axe.png";
 
-interface Draggable extends PIXI.DisplayObject {
-  data: InteractionData | null;
-  dragging: boolean;
-}
+const useDrag = ({ x, y, onDrop }: any) => {
+  const sprite = React.useRef<any>();
+  const [isDragging, setIsDragging] = React.useState(false);
+  const [position, setPosition] = React.useState({ x, y });
 
-const Item = ({ itemData }: any) => {
-    const itemRef = useRef<any>(null);
-    const onDragStart = (event: InteractionEvent) => {
-        console.log(itemRef.current);
-      const sprite = event.currentTarget as unknown as Draggable;
-      sprite.alpha = 0.5;
-      sprite.data = event.data;
-      sprite.dragging = true;
-    };
+  const onDown = React.useCallback(() => setIsDragging(true), []);
+  const onUp = React.useCallback(() => {
+    setIsDragging(false);
+    onDrop(position);
+  }, [position, onDrop]);
+  const onMove = React.useCallback(
+    (e: any) => {
+      if (isDragging) {
+        console.log(sprite.current);
 
-    const onDragEnd = (event: InteractionEvent) => {
-      const sprite = event.currentTarget as unknown as Draggable;
-      sprite.alpha = 1;
-      sprite.dragging = false;
-      sprite.data = null;
-    };
-
-    const onDragMove = (event: InteractionEvent) => {
-      const sprite = event.currentTarget as unknown as Draggable;
-      if (sprite.dragging) {
-        const newPosition = sprite.data!.getLocalPosition(sprite.parent);
-        sprite.x = newPosition.x;
-        sprite.y = newPosition.y;
+        setPosition(e.getLocalPosition(sprite.current.parent));
       }
-    };
+    },
+    [isDragging, setPosition]
+  );
+
+  return {
+    ref: sprite,
+    pointerdown: onDown,
+    pointerup: onUp,
+    pointerupoutside: onUp,
+    pointermove: onMove,
+    alpha: isDragging ? 0.5 : 1,
+    anchor: 0.5,
+    position,
+  };
+};
+
+const Item = ({ onDrop }: any) => {
+  const [position, setPosition] = useState({ x: 10, y: 10 });
+  const bind = useDrag({
+    x: position.x,
+    y: position.y,
+    onDrop: (newPosition: any) => {
+      setPosition(newPosition);
+      onDrop(newPosition);
+    },
+  });
   return (
     <Sprite
       image={AxePng}
       width={60}
       height={60}
-      x={10}
-      y={10}
       interactive
-      buttonMode
-      pointerdown={onDragStart}
-      pointerup={onDragEnd}
-      pointerupoutside={onDragEnd}
-      pointermove={onDragMove}
-      ref={itemRef}
-    >
-      {/* <Text
-        text={itemData.name}
-        anchor={[0.5, 0]}
-        style={
-          new TextStyle({
-            fontSize: 26,
-          })
-        }
+      {...bind}
       />
-      <Text
-        text={itemData.description}
-        anchor={[0.5, 1]}
-        style={
-          new TextStyle({
-            fontSize: 26,
-          })
-        }
-      />
-      <Text
-        text={`Damage: ${itemData.damage}`}
-        anchor={[0.5, 0.5]}
-        style={
-          new TextStyle({
-            fontSize: 26,
-          })
-        }
-      /> */}
-    </Sprite>
   );
 };
 
