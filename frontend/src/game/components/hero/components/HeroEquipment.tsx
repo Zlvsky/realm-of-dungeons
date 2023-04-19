@@ -4,17 +4,14 @@ import { useSelector } from 'react-redux';
 import { getHero } from '../../../../redux/reducers/gameSlice';
 import ItemSlot from './ItemSlot';
 import Item from './Item';
-
-const itemSlotPositions = [
-  { x: 0, y: 0 },
-  { x: 0, y: 100 },
-  { x: 0, y: 200 },
-  { x: 0, y: 300 },
-];
+import { equipmentSlots } from '../helpers/slots';
 
 function HeroEquipment() {
     const hero = useSelector(getHero);
+    const [currentItemTypeDragging, setCurrentItemTypeDragging] = useState<string | null>(null);
     const [itemPositions, setItemPositions] = useState<any>([]);
+    console.log(currentItemTypeDragging);
+    
 
     const handleItemDrop = (position: any) => {
       const closestSlotIndex = getClosestSlotIndex(position);
@@ -26,7 +23,7 @@ function HeroEquipment() {
     const getClosestSlotIndex = (position: any) => {
       let closestDistance = Infinity;
       let closestIndex = 0;
-      itemSlotPositions.forEach((slotPosition, index) => {
+      equipmentSlots.forEach((slotPosition, index) => {
         const distance = getDistance(position, slotPosition);
         if (distance < closestDistance) {
           closestDistance = distance;
@@ -50,14 +47,19 @@ function HeroEquipment() {
           width={250}
           height={250}
         />
-        {itemSlotPositions.map((position, index) => (
+        {equipmentSlots.map((position, index) => (
           <ItemSlot
             key={index}
             x={position.x}
             y={position.y}
+            currentItem={currentItemTypeDragging}
+            itemType={position.type}
           />
         ))}
-        <Item onDrop={handleItemDrop} />
+        <Item
+          onDrop={handleItemDrop}
+          setCurrentItem={setCurrentItemTypeDragging}
+        />
       </Container>
     );
 }
