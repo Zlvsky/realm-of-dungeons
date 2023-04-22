@@ -10,28 +10,41 @@ function HeroEquipment() {
     const hero = useSelector(getHero);
     const [currentItemTypeDragging, setCurrentItemTypeDragging] = useState<string | null>(null);
     const [itemPositions, setItemPositions] = useState<any>([]);
-    console.log(currentItemTypeDragging);
+
+
     
 
     const handleItemDrop = (position: any) => {
-      const closestSlotIndex = getClosestSlotIndex(position);
-      const updatedItemPositions = [...itemPositions];
-      updatedItemPositions[closestSlotIndex] = position;
-      setItemPositions(updatedItemPositions);
+      const closestSlotIndex = getItemSlotOnDrop(currentItemTypeDragging!);
+      const isInSlot = checkIfInsideSlot(position, closestSlotIndex);
+      if (isInSlot) return closestSlotIndex;
+      return false;
     };
 
-    const getClosestSlotIndex = (position: any) => {
-      let closestDistance = Infinity;
-      let closestIndex = 0;
-      equipmentSlots.forEach((slotPosition, index) => {
-        const distance = getDistance(position, slotPosition);
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestIndex = index;
-        }
-      });
-      return closestIndex;
-    };
+    const getItemSlotOnDrop = (type: string) => {
+      const slot = equipmentSlots.find(el => el.type === type);
+      return slot;
+    }
+
+    const checkIfInsideSlot = (position: any, itemSlot: any) => {
+      const xStatement = position.x >= itemSlot.x && position.x <= itemSlot.x + 80;
+      const yStatement = position.y >= itemSlot.y && position.y <= itemSlot.y + 80;
+      if(xStatement && yStatement) return true;
+      return false;
+    }
+
+    // const getClosestSlotIndex = (position: any) => {
+    //   let closestDistance = Infinity;
+    //   let closestIndex = 0;
+    //   equipmentSlots.forEach((slotPosition, index) => {
+    //     const distance = getDistance(position, slotPosition);
+    //     if (distance < closestDistance) {
+    //       closestDistance = distance;
+    //       closestIndex = index;
+    //     }
+    //   });
+    //   return closestIndex;
+    // };
 
     const getDistance = (p1: any, p2: any) => {
       const dx = p2.x - p1.x;

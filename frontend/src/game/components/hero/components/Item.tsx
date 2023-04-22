@@ -20,7 +20,8 @@ const useDrag = ({ x, y, onDrop, setCurrentItem }: any) => {
   const onUp = React.useCallback(() => {
     setIsDragging(false);
     setCurrentItem(null);
-    onDrop(position);
+    const dropPosition = onDrop(position);
+    setPosition(dropPosition);
   }, [position, onDrop]);
   const onMove = React.useCallback(
     (e: any) => {
@@ -49,8 +50,11 @@ const Item = ({ onDrop, setCurrentItem }: any) => {
     x: position.x,
     y: position.y,
     onDrop: (newPosition: any) => {
-      setPosition(newPosition);
-      onDrop(newPosition);
+      const slot = onDrop(newPosition);
+      if(!slot) return position;
+      const slotPosition = { x: slot.x + 40, y: slot.y + 40 };
+      setPosition(slotPosition);
+      return slotPosition;
     },
     setCurrentItem: setCurrentItem, 
   });
