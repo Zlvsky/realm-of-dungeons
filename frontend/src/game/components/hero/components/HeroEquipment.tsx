@@ -4,7 +4,8 @@ import { useSelector } from 'react-redux';
 import { getHero } from '../../../../redux/reducers/gameSlice';
 import ItemSlot from './ItemSlot';
 import Item from './Item';
-import { equipmentSlots } from '../helpers/slots';
+import { equipmentSlots, inventorySlots } from "../helpers/slots";
+import InventorySlot from './InventorySlot';
 
 function HeroEquipment() {
     const hero = useSelector(getHero);
@@ -67,6 +68,14 @@ function HeroEquipment() {
             y={position.y}
             currentItem={currentItemTypeDragging}
             itemType={position.type}
+          />
+        ))}
+        {inventorySlots.map((position, index) => (
+          <InventorySlot
+            key={index}
+            x={position.x}
+            y={position.y}
+            currentItem={currentItemTypeDragging}
           />
         ))}
         <Item

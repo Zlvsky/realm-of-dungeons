@@ -5,7 +5,7 @@ import AxePng from "../../../../assets/images/axe.png";
 
 const itemData = {
   equipmentSlot: 1,
-  type: "armor"
+  type: "weapon"
 }
 
 const useDrag = ({ x, y, onDrop, setCurrentItem }: any) => {
