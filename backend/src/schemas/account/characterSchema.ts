@@ -41,7 +41,7 @@ const CharacterSchema = new mongoose.Schema({
   equipment: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Equipment",
+      ref: "Item",
     },
   ],
   heroValues: {

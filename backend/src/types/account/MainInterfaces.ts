@@ -24,8 +24,25 @@ export interface IUser extends Document {
   characters: mongoose.Types.Array<ICharacter["_id"]>;
 }
 
-export interface IEquipment extends mongoose.Document {
+export interface IItem extends mongoose.Document {
   name: string;
   type: string;
+  minDamage?: number;
+  maxDamage?: number;
+  image: string;
+  armor?: number;
+  statistics: {
+    strength?: number;
+    condition?: number;
+    dexterity?: number;
+    wisdom?: number;
+    intelligence?: number;
+    charisma?: number;
+  };
+}
+
+export interface IEquipment extends mongoose.Document {
+  type: string;
+  item: IItem | null;
   character: mongoose.Types.ObjectId | ICharacter;
 }
