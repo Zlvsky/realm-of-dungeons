@@ -40,8 +40,8 @@ const CharacterSchema = new mongoose.Schema({
   },
   equipment: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Item",
+      type: { type: String, required: true },
+      item: { type: Schema.Types.ObjectId, ref: "Item", default: null },
     },
   ],
   heroValues: {

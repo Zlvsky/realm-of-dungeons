@@ -30,12 +30,12 @@ export const equipmentSlots = [
     y: 100,
   },
   {
-    type: "ring",
+    type: "trinket",
     x: 410,
     y: 200,
   },
   {
-    type: "trinket",
+    type: "offhand",
     x: 410,
     y: 300,
   },

@@ -44,5 +44,4 @@ export interface IItem extends mongoose.Document {
 export interface IEquipment extends mongoose.Document {
   type: string;
   item: IItem | null;
-  character: mongoose.Types.ObjectId | ICharacter;
 }
