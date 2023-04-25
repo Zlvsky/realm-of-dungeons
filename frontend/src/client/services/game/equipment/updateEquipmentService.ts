@@ -14,7 +14,7 @@ export const updateEquipmentService = async (body: updateEquipmentInterface) => 
       "/hero/equipment/update",
       {
         characterId: "6446d4ba7c601f92b1673302",
-        itemId: "64453705533aac12b403eb5a",
+        itemId: "6448488ae6abfd9b53f513e9",
         itemType: body.itemType,
       },
       {
