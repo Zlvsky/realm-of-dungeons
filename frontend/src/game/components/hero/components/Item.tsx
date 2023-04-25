@@ -2,6 +2,7 @@ import React, {useState,useRef} from "react";
 import { Sprite, Text } from "@pixi/react";
 import PIXI, { TextStyle } from "pixi.js";
 import AxePng from "../../../../assets/images/axe.png";
+import { updateEquipment } from "../../../../client/appClient";
 
 const itemData = {
   equipmentSlot: 1,
@@ -46,6 +47,13 @@ const useDrag = ({ x, y, onDrop, setCurrentItem }: any) => {
 
 const Item = ({ onDrop, setCurrentItem }: any) => {
   const [position, setPosition] = useState({ x: 10, y: 10 });
+
+  const handleEquipmentRequest = async () => {
+    const response = await updateEquipment({itemType: "weapon"});
+    if(response.status !== 200) return console.log(response.data);
+    console.log("success,", response.data);
+  }
+
   const bind = useDrag({
     x: position.x,
     y: position.y,
@@ -53,6 +61,7 @@ const Item = ({ onDrop, setCurrentItem }: any) => {
       const slot = onDrop(newPosition);
       if(!slot) return position;
       const slotPosition = { x: slot.x + 40, y: slot.y + 40 };
+      handleEquipmentRequest();
       setPosition(slotPosition);
       return slotPosition;
     },

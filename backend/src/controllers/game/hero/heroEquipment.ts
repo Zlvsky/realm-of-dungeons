@@ -9,21 +9,21 @@ export const updateEquipment = async (
   req: Request,
   res: Response
 ) => {
-  const { characterId } = req.params;
-  const { items } = req.body;
+  const { characterId, itemId, itemType } = req.body;
 
   try {
     const character: ICharacter | null = await Character.findOneAndUpdate(
-      { characterId },
-      { items },
-      { new: true }
+      { _id: characterId, 'equipment.type': itemType },
+      {'$set': {
+        'equipment.$.item': itemId
+      }}
     );
 
-    if (!equipment) {
+    if (!character) {
       return res.status(404).json({ message: "Equipment not found" });
     }
 
-    res.json(equipment);
+    res.json(character);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server Error" });

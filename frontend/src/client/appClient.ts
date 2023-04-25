@@ -3,6 +3,7 @@ import { signInInterface, signInService } from "./services/auth/loginService";
 import { creaeteCharacterInterface, createCharacterService } from "./services/characters/createCharacterService";
 import { getCharactersService } from "./services/characters/getCharactersService";
 import { getUserCharacterService } from "./services/characters/getUserCharacterService";
+import { updateEquipmentInterface, updateEquipmentService } from "./services/game/equipment/updateEquipmentService";
 
 // REGISTER AND LOGIN
 export async function register(body: signUpInterface) {
@@ -25,4 +26,10 @@ export async function getCharacters() {
 
 export async function getUserCharacter(id: string) {
   return await getUserCharacterService(id)
+}
+
+// HERO
+
+export async function updateEquipment(body: updateEquipmentInterface) {
+  return await updateEquipmentService(body);
 }

@@ -11,7 +11,8 @@ function HeroEquipment() {
     const hero = useSelector(getHero);
     const [currentItemTypeDragging, setCurrentItemTypeDragging] = useState<string | null>(null);
     const [itemPositions, setItemPositions] = useState<any>([]);
-
+    console.log(hero);
+    
 
     
 

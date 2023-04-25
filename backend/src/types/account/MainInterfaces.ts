@@ -14,7 +14,12 @@ export interface ICharacter extends mongoose.Document {
     charisma: number;
   };
   owner: mongoose.Types.ObjectId | IUser;
-  equipment: mongoose.Types.Array<IEquipment["_id"]>;
+  equipment: [
+    {
+      type: string;
+      item: IItem | null;
+    }
+  ];
 }
 
 export interface IUser extends Document {
