@@ -45,7 +45,7 @@ const useDrag = ({ x, y, onDrop, setCurrentItem }: any) => {
   };
 };
 
-const Item = ({ onDrop, setCurrentItem }: any) => {
+const Item = ({ itemData, onDrop, setCurrentItem }: any) => {
   const [position, setPosition] = useState({ x: 10, y: 10 });
 
   const handleEquipmentRequest = async () => {
@@ -67,7 +67,15 @@ const Item = ({ onDrop, setCurrentItem }: any) => {
     },
     setCurrentItem: setCurrentItem, 
   });
-  return <Sprite image={AxePng} width={60} height={60} interactive {...bind} />;
+  return (
+    <Sprite
+      image={itemData.item.image}
+      width={60}
+      height={60}
+      interactive
+      {...bind}
+    />
+  );
 };
 
 export default Item;

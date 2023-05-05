@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Stage, Container, Sprite, Text, Graphics } from "@pixi/react";
 import { useSelector } from 'react-redux';
 import { getHero } from '../../../../redux/reducers/gameSlice';
@@ -10,12 +10,8 @@ import InventorySlot from './InventorySlot';
 function HeroEquipment() {
     const hero = useSelector(getHero);
     const [currentItemTypeDragging, setCurrentItemTypeDragging] = useState<string | null>(null);
-    const [itemPositions, setItemPositions] = useState<any>([]);
     console.log(hero);
-    
-
-    
-
+ 
     const handleItemDrop = (position: any) => {
       const closestSlotIndex = getItemSlotOnDrop(currentItemTypeDragging!);
       const isInSlot = checkIfInsideSlot(position, closestSlotIndex);
@@ -34,25 +30,6 @@ function HeroEquipment() {
       if(xStatement && yStatement) return true;
       return false;
     }
-
-    // const getClosestSlotIndex = (position: any) => {
-    //   let closestDistance = Infinity;
-    //   let closestIndex = 0;
-    //   equipmentSlots.forEach((slotPosition, index) => {
-    //     const distance = getDistance(position, slotPosition);
-    //     if (distance < closestDistance) {
-    //       closestDistance = distance;
-    //       closestIndex = index;
-    //     }
-    //   });
-    //   return closestIndex;
-    // };
-
-    const getDistance = (p1: any, p2: any) => {
-      const dx = p2.x - p1.x;
-      const dy = p2.y - p1.y;
-      return Math.sqrt(dx * dx + dy * dy);
-    };
     
     return (
       <Container position={[100, 150]}>
@@ -79,10 +56,21 @@ function HeroEquipment() {
             currentItem={currentItemTypeDragging}
           />
         ))}
-        <Item
-          onDrop={handleItemDrop}
-          setCurrentItem={setCurrentItemTypeDragging}
-        />
+        {/* equipment items */}
+        {
+          hero.equipment.map((item: any, index: number) => {
+            if(item.item !== null) return (
+              <Item
+                key={index}
+                itemData={item}
+                onDrop={handleItemDrop}
+                setCurrentItem={setCurrentItemTypeDragging}
+              />
+            );
+          })
+        }
+        {/* inventory items */}
+        
       </Container>
     );
 }
