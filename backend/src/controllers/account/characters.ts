@@ -5,6 +5,7 @@ import getBaseStatistics from "../../gameUtils/characters/getBaseStatistics";
 import { Character } from "../../schemas/account/characterSchema";
 import getUserIdFromToken from "../../utils/getUserIdFromToken";
 import initEquipment from "../../gameUtils/initValues/initEquipment";
+import initInventory from "../../gameUtils/initValues/initInventory";
 
 const router = express.Router();
 
@@ -19,6 +20,7 @@ export const createCharacter = async (req: Request, res: Response) => {
       levelExperience: 0,
       statistics: getBaseStatistics(req.body.class),
       equipment: initEquipment,
+      inventory: initInventory,
       avatar: getCharacterAvatar(req.body.class),
       owner: getUserIdFromToken(req.headers.authorization), // Set the owner of the character to the authenticated user (implementation of this step is outside the scope of this answer)
     });

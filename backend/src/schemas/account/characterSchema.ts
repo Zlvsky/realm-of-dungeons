@@ -44,6 +44,12 @@ const CharacterSchema = new mongoose.Schema({
       item: { type: Schema.Types.ObjectId, ref: "Item", default: null },
     },
   ],
+  inventory: [
+    {
+      slotIndex: {type: Number, required: true },
+      item: { type: Schema.Types.ObjectId, ref: "Item", default: null },
+    },
+  ],
   heroValues: {
     gold: {
       type: Number,

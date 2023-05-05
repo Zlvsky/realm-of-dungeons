@@ -45,27 +45,27 @@ const useDrag = ({ x, y, onDrop, setCurrentItem }: any) => {
   };
 };
 
-const Item = ({ itemData, onDrop, setCurrentItem }: any) => {
-  const [position, setPosition] = useState({ x: 10, y: 10 });
+const Item = ({ itemData, onDrop, setCurrentItem, itemPosition }: any) => {
+  const [position, setPosition] = useState(itemPosition);
 
   const handleEquipmentRequest = async () => {
-    const response = await updateEquipment({itemType: "weapon"});
-    if(response.status !== 200) return console.log(response.data);
+    const response = await updateEquipment({ itemType: "weapon" });
+    if (response.status !== 200) return console.log(response.data);
     console.log("success,", response.data);
-  }
+  };
 
   const bind = useDrag({
     x: position.x,
     y: position.y,
     onDrop: (newPosition: any) => {
       const slot = onDrop(newPosition);
-      if(!slot) return position;
+      if (!slot) return position;
       const slotPosition = { x: slot.x + 40, y: slot.y + 40 };
       handleEquipmentRequest();
       setPosition(slotPosition);
       return slotPosition;
     },
-    setCurrentItem: setCurrentItem, 
+    setCurrentItem: setCurrentItem,
   });
   return (
     <Sprite

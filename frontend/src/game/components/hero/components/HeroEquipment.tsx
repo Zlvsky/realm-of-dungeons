@@ -6,6 +6,7 @@ import ItemSlot from './ItemSlot';
 import Item from './Item';
 import { equipmentSlots, inventorySlots } from "../helpers/slots";
 import InventorySlot from './InventorySlot';
+import { getEquipmentPosition, getEquipmentSlot } from '../helpers/getEquipmentPosition';
 
 function HeroEquipment() {
     const hero = useSelector(getHero);
@@ -13,16 +14,11 @@ function HeroEquipment() {
     console.log(hero);
  
     const handleItemDrop = (position: any) => {
-      const closestSlotIndex = getItemSlotOnDrop(currentItemTypeDragging!);
+      const closestSlotIndex = getEquipmentSlot(currentItemTypeDragging!);
       const isInSlot = checkIfInsideSlot(position, closestSlotIndex);
       if (isInSlot) return closestSlotIndex;
       return false;
     };
-
-    const getItemSlotOnDrop = (type: string) => {
-      const slot = equipmentSlots.find(el => el.type === type);
-      return slot;
-    }
 
     const checkIfInsideSlot = (position: any, itemSlot: any) => {
       const xStatement = position.x >= itemSlot.x && position.x <= itemSlot.x + 80;
@@ -63,6 +59,7 @@ function HeroEquipment() {
               <Item
                 key={index}
                 itemData={item}
+                itemPosition={getEquipmentPosition(item.type)}
                 onDrop={handleItemDrop}
                 setCurrentItem={setCurrentItemTypeDragging}
               />
