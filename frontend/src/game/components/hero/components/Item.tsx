@@ -1,8 +1,8 @@
-import React, {useState,useRef} from "react";
+import React, {useState,useRef, useEffect} from "react";
 import { Sprite, Text } from "@pixi/react";
 import PIXI, { TextStyle } from "pixi.js";
 import AxePng from "../../../../assets/images/axe.png";
-import { updateEquipment } from "../../../../client/appClient";
+import { updateEquipment, updateInventory } from "../../../../client/appClient";
 
 const itemData = {
   equipmentSlot: 1,
@@ -50,6 +50,16 @@ const Item = ({ itemData, onDrop, setCurrentItem, itemPosition }: any) => {
 
   const handleEquipmentRequest = async () => {
     const response = await updateEquipment({ itemType: "weapon" });
+    if (response.status !== 200) return console.log(response.data);
+    console.log("success,", response.data);
+  };
+
+  useEffect(() => {
+    handleEquipmentRequest();
+  }, [])
+
+  const handleInventoryRequest = async () => {
+    const response = await updateInventory({ slotIndex: 1 });
     if (response.status !== 200) return console.log(response.data);
     console.log("success,", response.data);
   };

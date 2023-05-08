@@ -4,6 +4,7 @@ import { creaeteCharacterInterface, createCharacterService } from "./services/ch
 import { getCharactersService } from "./services/characters/getCharactersService";
 import { getUserCharacterService } from "./services/characters/getUserCharacterService";
 import { updateEquipmentInterface, updateEquipmentService } from "./services/game/equipment/updateEquipmentService";
+import { updateInventoryInterface, updateInventoryService } from "./services/game/equipment/updateInventoryService";
 
 // REGISTER AND LOGIN
 export async function register(body: signUpInterface) {
@@ -33,3 +34,7 @@ export async function getUserCharacter(id: string) {
 export async function updateEquipment(body: updateEquipmentInterface) {
   return await updateEquipmentService(body);
 }
+
+export async function updateInventory(body: updateInventoryInterface) {
+  return await updateInventoryService(body);
+};

@@ -6,7 +6,11 @@ import ItemSlot from './ItemSlot';
 import Item from './Item';
 import { equipmentSlots, inventorySlots } from "../helpers/slots";
 import InventorySlot from './InventorySlot';
-import { getEquipmentPosition, getEquipmentSlot } from '../helpers/getEquipmentPosition';
+import {
+  getEquipmentPosition,
+  getEquipmentSlot,
+  getInventorySlot,
+} from "../helpers/getEquipmentPosition";
 
 function HeroEquipment() {
     const hero = useSelector(getHero);
@@ -15,6 +19,14 @@ function HeroEquipment() {
  
     const handleItemDrop = (position: any) => {
       const closestSlotIndex = getEquipmentSlot(currentItemTypeDragging!);
+      const isInSlot = checkIfInsideSlot(position, closestSlotIndex);
+      if (isInSlot) return closestSlotIndex;
+      return false;
+    };
+
+    const handleInventoryItemDrop = (position: any) => {
+      // check every element in array to see if its inside
+      const closestSlotIndex = getInventorySlot(currentItemTypeDragging!);
       const isInSlot = checkIfInsideSlot(position, closestSlotIndex);
       if (isInSlot) return closestSlotIndex;
       return false;
@@ -52,10 +64,22 @@ function HeroEquipment() {
             currentItem={currentItemTypeDragging}
           />
         ))}
+        <Item
+          itemData={{
+            type: "weapon",
+            item: {
+              type: "weapon",
+              image: "https://i.ibb.co/4WQXBvQ/crystal-Double-Axe.png",
+            },
+          }}
+          itemPosition={{ x: 1, y: 1 }}
+          onDrop={handleItemDrop}
+          setCurrentItem={setCurrentItemTypeDragging}
+        />
         {/* equipment items */}
-        {
-          hero.equipment.map((item: any, index: number) => {
-            if(item.item !== null) return (
+        {hero.equipment.map((item: any, index: number) => {
+          if (item.item !== null)
+            return (
               <Item
                 key={index}
                 itemData={item}
@@ -64,10 +88,20 @@ function HeroEquipment() {
                 setCurrentItem={setCurrentItemTypeDragging}
               />
             );
-          })
-        }
+        })}
         {/* inventory items */}
-        
+        {hero.inventory.map((item: any, index: number) => {
+          if (item.item !== null)
+            return (
+              <Item
+                key={index}
+                itemData={item}
+                itemPosition={inventorySlots[item.slotIndex]}
+                onDrop={handleInventoryItemDrop}
+                setCurrentItem={setCurrentItemTypeDragging}
+              />
+            );
+        })}
       </Container>
     );
 }

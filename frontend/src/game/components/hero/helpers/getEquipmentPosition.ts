@@ -1,4 +1,4 @@
-import { equipmentSlots } from "./slots";
+import { equipmentSlots, inventorySlots } from "./slots";
 
 export const getEquipmentSlot = (type: string) => {
   const slot = equipmentSlots.find((el) => el.type === type);
@@ -10,3 +10,8 @@ export const getEquipmentPosition = (type: string) => {
     if(!slot) return;
     return { x: slot.x + 40, y: slot.y + 40}
 };
+
+export const getInventorySlot = (slotIndex: number) => {
+  const slot = inventorySlots[slotIndex];
+  return slot;
+}
