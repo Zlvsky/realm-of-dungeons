@@ -15,24 +15,20 @@ import {
 function HeroEquipment() {
     const hero = useSelector(getHero);
     const [currentItemTypeDragging, setCurrentItemTypeDragging] = useState<string | null>(null);
-    console.log(hero);
+    console.log(hero); 
  
     const handleItemDrop = (position: any) => {
       const closestSlotIndex = getEquipmentSlot(currentItemTypeDragging!);
       const isInSlot = checkIfInsideSlot(position, closestSlotIndex);
       if (isInSlot) return closestSlotIndex;
-      return false;
-    };
-
-    const handleInventoryItemDrop = (position: any) => {
-      // check every element in array to see if its inside
-      const closestSlotIndex = getInventorySlot(currentItemTypeDragging!);
-      const isInSlot = checkIfInsideSlot(position, closestSlotIndex);
-      if (isInSlot) return closestSlotIndex;
+      // modify requests for updating inventory - slotIndex and equipment - type adding param to onDrop if its inventory drop or equipment
+      const closestInventorySlotIndex = getInventorySlot(position);
+      if(closestInventorySlotIndex !== -1) return inventorySlots[closestInventorySlotIndex]
       return false;
     };
 
     const checkIfInsideSlot = (position: any, itemSlot: any) => {
+      if(!itemSlot) return false;
       const xStatement = position.x >= itemSlot.x && position.x <= itemSlot.x + 80;
       const yStatement = position.y >= itemSlot.y && position.y <= itemSlot.y + 80;
       if(xStatement && yStatement) return true;
@@ -97,7 +93,7 @@ function HeroEquipment() {
                 key={index}
                 itemData={item}
                 itemPosition={inventorySlots[item.slotIndex]}
-                onDrop={handleInventoryItemDrop}
+                onDrop={handleItemDrop}
                 setCurrentItem={setCurrentItemTypeDragging}
               />
             );
