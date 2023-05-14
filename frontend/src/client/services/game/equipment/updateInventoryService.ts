@@ -9,13 +9,14 @@ export interface updateInventoryInterface {
 
 export const updateInventoryService = async (body: updateInventoryInterface) => {
   const jwt = Cookies.get("jwt");
+  console.log(body)
   try {
     const res = await axiosClient.post(
       "/hero/inventory/update",
       {
         characterId: localStorage.getItem("hero"),
         itemId: "6448488ae6abfd9b53f513e9",
-        slotIndev: body.slotIndex,
+        slotIndex: body.slotIndex,
       },
       {
         headers: {

@@ -10,16 +10,17 @@ export const updateInventory = async (req: Request, res: Response) => {
 
   try {
     const character: ICharacter | null = await Character.findOneAndUpdate(
-      { _id: characterId, "equipment.slotIndex": slotIndex },
+      { _id: characterId, "inventory.slotIndex": slotIndex },
       {
         $set: {
-          "equipment.$.item": itemId,
+          "inventory.$.item": itemId,
         },
       }
     );
 
     if (!character) {
-      return res.status(404).json({ message: "Equipment not found" });
+      console.log(character)
+      return res.status(404).json({ message: "Inventory not found" });
     }
 
     res.json(character);

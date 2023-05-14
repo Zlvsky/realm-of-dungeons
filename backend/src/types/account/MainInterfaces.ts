@@ -20,6 +20,12 @@ export interface ICharacter extends mongoose.Document {
       item: IItem | null;
     }
   ];
+  inventory: [
+    {
+      slotIndex: number;
+      item: IItem | null;
+    }
+  ];
 }
 
 export interface IUser extends Document {

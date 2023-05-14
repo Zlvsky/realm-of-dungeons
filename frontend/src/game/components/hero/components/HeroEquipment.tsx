@@ -9,6 +9,7 @@ import InventorySlot from './InventorySlot';
 import {
   getEquipmentPosition,
   getEquipmentSlot,
+  getInventoryPosition,
   getInventorySlot,
 } from "../helpers/getEquipmentPosition";
 
@@ -18,12 +19,29 @@ function HeroEquipment() {
     console.log(hero); 
  
     const handleItemDrop = (position: any) => {
+      const returnData: {
+        position: any;
+        slotType: string;
+        slotIndex: number;
+      } = {
+        position: null,
+        slotType: "",
+        slotIndex: -1,
+      };
       const closestSlotIndex = getEquipmentSlot(currentItemTypeDragging!);
       const isInSlot = checkIfInsideSlot(position, closestSlotIndex);
-      if (isInSlot) return closestSlotIndex;
-      // modify requests for updating inventory - slotIndex and equipment - type adding param to onDrop if its inventory drop or equipment
+      if (isInSlot) {
+        returnData.position = closestSlotIndex;
+        returnData.slotType = "EQUIPMENT";
+        return returnData;
+      }
       const closestInventorySlotIndex = getInventorySlot(position);
-      if(closestInventorySlotIndex !== -1) return inventorySlots[closestInventorySlotIndex]
+      if(closestInventorySlotIndex !== -1) {
+        returnData.position = inventorySlots[closestInventorySlotIndex];
+        returnData.slotType = "INVENTORY";
+        returnData.slotIndex = closestInventorySlotIndex;
+        return returnData;
+      } 
       return false;
     };
 
@@ -92,7 +110,7 @@ function HeroEquipment() {
               <Item
                 key={index}
                 itemData={item}
-                itemPosition={inventorySlots[item.slotIndex]}
+                itemPosition={getInventoryPosition(item.slotIndex)}
                 onDrop={handleItemDrop}
                 setCurrentItem={setCurrentItemTypeDragging}
               />
