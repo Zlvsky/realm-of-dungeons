@@ -9,7 +9,7 @@ export const updateInventory = async (req: Request, res: Response) => {
   const { characterId, itemId, slotIndex, lastIndex } = req.body;
 
   try {
-    if(lastIndex) {
+    if(lastIndex !== null || lastIndex !== undefined) {
       const resetLastSlot: ICharacter | null = await Character.findOneAndUpdate(
         { _id: characterId, "inventory.slotIndex": lastIndex },
         {

@@ -3,6 +3,8 @@ import { Sprite, Text } from "@pixi/react";
 import PIXI, { TextStyle } from "pixi.js";
 import AxePng from "../../../../assets/images/axe.png";
 import { updateEquipment, updateInventory } from "../../../../client/appClient";
+import { useDispatch } from "react-redux";
+import fetchHero from "../../../../utils/fetchers/fetchHero";
 
 const itemData = {
   equipmentSlot: 1,
@@ -53,19 +55,24 @@ const Item = ({
   inventoryIndex,
 }: any) => {
   const [position, setPosition] = useState(itemPosition);
+  const dispatch = useDispatch();
 
   const handleEquipmentRequest = async (type: string) => {
     const response = await updateEquipment({ itemType: type });
     if (response.status !== 200) return console.log(response.data);
+    fetchHero(dispatch);
     console.log("success,", response.data);
   };
 
   const handleInventoryRequest = async (slotIndex: number) => {
+    console.log("index", inventoryIndex);
+    
     const response = await updateInventory({
       slotIndex: slotIndex,
       lastIndex: inventoryIndex,
     });
     if (response.status !== 200) return console.log(response.data);
+    fetchHero(dispatch);
     console.log("success,", response.data);
   };
 

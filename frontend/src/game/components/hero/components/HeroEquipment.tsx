@@ -16,7 +16,7 @@ import {
 function HeroEquipment() {
     const hero = useSelector(getHero);
     const [currentItemTypeDragging, setCurrentItemTypeDragging] = useState<string | null>(null);
-    console.log(hero); 
+    console.log("a", hero); 
  
     const handleItemDrop = (position: any) => {
       const returnData: {
@@ -78,7 +78,7 @@ function HeroEquipment() {
             currentItem={currentItemTypeDragging}
           />
         ))}
-        <Item
+        {/* <Item
           itemData={{
             type: "weapon",
             item: {
@@ -89,7 +89,7 @@ function HeroEquipment() {
           itemPosition={{ x: 1, y: 1 }}
           onDrop={handleItemDrop}
           setCurrentItem={setCurrentItemTypeDragging}
-        />
+        /> */}
         {/* equipment items */}
         {hero.equipment.map((item: any, index: number) => {
           if (item.item !== null)
