@@ -6,9 +6,23 @@ import { ICharacter, IEquipment } from "../../../types/account/MainInterfaces";
 import { Character } from "../../../schemas/account/characterSchema";
 
 export const updateInventory = async (req: Request, res: Response) => {
-  const { characterId, itemId, slotIndex } = req.body;
+  const { characterId, itemId, slotIndex, lastIndex } = req.body;
 
   try {
+    if(lastIndex) {
+      const resetLastSlot: ICharacter | null = await Character.findOneAndUpdate(
+        { _id: characterId, "inventory.slotIndex": lastIndex },
+        {
+          $set: {
+            "inventory.$.item": null,
+          },
+        }
+      );
+      if (!resetLastSlot) {
+        return res.status(404).json({ message: "Inventory not found" });
+      }
+    } 
+    
     const character: ICharacter | null = await Character.findOneAndUpdate(
       { _id: characterId, "inventory.slotIndex": slotIndex },
       {
@@ -19,7 +33,7 @@ export const updateInventory = async (req: Request, res: Response) => {
     );
 
     if (!character) {
-      console.log(character)
+      console.log(character);
       return res.status(404).json({ message: "Inventory not found" });
     }
 

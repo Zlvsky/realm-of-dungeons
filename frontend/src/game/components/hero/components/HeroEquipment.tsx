@@ -113,6 +113,7 @@ function HeroEquipment() {
                 itemPosition={getInventoryPosition(item.slotIndex)}
                 onDrop={handleItemDrop}
                 setCurrentItem={setCurrentItemTypeDragging}
+                inventoryIndex={index}
               />
             );
         })}

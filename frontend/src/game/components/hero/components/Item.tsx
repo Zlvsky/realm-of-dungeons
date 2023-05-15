@@ -45,7 +45,13 @@ const useDrag = ({ x, y, onDrop, setCurrentItem }: any) => {
   };
 };
 
-const Item = ({ itemData, onDrop, setCurrentItem, itemPosition }: any) => {
+const Item = ({
+  itemData,
+  onDrop,
+  setCurrentItem,
+  itemPosition,
+  inventoryIndex,
+}: any) => {
   const [position, setPosition] = useState(itemPosition);
 
   const handleEquipmentRequest = async (type: string) => {
@@ -55,7 +61,10 @@ const Item = ({ itemData, onDrop, setCurrentItem, itemPosition }: any) => {
   };
 
   const handleInventoryRequest = async (slotIndex: number) => {
-      const response = await updateInventory({ slotIndex: slotIndex });
+    const response = await updateInventory({
+      slotIndex: slotIndex,
+      lastIndex: inventoryIndex,
+    });
     if (response.status !== 200) return console.log(response.data);
     console.log("success,", response.data);
   };
@@ -70,7 +79,8 @@ const Item = ({ itemData, onDrop, setCurrentItem, itemPosition }: any) => {
       const slotType = slotData.slotType;
       const slotPosition = { x: slot.x + 40, y: slot.y + 40 };
       if (slotType === "EQUIPMENT") handleEquipmentRequest(slot.type);
-      else if (slotType === "INVENTORY") handleInventoryRequest(slotData.slotIndex);
+      else if (slotType === "INVENTORY")
+        handleInventoryRequest(slotData.slotIndex);
       setPosition(slotPosition);
       return slotPosition;
     },

@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 export interface updateInventoryInterface {
   //   itemId: string;
   slotIndex: number;
+  lastIndex: number;
 }
 
 export const updateInventoryService = async (body: updateInventoryInterface) => {
@@ -17,6 +18,7 @@ export const updateInventoryService = async (body: updateInventoryInterface) => 
         characterId: localStorage.getItem("hero"),
         itemId: "6448488ae6abfd9b53f513e9",
         slotIndex: body.slotIndex,
+        lastIndex: body.lastIndex,
       },
       {
         headers: {
