@@ -9,35 +9,40 @@ export const updateInventory = async (req: Request, res: Response) => {
   const { characterId, itemId, slotIndex, lastIndex } = req.body;
 
   try {
-    if(lastIndex !== null || lastIndex !== undefined) {
-      const resetLastSlot: ICharacter | null = await Character.findOneAndUpdate(
-        { _id: characterId, "inventory.slotIndex": lastIndex },
-        {
-          $set: {
-            "inventory.$.item": null,
-          },
-        }
-      );
-      if (!resetLastSlot) {
-        return res.status(404).json({ message: "Inventory not found" });
-      }
-    } 
-    
-    const character: ICharacter | null = await Character.findOneAndUpdate(
+    // checking if index have item inside
+    const characterNextSlot: ICharacter | null = await Character.findOne(
       { _id: characterId, "inventory.slotIndex": slotIndex },
-      {
-        $set: {
-          "inventory.$.item": itemId,
-        },
-      }
-    );
-
-    if (!character) {
-      console.log(character);
+    )
+    const characterLastSlot: ICharacter | null = await Character.findOne(
+      { _id: characterId, "inventory.slotIndex": lastIndex },
+    )
+    if (!characterNextSlot || !characterLastSlot) {
       return res.status(404).json({ message: "Inventory not found" });
     }
 
-    res.json(character);
+    const inventorySlot = characterNextSlot.inventory[slotIndex];
+
+    if(inventorySlot.item !== null) {
+      characterNextSlot.updateOne({
+        $set: {
+          "inventory.$.item": itemId,
+        },
+      });
+      characterLastSlot.updateOne({
+        $set: {
+          "inventory.$.item": inventorySlot.item,
+        },
+      });
+    } else {
+      if (lastIndex !== null || lastIndex !== undefined) {
+        characterLastSlot.updateOne({
+          $set: {
+            "inventory.$.item": null,
+          },
+        });
+      }
+      // add next slot item 
+    }
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server Error" });
