@@ -10,39 +10,35 @@ export const updateInventory = async (req: Request, res: Response) => {
 
   try {
     // checking if index have item inside
-    const characterNextSlot: ICharacter | null = await Character.findOne(
-      { _id: characterId, "inventory.slotIndex": slotIndex },
-    )
-    const characterLastSlot: ICharacter | null = await Character.findOne(
-      { _id: characterId, "inventory.slotIndex": lastIndex },
-    )
-    if (!characterNextSlot || !characterLastSlot) {
+    const character: ICharacter | null = await Character.findOne({
+      _id: characterId,
+      "inventory.slotIndex": slotIndex,
+    });
+    if (!character) {
       return res.status(404).json({ message: "Inventory not found" });
     }
+    const inventoryLastSlot = character.inventory.find(
+      (slot) => slot.slotIndex === lastIndex
+    );
 
-    const inventorySlot = characterNextSlot.inventory[slotIndex];
+    const inventoryNextSlot = character.inventory.find(
+      (slot) => slot.slotIndex === slotIndex
+    );
 
-    if(inventorySlot.item !== null) {
-      characterNextSlot.updateOne({
-        $set: {
-          "inventory.$.item": itemId,
-        },
-      });
-      characterLastSlot.updateOne({
-        $set: {
-          "inventory.$.item": inventorySlot.item,
-        },
-      });
-    } else {
-      if (lastIndex !== null || lastIndex !== undefined) {
-        characterLastSlot.updateOne({
-          $set: {
-            "inventory.$.item": null,
-          },
-        });
-      }
-      // add next slot item 
+    if (!inventoryNextSlot || !inventoryLastSlot) {
+      return res.status(404).json({ message: "Inventory slot not found" });
     }
+
+    if (inventoryNextSlot.item !== null) {
+      const newItem = itemId;
+      const lastItem = inventoryNextSlot.item;
+      inventoryNextSlot.item = newItem;
+      inventoryLastSlot.item = lastItem;
+    } else {
+      inventoryLastSlot.item = null;
+      inventoryNextSlot.item = itemId;
+    }
+    await character.save();
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server Error" });

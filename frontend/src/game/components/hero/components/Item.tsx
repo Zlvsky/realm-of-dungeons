@@ -6,19 +6,14 @@ import { updateEquipment, updateInventory } from "../../../../client/appClient";
 import { useDispatch } from "react-redux";
 import fetchHero from "../../../../utils/fetchers/fetchHero";
 
-const itemData = {
-  equipmentSlot: 1,
-  type: "weapon"
-}
-
-const useDrag = ({ x, y, onDrop, setCurrentItem }: any) => {
+const useDrag = ({ x, y, onDrop, setCurrentItem, itemData }: any) => {
   const sprite = React.useRef<any>();
   const [isDragging, setIsDragging] = React.useState(false);
   const [position, setPosition] = React.useState({ x, y });
 
   const onDown = React.useCallback(() => {
     setIsDragging(true);
-    setCurrentItem(itemData.type)
+    setCurrentItem(itemData.item.type)
   }, []);
   const onUp = React.useCallback(() => {
     setIsDragging(false);
@@ -56,9 +51,9 @@ const Item = ({
 }: any) => {
   const [position, setPosition] = useState(itemPosition);
   const dispatch = useDispatch();
-
+ 
   const handleEquipmentRequest = async (type: string) => {
-    const response = await updateEquipment({ itemType: type });
+    const response = await updateEquipment({ itemType: type, itemId: itemData.item._id });
     if (response.status !== 200) return console.log(response.data);
     fetchHero(dispatch);
     console.log("success,", response.data);
@@ -68,6 +63,7 @@ const Item = ({
     console.log("index", inventoryIndex);
     
     const response = await updateInventory({
+      itemId: itemData.item._id,
       slotIndex: slotIndex,
       lastIndex: inventoryIndex,
     });
@@ -92,6 +88,7 @@ const Item = ({
       return slotPosition;
     },
     setCurrentItem: setCurrentItem,
+    itemData: itemData
   });
   return (
     <Sprite
