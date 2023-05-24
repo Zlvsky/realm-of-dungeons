@@ -19,7 +19,7 @@ export const gameSlice = createSlice({
     setDimensions(state, action) {
         state.dimensions = action.payload;
     },
-    setHero(state, action) {
+    setHero: (state, action) => {
       state.hero = action.payload;
     },
     setCurrentStage(state, action) {

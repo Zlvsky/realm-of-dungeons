@@ -13,7 +13,6 @@ function GameWorld() {
     if (stage === "quests") return <Quests />;
     return <></>;
   };
-  console.log(dimensions);
   
   return (
     <Container

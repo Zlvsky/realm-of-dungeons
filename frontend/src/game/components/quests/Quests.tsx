@@ -50,7 +50,6 @@ function Quests() {
     if (hero?.activeQuest === null) getQuestsData();
   }, [])
   
-  console.log(hero);
 
   return (
     <Container position={[0, 2]}>

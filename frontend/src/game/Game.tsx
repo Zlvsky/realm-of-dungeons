@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import * as PIXI from "pixi.js";
 import FullWrapper from "../components/layouts/page-wrappers/FullWrapper";
 import Hud from "./components/hud/Hud";
-import { useDispatch } from "react-redux";
-import { setDimensions, setHero } from "../redux/reducers/gameSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getHero, setDimensions, setHero } from "../redux/reducers/gameSlice";
 import { getUserCharacter } from "../client/appClient";
 import GameWorld from "./components/GameWorld";
 import GameStage from "./game-context/GameStage";
@@ -23,6 +23,7 @@ function Game() {
     scaleH: 1,
   });
   const dispatch = useDispatch();
+  
 
   useEffect(() => {
     const fetchHero = async () => {
@@ -86,6 +87,7 @@ function Game() {
           width={size.width}
           className="mx-auto"
           raf={true}
+          renderOnComponentChange={true}
           options={{ autoDensity: true, resolution: window.devicePixelRatio }}
         >
           <Hud />

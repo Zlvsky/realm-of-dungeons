@@ -9,7 +9,6 @@ import Gold from "../../../../assets/images/icons/gui/gold-icon.png";
 
 function HeroInfo() {
     const hero = useSelector(getHero);
-    console.log(hero);
     
     const RenderAvatar = () => {
         if(!hero.avatar) return <></>

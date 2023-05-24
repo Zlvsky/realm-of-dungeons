@@ -1,10 +1,12 @@
-import React, {useState,useRef, useEffect} from "react";
+import React, {useState,useRef, useEffect, useContext} from "react";
 import { Sprite, Text } from "@pixi/react";
 import PIXI, { TextStyle } from "pixi.js";
 import AxePng from "../../../../assets/images/axe.png";
 import { updateEquipment, updateInventory } from "../../../../client/appClient";
-import { useDispatch } from "react-redux";
+import { ReactReduxContext, useDispatch } from "react-redux";
 import fetchHero from "../../../../utils/fetchers/fetchHero";
+import { connect } from "react-redux";
+import { setHero } from "../../../../redux/reducers/gameSlice";
 
 const useDrag = ({ x, y, onDrop, setCurrentItem, itemData }: any) => {
   const sprite = React.useRef<any>();
@@ -15,12 +17,14 @@ const useDrag = ({ x, y, onDrop, setCurrentItem, itemData }: any) => {
     setIsDragging(true);
     setCurrentItem(itemData.item.type)
   }, []);
+
   const onUp = React.useCallback(() => {
     setIsDragging(false);
     setCurrentItem(null);
     const dropPosition = onDrop(position);
     setPosition(dropPosition);
   }, [position, onDrop]);
+
   const onMove = React.useCallback(
     (e: any) => {
       if (isDragging) {
@@ -48,27 +52,31 @@ const Item = ({
   setCurrentItem,
   itemPosition,
   inventoryIndex,
+  updateHero,
 }: any) => {
   const [position, setPosition] = useState(itemPosition);
-  const dispatch = useDispatch();
- 
+  // const dispatch = useDispatch();
+  const dispatch = useContext(ReactReduxContext).store.dispatch;
+
   const handleEquipmentRequest = async (type: string) => {
-    const response = await updateEquipment({ itemType: type, itemId: itemData.item._id });
+    const response = await updateEquipment({
+      itemType: type,
+      itemId: itemData.item._id,
+    });
     if (response.status !== 200) return console.log(response.data);
-    fetchHero(dispatch);
+    fetchHero(updateHero);
     console.log("success,", response.data);
   };
 
   const handleInventoryRequest = async (slotIndex: number) => {
-    console.log("index", inventoryIndex);
-    
     const response = await updateInventory({
       itemId: itemData.item._id,
       slotIndex: slotIndex,
       lastIndex: inventoryIndex,
     });
+    console.log("as");
+    fetchHero(updateHero);
     if (response.status !== 200) return console.log(response.data);
-    fetchHero(dispatch);
     console.log("success,", response.data);
   };
 
@@ -82,13 +90,12 @@ const Item = ({
       const slotType = slotData.slotType;
       const slotPosition = { x: slot.x + 40, y: slot.y + 40 };
       if (slotType === "EQUIPMENT") handleEquipmentRequest(slot.type);
-      else if (slotType === "INVENTORY")
-        handleInventoryRequest(slotData.slotIndex);
+      else if (slotType === "INVENTORY") handleInventoryRequest(slotData.slotIndex);
       setPosition(slotPosition);
       return slotPosition;
     },
     setCurrentItem: setCurrentItem,
-    itemData: itemData
+    itemData: itemData,
   });
   return (
     <Sprite
@@ -101,4 +108,10 @@ const Item = ({
   );
 };
 
-export default Item;
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    updateHero: (data: any) => dispatch(setHero(data)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Item);
