@@ -20,10 +20,11 @@ function HeroEquipment({ game }: any) {
     string | null
   >(null);
   const [inventory, setInventory] = useState([]);
-  console.log("a", hero);
-
+  
   
   useEffect(() => {
+    console.log("a", hero);
+  
     setInventory(hero.inventory);
   }, [hero]);
  

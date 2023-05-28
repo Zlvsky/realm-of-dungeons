@@ -1,17 +1,18 @@
-import React, {useState,useRef, useEffect, useContext} from "react";
-import { Sprite, Text } from "@pixi/react";
-import PIXI, { TextStyle } from "pixi.js";
-import AxePng from "../../../../assets/images/axe.png";
+import React, {useState,useRef} from "react";
+import { Sprite } from "@pixi/react";
 import { updateEquipment, updateInventory } from "../../../../client/appClient";
-import { ReactReduxContext, useDispatch } from "react-redux";
 import fetchHero from "../../../../utils/fetchers/fetchHero";
 import { connect } from "react-redux";
 import { setHero } from "../../../../redux/reducers/gameSlice";
 
 const useDrag = ({ x, y, onDrop, setCurrentItem, itemData }: any) => {
-  const sprite = React.useRef<any>();
-  const [isDragging, setIsDragging] = React.useState(false);
-  const [position, setPosition] = React.useState({ x, y });
+  const sprite = useRef<any>();
+  const [isDragging, setIsDragging] = useState(false);
+  const [position, setPosition] = useState({ x, y });
+
+  const checkApiPosition = () => {
+    if (position.x !== x && position.y !== y) setPosition({ x, y });
+  }
 
   const onDown = React.useCallback(() => {
     setIsDragging(true);
@@ -23,12 +24,13 @@ const useDrag = ({ x, y, onDrop, setCurrentItem, itemData }: any) => {
     setCurrentItem(null);
     const dropPosition = onDrop(position);
     setPosition(dropPosition);
+    checkApiPosition();
   }, [position, onDrop]);
 
   const onMove = React.useCallback(
     (e: any) => {
-      if (isDragging) {
-        setPosition(e.getLocalPosition(sprite.current.parent));
+      if (isDragging && sprite.current) {
+        setPosition(e.data.getLocalPosition(sprite.current.parent));
       }
     },
     [isDragging, setPosition]
@@ -55,9 +57,7 @@ const Item = ({
   updateHero,
 }: any) => {
   const [position, setPosition] = useState(itemPosition);
-  // const dispatch = useDispatch();
-  const dispatch = useContext(ReactReduxContext).store.dispatch;
-
+  
   const handleEquipmentRequest = async (type: string) => {
     const response = await updateEquipment({
       itemType: type,
@@ -102,7 +102,7 @@ const Item = ({
       image={itemData.item.image}
       width={60}
       height={60}
-      interactive
+      interactive={true}
       {...bind}
     />
   );
