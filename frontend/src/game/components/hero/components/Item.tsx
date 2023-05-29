@@ -1,4 +1,4 @@
-import React, {useState,useRef} from "react";
+import React, {useState,useRef, useEffect} from "react";
 import { Sprite } from "@pixi/react";
 import { updateEquipment, updateInventory } from "../../../../client/appClient";
 import fetchHero from "../../../../utils/fetchers/fetchHero";
@@ -12,7 +12,13 @@ const useDrag = ({ x, y, onDrop, setCurrentItem, itemData }: any) => {
 
   const checkApiPosition = () => {
     if (position.x !== x && position.y !== y) setPosition({ x, y });
-  }
+  };
+
+  useEffect(() => {
+    checkApiPosition();
+  }, [x, y]);
+
+  
 
   const onDown = React.useCallback(() => {
     setIsDragging(true);
@@ -36,6 +42,7 @@ const useDrag = ({ x, y, onDrop, setCurrentItem, itemData }: any) => {
     [isDragging, setPosition]
   );
 
+
   return {
     ref: sprite,
     pointerdown: onDown,
@@ -57,6 +64,10 @@ const Item = ({
   updateHero,
 }: any) => {
   const [position, setPosition] = useState(itemPosition);
+
+  useEffect(() => {
+    setPosition(itemPosition);
+  }, [itemPosition])
   
   const handleEquipmentRequest = async (type: string) => {
     const response = await updateEquipment({
@@ -74,7 +85,6 @@ const Item = ({
       slotIndex: slotIndex,
       lastIndex: inventoryIndex,
     });
-    console.log("as");
     fetchHero(updateHero);
     if (response.status !== 200) return console.log(response.data);
     console.log("success,", response.data);
