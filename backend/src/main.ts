@@ -8,6 +8,7 @@ import { createCharacter, getCharacterById, getUserCharacters } from "./controll
 import { updateEquipment } from "./controllers/game/hero/heroEquipment";
 import { addItem } from "./controllers/game/items/addItem";
 import { updateInventory } from "./controllers/game/hero/heroInventory";
+import { updateEquipmentToInventory } from "./controllers/game/hero/heroEquipmentToInventrory";
 
 const uri = process.env.MONGO_CONNECTION_URL;
 if(!uri) throw new Error(".env file is not created")
@@ -43,6 +44,7 @@ app.get("/user/getUserCharacters", getUserCharacters);
 
 app.post("/hero/equipment/update", updateEquipment);
 app.post("/hero/inventory/update", updateInventory);
+app.post("/hero/equipmenttoinventory/update", updateEquipmentToInventory);
 
 // ITEMS ACTIONS
 
