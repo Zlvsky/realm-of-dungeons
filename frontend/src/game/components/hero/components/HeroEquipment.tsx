@@ -111,6 +111,7 @@ function HeroEquipment({ game }: any) {
               key={index}
               itemData={item}
               itemPosition={getEquipmentPosition(item.type)}
+              itemSpot={"EQUIPMENT"}
               onDrop={handleItemDrop}
               setCurrentItem={setCurrentItemTypeDragging}
             />
@@ -124,6 +125,7 @@ function HeroEquipment({ game }: any) {
               key={index}
               itemData={item}
               itemPosition={getInventoryPosition(item.slotIndex)}
+              itemSpot={"INVENTORY"}
               onDrop={handleItemDrop}
               setCurrentItem={setCurrentItemTypeDragging}
               inventoryIndex={index}

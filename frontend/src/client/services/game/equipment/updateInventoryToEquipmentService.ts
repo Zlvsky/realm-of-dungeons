@@ -2,12 +2,14 @@ import { AxiosError } from "axios";
 import axiosClient from "../../../axiosClient";
 import Cookies from "js-cookie";
 
-export interface updateEquipmentInterface {
+export interface updateInventoryToEquipmentInterface {
   itemId: string;
   itemType: string;
 }
 
-export const updateEquipmentService = async (body: updateEquipmentInterface) => {
+export const updateInventoryToEquipmentService = async (
+  body: updateInventoryToEquipmentInterface
+) => {
   const jwt = Cookies.get("jwt");
   try {
     const res = await axiosClient.post(

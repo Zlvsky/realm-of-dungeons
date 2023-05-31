@@ -2,23 +2,25 @@ import { AxiosError } from "axios";
 import axiosClient from "../../../axiosClient";
 import Cookies from "js-cookie";
 
-export interface updateInventoryInterface {
-    itemId: string;
+export interface updateEquipmentToInventoryInterface {
+  itemId: string;
   slotIndex: number;
-  lastIndex: number;
+  itemType: string;
 }
 
-export const updateInventoryService = async (body: updateInventoryInterface) => {
+export const updateEquipmentToInventoryService = async (
+  body: updateEquipmentToInventoryInterface
+) => {
   const jwt = Cookies.get("jwt");
-  console.log(body)
+  console.log(body);
   try {
     const res = await axiosClient.post(
-      "/hero/inventory/update",
+      "/hero/equipmenttoinventory/update",
       {
         characterId: localStorage.getItem("hero"),
         itemId: body.itemId,
         slotIndex: body.slotIndex,
-        lastIndex: body.lastIndex,
+        itemType: body.itemType,
       },
       {
         headers: {

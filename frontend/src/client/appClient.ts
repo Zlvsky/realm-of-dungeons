@@ -3,8 +3,15 @@ import { signInInterface, signInService } from "./services/auth/loginService";
 import { creaeteCharacterInterface, createCharacterService } from "./services/characters/createCharacterService";
 import { getCharactersService } from "./services/characters/getCharactersService";
 import { getUserCharacterService } from "./services/characters/getUserCharacterService";
-import { updateEquipmentInterface, updateEquipmentService } from "./services/game/equipment/updateEquipmentService";
-import { updateInventoryInterface, updateInventoryService } from "./services/game/equipment/updateInventoryService";
+import {
+  updateInventoryToEquipmentInterface,
+  updateInventoryToEquipmentService,
+} from "./services/game/equipment/updateInventoryToEquipmentService";
+import {
+  updateInventoryToInventoryInterface,
+  updateInventoryToInventoryService,
+} from "./services/game/equipment/updateInventoryToInventoryService";
+import { updateEquipmentToInventoryInterface, updateEquipmentToInventoryService } from "./services/game/equipment/updateEquipmentToInventoryService";
 
 // REGISTER AND LOGIN
 export async function register(body: signUpInterface) {
@@ -31,10 +38,20 @@ export async function getUserCharacter(id: string) {
 
 // HERO
 
-export async function updateEquipment(body: updateEquipmentInterface) {
-  return await updateEquipmentService(body);
+export async function updateInventoryToEquipment(
+  body: updateInventoryToEquipmentInterface
+) {
+  return await updateInventoryToEquipmentService(body);
 }
 
-export async function updateInventory(body: updateInventoryInterface) {
-  return await updateInventoryService(body);
+export async function updateInventoryToInventory(
+  body: updateInventoryToInventoryInterface
+) {
+  return await updateInventoryToInventoryService(body);
 };
+
+export async function updateEquipmentToInventory(
+  body: updateEquipmentToInventoryInterface
+) {
+  return await updateEquipmentToInventoryService(body);
+}

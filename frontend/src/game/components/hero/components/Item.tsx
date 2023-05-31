@@ -1,6 +1,6 @@
 import React, {useState,useRef, useEffect} from "react";
 import { Sprite } from "@pixi/react";
-import { updateEquipment, updateInventory } from "../../../../client/appClient";
+import { updateEquipmentToInventory, updateInventoryToEquipment, updateInventoryToInventory } from "../../../../client/appClient";
 import fetchHero from "../../../../utils/fetchers/fetchHero";
 import { connect } from "react-redux";
 import { setHero } from "../../../../redux/reducers/gameSlice";
@@ -60,6 +60,7 @@ const Item = ({
   onDrop,
   setCurrentItem,
   itemPosition,
+  itemSpot,
   inventoryIndex,
   updateHero,
 }: any) => {
@@ -69,8 +70,8 @@ const Item = ({
     setPosition(itemPosition);
   }, [itemPosition])
   
-  const handleEquipmentRequest = async (type: string) => {
-    const response = await updateEquipment({
+  const handleInventoryToEquipmentRequest = async (type: string) => {
+    const response = await updateInventoryToEquipment({
       itemType: type,
       itemId: itemData.item._id,
     });
@@ -79,8 +80,8 @@ const Item = ({
     console.log("success,", response.data);
   };
 
-  const handleInventoryRequest = async (slotIndex: number) => {
-    const response = await updateInventory({
+  const handleInventoryToInventoryRequest = async (slotIndex: number) => {
+    const response = await updateInventoryToInventory({
       itemId: itemData.item._id,
       slotIndex: slotIndex,
       lastIndex: inventoryIndex,
@@ -89,6 +90,17 @@ const Item = ({
     if (response.status !== 200) return console.log(response.data);
     console.log("success,", response.data);
   };
+
+  const handleEquipmentToInventoryRequest = async (slotIndex: number) => {
+    const response = await updateEquipmentToInventory({
+      itemId: itemData.item._id,
+      slotIndex: slotIndex,
+      itemType: itemData.item.type,
+    });
+    fetchHero(updateHero);
+    if (response.status !== 200) return console.log(response.data);
+    console.log("success,", response.data);
+  }
 
   const bind = useDrag({
     x: position.x,
@@ -99,8 +111,9 @@ const Item = ({
       const slot = slotData.position;
       const slotType = slotData.slotType;
       const slotPosition = { x: slot.x + 40, y: slot.y + 40 };
-      if (slotType === "EQUIPMENT") handleEquipmentRequest(slot.type);
-      else if (slotType === "INVENTORY") handleInventoryRequest(slotData.slotIndex);
+      if (slotType === "EQUIPMENT") handleInventoryToEquipmentRequest(slot.type);
+      else if (slotType === "INVENTORY" && itemSpot === "INVENTORY") handleInventoryToInventoryRequest(slotData.slotIndex);
+      else if (slotType === "INVENTORY" && itemSpot === "EQUIPMENT") handleEquipmentToInventoryRequest(slotData.slotIndex);
       setPosition(slotPosition);
       return slotPosition;
     },
