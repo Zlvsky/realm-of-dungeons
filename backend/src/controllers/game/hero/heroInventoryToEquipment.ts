@@ -47,7 +47,6 @@ export const updateInventoryToEquipment = async (
       inventorySlot.item !== null &&
       inventorySlot.item.type === itemType
     ) {
-      console.log("1");
       const equippedItem = equipmentItem.item;
       const inventoryItem = itemId;
       equipmentItem.item = inventoryItem;
@@ -57,7 +56,6 @@ export const updateInventoryToEquipment = async (
       inventorySlot.item !== null &&
       inventorySlot.item.type === itemType
     ) {
-      console.log("2")
       equipmentItem.item = itemId;
       inventorySlot.item = null;
     }

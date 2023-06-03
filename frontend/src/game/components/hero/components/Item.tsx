@@ -22,8 +22,9 @@ const useDrag = ({ x, y, onDrop, setCurrentItem, itemData }: any) => {
 
   const onDown = React.useCallback(() => {
     setIsDragging(true);
+    console.log(itemData.item)
     setCurrentItem(itemData.item.type)
-  }, []);
+  }, [itemData]);
 
   const onUp = React.useCallback(() => {
     setIsDragging(false);
