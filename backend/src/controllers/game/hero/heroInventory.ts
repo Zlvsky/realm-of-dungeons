@@ -10,10 +10,17 @@ export const updateInventory = async (req: Request, res: Response) => {
 
   try {
     // checking if index have item inside
-    const character: ICharacter | null = await Character.findOne({
-      _id: characterId,
-      "inventory.slotIndex": slotIndex,
-    });
+    const character: ICharacter | null = await Character.findById(characterId)
+      .populate({
+        path: "equipment.item",
+        model: "Item",
+      })
+      .populate({
+        path: "inventory.item",
+        model: "Item",
+      })
+      .exec();
+      
     if (!character) {
       return res.status(404).json({ message: "Inventory not found" });
     }

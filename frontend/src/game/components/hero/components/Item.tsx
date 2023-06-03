@@ -74,6 +74,7 @@ const Item = ({
     const response = await updateInventoryToEquipment({
       itemType: type,
       itemId: itemData.item._id,
+      inventorySlotIndex: itemData.slotIndex
     });
     if (response.status !== 200) return console.log(response.data);
     fetchHero(updateHero);
@@ -111,7 +112,7 @@ const Item = ({
       const slot = slotData.position;
       const slotType = slotData.slotType;
       const slotPosition = { x: slot.x + 40, y: slot.y + 40 };
-      if (slotType === "EQUIPMENT") handleInventoryToEquipmentRequest(slot.type);
+      if (slotType === "EQUIPMENT" && itemSpot === "INVENTORY") handleInventoryToEquipmentRequest(slot.type);
       else if (slotType === "INVENTORY" && itemSpot === "INVENTORY") handleInventoryToInventoryRequest(slotData.slotIndex);
       else if (slotType === "INVENTORY" && itemSpot === "EQUIPMENT") handleEquipmentToInventoryRequest(slotData.slotIndex);
       setPosition(slotPosition);

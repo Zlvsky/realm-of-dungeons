@@ -5,7 +5,7 @@ import cors from "cors";
 import { loginUser } from "./controllers/account/login";
 import { createUser } from "./controllers/account/register";
 import { createCharacter, getCharacterById, getUserCharacters } from "./controllers/account/characters";
-import { updateEquipment } from "./controllers/game/hero/heroEquipment";
+import { updateInventoryToEquipment } from "./controllers/game/hero/heroInventoryToEquipment";
 import { addItem } from "./controllers/game/items/addItem";
 import { updateInventory } from "./controllers/game/hero/heroInventory";
 import { updateEquipmentToInventory } from "./controllers/game/hero/heroEquipmentToInventrory";
@@ -42,7 +42,7 @@ app.get("/user/getUserCharacters", getUserCharacters);
 
 // HERO ACTIONS
 
-app.post("/hero/equipment/update", updateEquipment);
+app.post("/hero/equipment/update", updateInventoryToEquipment);
 app.post("/hero/inventory/update", updateInventory);
 app.post("/hero/equipmenttoinventory/update", updateEquipmentToInventory);
 
