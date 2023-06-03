@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Stage, Container, Sprite, Text, Graphics } from "@pixi/react";
-import {  connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { getHero } from '../../../../redux/reducers/gameSlice';
 import ItemSlot from './ItemSlot';
 import Item from './Item';
@@ -12,6 +12,7 @@ import {
   getInventoryPosition,
   getInventorySlot,
 } from "../helpers/getEquipmentPosition";
+import HeroInfo from './HeroInfo';
 
 function HeroEquipment({ game }: any) {
   // const hero = useSelector(getHero);
@@ -67,12 +68,7 @@ function HeroEquipment({ game }: any) {
 
   return (
     <Container position={[100, 150]}>
-      <Sprite
-        image={hero?.avatar}
-        position={[120, 0]}
-        width={250}
-        height={250}
-      />
+      <HeroInfo hero={hero} />
       {equipmentSlots.map((position, index) => (
         <ItemSlot
           key={index}
@@ -90,18 +86,6 @@ function HeroEquipment({ game }: any) {
           currentItem={currentItemTypeDragging}
         />
       ))}
-      {/* <Item
-          itemData={{
-            type: "weapon",
-            item: {
-              type: "weapon",
-              image: "https://i.ibb.co/4WQXBvQ/crystal-Double-Axe.png",
-            },
-          }}
-          itemPosition={{ x: 1, y: 1 }}
-          onDrop={handleItemDrop}
-          setCurrentItem={setCurrentItemTypeDragging}
-        /> */}
       {/* equipment items */}
       {hero.equipment.map((item: any, index: number) => {
         if (item.item !== null)
