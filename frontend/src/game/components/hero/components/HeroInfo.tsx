@@ -65,6 +65,34 @@ function HeroInfo({ hero }: any) {
               })
             }
           />
+          <Text
+            text={`DPS: ${hero.heroValues.health}`}
+            x={0}
+            y={25}
+            style={
+              new TextStyle({
+                align: "center",
+                fontFamily: "sans-serif",
+                fontWeight: "200",
+                fontSize: 20,
+                fill: ["#ffffff"],
+              })
+            }
+          />
+          <Text
+            text={`Armor: ${hero.heroValues.health}`}
+            x={0}
+            y={50}
+            style={
+              new TextStyle({
+                align: "center",
+                fontFamily: "sans-serif",
+                fontWeight: "200",
+                fontSize: 20,
+                fill: ["#ffffff"],
+              })
+            }
+          />
         </Container>
       </Container>
     );

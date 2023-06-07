@@ -13,6 +13,7 @@ import {
   getInventorySlot,
 } from "../helpers/getEquipmentPosition";
 import HeroInfo from './HeroInfo';
+import HeroStats from './HeroStats';
 
 function HeroEquipment({ game }: any) {
   // const hero = useSelector(getHero);
@@ -69,6 +70,7 @@ function HeroEquipment({ game }: any) {
   return (
     <Container position={[100, 150]}>
       <HeroInfo hero={hero} />
+      <HeroStats hero={hero}/>
       {equipmentSlots.map((position, index) => (
         <ItemSlot
           key={index}

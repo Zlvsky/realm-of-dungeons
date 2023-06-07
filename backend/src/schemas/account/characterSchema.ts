@@ -27,11 +27,21 @@ const CharacterSchema = new mongoose.Schema({
       required: true,
       default: 1,
     },
+    experience: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
     levelExperience: {
       type: Number,
       required: true,
       default: 0,
     },
+    availableStatPoints: {
+      type: Number,
+      required: true,
+      default: 0
+    }
   },
   activeQuest: {
     type: mongoose.Schema.Types.ObjectId,
@@ -66,6 +76,16 @@ const CharacterSchema = new mongoose.Schema({
       required: true,
       default: 100,
     },
+    armor: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    damage: {
+      type: Number,
+      required: true,
+      default: 10,
+    }
   },
   statistics: {
     strength: {
