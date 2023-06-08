@@ -2,9 +2,15 @@ import mongoose, { Document } from "mongoose";
 
 export interface ICharacter extends mongoose.Document {
   nickname: string;
-  level: number;
   class: string;
-  levelExperience: number;
+  avatar: string;
+  progression: {
+    level: number;
+    levelExperience: number;
+    experience: number;
+    availableStatPoints: number;
+  };
+  activeQuest: mongoose.Types.ObjectId;
   statistics: {
     strength: number;
     dexterity: number;
@@ -26,6 +32,14 @@ export interface ICharacter extends mongoose.Document {
       item: IItem | null;
     }
   ];
+  heroValues: {
+    gold: number;
+    health: number;
+    mana: number;
+    armor: number;
+    damage: number;
+  };
+  heroValuesWithItems?: any;
 }
 
 export interface IUser extends Document {

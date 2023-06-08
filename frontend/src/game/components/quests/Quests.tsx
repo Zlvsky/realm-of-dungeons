@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container } from "@pixi/react";
-import { useSelector } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { getHero } from "../../../redux/reducers/gameSlice";
 import SelectQuest from "./components/SelectQuest";
 import QuestProgress from "./components/QuestProgress";
@@ -39,31 +39,27 @@ const mockedData = [
 ];
 
 
-function Quests() {
+function Quests({ game }: any) {
   const [questsData, setQuestsData] = useState<any>(null);
-  const hero = useSelector(getHero);
+  const hero = game.hero;
 
   useEffect(() => {
     const getQuestsData = async () => {
       setQuestsData(mockedData);
-    }
+    };
     if (hero?.activeQuest === null) getQuestsData();
-  }, [])
-  
+  }, []);
 
   return (
     <Container position={[0, 2]}>
-      {
-      // hero?.activeQuest === null && questsData !== null 
-      false
-      ? (
+      {hero?.activeQuest === null && questsData !== null ? (
         <SelectQuest questsData={questsData} />
       ) : (
         <QuestProgress />
       )}
     </Container>
   );
-
 }
+const mapStateToProps = ({ game }: any) => ({ game });
 
-export default Quests;
+export default connect(mapStateToProps)(Quests);

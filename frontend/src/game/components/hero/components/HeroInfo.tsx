@@ -66,7 +66,7 @@ function HeroInfo({ hero }: any) {
             }
           />
           <Text
-            text={`DPS: ${hero.heroValues.health}`}
+            text={`Damage: ${hero.heroValuesWithItems.damage}`}
             x={0}
             y={25}
             style={
@@ -80,7 +80,7 @@ function HeroInfo({ hero }: any) {
             }
           />
           <Text
-            text={`Armor: ${hero.heroValues.health}`}
+            text={`Armor: ${hero.heroValuesWithItems.armor}`}
             x={0}
             y={50}
             style={

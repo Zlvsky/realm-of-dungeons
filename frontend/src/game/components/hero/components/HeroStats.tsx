@@ -7,6 +7,7 @@ import React from "react";
 interface ISingleStat {
   position: [number, number];
   stat: string;
+  col: number;
 }
 
 
@@ -15,11 +16,11 @@ const Filters: any = withFilters(Container, {
 });
 
 function HeroStats({ hero }: any) {
-  const SingleStat = ({ position, stat }: ISingleStat) => {
+  const SingleStat = ({ position, stat, col }: ISingleStat) => {
     const isAvailable = hero.progression.availableStatPoints > 0;
  
     return (
-      <Container position={position} >
+      <Container position={position}>
         <Text
           text={`${stat.toUpperCase()}`}
           x={0}
@@ -35,7 +36,7 @@ function HeroStats({ hero }: any) {
           }
         />
         <Text
-          text={hero.statistics[stat]}
+          text={hero.heroValuesWithItems.statistics[stat]}
           x={0}
           y={30}
           style={
@@ -50,14 +51,18 @@ function HeroStats({ hero }: any) {
         />
         <Filters
           matrix={{ enabled: true }}
-          apply={!isAvailable ? ({ matrix }: any) => matrix.blackAndWhite() : undefined}
+          apply={
+            !isAvailable
+              ? ({ matrix }: any) => matrix.blackAndWhite()
+              : undefined
+          }
         >
           <Sprite
             image={plusbtn}
             width={55}
             height={55}
-            x={170}
-            y={-5}
+            x={col === 1 ? 190 : 160}
+            y={-14}
             cursor={isAvailable ? "pointer" : "normal"}
             interactive={true}
             //   onclick={() => changeStage("quests")}
@@ -68,8 +73,13 @@ function HeroStats({ hero }: any) {
   };
 
   return (
-    <Container position={[10, 430]}>
-      <SingleStat position={[0, 0]} stat={"strength"} />
+    <Container position={[0, 430]}>
+      <SingleStat position={[0, 0]} stat={"strength"} col={1} />
+      <SingleStat position={[0, 80]} stat={"dexterity"} col={1} />
+      <SingleStat position={[0, 160]} stat={"intelligence"} col={1} />
+      <SingleStat position={[280, 0]} stat={"condition"} col={2} />
+      <SingleStat position={[280, 80]} stat={"wisdom"} col={2} />
+      <SingleStat position={[280, 160]} stat={"charisma"} col={2} />
     </Container>
   );
 }
