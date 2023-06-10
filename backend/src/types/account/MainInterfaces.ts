@@ -7,10 +7,24 @@ export interface ICharacter extends mongoose.Document {
   progression: {
     level: number;
     levelExperience: number;
+    previousLevelExperience: number;
     experience: number;
     availableStatPoints: number;
   };
-  activeQuest: mongoose.Types.ObjectId;
+  activeQuest: {
+    timeStarted: string;
+    quest: {
+      title: string;
+      description: string;
+      duration: number;
+      rewards: {
+        gold: number;
+        xp: number;
+        itemId?: string;
+      };
+    };
+  };
+  availableQuests: [IQuest];
   statistics: {
     strength: number;
     dexterity: number;
@@ -69,4 +83,15 @@ export interface IItem extends mongoose.Document {
 export interface IEquipment extends mongoose.Document {
   type: string;
   item: IItem | null;
+}
+
+export interface IQuest {
+  title: string;
+  description: string;
+  duration: number;
+  rewards: {
+    gold: number;
+    xp: number;
+    itemId?: string;
+  }
 }

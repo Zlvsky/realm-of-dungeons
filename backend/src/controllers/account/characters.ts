@@ -7,6 +7,8 @@ import getUserIdFromToken from "../../utils/getUserIdFromToken";
 import initEquipment from "../../gameUtils/initValues/initEquipment";
 import initInventory from "../../gameUtils/initValues/initInventory";
 import { ICharacter } from "../../types/account/MainInterfaces";
+import generateQuests from "../../gameUtils/quests/generateQuests";
+import getNextLevelExperience from "../../gameUtils/characters/getNextLevelExperience";
 
 const router = express.Router();
 
@@ -40,12 +42,16 @@ export const createCharacter = async (req: Request, res: Response) => {
     // Create new character object
     const character = new Character({
       nickname: req.body.nickname,
-      level: 1,
       class: req.body.class,
-      levelExperience: 0,
+      progression: {
+        level: 1,
+        levelExperience: getNextLevelExperience[1],
+        previousLevelExperience: getNextLevelExperience[0],
+      },
       statistics: getBaseStatistics(req.body.class),
       equipment: initEquipment,
       inventory: initInventory,
+      availableQuests: generateQuests(1),
       avatar: getCharacterAvatar(req.body.class),
       owner: getUserIdFromToken(req.headers.authorization), // Set the owner of the character to the authenticated user (implementation of this step is outside the scope of this answer)
     });

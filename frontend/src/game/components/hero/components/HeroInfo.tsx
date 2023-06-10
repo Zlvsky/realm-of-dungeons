@@ -3,7 +3,7 @@ import { Stage, Container, Sprite, Text, Graphics } from "@pixi/react";
 import { TextStyle } from 'pixi.js';
 
 function HeroInfo({ hero }: any) {
-    const levelPercentage = (hero.progression.levelExperience / 100) * 248;
+    const levelPercentage = Math.floor(((hero.progression.experience - hero.progression.previousLevelExperience) / (hero.progression.levelExperience - hero.progression.previousLevelExperience)) * 100);
     return (
       <Container position={[120, 0]}>
         <Sprite

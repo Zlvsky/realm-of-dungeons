@@ -1,5 +1,5 @@
 import mongoose, { Schema, Model } from "mongoose";
-import { ICharacter } from "../../types/account/MainInterfaces";
+import { ICharacter, IQuest } from "../../types/account/MainInterfaces";
 
 // to be added: INVENTORY, SKILLS, GUILD, FRIENDS
 
@@ -37,16 +37,44 @@ const CharacterSchema = new mongoose.Schema({
       required: true,
       default: 0,
     },
+    previousLevelExperience: {
+      type: Number,
+      required: true,
+      defaut: 0,
+    },
     availableStatPoints: {
       type: Number,
       required: true,
-      default: 0
-    }
+      default: 0,
+    },
   },
+  availableQuests: [
+    {
+      title: { type: String, default: null },
+      description: { type: String, default: null },
+      duration: { type: Number, default: null },
+      rewards: {
+        gold: { type: Number, default: null },
+        xp: { type: Number, default: null },
+        itemId: { type: Schema.Types.ObjectId, ref: "Item", default: null },
+      },
+    },
+  ],
   activeQuest: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Quest",
-    default: null,
+    timeStarted: { type: String, default: null },
+    quest: {
+      type: {
+        title: { type: String, default: null },
+        description: { type: String, default: null },
+        duration: { type: Number, default: null },
+        rewards: {
+          gold: { type: Number, default: null },
+          xp: { type: Number, default: null },
+          itemId: { type: Schema.Types.ObjectId, ref: "Item", default: null },
+        },
+      },
+      default: null,
+    },
   },
   equipment: [
     {
@@ -56,7 +84,7 @@ const CharacterSchema = new mongoose.Schema({
   ],
   inventory: [
     {
-      slotIndex: {type: Number, required: true },
+      slotIndex: { type: Number, required: true },
       item: { type: Schema.Types.ObjectId, ref: "Item", default: null },
     },
   ],
@@ -85,7 +113,7 @@ const CharacterSchema = new mongoose.Schema({
       type: Number,
       required: true,
       default: 10,
-    }
+    },
   },
   statistics: {
     strength: {
