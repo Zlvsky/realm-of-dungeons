@@ -5,11 +5,14 @@ import HourglassIcon from "../../../../assets/images/icons/gui/hourglass.png"
 import GoldIcon from "../../../../assets/images/icons/gui/gold-icon.png"
 import XpIcon from "../../../../assets/images/icons/gui/xp.png";
 import AcceptBtn from "../../../../assets/images/acceptbtn.png";
-
+import { setHero } from "../../../../redux/reducers/gameSlice";
 
 import { TextStyle } from "pixi.js";
 import QuestTabs from "./QuestTabs";
 import secondsToTime from "../../../../utils/parsing-data/secondsToTime";
+import { updateActiveQuest } from "../../../../client/appClient";
+import fetchHero from "../../../../utils/fetchers/fetchHero";
+import { connect } from "react-redux";
 
 const IconWithText = ( {text, image, position}: any ) => {
   return (
@@ -34,13 +37,17 @@ const IconWithText = ( {text, image, position}: any ) => {
   );
 }
 
-function SelectQuest({ questsData }: any) {
+function SelectQuest({ questsData, updateHero }: any) {
   const [selectedQuest, setSelectedQuest] = useState(1);
 
-  const handleAcceptQuest = () => {
-    console.log("accepted");
-    
-  }
+  const handleAcceptQuest = async () => {
+    const response = await updateActiveQuest({
+      questId: questsData[selectedQuest]._id,
+    });
+    if (response.status !== 200) return console.log(response.data);
+    fetchHero(updateHero);
+    console.log("success,", response.data);
+  };
 
   const questFrame = useCallback((g: any) => {
     g.clear();
@@ -150,4 +157,10 @@ function SelectQuest({ questsData }: any) {
   );
 }
 
-export default SelectQuest;
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    updateHero: (data: any) => dispatch(setHero(data)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(SelectQuest);

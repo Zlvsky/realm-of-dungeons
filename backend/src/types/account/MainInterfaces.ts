@@ -1,4 +1,4 @@
-import mongoose, { Document } from "mongoose";
+import mongoose, { Document, ObjectId } from "mongoose";
 
 export interface ICharacter extends mongoose.Document {
   nickname: string;
@@ -86,6 +86,7 @@ export interface IEquipment extends mongoose.Document {
 }
 
 export interface IQuest {
+  _id: ObjectId;
   title: string;
   description: string;
   duration: number;
