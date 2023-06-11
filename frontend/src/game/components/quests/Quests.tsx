@@ -12,7 +12,7 @@ function Quests({ game }: any) {
       {hero?.activeQuest.quest === null || hero?.activeQuest.timeStarted === null ? (
         <SelectQuest questsData={hero.availableQuests} />
       ) : (
-        <QuestProgress />
+        <QuestProgress activeQuest={hero.activeQuest}/>
       )}
     </Container>
   );

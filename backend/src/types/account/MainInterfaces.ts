@@ -12,7 +12,7 @@ export interface ICharacter extends mongoose.Document {
     availableStatPoints: number;
   };
   activeQuest: {
-    timeStarted: string;
+    timeStarted: string | null; 
     quest: {
       title: string;
       description: string;
@@ -22,7 +22,7 @@ export interface ICharacter extends mongoose.Document {
         xp: number;
         itemId?: string;
       };
-    };
+    } | null;
   };
   availableQuests: [IQuest];
   statistics: {
