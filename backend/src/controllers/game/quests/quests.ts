@@ -43,3 +43,23 @@ export const clearActiveQuest = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Server Error" });
   }
 };
+
+export const startQuestBattle = async (req: Request, res: Response) => {
+  const { characterId } = req.body;
+  try {
+    const character: ICharacter | null = await Character.findById(characterId);
+    if (!character) {
+      return res.status(404).json({ message: "Character not found" });
+    }
+    if (character.activeQuest.quest && character.activeQuest.timeStarted) {
+      const now = new Date();
+      const questTime = new Date(character.activeQuest.timeStarted);
+      if(now > questTime) character.activeQuest.quest.battleStarted = true;
+    }
+    await character.save();
+    res.json(character);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
+  }
+}

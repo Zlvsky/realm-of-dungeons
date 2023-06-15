@@ -1,6 +1,7 @@
 import React from 'react';
 import { Stage, Container, Sprite, Text, Graphics } from "@pixi/react";
-import btnImg from "../../../../assets/images/btn.png";
+import questsBtn from "../../../../assets/images/btn.png";
+import heroBtn from "../../../../assets/images/herobtn.png";
 import { useDispatch } from 'react-redux';
 import { setCurrentStage } from '../../../../redux/reducers/gameSlice';
 
@@ -12,7 +13,7 @@ function Navigations() {
     return (
       <Container position={[0, 160]}>
         <Sprite
-          image={btnImg}
+          image={questsBtn}
           width={150}
           height={120}
           x={0}
@@ -22,7 +23,7 @@ function Navigations() {
           onclick={() => changeStage("quests")}
         />
         <Sprite
-          image={btnImg}
+          image={heroBtn}
           width={150}
           height={120}
           x={0}

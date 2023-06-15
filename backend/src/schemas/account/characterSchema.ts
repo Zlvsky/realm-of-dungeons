@@ -53,6 +53,7 @@ const CharacterSchema = new mongoose.Schema({
       title: { type: String, default: null },
       description: { type: String, default: null },
       duration: { type: Number, default: null },
+      battleStarted: { type: Boolean, default: false },
       rewards: {
         gold: { type: Number, default: null },
         xp: { type: Number, default: null },
@@ -67,6 +68,7 @@ const CharacterSchema = new mongoose.Schema({
         title: { type: String, default: null },
         description: { type: String, default: null },
         duration: { type: Number, default: null },
+        battleStarted: { type: Boolean, default: false },
         rewards: {
           gold: { type: Number, default: null },
           xp: { type: Number, default: null },

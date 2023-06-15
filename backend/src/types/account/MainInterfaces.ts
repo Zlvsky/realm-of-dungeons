@@ -17,6 +17,7 @@ export interface ICharacter extends mongoose.Document {
       title: string;
       description: string;
       duration: number;
+      battleStarted: boolean;
       rewards: {
         gold: number;
         xp: number;
@@ -90,6 +91,7 @@ export interface IQuest {
   title: string;
   description: string;
   duration: number;
+  battleStarted: boolean;
   rewards: {
     gold: number;
     xp: number;

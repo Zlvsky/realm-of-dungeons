@@ -1,22 +1,33 @@
-import React, { useEffect, useState} from 'react';
-import { Container, Sprite, Text, Graphics } from "@pixi/react";
-import { VideoResource, Texture, TextStyle } from "pixi.js"
+import { useEffect, useState} from 'react';
+import { Container, Sprite, Text } from "@pixi/react";
+import { TextStyle } from "pixi.js"
 import QuestProgressBackground from "../../../../assets/images/game-world/questProgress.png"
 import secondsRemaining from '../../../../utils/calculations/secondsRemaining';
 import secondsToTime from '../../../../utils/parsing-data/secondsToTime';
 import CancelBtn from "../../../../assets/images/cancelbtn.png";
-import { clearActiveQuest } from '../../../../client/appClient';
+import EnterBtn from "../../../../assets/images/enterbtn.png";
+import { clearActiveQuest, startQuestBattle } from '../../../../client/appClient';
 import { setHero } from '../../../../redux/reducers/gameSlice';
 import { connect } from 'react-redux';
 import fetchHero from '../../../../utils/fetchers/fetchHero';
 
-function QuestProgress({ activeQuest, updateHero }: any) {
+const isQuestReady = (questTime: string) => {
+  const questDate = new Date(questTime);
+  const now = new Date();
+  if (now > questDate) return true;
+  return false;
+};
+
+
+function QuestProgress({ activeQuest, setBattleStarted, updateHero }: any) {
   const [futureTime, setFutureTime] = useState<any>(null);
   const [timeRemaining, setTimeRemaining] = useState<any>(null);
 
   const setFTime = () => {
     const timeQuestStarted = new Date(activeQuest.timeStarted);
-    timeQuestStarted.setSeconds(timeQuestStarted.getSeconds() + activeQuest.quest.duration);
+    timeQuestStarted.setSeconds(
+      timeQuestStarted.getSeconds() + activeQuest.quest.duration
+    );
     const isoString = timeQuestStarted.toISOString();
     setFutureTime(isoString);
   };
@@ -26,6 +37,7 @@ function QuestProgress({ activeQuest, updateHero }: any) {
       const checkTimeRemaining = () => {
         const secondsLeft = secondsRemaining(futureTime);
         if (secondsLeft < 0) {
+          setTimeRemaining("00:00");
           resolve();
         } else {
           setTimeRemaining(secondsToTime(secondsLeft));
@@ -35,6 +47,21 @@ function QuestProgress({ activeQuest, updateHero }: any) {
       checkTimeRemaining();
     });
   }
+
+  const handleEnterBattleRequest = async () => {
+    const response = await startQuestBattle();
+    if (response.status !== 200) return console.log(response.data);
+    fetchHero(updateHero);
+    console.log("success,", response.data);
+  };
+
+  const enterBattle = () => {
+    const questReady = isQuestReady(activeQuest.timeStarted);
+    if (questReady) {
+      handleEnterBattleRequest();
+      setBattleStarted(true);
+    }
+  };
 
   const handleCancelQuest = async () => {
     const response = await clearActiveQuest();
@@ -52,9 +79,9 @@ function QuestProgress({ activeQuest, updateHero }: any) {
     <Container position={[0, 0]}>
       <Sprite image={QuestProgressBackground} width={1316} height={935} />
       <Text
-        x={350}
+        x={timeRemaining === "00:00" ? 430 : 350}
         y={72}
-        text={"QUEST IN PROGRESS"}
+        text={timeRemaining === "00:00" ? "QUEST READY" : "QUEST IN PROGRESS"}
         style={
           new TextStyle({
             align: "center",
@@ -65,7 +92,7 @@ function QuestProgress({ activeQuest, updateHero }: any) {
           })
         }
       />
-      {timeRemaining !== null && (
+      {timeRemaining !== null && timeRemaining !== "00:00" && (
         <Text
           x={570}
           y={160}
@@ -81,16 +108,30 @@ function QuestProgress({ activeQuest, updateHero }: any) {
           }
         />
       )}
-      <Sprite
-        image={CancelBtn}
-        width={150}
-        height={150}
-        x={540}
-        y={780}
-        cursor={"pointer"}
-        interactive={true}
-        onclick={handleCancelQuest}
-      />
+      {timeRemaining !== "00:00" && (
+        <Sprite
+          image={CancelBtn}
+          width={150}
+          height={150}
+          x={540}
+          y={780}
+          cursor={"pointer"}
+          interactive={true}
+          onclick={handleCancelQuest}
+        />
+      )}
+      {timeRemaining === "00:00" && (
+        <Sprite
+          image={EnterBtn}
+          width={150}
+          height={150}
+          x={540}
+          y={780}
+          cursor={"pointer"}
+          interactive={true}
+          onclick={enterBattle}
+        />
+      )}
     </Container>
   );
 }

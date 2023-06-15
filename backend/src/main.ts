@@ -9,7 +9,7 @@ import { updateInventoryToEquipment } from "./controllers/game/hero/heroInventor
 import { addItem } from "./controllers/game/items/addItem";
 import { updateInventory } from "./controllers/game/hero/heroInventory";
 import { updateEquipmentToInventory } from "./controllers/game/hero/heroEquipmentToInventrory";
-import { clearActiveQuest, updateActiveQuest } from "./controllers/game/quests/quests";
+import { clearActiveQuest, startQuestBattle, updateActiveQuest } from "./controllers/game/quests/quests";
 
 const uri = process.env.MONGO_CONNECTION_URL;
 if(!uri) throw new Error(".env file is not created")
@@ -56,6 +56,7 @@ app.post("/item/add", addItem);
 
 app.post("/quest/updateActiveQuest", updateActiveQuest);
 app.post("/quest/clearActiveQuest", clearActiveQuest);
+app.post("/quest/startQuestBattle", startQuestBattle);
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
