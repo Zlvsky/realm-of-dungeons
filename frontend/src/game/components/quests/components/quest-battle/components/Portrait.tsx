@@ -18,8 +18,9 @@ function Portrait({ position, name, level, img}: any) {
           />
           <Text
             text={`Level ${level}`}
-            x={92}
-            y={4}
+            x={250 / 2}
+            anchor={0.5}
+            y={15}
             style={
               new TextStyle({
                 align: "center",
@@ -32,8 +33,9 @@ function Portrait({ position, name, level, img}: any) {
           />
           <Text
             text={name}
-            x={105}
-            y={45}
+            y={50}
+            x={250 / 2}
+            anchor={0.5}
             style={
               new TextStyle({
                 align: "center",
