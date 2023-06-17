@@ -7,7 +7,7 @@ import { getHero, setDimensions, setHero } from "../redux/reducers/gameSlice";
 import { getUserCharacter } from "../client/appClient";
 import GameWorld from "./components/GameWorld";
 import GameStage from "./game-context/GameStage";
-
+import loadFontsForPixi from "../utils/loaders/loadFontsForPixi";
 
 // PIXI.BaseTexture.defaultOptions.scaleMode = PIXI.SCALE_MODES.LINEAR;
 const ROOT_WIDTH = 1666;
@@ -35,6 +35,7 @@ function Game() {
       setLoading(false);
     }
     fetchHero();
+    loadFontsForPixi();
   }, [])
 
   useEffect(() => {

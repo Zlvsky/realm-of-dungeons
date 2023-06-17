@@ -4,10 +4,9 @@ import { TextStyle } from "pixi.js";
 interface ISingleStat {
   position: [number, number];
   stat: string;
-  col: number;
 }
 function BattleStats({ statistics, position }: any) {
-  const SingleStat = ({ position, stat, col }: ISingleStat) => {
+  const SingleStat = ({ position, stat }: ISingleStat) => {
     return (
       <Container position={position}>
         <Text
@@ -17,9 +16,9 @@ function BattleStats({ statistics, position }: any) {
           style={
             new TextStyle({
               align: "center",
-              fontFamily: "sans-serif",
-              fontWeight: "200",
-              fontSize: 16,
+              fontFamily: "MedievalSharp",
+              letterSpacing: 1,
+              fontSize: 17,
               fill: ["#898989"],
             })
           }
@@ -31,9 +30,8 @@ function BattleStats({ statistics, position }: any) {
           style={
             new TextStyle({
               align: "center",
-              fontFamily: "sans-serif",
-              fontWeight: "200",
-              fontSize: 16,
+              fontFamily: "MedievalSharp",
+              fontSize: 18,
               fill: ["#D1D1D1"],
             })
           }
@@ -44,12 +42,12 @@ function BattleStats({ statistics, position }: any) {
 
   return (
     <Container position={position}>
-      <SingleStat position={[0, 0]} stat={"strength"} col={1} />
-      <SingleStat position={[140, 0]} stat={"condition"} col={2} />
-      <SingleStat position={[260, 0]} stat={"dexterity"} col={1} />
-      <SingleStat position={[0, 80]} stat={"intelligence"} col={1} />
-      <SingleStat position={[140, 80]} stat={"wisdom"} col={2} />
-      <SingleStat position={[260, 80]} stat={"charisma"} col={2} />
+      <SingleStat position={[0, 0]} stat={"strength"} />
+      <SingleStat position={[140, 0]} stat={"condition"} />
+      <SingleStat position={[260, 0]} stat={"dexterity"} />
+      <SingleStat position={[0, 80]} stat={"intelligence"} />
+      <SingleStat position={[140, 80]} stat={"wisdom"} />
+      <SingleStat position={[260, 80]} stat={"charisma"} />
     </Container>
   );
 }

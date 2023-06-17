@@ -9,7 +9,7 @@ function Quests({ game }: any) {
   const [battleStarted, setBattleStarted] = useState(false);
   const hero = game.hero;
 
-  if (battleStarted || hero?.activeQuest.quest.battleStarted)
+  if (battleStarted || hero?.activeQuest.quest?.battleStarted)
     return <QuestBattle hero={hero} />;
 
   return (

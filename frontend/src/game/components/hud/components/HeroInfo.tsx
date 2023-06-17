@@ -32,11 +32,11 @@ function HeroInfo() {
           style={
             new TextStyle({
               align: "left",
-              fontFamily: "sans-serif",
+              fontFamily: "MedievalSharp",
               fontSize: 26,
               fill: ["#C02E07"], // gradient
               stroke: "#96663E",
-              strokeThickness: 2,
+              strokeThickness: 3,
               letterSpacing: 0,
               dropShadow: true,
               wordWrap: true,
@@ -52,7 +52,7 @@ function HeroInfo() {
           style={
             new TextStyle({
               align: "left",
-              fontFamily: "sans-serif",
+              fontFamily: "MedievalSharp",
               fontSize: 26,
               fill: ["#C02E07"], // gradient
               stroke: "#96663E",

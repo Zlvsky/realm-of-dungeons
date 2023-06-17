@@ -79,13 +79,14 @@ function QuestProgress({ activeQuest, setBattleStarted, updateHero }: any) {
     <Container position={[0, 0]}>
       <Sprite image={QuestProgressBackground} width={1316} height={935} />
       <Text
-        x={timeRemaining === "00:00" ? 430 : 350}
-        y={72}
+        anchor={0.5}
+        x={1316 / 2}
+        y={100}
         text={timeRemaining === "00:00" ? "QUEST READY" : "QUEST IN PROGRESS"}
         style={
           new TextStyle({
             align: "center",
-            fontFamily: "sans-serif",
+            fontFamily: "Fondamento",
             fontSize: 56,
             fill: ["#C02E07"],
             dropShadow: true,
@@ -94,13 +95,14 @@ function QuestProgress({ activeQuest, setBattleStarted, updateHero }: any) {
       />
       {timeRemaining !== null && timeRemaining !== "00:00" && (
         <Text
-          x={570}
-          y={160}
+          anchor={0.5}
+          x={1316 / 2}
+          y={180}
           text={timeRemaining}
           style={
             new TextStyle({
               align: "center",
-              fontFamily: "sans-serif",
+              fontFamily: "MedievalSharp",
               fontSize: 46,
               fill: ["#BCBCBC"],
               dropShadow: true,
@@ -113,8 +115,9 @@ function QuestProgress({ activeQuest, setBattleStarted, updateHero }: any) {
           image={CancelBtn}
           width={150}
           height={150}
-          x={540}
-          y={780}
+          anchor={0.5}
+          x={1316 / 2}
+          y={850}
           cursor={"pointer"}
           interactive={true}
           onclick={handleCancelQuest}
@@ -125,8 +128,9 @@ function QuestProgress({ activeQuest, setBattleStarted, updateHero }: any) {
           image={EnterBtn}
           width={150}
           height={150}
-          x={540}
-          y={780}
+          anchor={0.5}
+          x={1316 / 2}
+          y={850}
           cursor={"pointer"}
           interactive={true}
           onclick={enterBattle}

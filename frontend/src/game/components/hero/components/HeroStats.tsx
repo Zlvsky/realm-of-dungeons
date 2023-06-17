@@ -28,8 +28,8 @@ function HeroStats({ hero }: any) {
           style={
             new TextStyle({
               align: "center",
-              fontFamily: "sans-serif",
-              fontWeight: "200",
+              fontFamily: "MedievalSharp",
+              letterSpacing: 1,
               fontSize: 24,
               fill: ["#898989"],
             })
@@ -42,8 +42,7 @@ function HeroStats({ hero }: any) {
           style={
             new TextStyle({
               align: "center",
-              fontFamily: "sans-serif",
-              fontWeight: "200",
+              fontFamily: "MedievalSharp",
               fontSize: 24,
               fill: ["#D1D1D1"],
             })

@@ -17,16 +17,15 @@ function Portrait({ position, name, level, img}: any) {
             }}
           />
           <Text
-            text={`Level ${level}`}
+            text={`LEVEL ${level}`}
             x={250 / 2}
             anchor={0.5}
             y={15}
             style={
               new TextStyle({
                 align: "center",
-                fontFamily: "sans-serif",
-                fontWeight: "200",
-                fontSize: 20,
+                fontFamily: "MedievalSharp",
+                fontSize: 18,
                 fill: ["#ffffff"],
               })
             }
@@ -39,9 +38,8 @@ function Portrait({ position, name, level, img}: any) {
             style={
               new TextStyle({
                 align: "center",
-                fontFamily: "sans-serif",
-                fontWeight: "200",
-                fontSize: 20,
+                fontFamily: "Almendra",
+                fontSize: 22,
                 fill: ["#ffffff"],
               })
             }

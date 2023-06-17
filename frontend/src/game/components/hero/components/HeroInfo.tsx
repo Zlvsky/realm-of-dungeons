@@ -36,15 +36,15 @@ function HeroInfo({ hero }: any) {
             interactive={true}
           />
           <Text
-            text={`Level ${hero.progression.level}`}
-            x={90}
-            y={8}
+            text={`LEVEL ${hero.progression.level}`}
+            anchor={0.5}
+            x={250 / 2}
+            y={20}
             style={
               new TextStyle({
                 align: "center",
-                fontFamily: "sans-serif",
-                fontWeight: "200",
-                fontSize: 24,
+                fontFamily: "MedievalSharp",
+                fontSize: 20,
                 fill: ["#ffffff"],
               })
             }
@@ -58,8 +58,7 @@ function HeroInfo({ hero }: any) {
             style={
               new TextStyle({
                 align: "center",
-                fontFamily: "sans-serif",
-                fontWeight: "200",
+                fontFamily: "MedievalSharp",
                 fontSize: 20,
                 fill: ["#ffffff"],
               })
@@ -72,8 +71,7 @@ function HeroInfo({ hero }: any) {
             style={
               new TextStyle({
                 align: "center",
-                fontFamily: "sans-serif",
-                fontWeight: "200",
+                fontFamily: "MedievalSharp",
                 fontSize: 20,
                 fill: ["#ffffff"],
               })
@@ -86,8 +84,7 @@ function HeroInfo({ hero }: any) {
             style={
               new TextStyle({
                 align: "center",
-                fontFamily: "sans-serif",
-                fontWeight: "200",
+                fontFamily: "MedievalSharp",
                 fontSize: 20,
                 fill: ["#ffffff"],
               })

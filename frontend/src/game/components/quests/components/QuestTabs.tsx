@@ -11,7 +11,7 @@ function QuestTabs({ selectedQuest, setSelectedQuest }: any) {
             return (
               <Container x={350 + index * 252} y={72} key={index}>
                 <Text
-                  x={0}
+                  x={5}
                   y={0}
                   text={el}
                   interactive={true}
@@ -19,17 +19,17 @@ function QuestTabs({ selectedQuest, setSelectedQuest }: any) {
                   style={
                     new TextStyle({
                       align: "center",
-                      fontFamily: "sans-serif",
+                      fontFamily: "MedievalSharp",
+                      letterSpacing: 1,
                       fontSize: 24,
                       fill: ["#BCBCBC"],
                     })
                   }
                   onclick={() => setSelectedQuest(index)}
                 />
-                {selectedQuest === (index) && (
-                    <Sprite image={ArrowIcon} position={[40 , 30]} />
+                {selectedQuest === index && (
+                  <Sprite image={ArrowIcon} position={[40, 30]} />
                 )}
-                
               </Container>
             );
         })}

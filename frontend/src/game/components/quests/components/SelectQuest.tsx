@@ -25,7 +25,7 @@ const IconWithText = ( {text, image, position}: any ) => {
         style={
           new TextStyle({
             align: "center",
-            fontFamily: "sans-serif",
+            fontFamily: "MedievalSharp",
             fontSize: 24,
             fill: ["#BCBCBC"],
             wordWrap: true,
@@ -66,13 +66,14 @@ function SelectQuest({ questsData, updateHero }: any) {
       <Sprite image={QuestsBg} width={1316} height={935} />
       <Graphics draw={questFrame} zIndex={0} />
       <Text
-        x={400}
-        y={72}
+        anchor={0.5}
+        x={1316 / 2}
+        y={100}
         text={"AVAILABLE QUESTS"}
         style={
           new TextStyle({
             align: "center",
-            fontFamily: "sans-serif",
+            fontFamily: "Fondamento",
             fontSize: 56,
             fill: ["#C02E07"],
             dropShadow: true,
@@ -90,7 +91,7 @@ function SelectQuest({ questsData, updateHero }: any) {
         style={
           new TextStyle({
             align: "center",
-            fontFamily: "sans-serif",
+            fontFamily: "Almendra",
             fontSize: 24,
             fill: ["#BCBCBC"],
             wordWrap: true,
@@ -105,8 +106,8 @@ function SelectQuest({ questsData, updateHero }: any) {
         style={
           new TextStyle({
             align: "center",
-            fontFamily: "sans-serif",
-            fontSize: 24,
+            fontFamily: "MedievalSharp",
+            fontSize: 26,
             fill: ["#BCBCBC"],
             wordWrap: true,
             wordWrapWidth: 610,
@@ -125,8 +126,8 @@ function SelectQuest({ questsData, updateHero }: any) {
         style={
           new TextStyle({
             align: "center",
-            fontFamily: "sans-serif",
-            fontSize: 24,
+            fontFamily: "MedievalSharp",
+            fontSize: 26,
             fill: ["#BCBCBC"],
             wordWrap: true,
             wordWrapWidth: 610,

@@ -12,8 +12,8 @@ function Bar({ position, name, value, maxValue }: any) {
         y={0}
         style={
           new TextStyle({
-            align: "center",
-            fontFamily: "sans-serif",
+            align: "left",
+            fontFamily: "MedievalSharp",
             fontWeight: "200",
             fontSize: 16,
             fill: ["#D1D1D1"],

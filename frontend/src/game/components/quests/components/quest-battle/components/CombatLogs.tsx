@@ -39,7 +39,7 @@ const LogText = ({ log, index, previousHeight, setPreviousHeight }: any) => {
           wordWrap: true,
           wordWrapWidth: 370,
           align: "left",
-          fontFamily: "sans-serif",
+          fontFamily: "Almendra",
           fontWeight: "200",
           fontSize: 16,
           fill: ["#ffffff"],
