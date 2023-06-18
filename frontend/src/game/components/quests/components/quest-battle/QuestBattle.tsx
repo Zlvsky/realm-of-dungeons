@@ -83,7 +83,7 @@ function QuestBattle({ hero }: any) {
         />
         <MobSection />
         <HeroSection />
-        <CombatActions />
+        <CombatActions heroValues={hero.heroValuesWithItems} />
         <CombatLogs />
       </Container>
     );
