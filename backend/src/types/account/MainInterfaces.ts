@@ -12,7 +12,7 @@ export interface ICharacter extends mongoose.Document {
     availableStatPoints: number;
   };
   activeQuest: {
-    timeStarted: string | null; 
+    timeStarted: string | null;
     quest: {
       title: string;
       description: string;
@@ -22,6 +22,22 @@ export interface ICharacter extends mongoose.Document {
         gold: number;
         xp: number;
         itemId?: string;
+      };
+    } | null;
+    enemy: {
+      name: string | null;
+      health: number;
+      level: number;
+      damage: number;
+      skills: ISkills[];
+      avatar: string | null;
+      statistics: {
+        strength: number;
+        dexterity: number;
+        condition: number;
+        intelligence: number;
+        wisdom: number;
+        charisma: number;
       };
     } | null;
   };
@@ -97,4 +113,11 @@ export interface IQuest {
     xp: number;
     itemId?: string;
   }
+}
+
+export interface ISkills {
+  skillName: string | null;
+  damage: number | null;
+  cooldown: number;
+  text: string | null;
 }
