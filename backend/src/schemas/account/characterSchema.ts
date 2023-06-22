@@ -83,6 +83,7 @@ const CharacterSchema = new mongoose.Schema({
         health: { type: Number, default: 100 },
         level: { type: Number, default: 1 },
         damage: { type: Number, default: 15 },
+        attackText: {type: String, default: null},
         skills: {
           type: [
             {
