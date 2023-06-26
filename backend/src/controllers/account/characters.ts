@@ -12,7 +12,7 @@ import getNextLevelExperience from "../../gameUtils/characters/getNextLevelExper
 
 const router = express.Router();
 
-const getCharacterWithItemValues = (characterMain: ICharacter) => {
+export const getCharacterWithItemValues = (characterMain: ICharacter) => {
   const character: ICharacter = JSON.parse(JSON.stringify(characterMain));
   let armor = character.heroValues.armor;
   let damage = character.heroValues.damage;

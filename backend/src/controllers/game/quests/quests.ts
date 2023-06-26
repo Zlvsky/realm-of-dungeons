@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import { ICharacter } from "../../../types/account/MainInterfaces";
 import { Character } from "../../../schemas/account/characterSchema";
+import generateEnemy from "../../../gameUtils/quests/generateEnemy";
 
 export const updateActiveQuest = async (req: Request, res: Response) => {
   const { characterId, questId } = req.body;
@@ -54,7 +55,11 @@ export const startQuestBattle = async (req: Request, res: Response) => {
     if (character.activeQuest.quest && character.activeQuest.timeStarted) {
       const now = new Date();
       const questTime = new Date(character.activeQuest.timeStarted);
-      if(now > questTime) character.activeQuest.quest.battleStarted = true;
+      const randomEnemy = generateEnemy(character.progression.level);
+      if(now > questTime) {
+        character.activeQuest.quest.battleStarted = true;
+        character.activeQuest.enemy = randomEnemy;
+      }
     }
     await character.save();
     res.json(character);

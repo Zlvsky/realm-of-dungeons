@@ -3,6 +3,10 @@ import lowAttack from "../../../../../../assets/images/combat/combat-actions/low
 import mediumAttack from "../../../../../../assets/images/combat/combat-actions/medium.png"
 import strongAttack from "../../../../../../assets/images/combat/combat-actions/strong.png"
 import { calcDamage } from '../utils/combatUtils';
+import { questActionAttack } from '../../../../../../client/appClient';
+import fetchHero from '../../../../../../utils/fetchers/fetchHero';
+import { connect } from 'react-redux';
+import { setHero } from '../../../../../../redux/reducers/gameSlice';
 
 interface IAction {
   x: number;
@@ -10,13 +14,12 @@ interface IAction {
   action: any;
 }
 
-function CombatActions({ heroValues }: any) {
-  console.log(heroValues);
-  const performAttack = (chanceToHit: number, powerIndex: number) => {
-    const randomNumber = Math.random() * 100;
-    if (100 - chanceToHit > randomNumber) return console.log("you missed");
-    const damage = calcDamage(heroValues.damage / powerIndex, heroValues.damage);
-    console.log(damage);
+function CombatActions({ heroValues, updateHero }: any) {
+  const performAttack = async (attackPower: "low" | "medium" | "strong") => {
+    const response = await questActionAttack({ attackPower });
+    if (response.status !== 200) return console.log(response.data);
+    fetchHero(updateHero);
+    console.log("success,", response.data);
   };
 
   const ActionButton = ({ x, image, action }: IAction) => {
@@ -47,9 +50,21 @@ function CombatActions({ heroValues }: any) {
 
   return (
     <Container position={[400, 850]}>
-      <ActionButton x={0} image={lowAttack} action={() => performAttack(80, 5)} />
-      <ActionButton x={75} image={mediumAttack} action={() => performAttack(65, 3)} />
-      <ActionButton x={150} image={strongAttack} action={() => performAttack(50, 1.5)} />
+      <ActionButton
+        x={0}
+        image={lowAttack}
+        action={() => performAttack("low")}
+      />
+      <ActionButton
+        x={75}
+        image={mediumAttack}
+        action={() => performAttack("medium")}
+      />
+      <ActionButton
+        x={150}
+        image={strongAttack}
+        action={() => performAttack("strong")}
+      />
       <ActionButton x={225} image={strongAttack} action={""} />
       <ActionButton x={300} image={strongAttack} action={""} />
       <ActionButton x={375} image={strongAttack} action={""} />
@@ -57,4 +72,10 @@ function CombatActions({ heroValues }: any) {
   );
 }
 
-export default CombatActions;
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    updateHero: (data: any) => dispatch(setHero(data)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(CombatActions);

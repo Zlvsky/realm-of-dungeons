@@ -34,15 +34,15 @@ function QuestBattle({ hero }: any) {
         <Bar
           position={[0, 0]}
           name={"Hit points"}
-          value={mockedMob.health}
-          maxValue={mockedMob.maxHealth}
+          value={hero.activeQuest.enemy.health}
+          maxValue={hero.activeQuest.enemy.maxHealth}
         />
         <BattleStats statistics={mockedMob.statistics} position={[0, 150]} />
         <Portrait
           position={[450, 0]}
-          name={mockedMob.name}
-          level={mockedMob.level}
-          img={mockedMob.avatar}
+          name={hero.activeQuest.enemy.name}
+          level={hero.activeQuest.enemy.level}
+          img={hero.activeQuest.enemy.avatar}
         />
       </Container>
     );

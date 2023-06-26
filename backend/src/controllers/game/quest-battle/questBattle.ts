@@ -8,12 +8,40 @@
 import { Request, Response } from "express";
 import { ICharacter } from "../../../types/account/MainInterfaces";
 import { Character } from "../../../schemas/account/characterSchema";
+import { getCharacterWithItemValues } from "../../account/characters";
 
-export const initQuestBattle = async (req: Request, res: Response) => {
-  const { characterId } = req.body;
+export const calcDamage = (min: number, max: number) => {
+  return Math.random() * (max - min) + min;
+};
+
+const getHeroAttackDamage = (heroDamage: number, chanceToHit: number, powerIndex: number) => {
+  const randomNumber = Math.random() * 100;
+  if (100 - chanceToHit > randomNumber) return 0;
+  const damage = calcDamage(heroDamage / powerIndex, heroDamage);
+  return Math.round(damage);
+};
+
+export const characterAttack = async (req: Request, res: Response) => {
+  const { characterId, attackPower } = req.body;
   try {
     const character: ICharacter | null = await Character.findById(characterId);
     if (!character) return res.status(404).json({ message: "Character not found" });
-    // here
-  } catch (err) {}
+    if (!character.activeQuest.enemy) return res.status(404).json({ message: "Enemy not found" });
+    const characterWithItemValues = getCharacterWithItemValues(character);
+
+    let attackDamage;
+    if (attackPower === "low") attackDamage = getHeroAttackDamage(characterWithItemValues.damage, 80, 5);
+    else if (attackPower === "medium") attackDamage = getHeroAttackDamage(characterWithItemValues.damage, 65, 3);
+    else if (attackPower === "strong") attackDamage = getHeroAttackDamage(characterWithItemValues.damage, 50, 1.5);
+    else return res.status(404).json({ message: "Attack not found" });
+
+    if (attackDamage === 0) return res.json("You missed");
+    character.activeQuest.enemy.health -= attackDamage;
+
+    await character.save();
+    return res.json("You dealt " + attackDamage + " damage");
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
+  }
 };

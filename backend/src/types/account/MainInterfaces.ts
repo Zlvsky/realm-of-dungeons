@@ -18,6 +18,7 @@ export interface ICharacter extends mongoose.Document {
       description: string;
       duration: number;
       battleStarted: boolean;
+      whosTurn: 1 | 2;
       rewards: {
         gold: number;
         xp: number;
@@ -27,9 +28,10 @@ export interface ICharacter extends mongoose.Document {
     enemy: {
       name: string | null;
       health: number;
+      maxHealth: number;
       level: number;
       damage: number;
-      skills: ISkills[];
+      skills: ISkills[] | null;
       avatar: string | null;
       statistics: {
         strength: number;
@@ -108,6 +110,7 @@ export interface IQuest {
   description: string;
   duration: number;
   battleStarted: boolean;
+  whosTurn: 1 | 2;
   rewards: {
     gold: number;
     xp: number;

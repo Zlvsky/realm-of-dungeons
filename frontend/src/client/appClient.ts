@@ -15,6 +15,7 @@ import { updateEquipmentToInventoryInterface, updateEquipmentToInventoryService 
 import { updateActiveQuestInterface, updateActiveQuestService } from "./services/game/quests/updateActiveQuestService";
 import { clearActiveQuestService } from "./services/game/quests/clearActiveQuestService";
 import { startQuestBattleService } from "./services/game/quests/startQuestBattleService";
+import { IQuestActionAttack, questActionAttackService } from "./services/game/quests/actions/questActionAttackService";
 
 // REGISTER AND LOGIN
 export async function register(body: signUpInterface) {
@@ -71,4 +72,8 @@ export async function clearActiveQuest() {
 
 export async function startQuestBattle() {
   return await startQuestBattleService();
+}
+
+export async function questActionAttack(body: IQuestActionAttack) {
+  return await questActionAttackService(body);
 }
