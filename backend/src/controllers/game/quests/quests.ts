@@ -20,6 +20,7 @@ export const updateActiveQuest = async (req: Request, res: Response) => {
     }
     character.activeQuest.quest = selectedQuest;
     character.activeQuest.timeStarted = new Date().toISOString();
+    character.activeQuest.textLogs = [];
     await character.save();
     res.json(character);
   } catch (err) {

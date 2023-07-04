@@ -69,7 +69,7 @@ const CharacterSchema = new mongoose.Schema({
         description: { type: String, default: null },
         duration: { type: Number, default: null },
         battleStarted: { type: Boolean, default: false },
-        whosTurn: { type: Number, enum: [1, 2], default: 1},
+        whosTurn: { type: Number, enum: [1, 2], default: 1 },
         rewards: {
           gold: { type: Number, default: null },
           xp: { type: Number, default: null },
@@ -85,7 +85,7 @@ const CharacterSchema = new mongoose.Schema({
         maxHealth: { type: Number, default: 100 },
         level: { type: Number, default: 1 },
         damage: { type: Number, default: 15 },
-        attackText: {type: String, default: null},
+        attackText: { type: String, default: null },
         skills: {
           type: [
             {
@@ -127,6 +127,7 @@ const CharacterSchema = new mongoose.Schema({
       },
       default: null,
     },
+    textLogs: {type: [String], default: []}
   },
   equipment: [
     {

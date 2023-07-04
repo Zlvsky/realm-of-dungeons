@@ -27,6 +27,8 @@ export const characterAttack = async (req: Request, res: Response) => {
     const character: ICharacter | null = await Character.findById(characterId);
     if (!character) return res.status(404).json({ message: "Character not found" });
     if (!character.activeQuest.enemy) return res.status(404).json({ message: "Enemy not found" });
+    if (!character.activeQuest.quest) return res.status(404).json({ message: "Quest not found" });
+    // if (character.activeQuest.quest.whosTurn !== 1) return res.status(404).json({ message: "Not your turn" });
     const characterWithItemValues = getCharacterWithItemValues(character);
 
     let attackDamage;
@@ -35,11 +37,19 @@ export const characterAttack = async (req: Request, res: Response) => {
     else if (attackPower === "strong") attackDamage = getHeroAttackDamage(characterWithItemValues.damage, 50, 1.5);
     else return res.status(404).json({ message: "Attack not found" });
 
-    if (attackDamage === 0) return res.json("You missed");
     character.activeQuest.enemy.health -= attackDamage;
-
+    character.activeQuest.quest.whosTurn = 2;
+    
+    if (attackDamage === 0) {
+      character.activeQuest.textLogs.push("You missed");
+    } else {
+      character.activeQuest.textLogs.push(
+        "You dealt " + attackDamage + " damage"
+      );
+    }
+    
     await character.save();
-    return res.json("You dealt " + attackDamage + " damage");
+    return res.json("success");
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server Error" });

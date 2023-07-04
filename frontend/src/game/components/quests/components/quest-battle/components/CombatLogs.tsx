@@ -3,7 +3,7 @@ import { Container, Graphics, Text } from '@pixi/react';
 import { TextStyle } from 'pixi.js';
 
 interface ICombatLogs {
-    logs?: string[];
+    logs: string[];
 }
 
 const mockedLogs = [
@@ -65,7 +65,7 @@ function CombatLogs({ logs }: ICombatLogs) {
         interactive={true}
       />
       <Container position={[30, 30]}>
-        {mockedLogs.map((log, index) => {
+        {logs.map((log, index) => {
           return (
             <LogText
               key={index}

@@ -42,6 +42,7 @@ export interface ICharacter extends mongoose.Document {
         charisma: number;
       };
     } | null;
+    textLogs: string[];
   };
   availableQuests: [IQuest];
   statistics: {

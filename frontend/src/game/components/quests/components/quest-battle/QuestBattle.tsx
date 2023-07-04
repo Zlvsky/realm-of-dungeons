@@ -27,6 +27,7 @@ const mockedMob = {
 };
 
 function QuestBattle({ hero }: any) {
+  console.log(hero)
 
   const MobSection = () => {
     return (
@@ -72,6 +73,29 @@ function QuestBattle({ hero }: any) {
         );
     }
 
+    const Turn = () => {
+      const whosTurn = hero?.activeQuest.quest.whosTurn === 1 ? "You" : hero?.activeQuest.enemy.name;
+
+      return (
+        <Container position={[500, 380]}>
+          <Text
+            text={`Turn: ${whosTurn}`}
+            y={50}
+            x={250 / 2}
+            anchor={0.5}
+            style={
+              new TextStyle({
+                align: "center",
+                fontFamily: "Almendra",
+                fontSize: 30,
+                fill: ["#BC330C"],
+              })
+            }
+          />
+        </Container>
+      );
+    }
+
 
     return (
       <Container position={[0, 0]}>
@@ -82,9 +106,10 @@ function QuestBattle({ hero }: any) {
           tilePosition={{ x: 0, y: 0 }}
         />
         <MobSection />
+        <Turn />
         <HeroSection />
         <CombatActions heroValues={hero.heroValuesWithItems} />
-        <CombatLogs />
+        <CombatLogs logs={hero.activeQuest.textLogs}/>
       </Container>
     );
 }
