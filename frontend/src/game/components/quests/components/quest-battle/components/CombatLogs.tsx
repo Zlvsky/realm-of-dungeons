@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from "react";
-import { Container, Graphics, Text } from '@pixi/react';
-import { TextStyle } from 'pixi.js';
+import { useState, useCallback, useEffect } from "react";
+import { Container, Graphics, Text } from "@pixi/react";
+import { TextStyle } from "pixi.js";
 
 interface ICombatLogs {
-    logs: string[];
+  logs: string[];
 }
 
 const mockedLogs = [
@@ -19,25 +19,45 @@ const mockedLogs = [
   "Battle ended!!!",
 ];
 
-const LogText = ({ log, index, previousHeight, setPreviousHeight }: any) => {
-  const logRef = useRef<any>();
-  const baseLogSpacing = 40;
-  useEffect(() => {
-    if (logRef.current) {
-      if(previousHeight === undefined) setPreviousHeight((prev: any) => [...prev, 0]);
-      else setPreviousHeight((prev: any) => [...prev, logRef.current.height]);
-    }
-    if (logRef.current) console.log(log, logRef.current.height, previousHeight);
-  }, [logRef]);
+const LogText = ({
+  log,
+  index,
+  height,
+  filteredLogs,
+  setFilteredLogs,
+}: any) => {
+  const measuredRef = useCallback(
+    (node: any) => {
+      if (node !== null) {
+        setFilteredLogs((prevArray: any) =>
+          prevArray.map((item: any, i: number) =>
+            i === index ? { ...item, height: node.height } : item
+          )
+        );
+      }
+    },
+    [log, height]
+  );
+  let baseLogSpacing = 19;
+  let logSpacing = 19;
+  if (index !== 0) {
+    const splicedArray = [...filteredLogs].splice(0, index);
+    const sumOfHeights = splicedArray.reduce(
+      (sum: number, item: any) => sum + (item.height + baseLogSpacing),
+      0
+    );
+    logSpacing = sumOfHeights + baseLogSpacing;
+  }
+
   return (
     <Text
-      ref={logRef}
+      ref={measuredRef}
       text={log}
-      y={(baseLogSpacing * index) + (previousHeight ? previousHeight : 0)}
+      y={logSpacing}
       style={
         new TextStyle({
           wordWrap: true,
-          wordWrapWidth: 370,
+          wordWrapWidth: 300,
           align: "left",
           fontFamily: "Almendra",
           fontWeight: "200",
@@ -50,7 +70,16 @@ const LogText = ({ log, index, previousHeight, setPreviousHeight }: any) => {
 };
 
 function CombatLogs({ logs }: ICombatLogs) {
-  const [previousHeight, setPreviousHeight] = useState([]);
+  const [filteredLogs, setFilteredLogs] = useState<any[]>([]);
+
+  useEffect(() => {
+    const logsWithHeight: any = logs.map((el: string) => ({
+      value: el,
+      height: 19,
+    }));
+    setFilteredLogs(logsWithHeight.slice(-10));
+  }, [logs]);
+
   return (
     <Container position={[880, 100]}>
       <Graphics
@@ -65,14 +94,15 @@ function CombatLogs({ logs }: ICombatLogs) {
         interactive={true}
       />
       <Container position={[30, 30]}>
-        {logs.map((log, index) => {
+        {filteredLogs.map((log, index) => {
           return (
             <LogText
-              key={index}
-              log={log}
+              key={index + log}
+              log={log.value}
               index={index}
-              setPreviousHeight={setPreviousHeight}
-              previousHeight={previousHeight[index - 1]}
+              filteredLogs={filteredLogs}
+              setFilteredLogs={setFilteredLogs}
+              height={log.height}
             />
           );
         })}
