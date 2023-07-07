@@ -55,13 +55,13 @@ function QuestBattle({ hero }: any) {
             <Bar
               position={[0, 0]}
               name={"Hit points"}
-              value={hero.heroValues.health - 50}
+              value={hero.heroValues.currentHealth}
               maxValue={hero.heroValues.health}
             />
             <Bar
               position={[0, 70]}
               name={"Mana"}
-              value={hero.heroValues.mana - 50}
+              value={hero.heroValues.currentMana}
               maxValue={hero.heroValues.mana}
             />
             <BattleStats

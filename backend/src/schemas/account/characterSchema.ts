@@ -152,7 +152,17 @@ const CharacterSchema = new mongoose.Schema({
       required: true,
       default: 100,
     },
+    currentHealth: {
+      type: Number,
+      required: true,
+      default: 100,
+    },
     mana: {
+      type: Number,
+      required: true,
+      default: 100,
+    },
+    currentMana: {
       type: Number,
       required: true,
       default: 100,

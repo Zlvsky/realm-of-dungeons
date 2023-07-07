@@ -28,6 +28,7 @@ export interface ICharacter extends mongoose.Document {
     enemy: {
       name: string | null;
       health: number;
+      attackText: number;
       maxHealth: number;
       level: number;
       damage: number;
@@ -69,6 +70,8 @@ export interface ICharacter extends mongoose.Document {
   heroValues: {
     gold: number;
     health: number;
+    currentHealth: number;
+    currentMana: number;
     mana: number;
     armor: number;
     damage: number;

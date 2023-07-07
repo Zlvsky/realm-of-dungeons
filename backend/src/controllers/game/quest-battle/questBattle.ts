@@ -9,17 +9,7 @@ import { Request, Response } from "express";
 import { ICharacter } from "../../../types/account/MainInterfaces";
 import { Character } from "../../../schemas/account/characterSchema";
 import { getCharacterWithItemValues } from "../../account/characters";
-
-export const calcDamage = (min: number, max: number) => {
-  return Math.random() * (max - min) + min;
-};
-
-const getHeroAttackDamage = (heroDamage: number, chanceToHit: number, powerIndex: number) => {
-  const randomNumber = Math.random() * 100;
-  if (100 - chanceToHit > randomNumber) return 0;
-  const damage = calcDamage(heroDamage / powerIndex, heroDamage);
-  return Math.round(damage);
-};
+import { getAttackDamage } from "../../../utils/getAttackDamage";
 
 export const characterAttack = async (req: Request, res: Response) => {
   const { characterId, attackPower } = req.body;
@@ -32,9 +22,9 @@ export const characterAttack = async (req: Request, res: Response) => {
     const characterWithItemValues = getCharacterWithItemValues(character);
 
     let attackDamage;
-    if (attackPower === "low") attackDamage = getHeroAttackDamage(characterWithItemValues.damage, 80, 5);
-    else if (attackPower === "medium") attackDamage = getHeroAttackDamage(characterWithItemValues.damage, 65, 3);
-    else if (attackPower === "strong") attackDamage = getHeroAttackDamage(characterWithItemValues.damage, 50, 1.5);
+    if (attackPower === "low") attackDamage = getAttackDamage(characterWithItemValues.damage, 80, 5);
+    else if (attackPower === "medium") attackDamage = getAttackDamage(characterWithItemValues.damage, 65, 3);
+    else if (attackPower === "strong") attackDamage = getAttackDamage(characterWithItemValues.damage, 50, 1.5);
     else return res.status(404).json({ message: "Attack not found" });
 
     character.activeQuest.enemy.health -= attackDamage;
