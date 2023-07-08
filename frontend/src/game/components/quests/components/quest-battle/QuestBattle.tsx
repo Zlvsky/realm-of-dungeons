@@ -7,6 +7,11 @@ import Bar from "./components/Bar";
 import Portrait from "./components/Portrait";
 import CombatActions from "./components/CombatActions";
 import CombatLogs from "./components/CombatLogs";
+import { questEnemyTurn } from "../../../../../client/appClient";
+import { setHero } from "../../../../../redux/reducers/gameSlice";
+import { connect } from "react-redux";
+import fetchHero from "../../../../../utils/fetchers/fetchHero";
+import BattleEndPopup from "./components/BattleEndPopup";
 
 const mockedMob = {
   avatar: "https://i.ibb.co/LgfgW8D/mage.png",
@@ -26,8 +31,29 @@ const mockedMob = {
   maxDamage: 20
 };
 
-function QuestBattle({ hero }: any) {
-  console.log(hero)
+
+
+function QuestBattle({ hero, updateHero }: any) {
+  const [battleWinner, setBattleWinner] = useState<1 | 2 | null>(null);
+
+  const handleEnemyTurn = async () => {
+  const response = await questEnemyTurn();
+  if (response.status !== 200) return console.log(response);
+  fetchHero(updateHero);
+  console.log("success", response.data);
+}
+  
+  useEffect(() => {
+    if (hero.activeQuest.quest.battleWinner) {
+      setBattleWinner(hero.activeQuest.quest.battleWinner);
+    }
+    else if(hero.activeQuest.quest.whosTurn === 2) {
+      setTimeout(() => {
+        handleEnemyTurn();
+      }, 1000)
+    }
+  }, [hero]);
+
 
   const MobSection = () => {
     return (
@@ -109,9 +135,16 @@ function QuestBattle({ hero }: any) {
         <Turn />
         <HeroSection />
         <CombatActions heroValues={hero.heroValuesWithItems} />
-        <CombatLogs logs={hero.activeQuest.textLogs}/>
+        <CombatLogs logs={hero.activeQuest.textLogs} />
+        {battleWinner && <BattleEndPopup battleWinner={battleWinner} rewards={hero.activeQuest.quest.rewards}/>}
       </Container>
     );
 }
 
-export default QuestBattle;
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    updateHero: (data: any) => dispatch(setHero(data)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(QuestBattle);

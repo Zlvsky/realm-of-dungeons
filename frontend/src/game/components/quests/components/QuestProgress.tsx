@@ -50,16 +50,16 @@ function QuestProgress({ activeQuest, setBattleStarted, updateHero }: any) {
 
   const handleEnterBattleRequest = async () => {
     const response = await startQuestBattle();
-    if (response.status !== 200) return console.log(response.data);
+    if (response.status !== 200) return false;
     fetchHero(updateHero);
-    console.log("success,", response.data);
+    return true;
   };
 
-  const enterBattle = () => {
+  const enterBattle = async () => {
     const questReady = isQuestReady(activeQuest.timeStarted);
     if (questReady) {
-      handleEnterBattleRequest();
-      setBattleStarted(true);
+      const isQuestReady = await handleEnterBattleRequest();
+      if (isQuestReady) setBattleStarted(true);
     }
   };
 

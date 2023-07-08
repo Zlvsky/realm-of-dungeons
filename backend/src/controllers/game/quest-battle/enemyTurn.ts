@@ -1,35 +1,57 @@
 import { Request, Response } from "express";
 import { getAttackDamage } from "../../../utils/getAttackDamage";
-import { ICharacter } from "../../../types/account/MainInterfaces";
 import { Character } from "../../../schemas/account/characterSchema";
+import { getCharacterWithItemValues } from "../../account/characters";
 
 export const enemyTurn = async (req: Request, res: Response) => {
-  const { characterId }: { characterId: string } = req.body;
+  const { characterId } = req.body;
   try {
-    const character: ICharacter | null = await Character.findById(characterId);
+    const character = await Character.findById(characterId)
+      .populate({
+        path: "equipment.item",
+        model: "Item",
+      })
+      .exec();
+
     if (!character)
       return res.status(404).json({ message: "Character not found" });
-    const enemy = character?.activeQuest.enemy;
+
+    const { activeQuest } = character;
+    const enemy = activeQuest?.enemy;
+    const quest = activeQuest?.quest;
+
     if (!enemy) return res.status(404).json({ message: "Enemy not found" });
-    if (!character.activeQuest.quest)
-      return res.status(404).json({ message: "Quest not found" });
+    if (!quest) return res.status(404).json({ message: "Quest not found" });
+    if (quest.whosTurn !== 2) return res.status(404).json({ message: "Not enemy turn" });
+    if (quest.battleWinner) return res.status(404).json({ message: "Battle already ended" });
 
-    const enemyDamage = getAttackDamage(enemy.damage, 70, 1);
+    const characterWithItemValues = getCharacterWithItemValues(character);
+    const enemyDamage = getAttackDamage(
+      enemy.damage,
+      70,
+      2,
+      characterWithItemValues.armor
+    );
+
     character.heroValues.currentHealth -= enemyDamage;
-    character.activeQuest.quest.whosTurn = 1;
+    
 
-     if (enemyDamage === 0) {
-       character.activeQuest.textLogs.push(`- ${enemy.name} missed attack`);
-     } else {
-       character.activeQuest.textLogs.push(
-        `- ${enemy.attackText}  " " ${enemyDamage}`
-       );
-     }
+    if (enemyDamage === 0) {
+      activeQuest.textLogs.push(`- ${enemy.name} missed attack`);
+    } else {
+      activeQuest.textLogs.push(`- ${enemy.attackText} ${enemyDamage} damage`);
+    }
 
-     await character.save();
-     return res.json("success");
+    if(character.heroValues.currentHealth <= 0) {
+      quest.battleWinner = 2;
+    } else {
+      quest.whosTurn = 1;
+    }
+
+    await character.save();
+    return res.json("success");
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Server Error" });
+    return res.status(500).json({ message: "Server Error" });
   }
 };

@@ -14,6 +14,7 @@ const router = express.Router();
 
 export const getCharacterWithItemValues = (characterMain: ICharacter) => {
   const character: ICharacter = JSON.parse(JSON.stringify(characterMain));
+  console.log(character)
   let armor = character.heroValues.armor;
   let damage = character.heroValues.damage;
   const statistics: any = character.statistics;
