@@ -113,7 +113,7 @@ function SelectQuest({ questsData, updateHero }: any) {
         }
       />
       <IconWithText
-        text={questsData[selectedQuest].rewards.gold / 100}
+        text={questsData[selectedQuest].rewards.gold}
         image={GoldIcon}
         position={[350, 680]}
       />

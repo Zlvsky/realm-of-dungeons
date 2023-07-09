@@ -3,7 +3,7 @@ import { Stage, Container, Sprite, Text, Graphics } from "@pixi/react";
 import { TextStyle } from 'pixi.js';
 
 function HeroInfo({ hero }: any) {
-    const levelPercentage = Math.floor(((hero.progression.experience - hero.progression.previousLevelExperience) / (hero.progression.levelExperience - hero.progression.previousLevelExperience)) * 100);
+    const levelPercentage = ((hero.progression.experience - hero.progression.previousLevelExperience) / (hero.progression.levelExperience - hero.progression.previousLevelExperience));
     return (
       <Container position={[120, 0]}>
         <Sprite
@@ -30,7 +30,7 @@ function HeroInfo({ hero }: any) {
             draw={(g) => {
               g.clear();
               g.beginFill(0x751400);
-              g.drawRect(0, 0, levelPercentage, 38);
+              g.drawRect(0, 0, 248 * levelPercentage, 38);
               g.endFill();
             }}
             interactive={true}
@@ -52,7 +52,7 @@ function HeroInfo({ hero }: any) {
         </Container>
         <Container position={[0, 310]}>
           <Text
-            text={`Hit points: ${hero.heroValues.health}`}
+            text={`Hit points: ${hero.heroValues.currentHealth} / ${hero.heroValues.health}`}
             x={0}
             y={0}
             style={

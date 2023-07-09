@@ -5,7 +5,7 @@ export const questEnemies = [
     level: 1,
     health: 130,
     maxHealth: 130,
-    damage: 15,
+    damage: 7,
     attackText: "Zombie lunges at you, dealing ",
     statistics: {
       strength: 15,
@@ -23,7 +23,7 @@ export const questEnemies = [
     level: 1,
     health: 120,
     maxHealth: 120,
-    damage: 15,
+    damage: 7,
     attackText: "Ghoul decaying claws, slicing towards you, dealing ",
     statistics: {
       strength: 13,
@@ -41,7 +41,7 @@ export const questEnemies = [
     level: 1,
     health: 100,
     maxHealth: 100,
-    damage: 17,
+    damage: 10,
     attackText: "Skeleton raises his sword, slicing towards you, dealing ",
     statistics: {
       strength: 16,
@@ -59,7 +59,7 @@ export const questEnemies = [
     level: 1,
     health: 120,
     maxHealth: 120,
-    damage: 14,
+    damage: 8,
     attackText: "Giant Spider sinking its fangs into your flesh, dealing ",
     statistics: {
       strength: 12,
@@ -77,7 +77,7 @@ export const questEnemies = [
     level: 1,
     health: 100,
     maxHealth: 100,
-    damage: 15,
+    damage: 9,
     attackText:
       "Goblin hurls a barrage of razor-sharp daggers in your direction, dealing ",
     statistics: {
@@ -96,7 +96,7 @@ export const questEnemies = [
     level: 1,
     health: 130,
     maxHealth: 130,
-    damage: 13,
+    damage: 7,
     attackText:
       "Orc charges forward with brute force, swinging its axe, dealing ",
     statistics: {
@@ -115,7 +115,7 @@ export const questEnemies = [
     level: 1,
     health: 150,
     maxHealth: 150,
-    damage: 10,
+    damage: 5,
     attackText:
       "Werewolf's ferocious jaws clamp down on your shoulder, dealing ",
     statistics: {
@@ -134,7 +134,7 @@ export const questEnemies = [
     level: 1,
     health: 140,
     maxHealth: 140,
-    damage: 13,
+    damage: 6,
     attackText:
       "Vampire sinking its fangs into your neck, draining your life force and dealing",
     statistics: {

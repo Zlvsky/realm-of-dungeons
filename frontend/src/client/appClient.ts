@@ -17,6 +17,7 @@ import { clearActiveQuestService } from "./services/game/quests/clearActiveQuest
 import { startQuestBattleService } from "./services/game/quests/startQuestBattleService";
 import { IQuestActionAttack, questActionAttackService } from "./services/game/quests/actions/questActionAttackService";
 import { enemyTurnService } from "./services/game/quests/enemy/enemyTurnService";
+import { questBattleEndService } from "./services/game/quests/questBattleEndService";
 
 // REGISTER AND LOGIN
 export async function register(body: signUpInterface) {
@@ -81,4 +82,8 @@ export async function questActionAttack(body: IQuestActionAttack) {
 
 export async function questEnemyTurn() {
   return await enemyTurnService();
+}
+
+export async function questBattleEnd() {
+  return await questBattleEndService();
 }

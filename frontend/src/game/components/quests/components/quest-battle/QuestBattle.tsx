@@ -12,6 +12,7 @@ import { setHero } from "../../../../../redux/reducers/gameSlice";
 import { connect } from "react-redux";
 import fetchHero from "../../../../../utils/fetchers/fetchHero";
 import BattleEndPopup from "./components/BattleEndPopup";
+import { questBattleEndService } from "../../../../../client/services/game/quests/questBattleEndService";
 
 const mockedMob = {
   avatar: "https://i.ibb.co/LgfgW8D/mage.png",
@@ -42,6 +43,13 @@ function QuestBattle({ hero, updateHero }: any) {
   fetchHero(updateHero);
   console.log("success", response.data);
 }
+
+  const handleBattleEnd = async () => {
+    const response = await questBattleEndService();
+    if (response.status !== 200) return console.log(response);
+    fetchHero(updateHero);
+    console.log("success");
+  }
   
   useEffect(() => {
     if (hero.activeQuest.quest.battleWinner) {
@@ -136,7 +144,13 @@ function QuestBattle({ hero, updateHero }: any) {
         <HeroSection />
         <CombatActions heroValues={hero.heroValuesWithItems} />
         <CombatLogs logs={hero.activeQuest.textLogs} />
-        {battleWinner && <BattleEndPopup battleWinner={battleWinner} rewards={hero.activeQuest.quest.rewards}/>}
+        {battleWinner && (
+          <BattleEndPopup
+            battleWinner={battleWinner}
+            rewards={hero.activeQuest.quest.rewards}
+            handleBattleEnd={handleBattleEnd}
+          />
+        )}
       </Container>
     );
 }
