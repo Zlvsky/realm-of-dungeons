@@ -14,26 +14,6 @@ import fetchHero from "../../../../../utils/fetchers/fetchHero";
 import BattleEndPopup from "./components/BattleEndPopup";
 import { questBattleEndService } from "../../../../../client/services/game/quests/questBattleEndService";
 
-const mockedMob = {
-  avatar: "https://i.ibb.co/LgfgW8D/mage.png",
-  statistics: {
-    "strength": 8,
-    "dexterity": 6,
-    "condition": 9,
-    "intelligence": 14,
-    "wisdom": 12,
-    "charisma": 8
-},
-  health: 180,
-  maxHealth: 200,
-  level: 1,
-  name: "Dark mage",
-  minDamage: 10,
-  maxDamage: 20
-};
-
-
-
 function QuestBattle({ hero, updateHero }: any) {
   const [battleWinner, setBattleWinner] = useState<1 | 2 | null>(null);
 
@@ -72,7 +52,10 @@ function QuestBattle({ hero, updateHero }: any) {
           value={hero.activeQuest.enemy.health}
           maxValue={hero.activeQuest.enemy.maxHealth}
         />
-        <BattleStats statistics={mockedMob.statistics} position={[0, 150]} />
+        <BattleStats
+          statistics={hero.activeQuest.enemy.statistics}
+          position={[0, 150]}
+        />
         <Portrait
           position={[450, 0]}
           name={hero.activeQuest.enemy.name}

@@ -19,7 +19,7 @@ const isQuestReady = (questTime: string) => {
 };
 
 
-function QuestProgress({ activeQuest, setBattleStarted, updateHero }: any) {
+function QuestProgress({ activeQuest, updateHero }: any) {
   const [futureTime, setFutureTime] = useState<any>(null);
   const [timeRemaining, setTimeRemaining] = useState<any>(null);
 
@@ -58,8 +58,7 @@ function QuestProgress({ activeQuest, setBattleStarted, updateHero }: any) {
   const enterBattle = async () => {
     const questReady = isQuestReady(activeQuest.timeStarted);
     if (questReady) {
-      const isQuestReady = await handleEnterBattleRequest();
-      if (isQuestReady) setBattleStarted(true);
+      handleEnterBattleRequest();
     }
   };
 
