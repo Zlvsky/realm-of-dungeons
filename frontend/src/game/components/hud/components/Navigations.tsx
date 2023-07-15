@@ -32,6 +32,16 @@ function Navigations() {
           cursor={"pointer"}
           onclick={() => changeStage("hero")}
         />
+        <Sprite
+          image={heroBtn}
+          width={150}
+          height={120}
+          x={0}
+          y={240}
+          interactive={true}
+          cursor={"pointer"}
+          onclick={() => changeStage("temple")}
+        />
       </Container>
     );
 }

@@ -205,6 +205,13 @@ const CharacterSchema = new mongoose.Schema({
       required: true,
     },
   },
+  extras: {
+    availableHeals: {
+      type: Number,
+      enum: [0, 1, 2],
+      default: 2
+    },
+  }
 });
 
 export const Character = mongoose.model<ICharacter>(

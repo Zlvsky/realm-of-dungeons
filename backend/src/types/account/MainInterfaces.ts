@@ -78,6 +78,9 @@ export interface ICharacter extends mongoose.Document {
     damage: number;
   };
   heroValuesWithItems?: any;
+  extras: {
+    availableHeals: number,
+  };
 }
 
 export interface IUser extends Document {
