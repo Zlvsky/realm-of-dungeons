@@ -11,9 +11,18 @@ export const templeHealing = async (req: Request, res: Response) => {
 
     if (character.extras.availableHeals === 0)
       return res.status(404).json({ message: "All available heals were used" });
+    if ((character.heroValues.currentHealth === character.heroValues.health))
+      return res.status(404).json({ message: "You have full health" });
 
+    if (!character.extras.healRenewDate) {
+      var nextDay = new Date();
+      nextDay.setDate(nextDay.getDate() + 1);
+      character.extras.healRenewDate = nextDay.toISOString();
+    }
+    
     character.heroValues.currentHealth = character.heroValues.health;
     character.extras.availableHeals -= 1;
+
 
     await character.save();
     return res.json("success");

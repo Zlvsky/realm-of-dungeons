@@ -211,6 +211,10 @@ const CharacterSchema = new mongoose.Schema({
       enum: [0, 1, 2],
       default: 2
     },
+    healRenewDate: {
+      type: String,
+      default: null,
+    }
   }
 });
 

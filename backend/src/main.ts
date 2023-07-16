@@ -13,6 +13,8 @@ import { clearActiveQuest, startQuestBattle, updateActiveQuest } from "./control
 import { characterAttack } from "./controllers/game/quest-battle/questBattle";
 import { enemyTurn } from "./controllers/game/quest-battle/enemyTurn";
 import { questBattleEnd } from "./controllers/game/quest-battle/questBattleEnd";
+import { templeHealing } from "./controllers/game/temple/templeHealing";
+import { templeHealRenew } from "./controllers/game/temple/templeHealRenew";
 
 const uri = process.env.MONGO_CONNECTION_URL;
 if(!uri) throw new Error(".env file is not created")
@@ -66,6 +68,11 @@ app.post("/quest/startQuestBattle", startQuestBattle);
 app.post("/quest/action/attack", characterAttack);
 app.post("/quest/enemyTurn", enemyTurn);
 app.post("/quest/battleEnd", questBattleEnd);
+
+// TEMPLE
+
+app.post("/temple/heal", templeHealing);
+app.post("/temple/renew", templeHealRenew);
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {

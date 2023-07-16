@@ -79,7 +79,8 @@ export interface ICharacter extends mongoose.Document {
   };
   heroValuesWithItems?: any;
   extras: {
-    availableHeals: number,
+    availableHeals: number;
+    healRenewDate: string | null;
   };
 }
 

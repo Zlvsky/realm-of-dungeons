@@ -1,10 +1,16 @@
-import React, { useState, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Container, Sprite, Graphics, Text } from "@pixi/react";
 import { connect } from "react-redux";
 
 import templebg from "../../../assets/images/game-world/temple.png";
 import healbtn from "../../../assets/images/healbtn.png";
 import { TextStyle } from "pixi.js";
+import { templeHeal, templeRenew } from "../../../client/appClient";
+import { setHero } from "../../../redux/reducers/gameSlice";
+import fetchHero from "../../../utils/fetchers/fetchHero";
+import secondsRemaining from "../../../utils/calculations/secondsRemaining";
+import secondsToTime from "../../../utils/parsing-data/secondsToTime";
+import secondsToTimeHours from "../../../utils/parsing-data/secondsToTimeHours";
 
 const canvasWidth = 1316;
 const canvasHeight = 937;
@@ -12,15 +18,45 @@ const rectWidth = 500;
 const rectHeight = 560;
 
 
-function Temple({ game }: any) {
+function Temple({ game, updateHero }: any) {
   const hero = game.hero;
+  const [timeRemaining, setTimeRemaining] = useState<any>(null);
   const startX = (canvasWidth - rectWidth) / 2;
   const startY = (canvasHeight - rectHeight) / 2;
-   const percentage = Math.floor(
-     (hero.heroValues.currentHealth / hero.heroValues.health) * 360
-   );
-   const barColor = 0x932424;
+  const percentage = Math.floor(
+    (hero.heroValues.currentHealth / hero.heroValues.health) * 360
+  );
+  const barColor = 0x932424;
 
+  function calculateRemainingTime() {
+    return new Promise<void>((resolve) => {
+      const checkTimeRemaining = () => {
+        const secondsLeft = secondsRemaining(hero.extras.healRenewDate);
+        if (secondsLeft < 0) {
+          setTimeRemaining("00:00:00");
+          resolve();
+        } else {
+          setTimeRemaining(secondsToTimeHours(secondsLeft));
+          setTimeout(checkTimeRemaining, 1000); // check again in 100ms
+        }
+      };
+      checkTimeRemaining();
+    });
+  }
+
+  useEffect(() => {
+    const handleTempleRenewRequest = async () => {
+      const response = await templeRenew();
+      if (response.status !== 200) return false;
+      fetchHero(updateHero);
+      return true;
+    };
+    handleTempleRenewRequest();
+  }, []);
+
+  useEffect(() => {
+    if (hero.extras.healRenewDate) calculateRemainingTime();
+  }, [hero])
 
   const questFrame = useCallback((g: any) => {
     g.clear();
@@ -37,9 +73,14 @@ function Temple({ game }: any) {
     g.endFill();
   }, []);
 
-  const handleTempleHealRequest = () => {
+  const handleTempleHealRequest = async () => {
+    const response = await templeHeal();
+    if (response.status !== 200) return false;
+    fetchHero(updateHero);
+    return true;
+  };
 
-  }
+  
 
   return (
     <Container position={[0, 2]}>
@@ -98,7 +139,11 @@ function Temple({ game }: any) {
             }}
           />
           <Text
-            text={`You can draw holy healing water from the magical fountain located in the middle of the temple to heal your wounds`}
+            text={`${
+              hero.extras.availableHeals === 0
+                ? "You have to wait before you can draw holy water from the magic fountain again"
+                : "You can draw holy healing water from the magical fountain located in the middle of the temple to heal your wounds"
+            }`}
             x={0}
             y={50}
             style={
@@ -114,6 +159,23 @@ function Temple({ game }: any) {
             }
           />
         </Container>
+        {hero.extras.healRenewDate && (
+          <Text
+            anchor={0.5}
+            x={rectWidth / 2}
+            y={420}
+            text={timeRemaining}
+            style={
+              new TextStyle({
+                align: "center",
+                fontFamily: "MedievalSharp",
+                fontSize: 22,
+                letterSpacing: 1,
+                fill: ["#ffffff"],
+              })
+            }
+          />
+        )}
         <Sprite
           image={healbtn}
           width={150}
@@ -146,4 +208,10 @@ function Temple({ game }: any) {
 }
 const mapStateToProps = ({ game }: any) => ({ game });
 
-export default connect(mapStateToProps)(Temple);
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    updateHero: (data: any) => dispatch(setHero(data)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Temple);

@@ -18,6 +18,8 @@ import { startQuestBattleService } from "./services/game/quests/startQuestBattle
 import { IQuestActionAttack, questActionAttackService } from "./services/game/quests/actions/questActionAttackService";
 import { enemyTurnService } from "./services/game/quests/enemy/enemyTurnService";
 import { questBattleEndService } from "./services/game/quests/questBattleEndService";
+import { templeHealService } from "./services/game/temple/templeHealService";
+import { templeRenewService } from "./services/game/temple/templeRenewService";
 
 // REGISTER AND LOGIN
 export async function register(body: signUpInterface) {
@@ -86,4 +88,14 @@ export async function questEnemyTurn() {
 
 export async function questBattleEnd() {
   return await questBattleEndService();
+}
+
+// TEMPLE
+
+export async function templeHeal() {
+  return await templeHealService();
+}
+
+export async function templeRenew() {
+  return await templeRenewService();
 }
