@@ -20,6 +20,7 @@ import { enemyTurnService } from "./services/game/quests/enemy/enemyTurnService"
 import { questBattleEndService } from "./services/game/quests/questBattleEndService";
 import { templeHealService } from "./services/game/temple/templeHealService";
 import { templeRenewService } from "./services/game/temple/templeRenewService";
+import { IUpdateStatistics, updateStatisticsService } from "./services/game/hero/updateStatisticsService";
 
 // REGISTER AND LOGIN
 export async function register(body: signUpInterface) {
@@ -62,6 +63,10 @@ export async function updateEquipmentToInventory(
   body: updateEquipmentToInventoryInterface
 ) {
   return await updateEquipmentToInventoryService(body);
+}
+
+export async function updateStatistics(body: IUpdateStatistics) {
+  return await updateStatisticsService(body);
 }
 
 // QUESTS

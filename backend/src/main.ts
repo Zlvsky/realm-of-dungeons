@@ -15,6 +15,7 @@ import { enemyTurn } from "./controllers/game/quest-battle/enemyTurn";
 import { questBattleEnd } from "./controllers/game/quest-battle/questBattleEnd";
 import { templeHealing } from "./controllers/game/temple/templeHealing";
 import { templeHealRenew } from "./controllers/game/temple/templeHealRenew";
+import { updateStatistics } from "./controllers/game/hero/statistics/updateStatistics";
 
 const uri = process.env.MONGO_CONNECTION_URL;
 if(!uri) throw new Error(".env file is not created")
@@ -48,9 +49,13 @@ app.get("/user/getUserCharacters", getUserCharacters);
 
 // HERO ACTIONS
 
+// -- EQUIPMENT AND INVENTORY
 app.post("/hero/equipment/update", updateInventoryToEquipment);
 app.post("/hero/inventory/update", updateInventory);
 app.post("/hero/equipmenttoinventory/update", updateEquipmentToInventory);
+
+// -- STATISTICS
+app.post("/hero/update/statistics", updateStatistics);
 
 // ITEMS ACTIONS
 

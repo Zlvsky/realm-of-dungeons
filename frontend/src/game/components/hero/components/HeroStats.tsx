@@ -2,23 +2,40 @@ import { ColorMatrixFilter, Filter } from "pixi.js";
 import { Container, Sprite, Text, withFilters } from "@pixi/react";
 import { TextStyle } from "pixi.js";
 import plusbtn from "../../../../assets/images/plusbtn.png";
-import React from "react";
+import { updateStatistics } from "../../../../client/appClient";
+import { setHero } from "../../../../redux/reducers/gameSlice";
+import { connect } from "react-redux";
+import fetchHero from "../../../../utils/fetchers/fetchHero";
+
+type Statistic = "strength" | "dexterity" | "intelligence" | "condition" | "wisdom" | "charisma";
 
 interface ISingleStat {
   position: [number, number];
-  stat: string;
+  stat: Statistic
   col: number;
 }
-
 
 const Filters: any = withFilters(Container, {
   matrix: ColorMatrixFilter,
 });
 
-function HeroStats({ hero }: any) {
+function HeroStats({ hero, updateHero }: any) {
+  const updateStatistic = async (
+    statistic: Statistic
+  ) => {
+    const response = await updateStatistics({ statistic });
+    if (response.status !== 200) return false;
+    fetchHero(updateHero);
+    return true;
+  };
+
   const SingleStat = ({ position, stat, col }: ISingleStat) => {
     const isAvailable = hero.progression.availableStatPoints > 0;
- 
+
+    const handleUpdate = (statistic: Statistic) => {
+      if (isAvailable) updateStatistic(statistic);
+    }
+
     return (
       <Container position={position}>
         <Text
@@ -64,7 +81,7 @@ function HeroStats({ hero }: any) {
             y={-14}
             cursor={isAvailable ? "pointer" : "normal"}
             interactive={true}
-            //   onclick={() => changeStage("quests")}
+            onclick={() => handleUpdate(stat)}
           />
         </Filters>
       </Container>
@@ -83,4 +100,10 @@ function HeroStats({ hero }: any) {
   );
 }
 
-export default HeroStats;
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    updateHero: (data: any) => dispatch(setHero(data)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(HeroStats);
