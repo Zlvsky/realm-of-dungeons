@@ -9,6 +9,7 @@ import initInventory from "../../gameUtils/initValues/initInventory";
 import { ICharacter } from "../../types/account/MainInterfaces";
 import generateQuests from "../../gameUtils/quests/generateQuests";
 import getNextLevelExperience from "../../gameUtils/characters/getNextLevelExperience";
+import getValuesWithStatistics from "../../gameUtils/characters/getValuesWithStatistics";
 
 const router = express.Router();
 
@@ -102,6 +103,7 @@ export const getCharacterById = async (req: Request, res: Response) => {
   const hero: ICharacter = JSON.parse(JSON.stringify(character));
   const characterWithItemValues = getCharacterWithItemValues(hero);
   hero.heroValuesWithItems = characterWithItemValues;
+  getValuesWithStatistics(hero);
   
   res.status(200).json(hero);
 };

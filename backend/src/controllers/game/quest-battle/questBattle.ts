@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Character } from "../../../schemas/account/characterSchema";
 import { getCharacterWithItemValues } from "../../account/characters";
 import { getAttackDamage } from "../../../utils/getAttackDamage";
+import getValuesWithStatistics from "../../../gameUtils/characters/getValuesWithStatistics";
 
 export const characterAttack = async (req: Request, res: Response) => {
   const { characterId, attackPower } = req.body;
@@ -30,17 +31,19 @@ export const characterAttack = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "Battle already ended" });
 
     const characterWithItemValues = getCharacterWithItemValues(character);
+    character.heroValuesWithItems = characterWithItemValues;
+    getValuesWithStatistics(character);
     let attackDamage;
 
     switch (attackPower) {
       case "low":
-        attackDamage = getAttackDamage(characterWithItemValues.damage, 80, 5);
+        attackDamage = getAttackDamage(character.heroValuesWithItems.damage, 80, 5);
         break;
       case "medium":
-        attackDamage = getAttackDamage(characterWithItemValues.damage, 65, 3);
+        attackDamage = getAttackDamage(character.heroValuesWithItems.damage, 65, 3);
         break;
       case "strong":
-        attackDamage = getAttackDamage(characterWithItemValues.damage, 50, 1.5);
+        attackDamage = getAttackDamage(character.heroValuesWithItems.damage, 50, 1.5);
         break;
       default:
         return res.status(404).json({ message: "Attack not found" });

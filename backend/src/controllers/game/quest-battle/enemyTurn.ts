@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { getAttackDamage } from "../../../utils/getAttackDamage";
 import { Character } from "../../../schemas/account/characterSchema";
 import { getCharacterWithItemValues } from "../../account/characters";
+import getValuesWithStatistics from "../../../gameUtils/characters/getValuesWithStatistics";
 
 export const enemyTurn = async (req: Request, res: Response) => {
   const { characterId } = req.body;
@@ -26,6 +27,8 @@ export const enemyTurn = async (req: Request, res: Response) => {
     if (quest.battleWinner) return res.status(404).json({ message: "Battle already ended" });
 
     const characterWithItemValues = getCharacterWithItemValues(character);
+    character.heroValuesWithItems = characterWithItemValues;
+    getValuesWithStatistics(character);
     const enemyDamage = getAttackDamage(
       enemy.damage,
       70,
