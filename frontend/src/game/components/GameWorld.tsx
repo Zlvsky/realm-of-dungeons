@@ -1,10 +1,10 @@
-import React from 'react';
 import { Container } from "@pixi/react";
-import Hero from './hero/Hero';
-import Quests from './quests/Quests';
 import { useSelector } from 'react-redux';
 import { getCurrentStage, getGameDimensions } from '../../redux/reducers/gameSlice';
+import Hero from './hero/Hero';
+import Quests from './quests/Quests';
 import Temple from './temple/Temple';
+import Merchants from './merchants/Merchants';
 
 function GameWorld() {
   const dimensions = useSelector(getGameDimensions);
@@ -13,6 +13,7 @@ function GameWorld() {
     if (stage === "hero") return <Hero />;
     if (stage === "quests") return <Quests />;
     if (stage === "temple") return <Temple />;
+    if (stage === "merchants") return <Merchants />;
     return <></>;
   };
   
