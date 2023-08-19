@@ -16,6 +16,7 @@ import { questBattleEnd } from "./controllers/game/quest-battle/questBattleEnd";
 import { templeHealing } from "./controllers/game/temple/templeHealing";
 import { templeHealRenew } from "./controllers/game/temple/templeHealRenew";
 import { updateStatistics } from "./controllers/game/hero/statistics/updateStatistics";
+import { getUserDetails } from "./controllers/account/getUser";
 
 const uri = process.env.MONGO_CONNECTION_URL;
 if(!uri) throw new Error(".env file is not created")
@@ -41,6 +42,9 @@ app.get("/", (req: any, res: any) => {
 // LOGIN AND REGISTER
 app.post("/register", createUser);
 app.post("/login", loginUser);
+
+// USER INFO
+app.get("/user/details", getUserDetails);
 
 // USER ACTIONCS
 app.post("/user/createCharacter", createCharacter);

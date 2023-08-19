@@ -10,6 +10,7 @@ import Characters1 from "../../assets/images/characters1.png"
 import Characters2 from "../../assets/images/characters2.png"
 import SectionDivider from "../../components/common/dividers/SectionDivider";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 
 
@@ -21,6 +22,7 @@ const homeBackground = {
 };
 
 function Home() {
+  const user = Cookies.get("jwt");
   return (
     <FullWrapper>
       <div className="relative w-full max-h-[550px]" style={homeBackground}>
@@ -29,9 +31,15 @@ function Home() {
             <div className="flex flex-col gap-5 text-center pb-12 pt-80">
               <Header>Begin your adventure, enter the dungeon</Header>
               <div className="flex justify-center pt-1 mb-4 pb-1">
-                <Link to="/signup">
-                  <Button>SIGN UP</Button>
-                </Link>
+                {Boolean(user) ? (
+                  <Link to="/start">
+                    <Button>CHARACTERS</Button>
+                  </Link>
+                ) : (
+                  <Link to="/signup">
+                    <Button>SIGN UP</Button>
+                  </Link>
+                )}
               </div>
             </div>
           </div>

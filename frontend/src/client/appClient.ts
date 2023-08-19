@@ -21,6 +21,7 @@ import { questBattleEndService } from "./services/game/quests/questBattleEndServ
 import { templeHealService } from "./services/game/temple/templeHealService";
 import { templeRenewService } from "./services/game/temple/templeRenewService";
 import { IUpdateStatistics, updateStatisticsService } from "./services/game/hero/updateStatisticsService";
+import { getUserDetailsService } from "./services/user/getUserDetailsService";
 
 // REGISTER AND LOGIN
 export async function register(body: signUpInterface) {
@@ -29,6 +30,12 @@ export async function register(body: signUpInterface) {
 
 export async function login(body: signInInterface) {
   return await signInService(body);
+}
+
+// USER
+
+export async function getUserDetails() {
+  return await getUserDetailsService();
 }
 
 // CHARACTERS
