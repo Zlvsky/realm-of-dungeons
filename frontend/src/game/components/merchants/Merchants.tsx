@@ -4,9 +4,12 @@ import BgPattern from "../../../assets/images/dark_wall.png";
 import MerchantsText from "./components/MerchantsText";
 import merchantsData from "./data/merchantsData";
 import SingleMerchant from "./components/SingleMerchant";
+import MerchantShop from "../merchant-shop/MerchantShop";
 
 function Merchants() {
     const [currentMerchant, setCurrentMerchant] = useState("");
+
+    if (currentMerchant.length > 0) return <MerchantShop currentMerchant={currentMerchant} />
 
     return (
       <Container position={[0, 2]}>
