@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getUserDetails } from '../../client/appClient';
+import { getCharacters, getUserDetails } from '../../client/appClient';
 import Button from '../../components/common/button/Button';
 import Header from '../../components/common/text/Header';
 import FullWrapper from '../../components/layouts/page-wrappers/FullWrapper';
@@ -8,20 +8,27 @@ import HeroSelect from './components/HeroSelect';
 
 function UserPanel() {
     const [userData, setUserData] = useState<any>([]);
+    const [userCharacter, setUserCharacters] = useState<any>([]);
 
     useEffect(() => {
+      const fetchCharacters = async () => {
+        const response = await getCharacters();
+        if (response.status !== 200) return console.log(response.data);
+        setUserCharacters(response.data);
+      }
       const getUserData = async () => {
         const response = await getUserDetails();
         if(response.status !== 200) return console.log(response.data);
         setUserData(response.data);
       }
       getUserData();
+      fetchCharacters();
     }, [])
 
     const ListedHeroes = () => {
         return (
           <div className="flex flex-col gap-10 my-10">
-            {userData.characters?.map((hero: any, index: number) => (
+            {userCharacter?.map((hero: any, index: number) => (
               <HeroSelect hero={hero} key={index} />
             ))}
           </div>
