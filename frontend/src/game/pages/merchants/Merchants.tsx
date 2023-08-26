@@ -22,7 +22,7 @@ function Merchants() {
         <MerchantsText />
         <Container position={[2, 320]}>
             {merchantsData.map((merchant, index) => (
-                <SingleMerchant position={[220 * index, 0]} name={merchant.name} image={merchant.image} setCurrentMerchant={setCurrentMerchant} />
+                <SingleMerchant key={index} position={[220 * index, 0]} name={merchant.name} image={merchant.image} setCurrentMerchant={setCurrentMerchant} />
             ))}
         </Container>
       </Container>

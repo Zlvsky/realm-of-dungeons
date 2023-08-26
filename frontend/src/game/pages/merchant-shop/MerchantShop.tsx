@@ -6,7 +6,8 @@ import { setHero } from "../../../redux/reducers/gameSlice";
 import { connect } from "react-redux";
 import Avatar from "./components/Avatar";
 import HeroInventorySlots from "./components/hero/HeroInventorySlots";
-import ItemPreview from "../../components/items/ItemPreview";
+import ItemPreview from "../../components/items/item-preview/ItemPreview";
+import HeroItems from "./components/hero/HeroItems";
 
 interface IMerchantShop {
     currentMerchant: string;
@@ -14,23 +15,13 @@ interface IMerchantShop {
     updateHero: any;
 }
 
-const mockedItem = {
-  name: "Plate Armor",
-    type: "armor",
-    image: "https://i.ibb.co/tZJz4JG/armor.png",
-    armor: 30,
-    statistics: {
-      strength: 2
-    },
-}
-
 function MerchantShop({ currentMerchant, game, updateHero }: IMerchantShop) {
   const hero = game.hero;
   const [merchantData, setMerchantData] = useState<any>(merchantsData.find(
       (el) => el.name === currentMerchant
     ));
-  console.log(merchantData)
-  
+  const [currentItem, setCurrentItem] = useState<any>();
+    console.log(currentItem)
   return (
     <Container position={[0, 2]}>
       <TilingSprite
@@ -42,9 +33,17 @@ function MerchantShop({ currentMerchant, game, updateHero }: IMerchantShop) {
       <Container position={[60, 170]}>
         <Avatar image={hero.avatar} name="You" />
         <HeroInventorySlots />
+        <HeroItems inventory={hero.inventory} setCurrentItem={setCurrentItem} />
       </Container>
 
-      <ItemPreview position={[495, 80]} itemData={mockedItem} price={40} action="BUY" />
+      {currentItem && (
+        <ItemPreview
+          position={[495, 80]}
+          itemData={currentItem.item}
+          price={40}
+          action={currentItem?.slotIndex ? "BUY" : "SELL"}
+        />
+      )}
 
       {currentMerchant && (
         <Container position={[835, 170]}>
