@@ -20,7 +20,7 @@ function Merchants() {
           tilePosition={{ x: 0, y: 0 }}
         />
         <MerchantsText />
-        <Container position={[2, 320]}>
+        <Container position={[113, 320]}>
             {merchantsData.map((merchant, index) => (
                 <SingleMerchant key={index} position={[220 * index, 0]} name={merchant.name} image={merchant.image} setCurrentMerchant={setCurrentMerchant} />
             ))}

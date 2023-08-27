@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import { ICharacter } from "../../../types/account/MainInterfaces";
-import { Character } from "../../../schemas/account/characterSchema";
+import { Character } from "../../../schemas/character/characterSchema";
 
 // 2 cases - 1 if dragged from inventory to empty equipment slot
 // 2- if dragged from ivnentory to occupied equipment slot

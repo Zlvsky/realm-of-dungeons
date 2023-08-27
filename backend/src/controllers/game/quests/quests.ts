@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import { ICharacter } from "../../../types/account/MainInterfaces";
-import { Character } from "../../../schemas/account/characterSchema";
+import { Character } from "../../../schemas/character/characterSchema";
 import generateEnemy from "../../../gameUtils/quests/generateEnemy";
 
 export const updateActiveQuest = async (req: Request, res: Response) => {

@@ -134,3 +134,11 @@ export interface ISkills {
   cooldown: number;
   text: string | null;
 }
+
+export interface IMerchant {
+  name: string;
+  itemTypes: string[];
+  randomItems: boolean;
+  interestedIn: string[];
+  staticItems: { item: IItem | null }[];
+}

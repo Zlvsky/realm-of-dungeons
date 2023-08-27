@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 import { Equipment } from "../../../schemas/game/equipmentSchema";
 import { ICharacter, IEquipment } from "../../../types/account/MainInterfaces";
-import { Character } from "../../../schemas/account/characterSchema";
+import { Character } from "../../../schemas/character/characterSchema";
 
 export const updateInventory = async (req: Request, res: Response) => {
   const { characterId, itemId, slotIndex, lastIndex } = req.body;

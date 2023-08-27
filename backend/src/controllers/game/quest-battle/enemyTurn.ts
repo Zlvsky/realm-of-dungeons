@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { getAttackDamage } from "../../../utils/getAttackDamage";
-import { Character } from "../../../schemas/account/characterSchema";
+import { Character } from "../../../schemas/character/characterSchema";
 import { getCharacterWithItemValues } from "../../account/characters";
 import getValuesWithStatistics from "../../../gameUtils/characters/getValuesWithStatistics";
 

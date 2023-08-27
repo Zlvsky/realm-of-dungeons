@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Character } from "../../../schemas/account/characterSchema";
+import { Character } from "../../../schemas/character/characterSchema";
 import levelUpIfReady from "../../../gameUtils/characters/levelUpIfReady";
 
 export const questBattleEnd = async (req: Request, res: Response) => {

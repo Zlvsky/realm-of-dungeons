@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import getCharacterAvatar from "../../gameUtils/characters/getAvatar";
 import getBaseStatistics from "../../gameUtils/characters/getBaseStatistics";
-import { Character } from "../../schemas/account/characterSchema";
+import { Character } from "../../schemas/character/characterSchema";
 import getUserIdFromToken from "../../utils/getUserIdFromToken";
 import initEquipment from "../../gameUtils/initValues/initEquipment";
 import initInventory from "../../gameUtils/initValues/initInventory";
@@ -54,6 +54,8 @@ export const createCharacter = async (req: Request, res: Response) => {
       equipment: initEquipment,
       inventory: initInventory,
       availableQuests: generateQuests(1),
+      heroValues: {},
+      activeQuest: {},
       avatar: getCharacterAvatar(req.body.class),
       owner: getUserIdFromToken(req.headers.authorization), // Set the owner of the character to the authenticated user (implementation of this step is outside the scope of this answer)
     });

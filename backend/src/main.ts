@@ -17,6 +17,7 @@ import { templeHealing } from "./controllers/game/temple/templeHealing";
 import { templeHealRenew } from "./controllers/game/temple/templeHealRenew";
 import { updateStatistics } from "./controllers/game/hero/statistics/updateStatistics";
 import { getUserDetails } from "./controllers/account/getUser";
+import initInsert from "./mongoInserts.ts/initInsert";
 
 const uri = process.env.MONGO_CONNECTION_URL;
 if(!uri) throw new Error(".env file is not created")
@@ -28,6 +29,7 @@ mongoose.connect(uri, {
 });
 mongoose.connection.on("connected", function () {
   console.log("connected to mongo");
+  // initInsert(); // insert necessery data to database
 });
 
 const app = express();

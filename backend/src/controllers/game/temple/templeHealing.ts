@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Character } from "../../../schemas/account/characterSchema";
+import { Character } from "../../../schemas/character/characterSchema";
 
 export const templeHealing = async (req: Request, res: Response) => {
   const { characterId } = req.body;

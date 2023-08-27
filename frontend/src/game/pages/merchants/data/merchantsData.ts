@@ -14,10 +14,10 @@ const merchantsData = [
     name: "Treasurer",
     image: treasurerAvatar,
   },
-  {
-    name: "Blacksmith",
-    image: blacksmithAvatar,
-  },
+  // {
+  //   name: "Blacksmith",
+  //   image: blacksmithAvatar,
+  // },
   {
     name: "Witch",
     image: witchAvatar,
