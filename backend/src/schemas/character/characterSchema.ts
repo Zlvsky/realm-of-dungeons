@@ -5,6 +5,7 @@ import availableQuestsSchema from "./subschemas/availableQuestsSchema";
 import activeQuestSchema from "./subschemas/activeQuestSchema";
 import heroValuesSchema from "./subschemas/heroValuesSchema";
 import statisticsSchema from "./subschemas/statisticsSchema";
+import merchantsItemsSchema from "./subschemas/merchantsItemsSchema";
 
 // to be added: SKILLS, GUILD, FRIENDS
 
@@ -43,6 +44,7 @@ const CharacterSchema = new mongoose.Schema({
   ],
   heroValues: heroValuesSchema,
   statistics: statisticsSchema,
+  merchantsItems: merchantsItemsSchema,
   extras: {
     availableHeals: {
       type: Number,

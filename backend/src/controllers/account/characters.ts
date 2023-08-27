@@ -54,10 +54,11 @@ export const createCharacter = async (req: Request, res: Response) => {
       equipment: initEquipment,
       inventory: initInventory,
       availableQuests: generateQuests(1),
-      heroValues: {},
-      activeQuest: {},
       avatar: getCharacterAvatar(req.body.class),
       owner: getUserIdFromToken(req.headers.authorization), // Set the owner of the character to the authenticated user (implementation of this step is outside the scope of this answer)
+      heroValues: {},
+      activeQuest: {},
+      merchantsItems: {},
     });
 
     // Save character to the database

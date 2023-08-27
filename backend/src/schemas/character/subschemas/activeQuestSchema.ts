@@ -1,51 +1,48 @@
 import mongoose, { Schema } from "mongoose";
 
-
 const enemySchema = new mongoose.Schema({
-  type: {
-    name: { type: String, default: null },
-    health: { type: Number, default: 100 },
-    maxHealth: { type: Number, default: 100 },
-    level: { type: Number, default: 1 },
-    damage: { type: Number, default: 15 },
-    attackText: { type: String, default: null },
-    skills: {
-      type: [
-        {
-          skillName: { type: String, default: null },
-          damage: { type: Number, default: null },
-          cooldown: { type: Number, default: 3 },
-          text: { type: String, default: null },
-        },
-      ],
-      default: null,
+  name: { type: String, default: null },
+  health: { type: Number, default: 100 },
+  maxHealth: { type: Number, default: 100 },
+  level: { type: Number, default: 1 },
+  damage: { type: Number, default: 15 },
+  attackText: { type: String, default: null },
+  skills: {
+    type: [
+      {
+        skillName: { type: String, default: null },
+        damage: { type: Number, default: null },
+        cooldown: { type: Number, default: 3 },
+        text: { type: String, default: null },
+      },
+    ],
+    default: null,
+  },
+  avatar: { type: String, default: null },
+  statistics: {
+    strength: {
+      type: Number,
+      required: true,
     },
-    avatar: { type: String, default: null },
-    statistics: {
-      strength: {
-        type: Number,
-        required: true,
-      },
-      dexterity: {
-        type: Number,
-        required: true,
-      },
-      condition: {
-        type: Number,
-        required: true,
-      },
-      intelligence: {
-        type: Number,
-        required: true,
-      },
-      wisdom: {
-        type: Number,
-        required: true,
-      },
-      charisma: {
-        type: Number,
-        required: true,
-      },
+    dexterity: {
+      type: Number,
+      required: true,
+    },
+    condition: {
+      type: Number,
+      required: true,
+    },
+    intelligence: {
+      type: Number,
+      required: true,
+    },
+    wisdom: {
+      type: Number,
+      required: true,
+    },
+    charisma: {
+      type: Number,
+      required: true,
     },
   },
 });
