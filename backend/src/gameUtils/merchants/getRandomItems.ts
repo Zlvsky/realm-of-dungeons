@@ -45,7 +45,13 @@ function adjustItemStats(baseItem: IItem, heroLevel: number) {
 }
 
 const getScaledItems = (items: IItem[], heroLevel: number) => {
-    const scaledItems = items.map((item) => adjustItemStats(item, heroLevel));
+    const scaledItems = items.map((item, index) => {
+      const dataToReturn = {
+        item: adjustItemStats(item, heroLevel),
+        slotIndex: index
+      }
+      return dataToReturn
+    });
     return scaledItems;
 }
 

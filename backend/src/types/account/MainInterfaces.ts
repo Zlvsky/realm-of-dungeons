@@ -1,5 +1,9 @@
 import mongoose, { Document, ObjectId } from "mongoose";
 
+interface itemWithSlotIndex {
+  slotIndex: number;
+  item: IItem | null;
+}
 export interface ICharacter extends mongoose.Document {
   nickname: string;
   class: string;
@@ -62,12 +66,7 @@ export interface ICharacter extends mongoose.Document {
       item: IItem | null;
     }
   ];
-  inventory: [
-    {
-      slotIndex: number;
-      item: IItem | null;
-    }
-  ];
+  inventory: [itemWithSlotIndex];
   heroValues: {
     gold: number;
     health: number;
@@ -81,6 +80,13 @@ export interface ICharacter extends mongoose.Document {
   extras: {
     availableHeals: number;
     healRenewDate: string | null;
+  };
+  merchantsItems: {
+    alchemist: itemWithSlotIndex[];
+    treasurer: itemWithSlotIndex[];
+    witch: itemWithSlotIndex[];
+    armourer: itemWithSlotIndex[];
+    weaponsmith: itemWithSlotIndex[];
   };
 }
 

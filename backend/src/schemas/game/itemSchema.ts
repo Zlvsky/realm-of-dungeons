@@ -1,7 +1,7 @@
 import mongoose, { Schema, Model } from "mongoose";
 import { IItem } from "../../types/account/MainInterfaces";
 
-const itemSchema: Schema<IItem> = new mongoose.Schema({
+export const itemSchema: Schema<IItem> = new mongoose.Schema({
   name: { type: String, required: true },
   type: { type: String, required: true },
   minDamage: { type: Number, required: false },
