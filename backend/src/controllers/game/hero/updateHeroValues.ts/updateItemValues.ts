@@ -32,7 +32,6 @@ export const updateItemValue = async (itemId: string) => {
                 });
             })
         }
-        console.log(valuesToUpdate);
     } catch (err) {
         console.error(err);
     }

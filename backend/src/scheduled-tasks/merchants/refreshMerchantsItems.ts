@@ -28,9 +28,17 @@ const refreshMerchantsItems = async () => {
     if (!characters || !merchants) return;
     for (const character of characters) {
         for (const merchant of merchants) {
-            if (merchant.name === "Weaponsmith" && character.nickname === "dsd") {
+            if (merchant.name === "Weaponsmith") {
               const refreshedItems = await getItemsForMerchant(merchant, character.progression.level);
               character.merchantsItems.weaponsmith = refreshedItems;
+            }
+            if (merchant.name === "Armourer") {
+              const refreshedItems = await getItemsForMerchant(merchant, character.progression.level);
+              character.merchantsItems.armourer = refreshedItems;
+            }
+            if (merchant.name === "Witch") {
+              const refreshedItems = await getItemsForMerchant(merchant, character.progression.level);
+              character.merchantsItems.witch = refreshedItems;
             }
         }
         character.save();
@@ -39,7 +47,7 @@ const refreshMerchantsItems = async () => {
 };
 
 const scheduledRefreshMerchantItems = () => {
-    cron.schedule("* * * * *", () => {
+    cron.schedule("0 0 * * *", () => {
       refreshMerchantsItems();
     });
 }

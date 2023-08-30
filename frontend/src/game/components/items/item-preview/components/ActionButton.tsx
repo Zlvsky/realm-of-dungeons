@@ -7,37 +7,27 @@ interface IActionButton {
   action?: "BUY" | "SELL" | "EQUIP" | "UNEQUIP";
   boxWidth: number;
   boxHeight: number;
+  handleAction: any;
 }
 
-function ActionButton({ action, boxWidth, boxHeight }: IActionButton) {
-    const getActionButton = () => {
-      switch (action) {
-        case "BUY":
-          return buyBtn;
-        case "SELL":
-          return sellBtn;
-        case "EQUIP":
-          return "FOOBAR";
-        case "UNEQUIP":
-          return "FOOBAR";
-      }
-    }
-
-  const handleBuyAction = () => {}
-  const handleSellAction = () => {}
-
-  const handleAction = () => {
+function ActionButton({
+  action,
+  boxWidth,
+  boxHeight,
+  handleAction,
+}: IActionButton) {
+  const getActionButton = () => {
     switch (action) {
       case "BUY":
-        return handleBuyAction();
+        return buyBtn;
       case "SELL":
-        return handleSellAction();
+        return sellBtn;
       case "EQUIP":
-        return handleBuyAction();
+        return "FOOBAR";
       case "UNEQUIP":
-        return handleBuyAction();
+        return "FOOBAR";
     }
-  }
+  };
 
   if (!action) return null;
 
