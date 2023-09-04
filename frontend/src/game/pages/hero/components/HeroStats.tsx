@@ -6,9 +6,14 @@ import { updateStatistics } from "../../../../client/appClient";
 import { setHero } from "../../../../redux/reducers/gameSlice";
 import { connect } from "react-redux";
 import fetchHero from "../../../../utils/fetchers/fetchHero";
+import { ICharacter } from "../../../../interfaces/MainInterface";
 
 type Statistic = "strength" | "dexterity" | "intelligence" | "condition" | "wisdom" | "charisma";
 
+interface IHeroStats {
+  hero: ICharacter,
+  updateHero: any;
+}
 interface ISingleStat {
   position: [number, number];
   stat: Statistic
@@ -19,7 +24,7 @@ const Filters: any = withFilters(Container, {
   matrix: ColorMatrixFilter,
 });
 
-function HeroStats({ hero, updateHero }: any) {
+function HeroStats({ hero, updateHero }: IHeroStats) {
   const updateStatistic = async (
     statistic: Statistic
   ) => {
@@ -53,7 +58,7 @@ function HeroStats({ hero, updateHero }: any) {
           }
         />
         <Text
-          text={hero.heroValuesWithItems.statistics[stat]}
+          text={hero.updatedValues.statistics[stat].toString()}
           x={0}
           y={30}
           style={

@@ -1,14 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { IGame } from "../../interfaces/ComponentsInterfaces";
 
-const initialState: any = {
+const initialState: IGame = {
   dimensions: {
     width: 1666,
     height: 937,
     scaleW: 1,
     scaleH: 1,
   },
-  hero: {},
+  hero: null,
   currentStage: "quests",
 };
 

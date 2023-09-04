@@ -1,10 +1,9 @@
-import mongoose, { Document, ObjectId } from "mongoose";
-
 interface itemWithSlotIndex {
   slotIndex: number;
   item: IItem | null;
 }
-export interface ICharacter extends mongoose.Document {
+export interface ICharacter {
+  _id: string;
   nickname: string;
   class: string;
   avatar: string;
@@ -59,14 +58,14 @@ export interface ICharacter extends mongoose.Document {
     wisdom: number;
     charisma: number;
   };
-  owner: mongoose.Types.ObjectId | IUser;
+  owner: any;
   equipment: [
     {
       type: string;
       item: IItem | null;
     }
   ];
-  inventory: [itemWithSlotIndex];
+  inventory: itemWithSlotIndex[];
   generalValues: {
     gold: number;
     basicHealth: number;
@@ -107,10 +106,10 @@ export interface IUser extends Document {
   accountname: string;
   email: string;
   password: string;
-  characters: mongoose.Types.Array<ICharacter["_id"]>;
+  characters: any[]
 }
 
-export interface IItem extends mongoose.Document {
+export interface IItem {
   name: string;
   type: string;
   minDamage?: number;
@@ -127,13 +126,13 @@ export interface IItem extends mongoose.Document {
   };
 }
 
-export interface IEquipment extends mongoose.Document {
+export interface IEquipment {
   type: string;
   item: IItem | null;
 }
 
 export interface IQuest {
-  _id: ObjectId;
+  _id: string;
   title: string;
   description: string;
   duration: number;
@@ -144,7 +143,7 @@ export interface IQuest {
     gold: number;
     xp: number;
     itemId?: string;
-  }
+  };
 }
 
 export interface ISkills {

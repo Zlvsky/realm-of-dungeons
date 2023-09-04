@@ -2,10 +2,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/common/button/Button';
 import SubHeader from '../../../components/common/text/SubHeader';
+import { IHeroProp } from '../../../interfaces/ComponentsInterfaces';
 
-import { ICharacter } from '../../../interfaces/CharacterInterface';
-
-function HeroSelect({ hero }: ICharacter) {
+function HeroSelect({ hero }: IHeroProp) {
   const navigate = useNavigate();
   const handleEnter = () => {
     localStorage.setItem("hero", hero._id);
@@ -15,7 +14,7 @@ function HeroSelect({ hero }: ICharacter) {
   return (
     <div className="flex row gap-10 max-w-xl justify-center">
       <div className="">
-        <img src={hero.avatar} alt="" width={200}/>
+        <img src={hero.avatar} alt="" width={200} />
       </div>
       <div className="flex flex-col gap-3 text-left">
         <SubHeader>{hero.nickname}</SubHeader>

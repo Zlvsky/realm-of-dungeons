@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { Character } from "../../../schemas/character/characterSchema";
-import { getCharacterWithItemValues } from "../../account/characters";
 import { getAttackDamage } from "../../../utils/getAttackDamage";
 import getValuesWithStatistics from "../../../gameUtils/characters/getValuesWithStatistics";
 
@@ -30,20 +29,18 @@ export const characterAttack = async (req: Request, res: Response) => {
     if (quest.battleWinner)
       return res.status(404).json({ message: "Battle already ended" });
 
-    const characterWithItemValues = getCharacterWithItemValues(character);
-    character.heroValuesWithItems = characterWithItemValues;
     getValuesWithStatistics(character);
     let attackDamage;
 
     switch (attackPower) {
       case "low":
-        attackDamage = getAttackDamage(character.heroValuesWithItems.damage, 80, 5);
+        attackDamage = getAttackDamage(character.updatedValues.damage, 80, 5);
         break;
       case "medium":
-        attackDamage = getAttackDamage(character.heroValuesWithItems.damage, 65, 3);
+        attackDamage = getAttackDamage(character.updatedValues.damage, 65, 3);
         break;
       case "strong":
-        attackDamage = getAttackDamage(character.heroValuesWithItems.damage, 50, 1.5);
+        attackDamage = getAttackDamage(character.updatedValues.damage, 50, 1.5);
         break;
       default:
         return res.status(404).json({ message: "Attack not found" });

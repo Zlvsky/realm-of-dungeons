@@ -14,7 +14,7 @@ interface IAction {
   action: any;
 }
 
-function CombatActions({ heroValues, updateHero }: any) {
+function CombatActions({ updateHero }: any) {
   const performAttack = async (attackPower: "low" | "medium" | "strong") => {
     const response = await questActionAttack({ attackPower });
     if (response.status !== 200) return console.log(response.data);

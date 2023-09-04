@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Stage, Container, Sprite, Text, Graphics } from "@pixi/react";
 import { TextStyle } from 'pixi.js';
+import { IHeroProp } from '../../../../interfaces/ComponentsInterfaces';
 
-function HeroInfo({ hero }: any) {
+function HeroInfo({ hero }: IHeroProp) {
     const levelPercentage = ((hero.progression.experience - hero.progression.previousLevelExperience) / (hero.progression.levelExperience - hero.progression.previousLevelExperience));
     return (
       <Container position={[120, 0]}>
@@ -52,7 +53,7 @@ function HeroInfo({ hero }: any) {
         </Container>
         <Container position={[0, 310]}>
           <Text
-            text={`Hit points: ${hero.heroValues.currentHealth} / ${hero.heroValues.health}`}
+            text={`Hit points: ${hero.updatedValues.health} / ${hero.updatedValues.maxHealth}`}
             x={0}
             y={0}
             style={
@@ -65,7 +66,7 @@ function HeroInfo({ hero }: any) {
             }
           />
           <Text
-            text={`Damage: ${hero.heroValuesWithItems.damage}`}
+            text={`Damage: ${hero.updatedValues.damage}`}
             x={0}
             y={25}
             style={
@@ -78,7 +79,7 @@ function HeroInfo({ hero }: any) {
             }
           />
           <Text
-            text={`Armor: ${hero.heroValuesWithItems.armor}`}
+            text={`Armor: ${hero.updatedValues.armor}`}
             x={0}
             y={50}
             style={

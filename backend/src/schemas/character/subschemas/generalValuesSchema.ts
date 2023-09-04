@@ -1,41 +1,31 @@
 import mongoose from "mongoose";
 
-const heroValuesSchema = new mongoose.Schema({
+const generalValuesSchema = new mongoose.Schema({
   gold: {
     type: Number,
     required: true,
     default: 0,
   },
-  health: {
+  basicHealth: {
     type: Number,
     required: true,
     default: 100,
   },
-  currentHealth: {
+  basicMana: {
     type: Number,
     required: true,
     default: 100,
   },
-  mana: {
-    type: Number,
-    required: true,
-    default: 100,
-  },
-  currentMana: {
-    type: Number,
-    required: true,
-    default: 100,
-  },
-  armor: {
-    type: Number,
-    required: true,
-    default: 0,
-  },
-  damage: {
+  basicDamage: {
     type: Number,
     required: true,
     default: 10,
   },
+  basicArmor: {
+    type: Number,
+    required: true,
+    default: 0,
+  }
 });
 
-export default heroValuesSchema;
+export default generalValuesSchema;

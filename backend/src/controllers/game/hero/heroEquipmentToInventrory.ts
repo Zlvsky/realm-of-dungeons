@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import { ICharacter } from "../../../types/account/MainInterfaces";
 import { Character } from "../../../schemas/character/characterSchema";
+import getUpdatedValues from "../../../gameUtils/characters/getUpdatedValues";
 
 // 2 cases - 1 if dragged from equipment to empty inventory slot
 // 2- if dragged from equipment to occupied ivnentory slot
@@ -51,7 +52,9 @@ export const updateEquipmentToInventory = async (
       equipmentItem.item = null;
       inventorySlot.item = itemId;
     }
+    
     await character.save();
+    await getUpdatedValues(characterId);
     res.json(character);
   } catch (err) {
     console.error(err);

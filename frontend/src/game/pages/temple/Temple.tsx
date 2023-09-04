@@ -9,29 +9,28 @@ import { templeHeal, templeRenew } from "../../../client/appClient";
 import { setHero } from "../../../redux/reducers/gameSlice";
 import fetchHero from "../../../utils/fetchers/fetchHero";
 import secondsRemaining from "../../../utils/calculations/secondsRemaining";
-import secondsToTime from "../../../utils/parsing-data/secondsToTime";
 import secondsToTimeHours from "../../../utils/parsing-data/secondsToTimeHours";
+import { ICharacter } from "../../../interfaces/MainInterface";
 
 const canvasWidth = 1316;
 const canvasHeight = 937;
 const rectWidth = 500;
 const rectHeight = 560;
 
-
 function Temple({ game, updateHero }: any) {
-  const hero = game.hero;
+  const hero: ICharacter = game.hero;
   const [timeRemaining, setTimeRemaining] = useState<any>(null);
   const startX = (canvasWidth - rectWidth) / 2;
   const startY = (canvasHeight - rectHeight) / 2;
   const percentage = Math.floor(
-    (hero.heroValues.currentHealth / hero.heroValues.health) * 360
+    (hero.updatedValues.health / hero.updatedValues.maxHealth) * 360
   );
   const barColor = 0x932424;
 
   function calculateRemainingTime() {
     return new Promise<void>((resolve) => {
       const checkTimeRemaining = () => {
-        const secondsLeft = secondsRemaining(hero.extras.healRenewDate);
+        const secondsLeft = secondsRemaining(hero.extras.healRenewDate!);
         if (secondsLeft < 0) {
           setTimeRemaining("00:00:00");
           resolve();
@@ -56,7 +55,7 @@ function Temple({ game, updateHero }: any) {
 
   useEffect(() => {
     if (hero.extras.healRenewDate) calculateRemainingTime();
-  }, [hero])
+  }, [hero]);
 
   const questFrame = useCallback((g: any) => {
     g.clear();
@@ -80,8 +79,6 @@ function Temple({ game, updateHero }: any) {
     return true;
   };
 
-  
-
   return (
     <Container position={[0, 2]}>
       <Sprite image={templebg} width={1316} height={935} />
@@ -103,7 +100,7 @@ function Temple({ game, updateHero }: any) {
           }
         />
         <Text
-          text={`${hero.heroValues.currentHealth}/${hero.heroValues.health}`}
+          text={`${hero.updatedValues.health}/${hero.updatedValues.maxHealth}`}
           anchor={0.5}
           x={rectWidth / 2}
           y={100}

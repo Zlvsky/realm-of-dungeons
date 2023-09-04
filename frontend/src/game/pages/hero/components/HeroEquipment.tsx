@@ -14,18 +14,16 @@ import {
 } from "../helpers/getEquipmentPosition";
 import HeroInfo from './HeroInfo';
 import HeroStats from './HeroStats';
+import { ICharacter } from '../../../../interfaces/MainInterface';
 
 function HeroEquipment({ game }: any) {
-  // const hero = useSelector(getHero);
-  const hero = game.hero;
+  const hero: ICharacter = game.hero;
   const [currentItemTypeDragging, setCurrentItemTypeDragging] = useState<
     string | null
   >(null);
-  const [inventory, setInventory] = useState([]);
+  const [inventory, setInventory] = useState<any>([]);
 
   useEffect(() => {
-    console.log("a", hero);
-  
     setInventory(hero.inventory);
   }, [hero]);
  

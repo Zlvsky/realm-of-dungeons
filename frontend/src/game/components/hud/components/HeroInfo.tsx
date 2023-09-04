@@ -1,5 +1,4 @@
-import React from 'react';
-import { Stage, Container, Sprite, Text, Graphics } from "@pixi/react";
+import { Container, Sprite, Text } from "@pixi/react";
 import { useSelector } from 'react-redux';
 import { getHero } from '../../../../redux/reducers/gameSlice';
 import { TextStyle } from 'pixi.js';
@@ -9,9 +8,9 @@ import Gold from "../../../../assets/images/icons/gui/gold-icon.png";
 
 function HeroInfo() {
     const hero = useSelector(getHero);
-    
+    console.log(hero)
     const RenderAvatar = () => {
-        if(!hero.avatar) return <></>
+        if(!hero?.avatar) return <></>
         return (
             <Sprite 
                 image={hero?.avatar}
@@ -48,7 +47,7 @@ function HeroInfo() {
         <Text
           x={150}
           y={72}
-          text={hero?.heroValues.gold}
+          text={hero?.generalValues.gold.toString()}
           style={
             new TextStyle({
               align: "left",

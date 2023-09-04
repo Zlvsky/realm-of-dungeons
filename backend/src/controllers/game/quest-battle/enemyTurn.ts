@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { getAttackDamage } from "../../../utils/getAttackDamage";
 import { Character } from "../../../schemas/character/characterSchema";
-import { getCharacterWithItemValues } from "../../account/characters";
 import getValuesWithStatistics from "../../../gameUtils/characters/getValuesWithStatistics";
 
 export const enemyTurn = async (req: Request, res: Response) => {
@@ -26,17 +25,15 @@ export const enemyTurn = async (req: Request, res: Response) => {
     if (quest.whosTurn !== 2) return res.status(404).json({ message: "Not enemy turn" });
     if (quest.battleWinner) return res.status(404).json({ message: "Battle already ended" });
 
-    const characterWithItemValues = getCharacterWithItemValues(character);
-    character.heroValuesWithItems = characterWithItemValues;
     getValuesWithStatistics(character);
     const enemyDamage = getAttackDamage(
       enemy.damage,
       70,
       2,
-      characterWithItemValues.armor
+      character.updatedValues.armor
     );
 
-    character.heroValues.currentHealth -= enemyDamage;
+    character.updatedValues.health -= enemyDamage;
     
 
     if (enemyDamage === 0) {
@@ -45,7 +42,7 @@ export const enemyTurn = async (req: Request, res: Response) => {
       activeQuest.textLogs.push(`- ${enemy.attackText} ${enemyDamage} damage`);
     }
 
-    if(character.heroValues.currentHealth <= 0) {
+    if (character.updatedValues.health <= 0) {
       quest.battleWinner = 2;
     } else {
       quest.whosTurn = 1;

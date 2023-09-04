@@ -15,8 +15,8 @@ const router = express.Router();
 
 export const getCharacterWithItemValues = (characterMain: ICharacter) => {
   const character: ICharacter = JSON.parse(JSON.stringify(characterMain));
-  let armor = character.heroValues.armor;
-  let damage = character.heroValues.damage;
+  let armor = character.updatedValues.armor;
+  let damage = character.updatedValues.damage;
   const statistics: any = character.statistics;
   character.equipment.forEach((itemElement) => {
     const item = itemElement.item;
@@ -55,7 +55,10 @@ export const createCharacter = async (req: Request, res: Response) => {
       availableQuests: generateQuests(1),
       avatar: getCharacterAvatar(req.body.class),
       owner: getUserIdFromToken(req.headers.authorization), // Set the owner of the character to the authenticated user (implementation of this step is outside the scope of this answer)
-      heroValues: {},
+      generalValues: {},
+      updatedValues: {
+        statistics: getBaseStatistics(req.body.class),
+      },
       activeQuest: {},
       merchantsItems: {},
     });
@@ -103,8 +106,8 @@ export const getCharacterById = async (req: Request, res: Response) => {
   }
 
   const hero: ICharacter = JSON.parse(JSON.stringify(character));
-  const characterWithItemValues = getCharacterWithItemValues(hero);
-  hero.heroValuesWithItems = characterWithItemValues;
+  // const characterWithItemValues = getCharacterWithItemValues(hero);
+  // hero.heroValuesWithItems = characterWithItemValues;
   getValuesWithStatistics(hero);
   
   res.status(200).json(hero);
