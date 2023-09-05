@@ -6,36 +6,10 @@ import { Character } from "../../schemas/character/characterSchema";
 import getUserIdFromToken from "../../utils/getUserIdFromToken";
 import initEquipment from "../../gameUtils/initValues/initEquipment";
 import initInventory from "../../gameUtils/initValues/initInventory";
-import { ICharacter } from "../../types/account/MainInterfaces";
 import generateQuests from "../../gameUtils/quests/generateQuests";
 import getNextLevelExperience from "../../gameUtils/characters/getNextLevelExperience";
-import getValuesWithStatistics from "../../gameUtils/characters/getValuesWithStatistics";
 
 const router = express.Router();
-
-export const getCharacterWithItemValues = (characterMain: ICharacter) => {
-  const character: ICharacter = JSON.parse(JSON.stringify(characterMain));
-  let armor = character.updatedValues.armor;
-  let damage = character.updatedValues.damage;
-  const statistics: any = character.statistics;
-  character.equipment.forEach((itemElement) => {
-    const item = itemElement.item;
-    if(!item) return;
-    const itemStats: any = item.statistics;
-    const stats = Object.keys(itemStats);
-    if (item.armor) armor += item.armor;
-    if (item.minDamage && item.maxDamage) damage += Math.round((item.minDamage + item.maxDamage) / 2);
-    stats.forEach((stat) => {
-      statistics[`${stat}`] += itemStats[`${stat}`];
-    })
-  });
-  const updatedValues =  {
-      armor,
-      damage,
-      statistics
-  };
-  return updatedValues
-}
 
 // POST /api/characters
 export const createCharacter = async (req: Request, res: Response) => {
@@ -55,10 +29,10 @@ export const createCharacter = async (req: Request, res: Response) => {
       availableQuests: generateQuests(1),
       avatar: getCharacterAvatar(req.body.class),
       owner: getUserIdFromToken(req.headers.authorization), // Set the owner of the character to the authenticated user (implementation of this step is outside the scope of this answer)
-      generalValues: {},
       updatedValues: {
         statistics: getBaseStatistics(req.body.class),
       },
+      generalValues: {},
       activeQuest: {},
       merchantsItems: {},
     });
@@ -105,12 +79,7 @@ export const getCharacterById = async (req: Request, res: Response) => {
     return res.status(403).json({ message: "Unauthorized" });
   }
 
-  const hero: ICharacter = JSON.parse(JSON.stringify(character));
-  // const characterWithItemValues = getCharacterWithItemValues(hero);
-  // hero.heroValuesWithItems = characterWithItemValues;
-  getValuesWithStatistics(hero);
-  
-  res.status(200).json(hero);
+  res.status(200).json(character);
 };
 
 export const getUserCharacters = async (req: Request, res: Response) => {
