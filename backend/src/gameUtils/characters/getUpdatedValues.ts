@@ -47,15 +47,9 @@ const calculateEquipmentValues = (equipment: ICharacter["equipment"]) => {
 };
 
 // Main function to update character values
-const updateCharacterValues = async (characterId: string) => {
+const updateCharacterValues = async (character: ICharacter) => {
   try {
-    const character = await Character.findById(characterId)
-      .populate({ path: "equipment.item", model: "Item" })
-      .populate({ path: "inventory.item", model: "Item" })
-      .exec();
-
     if (!character) return false;
-
     const equipmentValues = calculateEquipmentValues(character.equipment);
 
     character.updatedValues.armor =
@@ -70,14 +64,12 @@ const updateCharacterValues = async (characterId: string) => {
         character.updatedValues.statistics[correctStat] =
           character.statistics[correctStat];
       } else {
-          character.updatedValues.statistics[correctStat] =
-            character.statistics[correctStat] +
-            equipmentValues.statistics[correctStat];
-        }
+        character.updatedValues.statistics[correctStat] =
+          character.statistics[correctStat] +
+          equipmentValues.statistics[correctStat];
+      }
     }
 
-    await character.save();
-    return;
   } catch (err) {
     console.error(err);
     return;

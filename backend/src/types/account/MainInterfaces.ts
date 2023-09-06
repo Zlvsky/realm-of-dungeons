@@ -50,7 +50,7 @@ export interface ICharacter extends mongoose.Document {
     } | null;
     textLogs: string[];
   };
-  availableQuests: [IQuest];
+  availableQuests: IQuest[];
   statistics: {
     strength: number;
     dexterity: number;
@@ -133,13 +133,13 @@ export interface IEquipment extends mongoose.Document {
 }
 
 export interface IQuest {
-  _id: ObjectId;
+  _id?: ObjectId;
   title: string;
   description: string;
-  duration: number;
+  duration?: number;
   battleStarted: boolean;
-  battleWinner: 1 | 2 | null;
-  whosTurn: 1 | 2;
+  battleWinner?: 1 | 2 | null;
+  whosTurn?: 1 | 2;
   rewards: {
     gold: number;
     xp: number;

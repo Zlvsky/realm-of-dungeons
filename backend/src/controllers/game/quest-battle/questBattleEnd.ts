@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Character } from "../../../schemas/character/characterSchema";
 import levelUpIfReady from "../../../gameUtils/characters/levelUpIfReady";
+import generateQuests from "../../../gameUtils/quests/generateQuests";
 
 export const questBattleEnd = async (req: Request, res: Response) => {
   const { characterId } = req.body;
@@ -31,6 +32,8 @@ export const questBattleEnd = async (req: Request, res: Response) => {
     activeQuest.quest = null;
     activeQuest.timeStarted = null;
     activeQuest.textLogs = [];
+
+    character.availableQuests = generateQuests(character.progression.level);
 
     await character.save();
     return res.json("success");

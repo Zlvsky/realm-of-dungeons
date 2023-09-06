@@ -12,12 +12,13 @@ export const updateActiveQuest = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "Character not found" });
     }
 
-    const selectedQuest = character.availableQuests.find(
-      (quest) => quest._id.toString() === questId
+    const selectedQuest: any = character.availableQuests.find(
+      (quest) => quest._id!.toString() === questId
     );
     if (!selectedQuest) {
       return res.status(404).json({ message: "Quest not found" });
     }
+
     character.activeQuest.quest = selectedQuest;
     character.activeQuest.timeStarted = new Date().toISOString();
     character.activeQuest.textLogs = [];

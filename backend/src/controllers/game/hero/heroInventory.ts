@@ -1,12 +1,10 @@
-import express, { Request, Response } from "express";
-import mongoose from "mongoose";
+import { Request, Response } from "express";
 
-import { Equipment } from "../../../schemas/game/equipmentSchema";
-import { ICharacter, IEquipment } from "../../../types/account/MainInterfaces";
+import { ICharacter } from "../../../types/account/MainInterfaces";
 import { Character } from "../../../schemas/character/characterSchema";
 
 export const updateInventory = async (req: Request, res: Response) => {
-  const { characterId, itemId, slotIndex, lastIndex } = req.body;
+  const { characterId, item, slotIndex, lastIndex } = req.body;
 
   try {
     // checking if index have item inside
@@ -28,13 +26,13 @@ export const updateInventory = async (req: Request, res: Response) => {
     }
 
     if (inventoryNextSlot.item !== null) {
-      const newItem = itemId;
+      const newItem = item;
       const lastItem = inventoryNextSlot.item;
       inventoryNextSlot.item = newItem;
       inventoryLastSlot.item = lastItem;
     } else {
       inventoryLastSlot.item = null;
-      inventoryNextSlot.item = itemId;
+      inventoryNextSlot.item = item;
     }
     await character.save();
     res.json(character);

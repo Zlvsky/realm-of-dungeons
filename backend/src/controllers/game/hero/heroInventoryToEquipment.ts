@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { ICharacter } from "../../../types/account/MainInterfaces";
 import { Character } from "../../../schemas/character/characterSchema";
 import getUpdatedValues from "../../../gameUtils/characters/getUpdatedValues";
+import getValuesWithStatistics from "../../../gameUtils/characters/getValuesWithStatistics";
 
 // 2 cases - 1 if dragged from inventory to empty equipment slot
 // 2- if dragged from ivnentory to occupied equipment slot
@@ -13,7 +14,7 @@ export const updateInventoryToEquipment = async (
   req: Request,
   res: Response
 ) => {
-  const { characterId, itemId, itemType, inventorySlotIndex } = req.body;
+  const { characterId, item, itemType, inventorySlotIndex } = req.body;
 
   try {
     const character: ICharacter | null = await Character.findById(characterId)
@@ -49,7 +50,7 @@ export const updateInventoryToEquipment = async (
       inventorySlot.item.type === itemType
     ) {
       const equippedItem = equipmentItem.item;
-      const inventoryItem = itemId;
+      const inventoryItem = item;
       equipmentItem.item = inventoryItem;
       inventorySlot.item = equippedItem;
     } else if (
@@ -57,12 +58,14 @@ export const updateInventoryToEquipment = async (
       inventorySlot.item !== null &&
       inventorySlot.item.type === itemType
     ) {
-      equipmentItem.item = itemId;
+      equipmentItem.item = item;
       inventorySlot.item = null;
     }
+    await getUpdatedValues(character);
+    
+    getValuesWithStatistics(character);
 
     await character.save();
-    await getUpdatedValues(characterId);
     res.json(character);
   } catch (err) {
     console.error(err);

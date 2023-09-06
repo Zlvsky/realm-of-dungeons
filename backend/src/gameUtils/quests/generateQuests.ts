@@ -36,7 +36,7 @@ const getMaxBaseGold = (level: number) => {
   }
 };
 
-const generateXP = (level: number, questIndex: number) => {
+export const generateXP = (level: number, questIndex: number) => {
     const maxXPGained = 10000;
     const baseXp = getMaxBaseXp(level);
     const experience = baseXp * questIndex;
@@ -44,7 +44,7 @@ const generateXP = (level: number, questIndex: number) => {
     return Math.round(experience * 100) / 100;
 }
 
-const generateGold = (level: number, questIndex: number) => {
+export const generateGold = (level: number, questIndex: number) => {
     const baseGold = getMaxBaseGold(level);
     const gold = baseGold * questIndex;
     return Math.round(gold * 100) / 100; 
@@ -63,7 +63,8 @@ const generateQuest = (level: number, quest: {title: string, description: string
         rewards: {
             xp: xp,
             gold: gold
-        }
+        },
+        battleStarted: false,
     }
 }
 

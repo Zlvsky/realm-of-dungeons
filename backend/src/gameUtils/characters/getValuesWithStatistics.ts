@@ -2,7 +2,7 @@ import { ICharacter } from "../../types/account/MainInterfaces"
 
 const getValuesWithStatistics = (character: ICharacter) => {
     // DAMAGE
-    const weaponItem = character.equipment.filter(item => item.type === "weapon")[0].item;
+    const weaponItem = character.equipment.find(item => item.type === "weapon")?.item;
     let weaponDamage = 0;
     if (weaponItem) weaponDamage = Math.round((weaponItem.minDamage! + weaponItem.maxDamage!) / 2);
 

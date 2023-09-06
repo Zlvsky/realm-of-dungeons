@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { ICharacter } from "../../../types/account/MainInterfaces";
 import { Character } from "../../../schemas/character/characterSchema";
 import getUpdatedValues from "../../../gameUtils/characters/getUpdatedValues";
+import getValuesWithStatistics from "../../../gameUtils/characters/getValuesWithStatistics";
 
 // 2 cases - 1 if dragged from equipment to empty inventory slot
 // 2- if dragged from equipment to occupied ivnentory slot
@@ -13,7 +14,7 @@ export const updateEquipmentToInventory = async (
   req: Request,
   res: Response
 ) => {
-  const { characterId, itemId, slotIndex, itemType } = req.body;
+  const { characterId, item, slotIndex, itemType } = req.body;
 
   try {
     // checking if index have item inside
@@ -44,17 +45,19 @@ export const updateEquipmentToInventory = async (
     }
 
     if (inventorySlot.item !== null && inventorySlot.item.type === itemType) {
-      const equippedItem = itemId;
+      const equippedItem = item;
       const inventoryItem = inventorySlot.item;
       equipmentItem.item = inventoryItem;
       inventorySlot.item = equippedItem;
     } else if (inventorySlot.item === null) {
       equipmentItem.item = null;
-      inventorySlot.item = itemId;
+      inventorySlot.item = item;
     }
-    
+    await getUpdatedValues(character);
+
+    getValuesWithStatistics(character);
+
     await character.save();
-    await getUpdatedValues(characterId);
     res.json(character);
   } catch (err) {
     console.error(err);

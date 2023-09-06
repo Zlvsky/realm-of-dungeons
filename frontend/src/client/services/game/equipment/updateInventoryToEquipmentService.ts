@@ -3,7 +3,7 @@ import axiosClient from "../../../axiosClient";
 import Cookies from "js-cookie";
 
 export interface updateInventoryToEquipmentInterface {
-  itemId: string;
+  item: any;
   itemType: string;
   inventorySlotIndex: number;
 }
@@ -17,7 +17,7 @@ export const updateInventoryToEquipmentService = async (
       "/hero/equipment/update",
       {
         characterId: localStorage.getItem("hero"),
-        itemId: body.itemId,
+        item: body.item,
         itemType: body.itemType,
         inventorySlotIndex: body.inventorySlotIndex
       },

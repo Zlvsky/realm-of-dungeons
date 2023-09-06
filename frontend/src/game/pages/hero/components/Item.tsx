@@ -73,7 +73,7 @@ const Item = ({
   const handleInventoryToEquipmentRequest = async (type: string) => {
     const response = await updateInventoryToEquipment({
       itemType: type,
-      itemId: itemData.item._id,
+      item: itemData.item,
       inventorySlotIndex: itemData.slotIndex
     });
     if (response.status !== 200) return console.log(response.data);
@@ -83,7 +83,7 @@ const Item = ({
 
   const handleInventoryToInventoryRequest = async (slotIndex: number) => {
     const response = await updateInventoryToInventory({
-      itemId: itemData.item._id,
+      item: itemData.item,
       slotIndex: slotIndex,
       lastIndex: inventoryIndex,
     });
@@ -94,7 +94,7 @@ const Item = ({
 
   const handleEquipmentToInventoryRequest = async (slotIndex: number) => {
     const response = await updateEquipmentToInventory({
-      itemId: itemData.item._id,
+      item: itemData.item,
       slotIndex: slotIndex,
       itemType: itemData.item.type,
     });
