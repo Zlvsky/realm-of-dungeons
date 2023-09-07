@@ -22,6 +22,7 @@ import { templeHealService } from "./services/game/temple/templeHealService";
 import { templeRenewService } from "./services/game/temple/templeRenewService";
 import { IUpdateStatistics, updateStatisticsService } from "./services/game/hero/updateStatisticsService";
 import { getUserDetailsService } from "./services/user/getUserDetailsService";
+import { IMerchantBuy, merchantBuyService } from "./services/game/merchants/merchantBuyService";
 
 // REGISTER AND LOGIN
 export async function register(body: signUpInterface) {
@@ -33,13 +34,11 @@ export async function login(body: signInInterface) {
 }
 
 // USER
-
 export async function getUserDetails() {
   return await getUserDetailsService();
 }
 
 // CHARACTERS
-
 export async function createCharacter(body: creaeteCharacterInterface) {
   return await createCharacterService(body);
 }
@@ -53,7 +52,6 @@ export async function getUserCharacter(id: string) {
 }
 
 // HERO
-
 export async function updateInventoryToEquipment(
   body: updateInventoryToEquipmentInterface
 ) {
@@ -77,7 +75,6 @@ export async function updateStatistics(body: IUpdateStatistics) {
 }
 
 // QUESTS
-
 export async function updateActiveQuest(body: updateActiveQuestInterface) {
   return await updateActiveQuestService(body);
 };
@@ -103,7 +100,6 @@ export async function questBattleEnd() {
 }
 
 // TEMPLE
-
 export async function templeHeal() {
   return await templeHealService();
 }
@@ -111,3 +107,8 @@ export async function templeHeal() {
 export async function templeRenew() {
   return await templeRenewService();
 }
+
+// MERCHANTS
+export async function merchantBuy(body: IMerchantBuy) {
+  return await merchantBuyService(body);
+};

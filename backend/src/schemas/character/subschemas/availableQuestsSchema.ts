@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import { itemSchema } from "../../game/itemSchema";
 
 const availableQuestsSchema = new mongoose.Schema({
   title: { type: String, default: null },
@@ -8,7 +9,7 @@ const availableQuestsSchema = new mongoose.Schema({
   rewards: {
     gold: { type: Number, default: null },
     xp: { type: Number, default: null },
-    itemId: { type: Schema.Types.ObjectId, ref: "Item", default: null },
+    itemId: { type: itemSchema, default: null },
   },
 });
 

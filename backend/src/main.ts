@@ -19,6 +19,7 @@ import { updateStatistics } from "./controllers/game/hero/statistics/updateStati
 import { getUserDetails } from "./controllers/account/getUser";
 import initInsert from "./mongoInserts.ts/initInsert";
 import scheduledRefreshMerchantItems from "./scheduled-tasks/merchants/refreshMerchantsItems";
+import { merchantBuyItem } from "./controllers/game/merchants/merchantBuyItem";
 
 const uri = process.env.MONGO_CONNECTION_URL;
 if(!uri) throw new Error(".env file is not created")
@@ -56,7 +57,6 @@ app.get("/user/getCharacter/:id", getCharacterById);
 app.get("/user/getUserCharacters", getUserCharacters);
 
 // HERO ACTIONS
-
 // -- EQUIPMENT AND INVENTORY
 app.post("/hero/equipment/update", updateInventoryToEquipment);
 app.post("/hero/inventory/update", updateInventory);
@@ -66,26 +66,25 @@ app.post("/hero/equipmenttoinventory/update", updateEquipmentToInventory);
 app.post("/hero/update/statistics", updateStatistics);
 
 // ITEMS ACTIONS
-
 app.post("/item/add", addItem);
 
 
 // QUESTS ACTIONS
-
 app.post("/quest/updateActiveQuest", updateActiveQuest);
 app.post("/quest/clearActiveQuest", clearActiveQuest);
 app.post("/quest/startQuestBattle", startQuestBattle);
 
 // QUEST BATTLE
-
 app.post("/quest/action/attack", characterAttack);
 app.post("/quest/enemyTurn", enemyTurn);
 app.post("/quest/battleEnd", questBattleEnd);
 
 // TEMPLE
-
 app.post("/temple/heal", templeHealing);
 app.post("/temple/renew", templeHealRenew);
+
+// MERCHANTS
+app.post("/merchant/buy", merchantBuyItem);
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {

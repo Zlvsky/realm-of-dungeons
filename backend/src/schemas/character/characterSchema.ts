@@ -1,5 +1,5 @@
-import mongoose, { Schema, Model } from "mongoose";
-import { ICharacter, IQuest } from "../../types/account/MainInterfaces";
+import mongoose from "mongoose";
+import { ICharacter } from "../../types/account/MainInterfaces";
 import progressionSchema from "./subschemas/progressionSchema";
 import availableQuestsSchema from "./subschemas/availableQuestsSchema";
 import activeQuestSchema from "./subschemas/activeQuestSchema";
@@ -7,6 +7,7 @@ import generalValuesSchema from "./subschemas/generalValuesSchema";
 import statisticsSchema from "./subschemas/statisticsSchema";
 import merchantsItemsSchema from "./subschemas/merchantsItemsSchema";
 import updatedValuesSchema from "./subschemas/updatedValuesSchema";
+import { itemSchema } from "../game/itemSchema";
 
 // to be added: SKILLS, GUILD, FRIENDS
 
@@ -34,13 +35,13 @@ const CharacterSchema = new mongoose.Schema({
   equipment: [
     {
       type: { type: String, required: true },
-      item: { type: Schema.Types.ObjectId, ref: "Item", default: null },
+      item: { type: itemSchema, default: null },
     },
   ],
   inventory: [
     {
       slotIndex: { type: Number, required: true },
-      item: { type: Schema.Types.ObjectId, ref: "Item", default: null },
+      item: { type: itemSchema, default: null },
     },
   ],
   generalValues: generalValuesSchema,

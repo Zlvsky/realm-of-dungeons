@@ -9,6 +9,8 @@ import HeroInventorySlots from "./components/hero/HeroInventorySlots";
 import ItemPreview from "../../components/items/item-preview/ItemPreview";
 import HeroItems from "./components/hero/HeroItems";
 import MerchantItems from "./components/merchant/MerchantItems";
+import { merchantBuy } from "../../../client/appClient";
+import fetchHero from "../../../utils/fetchers/fetchHero";
 
 interface IMerchantShop {
     currentMerchant: string;
@@ -36,7 +38,14 @@ function MerchantShop({ currentMerchant, game, updateHero }: IMerchantShop) {
     };
 
     const handleBuyItem = async () => {
-      console.log("buy");
+      const dataToSend = {
+        merchantName: currentMerchant.toLowerCase(),
+        slotIndex: currentItem?.itemData.slotIndex!
+      }
+      console.log(dataToSend)
+      const response = await merchantBuy(dataToSend);
+      if (response.status !== 200) return console.log(response.data);
+      fetchHero(updateHero);
     };
 
   const handleAction = () => {
