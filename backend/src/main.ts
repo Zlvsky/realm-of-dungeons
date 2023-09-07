@@ -20,6 +20,7 @@ import { getUserDetails } from "./controllers/account/getUser";
 import initInsert from "./mongoInserts.ts/initInsert";
 import scheduledRefreshMerchantItems from "./scheduled-tasks/merchants/refreshMerchantsItems";
 import { merchantBuyItem } from "./controllers/game/merchants/merchantBuyItem";
+import { merchantSellItem } from "./controllers/game/merchants/merchantSellItem";
 
 const uri = process.env.MONGO_CONNECTION_URL;
 if(!uri) throw new Error(".env file is not created")
@@ -85,6 +86,7 @@ app.post("/temple/renew", templeHealRenew);
 
 // MERCHANTS
 app.post("/merchant/buy", merchantBuyItem);
+app.post("/merchant/sell", merchantSellItem);
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {

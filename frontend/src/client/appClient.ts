@@ -23,6 +23,7 @@ import { templeRenewService } from "./services/game/temple/templeRenewService";
 import { IUpdateStatistics, updateStatisticsService } from "./services/game/hero/updateStatisticsService";
 import { getUserDetailsService } from "./services/user/getUserDetailsService";
 import { IMerchantBuy, merchantBuyService } from "./services/game/merchants/merchantBuyService";
+import { IMerchantSell, merchantSellService } from "./services/game/merchants/merchantSellService";
 
 // REGISTER AND LOGIN
 export async function register(body: signUpInterface) {
@@ -111,4 +112,8 @@ export async function templeRenew() {
 // MERCHANTS
 export async function merchantBuy(body: IMerchantBuy) {
   return await merchantBuyService(body);
+};
+
+export async function merchantSell(body: IMerchantSell) {
+  return await merchantSellService(body);
 };
