@@ -2,6 +2,7 @@ require("dotenv").config();
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+const bodyParser = require("body-parser");
 import { loginUser } from "./controllers/account/login";
 import { createUser } from "./controllers/account/register";
 import { createCharacter, getCharacterById, getUserCharacters } from "./controllers/account/characters";
@@ -39,11 +40,10 @@ mongoose.connection.on("connected", function () {
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
-app.get("/", (req: any, res: any) => {
-  res.send("Hello, world!");
-});
+app.use("/admin", express.static(__dirname + "/admin-panel"));
 
 // LOGIN AND REGISTER
 app.post("/register", createUser);
@@ -67,7 +67,7 @@ app.post("/hero/equipmenttoinventory/update", updateEquipmentToInventory);
 app.post("/hero/update/statistics", updateStatistics);
 
 // ITEMS ACTIONS
-app.post("/item/add", addItem);
+app.post("/create/item", addItem);
 
 
 // QUESTS ACTIONS

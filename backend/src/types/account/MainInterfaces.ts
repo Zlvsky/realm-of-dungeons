@@ -113,6 +113,7 @@ export interface IUser extends Document {
 export interface IItem extends mongoose.Document {
   name: string;
   type: string;
+  subType?: string;
   minDamage?: number;
   maxDamage?: number;
   image: string;

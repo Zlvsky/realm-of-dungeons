@@ -4,6 +4,7 @@ import { IItem } from "../../types/account/MainInterfaces";
 export const itemSchema: Schema<IItem> = new mongoose.Schema({
   name: { type: String, required: true },
   type: { type: String, required: true },
+  subType: { type: String, required: false },
   minDamage: { type: Number, required: false },
   maxDamage: { type: Number, required: false },
   image: { type: String, required: true },
