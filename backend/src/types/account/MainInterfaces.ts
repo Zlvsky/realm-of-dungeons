@@ -107,6 +107,7 @@ export interface IUser extends Document {
   accountname: string;
   email: string;
   password: string;
+  isAdmin?: boolean;
   characters: mongoose.Types.Array<ICharacter["_id"]>;
 }
 

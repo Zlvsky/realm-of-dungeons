@@ -18,7 +18,8 @@ export const loginUser = async (req: Request, res: Response) => {
     }
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET!);
-
+    
+    if (user.isAdmin) return res.status(200).json({ token, isAdmin: user.isAdmin });
     return res.status(200).json({ token });
   } catch (err) {
     console.log(err);

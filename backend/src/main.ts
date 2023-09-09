@@ -2,7 +2,9 @@ require("dotenv").config();
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-const bodyParser = require("body-parser");
+import path from "path";
+import bodyParser from "body-parser";
+
 import { loginUser } from "./controllers/account/login";
 import { createUser } from "./controllers/account/register";
 import { createCharacter, getCharacterById, getUserCharacters } from "./controllers/account/characters";
@@ -42,51 +44,54 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-app.use("/admin", express.static(__dirname + "/admin-panel"));
-
 // LOGIN AND REGISTER
-app.post("/register", createUser);
-app.post("/login", loginUser);
+app.post("/api/register", createUser);
+app.post("/api/login", loginUser);
 
 // USER INFO
-app.get("/user/details", getUserDetails);
+app.get("/api/user/details", getUserDetails);
 
 // USER ACTIONCS
-app.post("/user/createCharacter", createCharacter);
-app.get("/user/getCharacter/:id", getCharacterById);
-app.get("/user/getUserCharacters", getUserCharacters);
+app.post("/api/user/createCharacter", createCharacter);
+app.get("/api/user/getCharacter/:id", getCharacterById);
+app.get("/api/user/getUserCharacters", getUserCharacters);
 
 // HERO ACTIONS
 // -- EQUIPMENT AND INVENTORY
-app.post("/hero/equipment/update", updateInventoryToEquipment);
-app.post("/hero/inventory/update", updateInventory);
-app.post("/hero/equipmenttoinventory/update", updateEquipmentToInventory);
+app.post("/api/hero/equipment/update", updateInventoryToEquipment);
+app.post("/api/hero/inventory/update", updateInventory);
+app.post("/api/hero/equipmenttoinventory/update", updateEquipmentToInventory);
 
 // -- STATISTICS
-app.post("/hero/update/statistics", updateStatistics);
+app.post("/api/hero/update/statistics", updateStatistics);
 
 // ITEMS ACTIONS
-app.post("/create/item", addItem);
+app.post("/api/create/item", addItem);
 
 
 // QUESTS ACTIONS
-app.post("/quest/updateActiveQuest", updateActiveQuest);
-app.post("/quest/clearActiveQuest", clearActiveQuest);
-app.post("/quest/startQuestBattle", startQuestBattle);
+app.post("/api/quest/updateActiveQuest", updateActiveQuest);
+app.post("/api/quest/clearActiveQuest", clearActiveQuest);
+app.post("/api/quest/startQuestBattle", startQuestBattle);
 
 // QUEST BATTLE
-app.post("/quest/action/attack", characterAttack);
-app.post("/quest/enemyTurn", enemyTurn);
-app.post("/quest/battleEnd", questBattleEnd);
+app.post("/api/quest/action/attack", characterAttack);
+app.post("/api/quest/enemyTurn", enemyTurn);
+app.post("/api/quest/battleEnd", questBattleEnd);
 
 // TEMPLE
-app.post("/temple/heal", templeHealing);
-app.post("/temple/renew", templeHealRenew);
+app.post("/api/temple/heal", templeHealing);
+app.post("/api/temple/renew", templeHealRenew);
 
 // MERCHANTS
-app.post("/merchant/buy", merchantBuyItem);
-app.post("/merchant/sell", merchantSellItem);
+app.post("/api/merchant/buy", merchantBuyItem);
+app.post("/api/merchant/sell", merchantSellItem);
+
+// ADMIN PANEL
+app.use(express.static(path.join(__dirname, "admin-panel", "dist")));
+app.get("*", (_, res) => {
+  res.sendFile(path.join(__dirname, "admin-panel", "dist", "index.html"));
+});
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
