@@ -58,7 +58,6 @@ const getScaledItems = (items: IItem[], heroLevel: number) => {
 const getItemsForMerchant = async (merchant: IMerchant, heroLevel: number) => {
     const randomItems = await getRandomItemsByType(merchant.itemTypes, 8);
     if (randomItems.length === 0) return [];
-    console.log("merchants refresh", getScaledItems(randomItems, heroLevel))
     return getScaledItems(randomItems, heroLevel);
 }
 

@@ -1,5 +1,6 @@
 import mongoose, { Schema, Model } from "mongoose";
 import { IMerchant } from "../../types/account/MainInterfaces";
+import { itemSchema } from "./itemSchema";
 
 const merchantSchema: Schema<IMerchant> = new mongoose.Schema({
   name: { type: String, required: true },
@@ -8,7 +9,7 @@ const merchantSchema: Schema<IMerchant> = new mongoose.Schema({
   interestedIn: { type: [{ type: String }], required: true },
   staticItems: [
     {
-      item: { type: Schema.Types.ObjectId, ref: "Item", default: null },
+      item: { type: itemSchema, default: null },
     },
   ],
 });
