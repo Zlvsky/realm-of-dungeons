@@ -6,19 +6,6 @@ interface ICombatLogs {
   logs: string[];
 }
 
-const mockedLogs = [
-  "Dark mage attacks you with bite for 1!",
-  "You attack dark mage with your axe for 5",
-  "Dark mage attacks you with bite for 4!",
-  "You sling a flaming ball at withered for 2",
-  "Fireball deals an extra 5 damage",
-  "Dark mage attacks you with slash for 6!",
-  "You sling a flaming ball at dark mage for 18",
-  "Dark mage attacks you with slash for 5! Fireball deals an extra 5 damage",
-  "You've defeated the dark mage.",
-  "Battle ended!!!",
-];
-
 const LogText = ({
   log,
   index,

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { Container, Sprite, Text, Graphics } from "@pixi/react";
 import QuestsBg from "../../../.././assets/images/game-world/quests.png";
 import HourglassIcon from "../../../../assets/images/icons/gui/hourglass.png"

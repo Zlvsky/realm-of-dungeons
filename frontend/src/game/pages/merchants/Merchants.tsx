@@ -1,5 +1,5 @@
 import { useState } from "react"; 
-import { Container, Text, TilingSprite } from "@pixi/react";
+import { Container, TilingSprite } from "@pixi/react";
 import BgPattern from "../../../assets/images/dark_wall.png"; 
 import MerchantsText from "./components/MerchantsText";
 import merchantsData from "./data/merchantsData";

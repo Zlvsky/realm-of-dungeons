@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../client/appClient";
-import Checkbox from "../../components/common/forms/Checkbox";
 import Form from "../../components/common/forms/Form";
 import Input from "../../components/common/forms/Input";
 import Header from "../../components/common/text/Header";
@@ -10,11 +9,8 @@ import setCookies from "../../utils/cookies/setCookie";
 
 function SignIn() {
   const [accountName, setAccountName] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [repeatPassword, setRepeatPassword] = useState("");
-  const [terms, setTerms] = useState(false);
-
+  
   const navigate = useNavigate();
 
   const onSubmit = async () => {
@@ -48,7 +44,6 @@ function SignIn() {
               divClassName="my-8"
               value={accountName}
               onChange={(e: any) => setAccountName(e.target.value)}
-              // onKeyPress={inputOnlyLetters}
               // error={errors?.fullName}
               required
             />
@@ -60,7 +55,6 @@ function SignIn() {
               type="password"
               value={password}
               onChange={(e: any) => setPassword(e.target.value)}
-              // onKeyPress={inputOnlyLetters}
               // error={errors?.fullName}
               required
             />

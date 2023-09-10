@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Container } from "@pixi/react";
 import { connect } from "react-redux";
 import SelectQuest from "./components/SelectQuest";

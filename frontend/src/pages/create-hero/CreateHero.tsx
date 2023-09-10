@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
-import Button from "../../components/common/button/Button";
+import { useState, useEffect } from "react";
 import Header from "../../components/common/text/Header";
 import FullWrapper from "../../components/layouts/page-wrappers/FullWrapper";
 import arrow from "../../assets/images/arrow_white.png";
-import warrior from "../../assets/images/warrior.png";
 import Form from "../../components/common/forms/Form";
 import Input from "../../components/common/forms/Input";
 import { createCharacter } from "../../client/appClient";

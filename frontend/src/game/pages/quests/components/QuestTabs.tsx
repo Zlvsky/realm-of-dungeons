@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Stage, Container, Sprite, Text, Graphics } from "@pixi/react";
+import { Container, Sprite, Text } from "@pixi/react";
 import { TextStyle } from 'pixi.js';
 import ArrowIcon from "../../../../assets/images/arrow_white.png";
 

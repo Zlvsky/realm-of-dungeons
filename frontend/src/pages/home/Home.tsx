@@ -1,13 +1,10 @@
-import React from "react";
 import BasicWrapper from "../../components/layouts/page-wrappers/BasicWrapper";
 import Header from "../../components/common/text/Header";
 import homeBg from "../../assets/images/homeBG.png";
-import pattern from "../../assets/images/dark_wall.png"
 import FullWrapper from "../../components/layouts/page-wrappers/FullWrapper";
 import Button from "../../components/common/button/Button";
 import ImageWithText from "../../components/layouts/sections/ImageWithText";
 import Characters1 from "../../assets/images/characters1.png"
-import Characters2 from "../../assets/images/characters2.png"
 import SectionDivider from "../../components/common/dividers/SectionDivider";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";

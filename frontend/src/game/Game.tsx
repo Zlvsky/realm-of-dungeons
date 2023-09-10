@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import * as PIXI from "pixi.js";
+import { useState, useEffect } from "react";
 import FullWrapper from "../components/layouts/page-wrappers/FullWrapper";
 import Hud from "./components/hud/Hud";
-import { useDispatch, useSelector } from "react-redux";
-import { getHero, setDimensions, setHero } from "../redux/reducers/gameSlice";
+import { useDispatch } from "react-redux";
+import { setDimensions, setHero } from "../redux/reducers/gameSlice";
 import { getUserCharacter } from "../client/appClient";
 import GameWorld from "./components/GameWorld";
 import GameStage from "./game-context/GameStage";

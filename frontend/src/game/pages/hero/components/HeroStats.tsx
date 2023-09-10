@@ -1,4 +1,4 @@
-import { ColorMatrixFilter, Filter } from "pixi.js";
+import { ColorMatrixFilter } from "pixi.js";
 import { Container, Sprite, Text, withFilters } from "@pixi/react";
 import { TextStyle } from "pixi.js";
 import plusbtn from "../../../../assets/images/plusbtn.png";

@@ -1,5 +1,4 @@
-import React from 'react';
-import { Stage, Container, Sprite, Text, Graphics } from "@pixi/react";
+import { Container, Sprite } from "@pixi/react";
 import questsBtn from "../../../../assets/images/btn.png";
 import heroBtn from "../../../../assets/images/herobtn.png";
 import templeBtn from "../../../../assets/images/templebtn.png";

@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Container, Text, TilingSprite } from "@pixi/react";
+import { useState } from "react";
+import { Container, TilingSprite } from "@pixi/react";
 import BgPattern from "../../../assets/images/dark_wall.png";
 import merchantsData from "../merchants/data/merchantsData";
 import { setHero } from "../../../redux/reducers/gameSlice";

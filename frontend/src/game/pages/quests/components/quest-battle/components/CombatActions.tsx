@@ -2,7 +2,6 @@ import { Container, Graphics, Sprite } from '@pixi/react';
 import lowAttack from "../../../../../../assets/images/combat/combat-actions/low.png"
 import mediumAttack from "../../../../../../assets/images/combat/combat-actions/medium.png"
 import strongAttack from "../../../../../../assets/images/combat/combat-actions/strong.png"
-import { calcDamage } from '../utils/combatUtils';
 import { questActionAttack } from '../../../../../../client/appClient';
 import fetchHero from '../../../../../../utils/fetchers/fetchHero';
 import { connect } from 'react-redux';

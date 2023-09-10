@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Text, Graphics, TilingSprite } from "@pixi/react";
+import { Container, Text, TilingSprite } from "@pixi/react";
 import { TextStyle } from "pixi.js";
 import BgPattern from "../../../../../assets/images/dark_wall.png";
 import BattleStats from "./components/BattleStats";

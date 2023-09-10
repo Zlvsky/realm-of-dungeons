@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Stage, Container, Sprite, Text, Graphics } from "@pixi/react";
+import { Container, Sprite, Text, Graphics } from "@pixi/react";
 import { TextStyle } from 'pixi.js';
 import { IHeroProp } from '../../../../interfaces/ComponentsInterfaces';
 

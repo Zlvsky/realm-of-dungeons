@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Stage, Container, Sprite, Text, Graphics } from "@pixi/react";
+import { useState, useEffect } from 'react';
+import { Container } from "@pixi/react";
 import { connect } from 'react-redux';
-import { getHero } from '../../../../redux/reducers/gameSlice';
 import ItemSlot from './ItemSlot';
 import Item from './Item';
 import { equipmentSlots, inventorySlots } from "../helpers/slots";
