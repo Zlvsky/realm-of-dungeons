@@ -1,16 +1,12 @@
 import { Request, Response } from "express";
 import { Character } from "../../../../schemas/character/characterSchema";
 import getValuesWithStatistics from "../../../../gameUtils/characters/getValuesWithStatistics";
+import updateCharacterValues from "../../../../gameUtils/characters/getUpdatedValues";
 
 export const updateStatistics = async (req: Request, res: Response) => {
   const { characterId, statistic } = req.body;
   try {
-    const character = await Character.findById(characterId)
-      .populate({
-        path: "equipment.item",
-        model: "Item",
-      })
-      .exec();
+    const character = await Character.findById(characterId);
       
     if (!character)
       return res.status(404).json({ message: "Character not found" });
@@ -48,6 +44,7 @@ export const updateStatistics = async (req: Request, res: Response) => {
 
     character.progression.availableStatPoints -= 1;
 
+    await updateCharacterValues(character);
     getValuesWithStatistics(character);
 
     await character.save();

@@ -9,6 +9,7 @@ const useDrag = ({ x, y, onDrop, setCurrentItem, itemData }: any) => {
   const sprite = useRef<any>();
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ x, y });
+  const [currentItemId, setCurrentItemId] = useState<string | null>(null);
 
   const checkApiPosition = () => {
     if (position.x !== x && position.y !== y) setPosition({ x, y });
@@ -18,16 +19,29 @@ const useDrag = ({ x, y, onDrop, setCurrentItem, itemData }: any) => {
     checkApiPosition();
   }, [x, y]);
 
-  
+  const isInteractive = () => {
+    if (!isDragging) return true;
+    if (currentItemId === itemData._id) return true;
+    return false;
+  }
 
-  const onDown = React.useCallback(() => {
+  const isDraggingCurrentItem = () => {
+    if (isDragging && currentItemId === itemData._id) return true;
+    return false;
+  }
+
+  const onDown = React.useCallback((e: any) => {
+    e.stopPropagation();
+    sprite.current.parent.addChild(sprite.current);
     setIsDragging(true);
     setCurrentItem(itemData.item.type)
+    setCurrentItemId(itemData._id);
   }, [itemData]);
 
   const onUp = React.useCallback(() => {
     setIsDragging(false);
     setCurrentItem(null);
+    setCurrentItemId(null);
     const dropPosition = onDrop(position);
     setPosition(dropPosition);
     checkApiPosition();
@@ -36,7 +50,8 @@ const useDrag = ({ x, y, onDrop, setCurrentItem, itemData }: any) => {
   const onMove = React.useCallback(
     (e: any) => {
       if (isDragging && sprite.current) {
-        setPosition(e.data.getLocalPosition(sprite.current.parent));
+        const newPosition = e.data.getLocalPosition(sprite.current.parent); 
+        setPosition(newPosition);
       }
     },
     [isDragging, setPosition]
@@ -48,10 +63,11 @@ const useDrag = ({ x, y, onDrop, setCurrentItem, itemData }: any) => {
     pointerdown: onDown,
     pointerup: onUp,
     pointerupoutside: onUp,
-    pointermove: isDragging ? onMove : undefined,
+    pointermove: isDraggingCurrentItem() ? onMove : undefined,
     alpha: isDragging ? 0.5 : 1,
     anchor: 0.5,
     position,
+    interactive: isInteractive(),
   };
 };
 
@@ -126,7 +142,6 @@ const Item = ({
       image={itemData.item.image}
       width={60}
       height={60}
-      interactive={true}
       {...bind}
     />
   );

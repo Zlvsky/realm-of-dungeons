@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import * as PIXI from "pixi.js";
 import FullWrapper from "../components/layouts/page-wrappers/FullWrapper";
 import Hud from "./components/hud/Hud";
 import { useDispatch } from "react-redux";

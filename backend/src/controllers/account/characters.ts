@@ -52,16 +52,7 @@ export const getCharacterById = async (req: Request, res: Response) => {
   const characterId = req.params.id;
 
   // Get character by ID
-  const character = await Character.findById(characterId)
-    .populate({
-      path: "equipment.item",
-      model: "Item",
-    })
-    .populate({
-      path: "inventory.item",
-      model: "Item",
-    })
-    .exec();
+  const character = await Character.findById(characterId);
 
   if (!character) {
     return res.status(404).json({ message: "Character not found" });

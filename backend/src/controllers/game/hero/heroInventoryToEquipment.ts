@@ -17,16 +17,7 @@ export const updateInventoryToEquipment = async (
   const { characterId, item, itemType, inventorySlotIndex } = req.body;
 
   try {
-    const character: ICharacter | null = await Character.findById(characterId)
-      .populate({
-        path: "equipment.item",
-        model: "Item",
-      })
-      .populate({
-        path: "inventory.item",
-        model: "Item",
-      })
-      .exec();
+    const character: ICharacter | null = await Character.findById(characterId);
 
     if (!character) {
       return res.status(404).json({ message: "Character not found" });

@@ -21,6 +21,7 @@ function GameWorld() {
     <Container
       scale={[dimensions.scaleW, dimensions.scaleH]}
       position={[350 * dimensions.scaleW, 0]}
+      interactive={true}
     >
       <CurrentStage />
     </Container>
