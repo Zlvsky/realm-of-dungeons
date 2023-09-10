@@ -9,6 +9,10 @@
     max-width: 600px;
     margin: 0 auto;
     text-align: left;
+    padding: 40px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.2);
 }
 
 .content-wrap-md {
@@ -16,6 +20,10 @@
     max-width: 900px;
     margin: 0 auto;
     text-align: left;
+    padding: 40px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.2);
 }
 
 .content-wrap-lg {
@@ -23,6 +31,10 @@
     max-width: 1200px;
     margin: 0 auto;
     text-align: left;
+    padding: 40px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.2);
 }
  
 .inner-block {

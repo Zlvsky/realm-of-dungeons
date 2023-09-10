@@ -1,5 +1,7 @@
 import express, { Request, Response } from "express";
 import { Item } from "../../../schemas/game/itemSchema";
+import getUserIdFromToken from "../../../utils/getUserIdFromToken";
+import User from "../../../schemas/account/userSchema";
 
 const router = express.Router();
 
@@ -10,6 +12,15 @@ const isIncluded = (value: any) => {
 
 export const addItem = async (req: Request, res: Response) => {
   try {
+    const userId = getUserIdFromToken(req.headers.authorization);
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(400).send("User not found");
+    }
+
+    if (!user.isAdmin) return res.status(403).send("User not permitted");
+
     const statistics = {
       strength: req.body.strength,
       condition: req.body.condition,

@@ -1,6 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from "@/views/home/Home.vue";
 import Login from "@/views/login/Login.vue";
+import Items from "@/views/items/Items.vue";
 import { getUserDetailsService } from "@/client/services/user/getUserDetailsService";
 import Cookies from "js-cookie";
 
@@ -9,6 +10,12 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/items",
+    name: "Items",
+    component: Items,
     meta: { requiresAuth: true },
   },
   {
