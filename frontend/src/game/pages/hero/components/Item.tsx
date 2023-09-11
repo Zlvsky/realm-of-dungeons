@@ -25,20 +25,21 @@ const useDrag = ({ x, y, onDrop, setCurrentItem, itemData }: any) => {
     return false;
   }
 
-  const isDraggingCurrentItem = () => {
-    if (isDragging && currentItemId === itemData._id) return true;
-    return false;
-  }
-
   const onDown = React.useCallback((e: any) => {
     e.stopPropagation();
+    const stage = sprite.current.parent.parent.parent.parent;
     sprite.current.parent.addChild(sprite.current);
     setIsDragging(true);
     setCurrentItem(itemData.item.type)
     setCurrentItemId(itemData._id);
+    stage.interactive = true;
+    stage.on("pointermove", onMove);
   }, [itemData]);
 
   const onUp = React.useCallback(() => {
+    const stage = sprite.current.parent.parent.parent.parent;
+    stage.off("pointermove", onMove);
+    stage.interactive = false;
     setIsDragging(false);
     setCurrentItem(null);
     setCurrentItemId(null);
@@ -49,12 +50,13 @@ const useDrag = ({ x, y, onDrop, setCurrentItem, itemData }: any) => {
 
   const onMove = React.useCallback(
     (e: any) => {
-      if (isDragging && sprite.current) {
+      e.data.originalEvent.stopPropagation();
+      if (sprite.current) {
         const newPosition = e.data.getLocalPosition(sprite.current.parent); 
         setPosition(newPosition);
       }
     },
-    [isDragging, setPosition]
+    [setPosition]
   );
 
 
@@ -63,7 +65,6 @@ const useDrag = ({ x, y, onDrop, setCurrentItem, itemData }: any) => {
     pointerdown: onDown,
     pointerup: onUp,
     pointerupoutside: onUp,
-    pointermove: isDraggingCurrentItem() ? onMove : undefined,
     alpha: isDragging ? 0.5 : 1,
     anchor: 0.5,
     position,

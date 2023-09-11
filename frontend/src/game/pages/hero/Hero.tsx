@@ -4,7 +4,7 @@ import HeroEquipment from "./components/HeroEquipment";
 
 function Hero() {
   return (
-    <Container position={[0, 2]}>
+    <Container position={[0, 2]} interactive={true}>
       <TilingSprite
         image={BgPattern}
         width={1315}
