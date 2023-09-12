@@ -22,8 +22,8 @@ interface IItemPreview {
     };
   };
   price?: number;
-  action?: "BUY" | "SELL" | "EQUIP" | "UNEQUIP";
-  handleAction: any;
+  action?: "BUY" | "SELL";
+  handleAction?: any;
 }
 
 function capitalizeFirstLetter(string: string) {
@@ -92,6 +92,31 @@ function ItemPreview({
   };
 
   const ItemValues = () => {
+
+    const ItemValue = () => {
+      if (!itemData?.armor === undefined || itemData.minDamage === undefined) return null;
+      let valueText;
+      if (itemData?.armor !== undefined) valueText = `Armor: ${itemData.armor}`;
+      if (itemData?.minDamage !== undefined) valueText = `Damage: ${itemData.minDamage} - ${itemData.maxDamage}`;
+      return (
+        <Text
+          text={valueText}
+          x={20}
+          y={175}
+          style={
+            new TextStyle({
+              align: "center",
+              fontFamily: "Almendra",
+              fontSize: 20,
+              fontWeight: "400",
+              fill: ["#ffffff"],
+              letterSpacing: 0.5,
+            })
+          }
+        />
+      );
+    }
+    
     return (
       <>
         <Text
@@ -109,25 +134,7 @@ function ItemPreview({
             })
           }
         />
-        <Text
-          text={
-            itemData.type.toLowerCase() === "armor"
-              ? `Armor: ${itemData.armor}`
-              : `Damage: ${itemData.minDamage} - ${itemData.maxDamage}`
-          }
-          x={20}
-          y={175}
-          style={
-            new TextStyle({
-              align: "center",
-              fontFamily: "Almendra",
-              fontSize: 20,
-              fontWeight: "400",
-              fill: ["#ffffff"],
-              letterSpacing: 0.5,
-            })
-          }
-        />
+        <ItemValue />
       </>
     );
   };

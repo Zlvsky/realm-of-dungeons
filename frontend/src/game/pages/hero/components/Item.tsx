@@ -5,7 +5,7 @@ import fetchHero from "../../../../utils/fetchers/fetchHero";
 import { connect } from "react-redux";
 import { setHero } from "../../../../redux/reducers/gameSlice";
 
-const useDrag = ({ x, y, onDrop, setCurrentItem, itemData }: any) => {
+const useDrag = ({ x, y, onDrop, setCurrentItem, setCurrentItemPreview, itemData }: any) => {
   const sprite = useRef<any>();
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ x, y });
@@ -14,6 +14,14 @@ const useDrag = ({ x, y, onDrop, setCurrentItem, itemData }: any) => {
   const checkApiPosition = () => {
     if (position.x !== x && position.y !== y) setPosition({ x, y });
   };
+
+  const setPreview = () => {
+    setCurrentItemPreview(itemData.item);
+  }
+
+  const clearPreview = () => {
+    setCurrentItemPreview(null);
+  }
 
   useEffect(() => {
     checkApiPosition();
@@ -30,7 +38,8 @@ const useDrag = ({ x, y, onDrop, setCurrentItem, itemData }: any) => {
     const stage = sprite.current.parent.parent.parent.parent;
     sprite.current.parent.addChild(sprite.current);
     setIsDragging(true);
-    setCurrentItem(itemData.item.type)
+    clearPreview();
+    setCurrentItem(itemData.item)
     setCurrentItemId(itemData._id);
     stage.interactive = true;
     stage.on("pointermove", onMove);
@@ -65,6 +74,8 @@ const useDrag = ({ x, y, onDrop, setCurrentItem, itemData }: any) => {
     pointerdown: onDown,
     pointerup: onUp,
     pointerupoutside: onUp,
+    onpointerenter: isDragging ? null : setPreview,
+    onpointerleave: isDragging ? null : clearPreview,
     alpha: isDragging ? 0.5 : 1,
     anchor: 0.5,
     position,
@@ -76,6 +87,7 @@ const Item = ({
   itemData,
   onDrop,
   setCurrentItem,
+  setCurrentItemPreview,
   itemPosition,
   itemSpot,
   inventoryIndex,
@@ -129,13 +141,18 @@ const Item = ({
       const slot = slotData.position;
       const slotType = slotData.slotType;
       const slotPosition = { x: slot.x + 40, y: slot.y + 40 };
-      if (slotType === "EQUIPMENT" && itemSpot === "INVENTORY") handleInventoryToEquipmentRequest(slot.type);
-      else if (slotType === "INVENTORY" && itemSpot === "INVENTORY") handleInventoryToInventoryRequest(slotData.slotIndex);
-      else if (slotType === "INVENTORY" && itemSpot === "EQUIPMENT") handleEquipmentToInventoryRequest(slotData.slotIndex);
+      if (slotType === "EQUIPMENT" && itemSpot === "INVENTORY")
+        handleInventoryToEquipmentRequest(slot.type);
+      else if (slotType === "INVENTORY" && itemSpot === "INVENTORY")
+        handleInventoryToInventoryRequest(slotData.slotIndex);
+      else if (slotType === "INVENTORY" && itemSpot === "EQUIPMENT")
+        handleEquipmentToInventoryRequest(slotData.slotIndex);
       setPosition(slotPosition);
       return slotPosition;
     },
     setCurrentItem: setCurrentItem,
+    setCurrentItemPreview: setCurrentItemPreview,
+    itemSpot: itemSpot,
     itemData: itemData,
   });
   return (
@@ -143,6 +160,7 @@ const Item = ({
       image={itemData.item.image}
       width={60}
       height={60}
+      cursor="pointer"
       {...bind}
     />
   );

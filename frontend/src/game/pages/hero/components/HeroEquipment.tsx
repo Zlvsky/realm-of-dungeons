@@ -14,12 +14,12 @@ import {
 import HeroInfo from './HeroInfo';
 import HeroStats from './HeroStats';
 import { ICharacter } from '../../../../interfaces/MainInterface';
+import ItemPreview from '../../../components/items/item-preview/ItemPreview';
 
 function HeroEquipment({ game }: any) {
   const hero: ICharacter = game.hero;
-  const [currentItemTypeDragging, setCurrentItemTypeDragging] = useState<
-    string | null
-  >(null);
+  const [currentItem, setCurrentItem] = useState<any>(null);
+  const [currentItemPreview, setCurrentItemPreview] = useState<any>(null);
   const [inventory, setInventory] = useState<any>([]);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ function HeroEquipment({ game }: any) {
       slotType: "",
       slotIndex: -1,
     };
-    const closestSlotIndex = getEquipmentSlot(currentItemTypeDragging!);
+    const closestSlotIndex = getEquipmentSlot(currentItem?.type);
     const isInSlot = checkIfInsideSlot(position, closestSlotIndex);
     if (isInSlot) {
       returnData.position = closestSlotIndex;
@@ -67,13 +67,13 @@ function HeroEquipment({ game }: any) {
   return (
     <Container position={[100, 150]} interactive={true}>
       <HeroInfo hero={hero} />
-      <HeroStats hero={hero}/>
+      <HeroStats hero={hero} />
       {equipmentSlots.map((position, index) => (
         <ItemSlot
           key={index}
           x={position.x}
           y={position.y}
-          currentItem={currentItemTypeDragging}
+          currentItem={currentItem?.type}
           itemType={position.type}
         />
       ))}
@@ -82,7 +82,7 @@ function HeroEquipment({ game }: any) {
           key={index}
           x={position.x}
           y={position.y}
-          currentItem={currentItemTypeDragging}
+          currentItem={currentItem?.type}
         />
       ))}
       {/* equipment items */}
@@ -95,7 +95,8 @@ function HeroEquipment({ game }: any) {
               itemPosition={getEquipmentPosition(item.type)}
               itemSpot={"EQUIPMENT"}
               onDrop={handleItemDrop}
-              setCurrentItem={setCurrentItemTypeDragging}
+              setCurrentItem={setCurrentItem}
+              setCurrentItemPreview={setCurrentItemPreview}
             />
           );
       })}
@@ -109,11 +110,18 @@ function HeroEquipment({ game }: any) {
               itemPosition={getInventoryPosition(item.slotIndex)}
               itemSpot={"INVENTORY"}
               onDrop={handleItemDrop}
-              setCurrentItem={setCurrentItemTypeDragging}
               inventoryIndex={index}
+              setCurrentItem={setCurrentItem}
+              setCurrentItemPreview={setCurrentItemPreview}
             />
           );
       })}
+      {currentItemPreview && (
+        <ItemPreview
+          position={[670, -70]}
+          itemData={currentItemPreview}
+        />
+      )}
     </Container>
   );
 }
