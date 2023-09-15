@@ -20,6 +20,7 @@ interface IItemPreview {
       intelligence?: number;
       charisma?: number;
     };
+    description?: string;
   };
   price?: number;
   action?: "BUY" | "SELL";
@@ -166,6 +167,31 @@ function ItemPreview({
     );
   };
 
+  const ItemDescription = () => {
+    const statsLength = itemData?.statistics ? Object.keys(itemData.statistics).length : 0;
+    const yPosition = 200 + statsLength * 25;
+    return (
+      <Text
+        text={itemData?.description}
+        x={20}
+        y={yPosition}
+        style={
+          new TextStyle({
+            align: "center",
+            fontFamily: "Almendra",
+            fontSize: 20,
+            fontWeight: "100",
+            fontStyle: "italic",
+            fill: ["#ffffff"],
+            letterSpacing: 0.5,
+            wordWrap: true,
+            wordWrapWidth: boxWidth - 20,
+          })
+        }
+      />
+    );
+  }
+
   const ItemPrice = () => {
     if (!price) return null;
     return (
@@ -213,6 +239,7 @@ function ItemPreview({
       <ItemName />
       <ItemValues />
       <ItemStats />
+      <ItemDescription />
       <ItemPrice />
       <ActionButton
         action={action}

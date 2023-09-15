@@ -30,7 +30,7 @@ export const equipmentSlots = [
     y: 100,
   },
   {
-    type: "trinket",
+    type: "potion",
     x: 410,
     y: 200,
   },

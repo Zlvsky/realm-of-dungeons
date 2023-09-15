@@ -127,6 +127,7 @@ export interface IItem extends mongoose.Document {
     intelligence?: number;
     charisma?: number;
   };
+  description?: string;
   value?: number;
 }
 

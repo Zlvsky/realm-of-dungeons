@@ -17,6 +17,7 @@ export const itemSchema: Schema<IItem> = new mongoose.Schema({
     intelligence: { type: Number, required: false },
     charisma: { type: Number, required: false },
   },
+  description: { type: String, required: false },
   value: { type: Number, required: false },
 });
 

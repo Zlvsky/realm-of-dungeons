@@ -17,16 +17,13 @@ const calculateEquipmentValues = (equipment: ICharacter["equipment"]) => {
         accumulator.damage += Math.round((item.minDamage + item.maxDamage) / 2);
       }
 
-      for (const stat in item.statistics) {
-        // hack used for typescript..
-        let statCopy: any = stat;
-        let correctStat: keyof typeof item.statistics = statCopy;
-        if (item.statistics.hasOwnProperty(stat)) {
-          // Type assertion here to tell TypeScript that stat is a valid key
-          accumulator.statistics[correctStat] =
-            (accumulator.statistics[correctStat] || 0) +
-            (item.statistics[correctStat] as number);
-        }
+      if (item.statistics) {
+        const statisticsKeys: any[] = Object.keys(item.statistics);
+        statisticsKeys.forEach((stat: keyof typeof item.statistics ) => {
+          if (item.statistics[stat]) {
+            accumulator.statistics[stat] = accumulator.statistics[stat] + item.statistics[stat]!;
+          }
+        })
       }
 
       return accumulator;
@@ -51,6 +48,7 @@ const updateCharacterValues = async (character: ICharacter) => {
   try {
     if (!character) return false;
     const equipmentValues = calculateEquipmentValues(character.equipment);
+    console.log("stats", equipmentValues);
 
     character.updatedValues.armor =
       character.generalValues.basicArmor + equipmentValues.armor;

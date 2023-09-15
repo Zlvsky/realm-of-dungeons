@@ -24,7 +24,7 @@ const initEquipment = [
     item: null,
   },
   {
-    type: "trinket",
+    type: "potion",
     item: null,
   },
   {
