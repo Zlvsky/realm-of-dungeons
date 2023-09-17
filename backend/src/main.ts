@@ -13,7 +13,7 @@ import { addItem } from "./controllers/game/items/addItem";
 import { updateInventory } from "./controllers/game/hero/heroInventory";
 import { updateEquipmentToInventory } from "./controllers/game/hero/heroEquipmentToInventrory";
 import { clearActiveQuest, startQuestBattle, updateActiveQuest } from "./controllers/game/quests/quests";
-import { characterAttack } from "./controllers/game/quest-battle/questBattle";
+import { characterAttack, characterUsePotion } from "./controllers/game/quest-battle/questBattle";
 import { enemyTurn } from "./controllers/game/quest-battle/enemyTurn";
 import { questBattleEnd } from "./controllers/game/quest-battle/questBattleEnd";
 import { templeHealing } from "./controllers/game/temple/templeHealing";
@@ -76,6 +76,7 @@ app.post("/api/quest/startQuestBattle", startQuestBattle);
 
 // QUEST BATTLE
 app.post("/api/quest/action/attack", characterAttack);
+app.post("/api/quest/action/potion", characterUsePotion);
 app.post("/api/quest/enemyTurn", enemyTurn);
 app.post("/api/quest/battleEnd", questBattleEnd);
 

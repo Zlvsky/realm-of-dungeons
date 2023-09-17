@@ -2,16 +2,12 @@ import { Request, Response } from "express";
 import { Character } from "../../../schemas/character/characterSchema";
 import { getAttackDamage } from "../../../utils/getAttackDamage";
 import getValuesWithStatistics from "../../../gameUtils/characters/getValuesWithStatistics";
+import handleUsePotion from "./helpers/handleUsePotion";
 
 export const characterAttack = async (req: Request, res: Response) => {
   const { characterId, attackPower } = req.body;
   try {
-    const character = await Character.findById(characterId)
-      .populate({
-        path: "equipment.item",
-        model: "Item",
-      })
-      .exec();
+    const character = await Character.findById(characterId);
 
     if (!character)
       return res.status(404).json({ message: "Character not found" });
@@ -24,10 +20,10 @@ export const characterAttack = async (req: Request, res: Response) => {
     if (!quest) return res.status(404).json({ message: "Quest not found" });
 
     if (quest.whosTurn !== 1)
-      return res.status(404).json({ message: "Not your turn" });
+      return res.status(400).json({ message: "Not your turn" });
 
     if (quest.battleWinner)
-      return res.status(404).json({ message: "Battle already ended" });
+      return res.status(400).json({ message: "Battle already ended" });
 
     getValuesWithStatistics(character);
     let attackDamage;
@@ -59,6 +55,49 @@ export const characterAttack = async (req: Request, res: Response) => {
     } else {
       quest.whosTurn = 2;
     }
+
+    await character.save();
+    return res.json("success");
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
+
+export const characterUsePotion = async (req: Request, res: Response) => {
+  const { characterId } = req.body;
+  try {
+    const character = await Character.findById(characterId);
+
+    if (!character)
+      return res.status(404).json({ message: "Character not found" });
+
+    const { activeQuest, equipment } = character;
+    const { quest } = activeQuest;
+
+    if (!quest) return res.status(404).json({ message: "Quest not found" });
+
+    if (quest.whosTurn !== 1)
+      return res.status(400).json({ message: "Not your turn" });
+
+    if (quest.battleWinner)
+      return res.status(400).json({ message: "Battle already ended" });
+
+    const equippedPotion = equipment.find(item => item.type === "potion");
+
+    if (!equippedPotion || !equippedPotion.item)
+      return res.status(400).json({ message: "No potion found in equipment" });
+
+    const usedPotion = handleUsePotion(equippedPotion.item, character);
+
+    if (!usedPotion) 
+      return res.status(400).json({ message: "You can't use that potion" });
+
+    activeQuest.textLogs.push(usedPotion);
+    
+    quest.whosTurn = 2;
+
+    equippedPotion.item = null;
 
     await character.save();
     return res.json("success");

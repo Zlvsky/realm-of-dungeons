@@ -136,7 +136,7 @@ function QuestBattle({ hero, updateHero }: IQuestBattle) {
       <MobSection />
       <Turn />
       <HeroSection />
-      <CombatActions />
+      <CombatActions hero={hero} />
       <CombatLogs logs={hero.activeQuest.textLogs} />
       {battleWinner && (
         <BattleEndPopup

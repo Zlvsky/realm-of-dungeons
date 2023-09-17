@@ -24,6 +24,7 @@ import { IUpdateStatistics, updateStatisticsService } from "./services/game/hero
 import { getUserDetailsService } from "./services/user/getUserDetailsService";
 import { IMerchantBuy, merchantBuyService } from "./services/game/merchants/merchantBuyService";
 import { IMerchantSell, merchantSellService } from "./services/game/merchants/merchantSellService";
+import { questActionPotionService } from "./services/game/quests/actions/questActionPotionService";
 
 // REGISTER AND LOGIN
 export async function register(body: signUpInterface) {
@@ -90,6 +91,10 @@ export async function startQuestBattle() {
 
 export async function questActionAttack(body: IQuestActionAttack) {
   return await questActionAttackService(body);
+}
+
+export async function questActionPotion() {
+  return await questActionPotionService();
 }
 
 export async function questEnemyTurn() {
