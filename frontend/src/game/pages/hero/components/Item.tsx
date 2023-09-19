@@ -2,7 +2,7 @@ import React, {useState,useRef, useEffect} from "react";
 import { Sprite } from "@pixi/react";
 import { updateEquipmentToInventory, updateInventoryToEquipment, updateInventoryToInventory } from "../../../../client/appClient";
 import fetchHero from "../../../../utils/fetchers/fetchHero";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setHero } from "../../../../redux/reducers/gameSlice";
 
 const useDrag = ({ x, y, onDrop, setCurrentItem, setCurrentItemPreview, itemData }: any) => {
@@ -91,9 +91,13 @@ const Item = ({
   itemPosition,
   itemSpot,
   inventoryIndex,
-  updateHero,
 }: any) => {
   const [position, setPosition] = useState(itemPosition);
+  const dispatch = useDispatch();
+
+  const updateHero = (data: any) => {
+    dispatch(setHero(data))
+  }
 
   useEffect(() => {
     setPosition(itemPosition);
@@ -107,7 +111,6 @@ const Item = ({
     });
     if (response.status !== 200) return console.log(response.data);
     fetchHero(updateHero);
-    console.log("success,", response.data);
   };
 
   const handleInventoryToInventoryRequest = async (slotIndex: number) => {
@@ -118,7 +121,6 @@ const Item = ({
     });
     fetchHero(updateHero);
     if (response.status !== 200) return console.log(response.data);
-    console.log("success,", response.data);
   };
 
   const handleEquipmentToInventoryRequest = async (slotIndex: number) => {
@@ -129,7 +131,6 @@ const Item = ({
     });
     fetchHero(updateHero);
     if (response.status !== 200) return console.log(response.data);
-    console.log("success,", response.data);
   }
 
   const bind = useDrag({
@@ -166,10 +167,4 @@ const Item = ({
   );
 };
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    updateHero: (data: any) => dispatch(setHero(data)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(Item);
+export default Item;

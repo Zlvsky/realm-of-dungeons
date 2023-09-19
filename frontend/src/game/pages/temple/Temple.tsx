@@ -1,24 +1,26 @@
 import { useState, useEffect, useCallback } from "react";
 import { Container, Sprite, Graphics, Text } from "@pixi/react";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 
 import templebg from "../../../assets/images/game-world/temple.png";
 import healbtn from "../../../assets/images/healbtn.png";
 import { TextStyle } from "pixi.js";
 import { templeHeal, templeRenew } from "../../../client/appClient";
-import { setHero } from "../../../redux/reducers/gameSlice";
+import { getHero, setHero } from "../../../redux/reducers/gameSlice";
 import fetchHero from "../../../utils/fetchers/fetchHero";
 import secondsRemaining from "../../../utils/calculations/secondsRemaining";
 import secondsToTimeHours from "../../../utils/parsing-data/secondsToTimeHours";
-import { ICharacter } from "../../../interfaces/MainInterface";
 
 const canvasWidth = 1316;
 const canvasHeight = 937;
 const rectWidth = 500;
 const rectHeight = 560;
 
-function Temple({ game, updateHero }: any) {
-  const hero: ICharacter = game.hero;
+function Temple() {
+  const hero = useSelector(getHero)!;
+
+  const dispatch = useDispatch();
+
   const [timeRemaining, setTimeRemaining] = useState<any>(null);
   const startX = (canvasWidth - rectWidth) / 2;
   const startY = (canvasHeight - rectHeight) / 2;
@@ -26,6 +28,10 @@ function Temple({ game, updateHero }: any) {
     (hero.updatedValues.health / hero.updatedValues.maxHealth) * 360
   );
   const barColor = 0x932424;
+
+  const updateHero = (data: any) => {
+    dispatch(setHero(data));
+  };
 
   function calculateRemainingTime() {
     return new Promise<void>((resolve) => {
@@ -203,12 +209,5 @@ function Temple({ game, updateHero }: any) {
     </Container>
   );
 }
-const mapStateToProps = ({ game }: any) => ({ game });
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    updateHero: (data: any) => dispatch(setHero(data)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Temple);
+export default Temple;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Container } from "@pixi/react";
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ItemSlot from './ItemSlot';
 import Item from './Item';
 import { equipmentSlots, inventorySlots } from "../helpers/slots";
@@ -13,11 +13,11 @@ import {
 } from "../helpers/getEquipmentPosition";
 import HeroInfo from './HeroInfo';
 import HeroStats from './HeroStats';
-import { ICharacter } from '../../../../interfaces/MainInterface';
 import ItemPreview from '../../../components/items/item-preview/ItemPreview';
+import { getHero } from '../../../../redux/reducers/gameSlice';
 
-function HeroEquipment({ game }: any) {
-  const hero: ICharacter = game.hero;
+function HeroEquipment() {
+  const hero = useSelector(getHero)!;
   const [currentItem, setCurrentItem] = useState<any>(null);
   const [currentItemPreview, setCurrentItemPreview] = useState<any>(null);
   const [inventory, setInventory] = useState<any>([]);
@@ -126,7 +126,7 @@ function HeroEquipment({ game }: any) {
   );
 }
 
+export default HeroEquipment;
+// const mapStateToProps = ({ game }: any) => ({ game });
 
-const mapStateToProps = ({ game }: any) => ({ game });
-
-export default connect(mapStateToProps)(HeroEquipment);
+// export default connect(mapStateToProps)(HeroEquipment);

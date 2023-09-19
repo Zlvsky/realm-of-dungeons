@@ -1,11 +1,12 @@
 import { Container } from "@pixi/react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import SelectQuest from "./components/SelectQuest";
 import QuestProgress from "./components/QuestProgress";
 import QuestBattle from "./components/quest-battle/QuestBattle";
+import { getHero } from "../../../redux/reducers/gameSlice";
 
-function Quests({ game }: any) {
-  const hero = game.hero;
+function Quests() {
+  const hero = useSelector(getHero)!;
 
   if (hero?.activeQuest.quest?.battleStarted)
     return <QuestBattle hero={hero} />;
@@ -23,6 +24,4 @@ function Quests({ game }: any) {
     </Container>
   );
 }
-const mapStateToProps = ({ game }: any) => ({ game });
-
-export default connect(mapStateToProps)(Quests);  
+export default Quests;

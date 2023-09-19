@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Container, TilingSprite } from "@pixi/react";
 import BgPattern from "../../../assets/images/dark_wall.png";
 import merchantsData from "../merchants/data/merchantsData";
-import { setHero } from "../../../redux/reducers/gameSlice";
-import { connect } from "react-redux";
+import { getHero, setHero } from "../../../redux/reducers/gameSlice";
+import { useDispatch, useSelector } from "react-redux";
 import Avatar from "./components/Avatar";
 import HeroInventorySlots from "./components/hero/HeroInventorySlots";
 import ItemPreview from "../../components/items/item-preview/ItemPreview";
@@ -14,8 +14,6 @@ import fetchHero from "../../../utils/fetchers/fetchHero";
 
 interface IMerchantShop {
     currentMerchant: string;
-    game: any;
-    updateHero: any;
 }
 
 interface ICurrentItem {
@@ -26,12 +24,18 @@ interface ICurrentItem {
   action: "BUY" | "SELL",
 }
 
-function MerchantShop({ currentMerchant, game, updateHero }: IMerchantShop) {
-  const hero = game.hero;
-  const [merchantData, setMerchantData] = useState<any>(merchantsData.find(
+function MerchantShop({ currentMerchant }: IMerchantShop) {
+  const [merchantData] = useState<any>(merchantsData.find(
       (el) => el.name === currentMerchant
     ));
   const [currentItem, setCurrentItem] = useState<ICurrentItem | null>();
+  const hero: any = useSelector(getHero)!;
+
+  const dispatch = useDispatch();
+
+  const updateHero = (data: any) => {
+    dispatch(setHero(data));
+  };
 
     const handleSellItem = async () => {
       const dataToSend = {
@@ -40,6 +44,7 @@ function MerchantShop({ currentMerchant, game, updateHero }: IMerchantShop) {
       };
       const response = await merchantSell(dataToSend);
       if (response.status !== 200) return console.log(response.data);
+      setCurrentItem(null);
       fetchHero(updateHero);
       ;
     };
@@ -51,6 +56,7 @@ function MerchantShop({ currentMerchant, game, updateHero }: IMerchantShop) {
       }
       const response = await merchantBuy(dataToSend);
       if (response.status !== 200) return console.log(response.data);
+      setCurrentItem(null);
       fetchHero(updateHero);
     };
 
@@ -97,12 +103,4 @@ function MerchantShop({ currentMerchant, game, updateHero }: IMerchantShop) {
   );
 }
 
-const mapStateToProps = ({ game }: any) => ({ game });
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    updateHero: (data: any) => dispatch(setHero(data)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(MerchantShop);
+export default MerchantShop;

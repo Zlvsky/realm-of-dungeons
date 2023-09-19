@@ -24,7 +24,6 @@ function SelectQuest({ questsData, updateHero }: any) {
     });
     if (response.status !== 200) return console.log(response.data);
     fetchHero(updateHero);
-    console.log("success,", response.data);
   };
 
   const questFrame = useCallback((g: any) => {
