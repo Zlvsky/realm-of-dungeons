@@ -4,7 +4,7 @@ import { TextStyle } from "pixi.js";
 import plusbtn from "../../../../assets/images/plusbtn.png";
 import { updateStatistics } from "../../../../client/appClient";
 import { setHero } from "../../../../redux/reducers/gameSlice";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import fetchHero from "../../../../utils/fetchers/fetchHero";
 import { ICharacter } from "../../../../interfaces/MainInterface";
 
@@ -24,7 +24,15 @@ const Filters: any = withFilters(Container, {
   matrix: ColorMatrixFilter,
 });
 
-function HeroStats({ hero, updateHero }: IHeroStats) {
+function HeroStats({ hero }: IHeroStats) {
+
+  const dispatch = useDispatch();
+
+  const updateHero = (data: any) => {
+    dispatch(setHero(data));
+  };
+
+
   const updateStatistic = async (
     statistic: Statistic
   ) => {
@@ -105,10 +113,4 @@ function HeroStats({ hero, updateHero }: IHeroStats) {
   );
 }
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    updateHero: (data: any) => dispatch(setHero(data)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(HeroStats);
+export default HeroStats;

@@ -8,7 +8,7 @@ import CancelBtn from "../../../../assets/images/cancelbtn.png";
 import EnterBtn from "../../../../assets/images/enterbtn.png";
 import { clearActiveQuest, startQuestBattle } from '../../../../client/appClient';
 import { setHero } from '../../../../redux/reducers/gameSlice';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import fetchHero from '../../../../utils/fetchers/fetchHero';
 
 const isQuestReady = (questTime: string) => {
@@ -19,9 +19,15 @@ const isQuestReady = (questTime: string) => {
 };
 
 
-function QuestProgress({ activeQuest, updateHero }: any) {
+function QuestProgress({ activeQuest }: any) {
   const [futureTime, setFutureTime] = useState<any>(null);
   const [timeRemaining, setTimeRemaining] = useState<any>(null);
+
+  const dispatch = useDispatch();
+
+  const updateHero = (data: any) => {
+    dispatch(setHero(data));
+  };
 
   const setFTime = () => {
     const timeQuestStarted = new Date(activeQuest.timeStarted);
@@ -66,7 +72,6 @@ function QuestProgress({ activeQuest, updateHero }: any) {
     const response = await clearActiveQuest();
     if (response.status !== 200) return console.log(response.data);
     fetchHero(updateHero);
-    console.log("success,", response.data);
   };
 
   useEffect(() => {
@@ -139,10 +144,4 @@ function QuestProgress({ activeQuest, updateHero }: any) {
   );
 }
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    updateHero: (data: any) => dispatch(setHero(data)),
-  };
-};
-
-export default connect(null,mapDispatchToProps)(QuestProgress);
+export default QuestProgress;

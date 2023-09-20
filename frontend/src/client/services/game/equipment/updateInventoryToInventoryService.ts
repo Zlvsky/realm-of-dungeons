@@ -12,7 +12,6 @@ export const updateInventoryToInventoryService = async (
   body: updateInventoryToInventoryInterface
 ) => {
   const jwt = Cookies.get("jwt");
-  console.log(body);
   try {
     const res = await axiosClient.post(
       "/hero/inventory/update",

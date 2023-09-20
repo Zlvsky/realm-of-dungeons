@@ -12,11 +12,17 @@ import QuestTabs from "./QuestTabs";
 import secondsToTime from "../../../../utils/parsing-data/secondsToTime";
 import { updateActiveQuest } from "../../../../client/appClient";
 import fetchHero from "../../../../utils/fetchers/fetchHero";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import IconWithText from "../../../../components/common/text/IconWithText";
 
-function SelectQuest({ questsData, updateHero }: any) {
+function SelectQuest({ questsData }: any) {
   const [selectedQuest, setSelectedQuest] = useState(1);
+  
+  const dispatch = useDispatch();
+
+  const updateHero = (data: any) => {
+    dispatch(setHero(data));
+  };
 
   const handleAcceptQuest = async () => {
     const response = await updateActiveQuest({
@@ -135,10 +141,4 @@ function SelectQuest({ questsData, updateHero }: any) {
   );
 }
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    updateHero: (data: any) => dispatch(setHero(data)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(SelectQuest);
+export default SelectQuest;

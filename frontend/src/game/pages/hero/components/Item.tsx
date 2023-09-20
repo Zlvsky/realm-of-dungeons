@@ -114,13 +114,14 @@ const Item = ({
   };
 
   const handleInventoryToInventoryRequest = async (slotIndex: number) => {
+    if (slotIndex === inventoryIndex) return;
     const response = await updateInventoryToInventory({
       item: itemData.item,
       slotIndex: slotIndex,
       lastIndex: inventoryIndex,
     });
-    fetchHero(updateHero);
     if (response.status !== 200) return console.log(response.data);
+    fetchHero(updateHero);
   };
 
   const handleEquipmentToInventoryRequest = async (slotIndex: number) => {
@@ -129,8 +130,8 @@ const Item = ({
       slotIndex: slotIndex,
       itemType: itemData.item.type,
     });
-    fetchHero(updateHero);
     if (response.status !== 200) return console.log(response.data);
+    fetchHero(updateHero);
   }
 
   const bind = useDrag({

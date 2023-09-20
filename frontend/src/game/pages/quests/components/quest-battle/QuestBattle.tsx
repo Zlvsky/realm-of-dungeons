@@ -9,7 +9,7 @@ import CombatActions from "./components/CombatActions";
 import CombatLogs from "./components/CombatLogs";
 import { questEnemyTurn } from "../../../../../client/appClient";
 import { setHero } from "../../../../../redux/reducers/gameSlice";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import fetchHero from "../../../../../utils/fetchers/fetchHero";
 import BattleEndPopup from "./components/BattleEndPopup";
 import { questBattleEndService } from "../../../../../client/services/game/quests/questBattleEndService";
@@ -20,21 +20,25 @@ interface IQuestBattle {
   updateHero: any
 }
 
-function QuestBattle({ hero, updateHero }: IQuestBattle) {
+function QuestBattle({ hero }: IQuestBattle) {
   const [battleWinner, setBattleWinner] = useState<1 | 2 | null>(null);
+
+  const dispatch = useDispatch();
+
+  const updateHero = (data: any) => {
+    dispatch(setHero(data));
+  };
 
   const handleEnemyTurn = async () => {
     const response = await questEnemyTurn();
     if (response.status !== 200) return console.log(response);
     fetchHero(updateHero);
-    console.log("success", response.data);
   };
 
   const handleBattleEnd = async () => {
     const response = await questBattleEndService();
     if (response.status !== 200) return console.log(response);
     fetchHero(updateHero);
-    console.log("success");
   };
 
   useEffect(() => {
@@ -149,10 +153,4 @@ function QuestBattle({ hero, updateHero }: IQuestBattle) {
   );
 }
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    updateHero: (data: any) => dispatch(setHero(data)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(QuestBattle);
+export default QuestBattle;

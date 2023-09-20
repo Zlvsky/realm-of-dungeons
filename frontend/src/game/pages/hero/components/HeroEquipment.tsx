@@ -127,6 +127,3 @@ function HeroEquipment() {
 }
 
 export default HeroEquipment;
-// const mapStateToProps = ({ game }: any) => ({ game });
-
-// export default connect(mapStateToProps)(HeroEquipment);

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Container, Sprite, Graphics, Text } from "@pixi/react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import templebg from "../../../assets/images/game-world/temple.png";
 import healbtn from "../../../assets/images/healbtn.png";

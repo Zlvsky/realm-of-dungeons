@@ -4,7 +4,7 @@ import mediumAttack from "../../../../../../assets/images/combat/combat-actions/
 import strongAttack from "../../../../../../assets/images/combat/combat-actions/strong.png"
 import { questActionAttack, questActionPotion } from '../../../../../../client/appClient';
 import fetchHero from '../../../../../../utils/fetchers/fetchHero';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setHero } from '../../../../../../redux/reducers/gameSlice';
 
 interface IAction {
@@ -13,7 +13,13 @@ interface IAction {
   action: any;
 }
 
-function CombatActions({ hero, updateHero }: any) {
+function CombatActions({ hero }: any) {
+
+  const dispatch = useDispatch();
+
+  const updateHero = (data: any) => {
+    dispatch(setHero(data));
+  };
 
   const performAttack = async (attackPower: "low" | "medium" | "strong") => {
     const response = await questActionAttack({ attackPower });
@@ -85,10 +91,4 @@ function CombatActions({ hero, updateHero }: any) {
   );
 }
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    updateHero: (data: any) => dispatch(setHero(data)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(CombatActions);
+export default CombatActions;
