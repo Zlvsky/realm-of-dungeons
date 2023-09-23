@@ -112,11 +112,25 @@ export interface IUser extends Document {
 }
 
 export interface IItem extends mongoose.Document {
+  itemId: number;
   name: string;
-  type: string;
-  subType?: string;
-  minDamage?: number;
-  maxDamage?: number;
+  type: "armor" | "weapon" | "jewellery" | "potion";
+  subType?:
+    | "head"
+    | "chest"
+    | "legs"
+    | "sword"
+    | "axe"
+    | "mace"
+    | "bow"
+    | "crossbow"
+    | "wand"
+    | "necklace"
+    | "ring"
+    | "health"
+    | "mana";
+  armorType?: "cloth" | "leather" | "plate";
+  damage?: number;
   image: string;
   armor?: number;
   statistics: {
