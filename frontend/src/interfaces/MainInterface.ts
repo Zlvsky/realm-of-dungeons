@@ -2,8 +2,16 @@ interface itemWithSlotIndex {
   slotIndex: number;
   item: IItem | null;
 }
+
+interface IStatistics {
+  axe: number;
+  sword: number;
+  mace: number;
+  distance: number;
+  magic: number;
+}
+
 export interface ICharacter {
-  _id: string;
   nickname: string;
   class: string;
   avatar: string;
@@ -38,40 +46,24 @@ export interface ICharacter {
       damage: number;
       skills: ISkills[] | null;
       avatar: string | null;
-      statistics: {
-        strength: number;
-        dexterity: number;
-        condition: number;
-        intelligence: number;
-        wisdom: number;
-        charisma: number;
-      };
     } | null;
     textLogs: string[];
   };
-  availableQuests: [IQuest];
-  statistics: {
-    strength: number;
-    dexterity: number;
-    condition: number;
-    intelligence: number;
-    wisdom: number;
-    charisma: number;
-  };
-  owner: any;
+  availableQuests: IQuest[];
+  statistics: IStatistics;
+  owner: string;
   equipment: [
     {
       type: string;
       item: IItem | null;
     }
   ];
-  inventory: itemWithSlotIndex[];
+  inventory: [itemWithSlotIndex];
   generalValues: {
     gold: number;
     basicHealth: number;
     basicMana: number;
-    basicDamage: number;
-    basicArmor: number;
+    basicDefense: number;
   };
   updatedValues: {
     maxHealth: number;
@@ -79,15 +71,8 @@ export interface ICharacter {
     maxMana: number;
     mana: number;
     damage: number;
-    armor: number;
-    statistics: {
-      strength: number;
-      dexterity: number;
-      condition: number;
-      intelligence: number;
-      wisdom: number;
-      charisma: number;
-    };
+    defense: number;
+    statistics: IStatistics;
   };
   extras: {
     availableHeals: number;
@@ -106,24 +91,46 @@ export interface IUser extends Document {
   accountname: string;
   email: string;
   password: string;
-  characters: any[]
+  isAdmin?: boolean;
+  characters: any;
 }
 
 export interface IItem {
+  _id?: string;
+  itemId: number;
   name: string;
-  type: string;
-  minDamage?: number;
-  maxDamage?: number;
+  type: "armor" | "weapon" | "jewellery" | "potion";
+  subType:
+    | "head"
+    | "chest"
+    | "legs"
+    | "sword"
+    | "axe"
+    | "mace"
+    | "bow"
+    | "crossbow"
+    | "wand"
+    | "necklace"
+    | "ring"
+    | "health"
+    | "mana";
+  armorType?: "cloth" | "leather" | "plate";
+  damage?: number;
+  defense?: number;
   image: string;
-  armor?: number;
+  requiredLevel?: number;
   statistics: {
-    strength?: number;
-    condition?: number;
-    dexterity?: number;
-    wisdom?: number;
-    intelligence?: number;
-    charisma?: number;
+    axe?: number;
+    sword?: number;
+    mace?: number;
+    distance?: number;
+    magic?: number;
+    defense?: number;
+    health?: number;
+    mana?: number;
   };
+  description?: string;
+  value?: number;
 }
 
 export interface IEquipment {
@@ -132,13 +139,13 @@ export interface IEquipment {
 }
 
 export interface IQuest {
-  _id: string;
+  _id?: string;
   title: string;
   description: string;
-  duration: number;
+  duration?: number;
   battleStarted: boolean;
-  battleWinner: 1 | 2 | null;
-  whosTurn: 1 | 2;
+  battleWinner?: 1 | 2 | null;
+  whosTurn?: 1 | 2;
   rewards: {
     gold: number;
     xp: number;

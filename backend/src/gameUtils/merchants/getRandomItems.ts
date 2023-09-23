@@ -24,7 +24,7 @@ function adjustItemStats(baseItem: IItem, heroLevel: number) {
       adjustedItem.armor + heroLevel * randomBaseValue
     );
   }
-  if (adjustedItem.minDamage && adjustedItem.maxDamage) {
+  if (adjustedItem.damage) {
     adjustedItem.minDamage = Math.round(
       adjustedItem.minDamage + heroLevel * randomBaseValue
     );

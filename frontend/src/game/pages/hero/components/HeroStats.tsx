@@ -24,7 +24,7 @@ const Filters: any = withFilters(Container, {
   matrix: ColorMatrixFilter,
 });
 
-function HeroStats({ hero }: IHeroStats) {
+function  HeroStats({ hero }: IHeroStats) {
 
   const dispatch = useDispatch();
 

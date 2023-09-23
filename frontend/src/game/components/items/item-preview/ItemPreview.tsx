@@ -2,28 +2,13 @@ import { Container, Graphics, Sprite, Text } from "@pixi/react";
 import { TextStyle } from "pixi.js";
 import goldIcon from "../../../../assets/images/icons/gui/gold-icon.png";
 import ActionButton from "./components/ActionButton";
+import { IItem } from "../../../../interfaces/MainInterface";
 
 interface IItemPreview {
   position: [number, number];
-  itemData: {
-    name: string;
-    type: string;
-    minDamage?: number;
-    maxDamage?: number;
-    image: string;
-    armor?: number;
-    statistics: {
-      strength?: number;
-      condition?: number;
-      dexterity?: number;
-      wisdom?: number;
-      intelligence?: number;
-      charisma?: number;
-    };
-    description?: string;
-  };
-  price?: number;
+  itemData: IItem;
   action?: "BUY" | "SELL";
+  hideValue?: boolean
   handleAction?: any;
 }
 
@@ -51,12 +36,12 @@ const Box = ({ width, height }: any) => {
 function ItemPreview({
   position,
   itemData,
-  price,
   action,
+  hideValue,
   handleAction,
 }: IItemPreview) {
   let boxHeight = 340;
-  if (price) boxHeight = 390;
+  if (itemData.value && !hideValue) boxHeight = 390;
   const boxWidth = 325;
 
   const ItemImage = () => {
@@ -95,10 +80,11 @@ function ItemPreview({
   const ItemValues = () => {
 
     const ItemValue = () => {
-      if (!itemData?.armor === undefined || itemData.minDamage === undefined) return null;
+      if (!itemData?.defense === undefined || itemData.damage === undefined) return null;
       let valueText;
-      if (itemData?.armor !== undefined) valueText = `Armor: ${itemData.armor}`;
-      if (itemData?.minDamage !== undefined) valueText = `Damage: ${itemData.minDamage} - ${itemData.maxDamage}`;
+      if (itemData?.defense !== undefined)
+        valueText = `Defense: ${itemData.defense}`;
+      if (itemData?.damage !== undefined) valueText = `Damage: ${itemData.damage}`;
       return (
         <Text
           text={valueText}
@@ -193,7 +179,7 @@ function ItemPreview({
   }
 
   const ItemPrice = () => {
-    if (!price) return null;
+    if (!itemData.value || hideValue) return null;
     return (
       <Container position={[20, 0]}>
         <Graphics
@@ -214,7 +200,7 @@ function ItemPreview({
           position={[0, boxHeight - 50]}
         />
         <Text
-          text={`Price: ${price}`}
+          text={`Price: ${itemData.value}`}
           x={50}
           y={boxHeight - 40}
           style={
