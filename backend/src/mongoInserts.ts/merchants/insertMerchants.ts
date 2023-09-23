@@ -13,6 +13,7 @@ async function insertMerchants() {
       await Merchants.insertMany(merchantsData, options);
     } else {
       // otherwise update the existing documents with new data
+      const updatedMerchants: string[] = [];
       for (const merchant of existingMerchants) {
         const newData = merchantsData.find(
           (newMerchant) => newMerchant.name === merchant.name
@@ -21,11 +22,13 @@ async function insertMerchants() {
         if (newData) {
           // if document exist overwrite it
           await Merchants.findOneAndUpdate({ name: newData.name }, newData);
-        } else {
-          // if document was not found insert it (for example new merchant)
-          await Merchants.insertMany(newData);
         }
       }
+      // add rest of merchants that don't exist
+      const filteredItems = merchantsData.filter(
+        (merchant) => !updatedMerchants.includes(merchant.name)
+      );
+      await Merchants.insertMany(filteredItems);
     }
     console.log("Merchants inserted successfully!");
   } catch (error: any) {

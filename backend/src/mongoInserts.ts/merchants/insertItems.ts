@@ -1,11 +1,9 @@
 import initItems from "../../gameUtils/initValues/initItems";
 import { Item } from "../../schemas/game/itemSchema";
 
-
 async function insertItems() {
   try {
-    const itemsData = await initItems();
-
+    const itemsData = initItems();
     const existingItems = await Item.find();
 
     if (existingItems.length === 0) {
@@ -14,19 +12,23 @@ async function insertItems() {
       await Item.insertMany(itemsData, options);
     } else {
       // otherwise update the existing documents with new data
+      const updatedItemsId: number[] = [];
       for (const item of existingItems) {
         const newData = itemsData.find(
-          (itemsData) => itemsData.name === item.name
+          (itemsData) => itemsData.itemId === item.itemId
         );
 
         if (newData) {
           // if document exist overwrite it
-          await Item.findOneAndUpdate({ name: newData.name }, newData);
-        } else {
-          // if document was not found insert it (for example new merchant)
-          await Item.insertMany(newData);
+          updatedItemsId.push(newData.itemId);
+          await Item.findOneAndUpdate({ itemId: newData.itemId }, newData);
         }
       }
+      // add rest of items that don't exist
+      const filteredItems = itemsData.filter(
+        (item) => !updatedItemsId.includes(item.itemId)
+      );
+      await Item.insertMany(filteredItems);
     }
     console.log("Items inserted successfully!");
   } catch (error: any) {

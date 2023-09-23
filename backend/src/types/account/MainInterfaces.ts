@@ -97,7 +97,7 @@ export interface IUser extends Document {
   characters: mongoose.Types.Array<ICharacter["_id"]>;
 }
 
-export interface IItem extends mongoose.Document {
+export interface IItemObject {
   itemId: number;
   name: string;
   type: "armor" | "weapon" | "jewellery" | "potion";
@@ -120,7 +120,7 @@ export interface IItem extends mongoose.Document {
   defense?: number;
   image: string;
   requiredLevel?: number;
-  statistics: {
+  statistics?: {
     axe?: number;
     sword?: number;
     mace?: number;
@@ -133,6 +133,8 @@ export interface IItem extends mongoose.Document {
   description?: string;
   value?: number;
 }
+
+export interface IItem extends IItemObject, mongoose.Document {};
 
 export interface IEquipment extends mongoose.Document {
   type: string;

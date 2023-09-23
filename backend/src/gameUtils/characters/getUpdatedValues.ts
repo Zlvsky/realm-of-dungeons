@@ -19,7 +19,7 @@ const calculateEquipmentValues = (equipment: ICharacter["equipment"]) => {
       if (item.statistics) {
         const statisticsKeys: any[] = Object.keys(item.statistics);
         statisticsKeys.forEach((stat: keyof typeof item.statistics) => {
-          if (item.statistics[stat]) {
+          if (item.statistics && item.statistics[stat]) {
             if (stat === "defense" || stat === "health" || stat === "mana") {
               accumulator[stat] = accumulator[stat] + item.statistics[stat]!;
             } else {

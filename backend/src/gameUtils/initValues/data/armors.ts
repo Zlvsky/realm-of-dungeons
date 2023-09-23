@@ -1,57 +1,58 @@
 // items ID
-// 1100 - cloths armor
-// 1200 - leather armor
-// 1300 - plate armor
+// 1100/1200 - heads armor
+// 1300/1400 - chests armor
+// 1500/1600 - legs armor
 
-const armors = {
-  head: {
-    cloth: {
-      noMinLevel: [],
-      minLevel10: [],
-    },
-    leather: {
-      noMinLevel: [],
-      minLevel10: [],
-    },
-    plate: {
-      noMinLevel: [],
-      minLevel10: [],
-    },
-  },
+import { IItemObject } from "../../../types/account/MainInterfaces";
+import { chests } from "./armor-types/chests";
+import { heads } from "./armor-types/heads";
+import { legs } from "./armor-types/legs";
 
-  chest: {
-    cloth: {
-      noMinLevel: [],
-      minLevel10: [],
-    },
-    leather: {
-      noMinLevel: [
-        {
-          itemId: 1201,
-          name: "Jacket", 
-          defense: 4
-        }
-      ],
-      minLevel10: [],
-    },
-    plate: {
-      noMinLevel: [],
-      minLevel10: [],
-    },
-  },
+interface IArmorObjectHelper {
+  noMinLevel: IItemObject[];
+  minLevel10: IItemObject[];
+  minLevel20?: IItemObject[];
+  minLevel30?: IItemObject[];
+}
 
-  legs: {
-    cloth: {
-      noMinLevel: [],
-      minLevel10: [],
-    },
-    leather: {
-      noMinLevel: [],
-      minLevel10: [],
-    },
-    plate: {
-      noMinLevel: [],
-      minLevel10: [],
-    },
-  },
-};
+export interface IArmorObject {
+  cloth: IArmorObjectHelper;
+  leather: IArmorObjectHelper;
+  plate: IArmorObjectHelper;
+}
+
+const headsArray = [
+  ...heads.cloth.noMinLevel,
+  ...heads.leather.noMinLevel,
+  ...heads.cloth.noMinLevel,
+
+  ...heads.cloth.minLevel10,
+  ...heads.leather.minLevel10,
+  ...heads.cloth.minLevel10,
+];
+
+const chestsArray = [
+  ...chests.cloth.noMinLevel,
+  ...chests.leather.noMinLevel,
+  ...chests.cloth.noMinLevel,
+
+  ...chests.cloth.minLevel10,
+  ...chests.leather.minLevel10,
+  ...chests.cloth.minLevel10,
+];
+
+const legsArray = [
+  ...legs.cloth.noMinLevel,
+  ...legs.leather.noMinLevel,
+  ...legs.cloth.noMinLevel,
+
+  ...legs.cloth.minLevel10,
+  ...legs.leather.minLevel10,
+  ...legs.cloth.minLevel10,
+];
+
+export const armors: IItemObject[] = [
+  ...headsArray,
+  ...chestsArray,
+  ...legsArray
+];
