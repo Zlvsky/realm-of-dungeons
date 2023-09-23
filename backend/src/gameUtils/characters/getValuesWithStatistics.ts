@@ -4,26 +4,35 @@ const getValuesWithStatistics = (character: ICharacter) => {
     // DAMAGE
     const weaponItem = character.equipment.find(item => item.type === "weapon")?.item;
     let weaponDamage = 0;
-    if (weaponItem) weaponDamage = Math.round((weaponItem.minDamage! + weaponItem.maxDamage!) / 2);
+    if (weaponItem) weaponDamage = weaponItem.damage!;
 
-    let classMainStatistic = 10;
-    if (character.class === "warrior") classMainStatistic = character.updatedValues.statistics.strength;
-    if (character.class === "archer") classMainStatistic = character.updatedValues.statistics.dexterity;
-    if (character.class === "mage") classMainStatistic = character.updatedValues.statistics.intelligence;
+    let combatStatistic = 10;
+    if (weaponItem?.subType === "axe") combatStatistic = character.updatedValues.statistics.axe;
+    if (weaponItem?.subType === "sword") combatStatistic = character.updatedValues.statistics.sword;
+    if (weaponItem?.subType === "mace") combatStatistic = character.updatedValues.statistics.mace;
+    if (weaponItem?.subType === "bow" || weaponItem?.subType === "crossbow") combatStatistic = character.updatedValues.statistics.distance;
+    if (weaponItem?.subType === "wand") combatStatistic = character.updatedValues.statistics.magic;
     
-    const baseDamage = character.generalValues.basicDamage;
-    const totalDamage = baseDamage + weaponDamage;
-    const damageModifier = classMainStatistic / 10;
+    let classCombatIndicator = 0.085;
+    if (character.class === "warrior") classCombatIndicator = 0.085;
+    if (character.class === "archer") classCombatIndicator = 0.1;
+    if (character.class === "mage") classCombatIndicator = 0.125;
+
+    const minDmg = character.progression.level / 5;
+    const maxDmg = classCombatIndicator * combatStatistic * weaponDamage + minDmg;
+
+    const avgDmg = (minDmg + maxDmg) / 2;
+    const damageOutput = Math.floor(Math.random() * maxDmg) + avgDmg;
     
-    character.updatedValues.damage = Math.round(totalDamage * damageModifier);
+    character.updatedValues.damage = damageOutput;
     
     // HEALTH
     const baseHealth = character.generalValues.basicHealth;
     const lostHealth = character.updatedValues.maxHealth - character.updatedValues.health;
-    const conditionBonusHealth = (character.updatedValues.statistics.condition * 2 * character.progression.level);
+    // const conditionBonusHealth = (character.updatedValues.statistics.condition * 2 * character.progression.level);
     
-    character.updatedValues.maxHealth = Math.round(baseHealth + conditionBonusHealth);
-    character.updatedValues.health = Math.round(baseHealth + conditionBonusHealth - lostHealth);
+    character.updatedValues.maxHealth = Math.round(baseHealth);
+    character.updatedValues.health = Math.round(baseHealth - lostHealth);
 
 }
 

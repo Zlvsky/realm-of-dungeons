@@ -16,16 +16,11 @@ const generalValuesSchema = new mongoose.Schema({
     required: true,
     default: 100,
   },
-  basicDamage: {
-    type: Number,
-    required: true,
-    default: 10,
-  },
-  basicArmor: {
+  basicDefense: {
     type: Number,
     required: true,
     default: 0,
-  }
+  },
 });
 
 export default generalValuesSchema;

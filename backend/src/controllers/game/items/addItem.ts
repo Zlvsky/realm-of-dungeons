@@ -38,20 +38,16 @@ export const addItem = async (req: Request, res: Response) => {
       value: req.body.value,
     });
 
-    if (isIncluded(req.body.minDamage)) {
-      item.minDamage = Number(req.body.minDamage);
-    } 
-
-    if (isIncluded(req.body.maxDamage)) {
-      item.maxDamage = Number(req.body.maxDamage);
+    if (isIncluded(req.body.damage)) {
+      item.damage = Number(req.body.damage);
     } 
     
     if (isIncluded(req.body.subType)) {
       item.subType = req.body.subType;
     } 
 
-    if (isIncluded(req.body.armor)) {
-      item.armor = Number(req.body.armor);
+    if (isIncluded(req.body.defense)) {
+      item.defense = Number(req.body.defense);
     } 
     
     await item.save();

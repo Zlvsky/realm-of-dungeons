@@ -1,4 +1,3 @@
-import { Character } from "../../schemas/character/characterSchema";
 import { ICharacter } from "../../types/account/MainInterfaces";
 
 // Helper function to calculate values from equipment
@@ -9,35 +8,41 @@ const calculateEquipmentValues = (equipment: ICharacter["equipment"]) => {
 
       if (item === null) return accumulator;
 
-      if (item.armor) {
-        accumulator.armor += item.armor;
+      if (item.defense) {
+        accumulator.defense += item.defense;
       }
 
-      if (item.minDamage && item.maxDamage) {
-        accumulator.damage += Math.round((item.minDamage + item.maxDamage) / 2);
+      if (item.damage) {
+        accumulator.damage += item.damage;
       }
 
       if (item.statistics) {
         const statisticsKeys: any[] = Object.keys(item.statistics);
-        statisticsKeys.forEach((stat: keyof typeof item.statistics ) => {
+        statisticsKeys.forEach((stat: keyof typeof item.statistics) => {
           if (item.statistics[stat]) {
-            accumulator.statistics[stat] = accumulator.statistics[stat] + item.statistics[stat]!;
+            if (stat === "defense" || stat === "health" || stat === "mana") {
+              accumulator[stat] = accumulator[stat] + item.statistics[stat]!;
+            } else {
+              accumulator.statistics[stat] =
+                accumulator.statistics[stat] + item.statistics[stat]!;
+            }
           }
-        })
+        });
       }
 
       return accumulator;
     },
     {
-      armor: 0,
+      defense: 0,
       damage: 0,
+      health: 0,
+      mana: 0,
       statistics: {
-        strength: 0,
-        dexterity: 0,
-        condition: 0,
-        intelligence: 0,
-        wisdom: 0,
-        charisma: 0,
+        axe: 0,
+        sword: 0,
+        mace: 0,
+        distance: 0,
+        magic: 0,
       },
     }
   );
@@ -50,10 +55,9 @@ const updateCharacterValues = async (character: ICharacter) => {
     const equipmentValues = calculateEquipmentValues(character.equipment);
     console.log("stats", equipmentValues);
 
-    character.updatedValues.armor =
-      character.generalValues.basicArmor + equipmentValues.armor;
-    character.updatedValues.damage =
-      character.generalValues.basicDamage + equipmentValues.damage;
+    character.updatedValues.defense =
+      character.generalValues.basicDefense + equipmentValues.defense;
+    character.updatedValues.damage = equipmentValues.damage;
 
     for (const stat in equipmentValues.statistics) {
       let statCopy: any = stat;
@@ -67,7 +71,6 @@ const updateCharacterValues = async (character: ICharacter) => {
           equipmentValues.statistics[correctStat];
       }
     }
-
   } catch (err) {
     console.error(err);
     return;

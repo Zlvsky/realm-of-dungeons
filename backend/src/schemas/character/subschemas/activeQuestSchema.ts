@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 import { itemSchema } from "../../game/itemSchema";
 
 const enemySchema = new mongoose.Schema({
@@ -20,32 +20,7 @@ const enemySchema = new mongoose.Schema({
     default: null,
   },
   avatar: { type: String, default: null },
-  statistics: {
-    strength: {
-      type: Number,
-      required: true,
-    },
-    dexterity: {
-      type: Number,
-      required: true,
-    },
-    condition: {
-      type: Number,
-      required: true,
-    },
-    intelligence: {
-      type: Number,
-      required: true,
-    },
-    wisdom: {
-      type: Number,
-      required: true,
-    },
-    charisma: {
-      type: Number,
-      required: true,
-    },
-  },
+  boss: { type: Boolean, default: false },
 });
 
 const questSchema = new mongoose.Schema({

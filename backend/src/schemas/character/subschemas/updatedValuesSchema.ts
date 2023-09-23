@@ -26,36 +26,17 @@ const updatedValuesSchema = new mongoose.Schema({
     required: true,
     default: 10,
   },
-  armor: {
+  defense: {
     type: Number,
     required: true,
     default: 0,
   },
   statistics: {
-    strength: {
-      type: Number,
-      required: true,
-    },
-    dexterity: {
-      type: Number,
-      required: true,
-    },
-    condition: {
-      type: Number,
-      required: true,
-    },
-    intelligence: {
-      type: Number,
-      required: true,
-    },
-    wisdom: {
-      type: Number,
-      required: true,
-    },
-    charisma: {
-      type: Number,
-      required: true,
-    },
+    axe: { type: Number, required: false },
+    sword: { type: Number, required: false },
+    mace: { type: Number, required: false },
+    distance: { type: Number, required: false },
+    magic: { type: Number, required: false },
   },
 });
 

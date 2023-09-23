@@ -1,5 +1,5 @@
-import mongoose, { Schema } from "mongoose";
-import { Item, itemSchema } from "../../game/itemSchema";
+import mongoose from "mongoose";
+import {  itemSchema } from "../../game/itemSchema";
 
 const merchantsItemsSchema = new mongoose.Schema({
   alchemist: [

@@ -4,6 +4,15 @@ interface itemWithSlotIndex {
   slotIndex: number;
   item: IItem | null;
 }
+
+interface IStatistics {
+  axe: number;
+  sword: number;
+  mace: number;
+  distance: number;
+  magic: number;
+}
+
 export interface ICharacter extends mongoose.Document {
   nickname: string;
   class: string;
@@ -39,26 +48,11 @@ export interface ICharacter extends mongoose.Document {
       damage: number;
       skills: ISkills[] | null;
       avatar: string | null;
-      statistics: {
-        strength: number;
-        dexterity: number;
-        condition: number;
-        intelligence: number;
-        wisdom: number;
-        charisma: number;
-      };
     } | null;
     textLogs: string[];
   };
   availableQuests: IQuest[];
-  statistics: {
-    strength: number;
-    dexterity: number;
-    condition: number;
-    intelligence: number;
-    wisdom: number;
-    charisma: number;
-  };
+  statistics: IStatistics;
   owner: mongoose.Types.ObjectId | IUser;
   equipment: [
     {
@@ -71,8 +65,7 @@ export interface ICharacter extends mongoose.Document {
     gold: number;
     basicHealth: number;
     basicMana: number;
-    basicDamage: number;
-    basicArmor: number;
+    basicDefense: number;
   };
   updatedValues: {
     maxHealth: number;
@@ -80,15 +73,8 @@ export interface ICharacter extends mongoose.Document {
     maxMana: number;
     mana: number;
     damage: number;
-    armor: number;
-    statistics: {
-      strength: number;
-      dexterity: number;
-      condition: number;
-      intelligence: number;
-      wisdom: number;
-      charisma: number;
-    };
+    defense: number;
+    statistics: IStatistics;
   };
   extras: {
     availableHeals: number;
@@ -115,7 +101,7 @@ export interface IItem extends mongoose.Document {
   itemId: number;
   name: string;
   type: "armor" | "weapon" | "jewellery" | "potion";
-  subType?:
+  subType:
     | "head"
     | "chest"
     | "legs"
@@ -131,15 +117,18 @@ export interface IItem extends mongoose.Document {
     | "mana";
   armorType?: "cloth" | "leather" | "plate";
   damage?: number;
+  defense?: number;
   image: string;
-  armor?: number;
+  requiredLevel?: number;
   statistics: {
-    strength?: number;
-    condition?: number;
-    dexterity?: number;
-    wisdom?: number;
-    intelligence?: number;
-    charisma?: number;
+    axe?: number;
+    sword?: number;
+    mace?: number;
+    distance?: number;
+    magic?: number;
+    defense?: number;
+    health?: number;
+    mana?: number;
   };
   description?: string;
   value?: number;

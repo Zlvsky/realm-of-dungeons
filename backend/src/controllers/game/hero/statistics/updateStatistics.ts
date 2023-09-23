@@ -20,23 +20,20 @@ export const updateStatistics = async (req: Request, res: Response) => {
         .json({ message: "You don't have statistics points available" });
 
     switch (statistic) {
-      case "strength":
-        character.statistics.strength += 1;
+      case "axe":
+        character.statistics.axe += 1;
         break;
-      case "dexterity":
-        character.statistics.dexterity += 1;
+      case "sword":
+        character.statistics.sword += 1;
         break;
-      case "intelligence":
-        character.statistics.intelligence += 1;
+      case "mace":
+        character.statistics.mace += 1;
         break;
-      case "condition":
-        character.statistics.condition += 1;
+      case "distance":
+        character.statistics.distance += 1;
         break;
-      case "wisdom":
-        character.statistics.wisdom += 1;
-        break;
-      case "charisma":
-        character.statistics.charisma += 1;
+      case "magic":
+        character.statistics.magic += 1;
         break;
       default:
         return res.status(404).json({ message: "Wrong statistic" });
