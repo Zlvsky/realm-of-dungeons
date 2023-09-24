@@ -10,13 +10,15 @@ export const damageWithArmorReduction = (damage: number, armor?: number) => {
 }
 
 export const getAttackDamage = (
-  heroDamage: number,
+  minDmg: number,
+  maxDmg: number,
   chanceToHit: number,
   powerIndex: number,
   armor?: number,
 ) => {
   const randomNumber = Math.random() * 100;
   if (100 - chanceToHit > randomNumber) return 0;
-  const damage = calcDamage(heroDamage / powerIndex, heroDamage);
+  const damageOutput = Math.floor(Math.random() * maxDmg) + minDmg;
+  const damage = damageOutput * powerIndex;
   return damageWithArmorReduction(damage, armor);
 };

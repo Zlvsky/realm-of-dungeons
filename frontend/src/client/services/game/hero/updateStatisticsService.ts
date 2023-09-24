@@ -4,12 +4,11 @@ import Cookies from "js-cookie";
 
 export interface IUpdateStatistics {
   statistic:
-    | "strength"
-    | "dexterity"
-    | "intelligence"
-    | "condition"
-    | "wisdom"
-    | "charisma";
+    | "axe"
+    | "sword"
+    | "mace"
+    | "distance"
+    | "magic"
 }
 
 export const updateStatisticsService = async (body: IUpdateStatistics) => {

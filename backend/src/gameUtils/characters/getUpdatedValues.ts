@@ -53,11 +53,9 @@ const updateCharacterValues = async (character: ICharacter) => {
   try {
     if (!character) return false;
     const equipmentValues = calculateEquipmentValues(character.equipment);
-    console.log("stats", equipmentValues);
 
     character.updatedValues.defense =
       character.generalValues.basicDefense + equipmentValues.defense;
-    character.updatedValues.damage = equipmentValues.damage;
 
     for (const stat in equipmentValues.statistics) {
       let statCopy: any = stat;

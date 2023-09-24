@@ -28,8 +28,9 @@ export const enemyTurn = async (req: Request, res: Response) => {
     getValuesWithStatistics(character);
     const enemyDamage = getAttackDamage(
       enemy.damage,
+      enemy.damage,
       70,
-      2,
+      1,
       character.updatedValues.defense
     );
 

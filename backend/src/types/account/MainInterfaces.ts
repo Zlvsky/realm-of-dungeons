@@ -72,7 +72,8 @@ export interface ICharacter extends mongoose.Document {
     health: number;
     maxMana: number;
     mana: number;
-    damage: number;
+    minDmg: number;
+    maxDmg: number;
     defense: number;
     statistics: IStatistics;
   };

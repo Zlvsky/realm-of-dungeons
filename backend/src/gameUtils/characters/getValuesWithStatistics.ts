@@ -22,9 +22,9 @@ const getValuesWithStatistics = (character: ICharacter) => {
     const maxDmg = classCombatIndicator * combatStatistic * weaponDamage + minDmg;
 
     const avgDmg = (minDmg + maxDmg) / 2;
-    const damageOutput = Math.floor(Math.random() * maxDmg) + avgDmg;
-    
-    character.updatedValues.damage = damageOutput;
+   
+    character.updatedValues.minDmg = Math.round(avgDmg * 10) / 10;
+    character.updatedValues.maxDmg = Math.round(maxDmg * 10) / 10;
     
     // HEALTH
     const baseHealth = character.generalValues.basicHealth;

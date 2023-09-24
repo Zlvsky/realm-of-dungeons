@@ -65,7 +65,7 @@ function HeroInfo({ hero }: IHeroProp) {
             }
           />
           <Text
-            text={`Damage: ${hero.updatedValues.damage}`}
+            text={`Damage: ${hero.updatedValues.minDmg} - ${hero.updatedValues.maxDmg}`}
             x={0}
             y={25}
             style={
@@ -78,7 +78,7 @@ function HeroInfo({ hero }: IHeroProp) {
             }
           />
           <Text
-            text={`Armor: ${hero.updatedValues.armor}`}
+            text={`Defense: ${hero.updatedValues.defense}`}
             x={0}
             y={50}
             style={

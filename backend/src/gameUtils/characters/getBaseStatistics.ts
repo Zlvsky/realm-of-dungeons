@@ -1,26 +1,23 @@
 const warriorStats = {
-  strength: 10,
-  dexterity: 5,
-  condition: 15,
-  intelligence: 4,
-  wisdom: 2,
-  charisma: 8,
+  sword: 10,
+  axe: 10,
+  mace: 10,
+  distance: 5,
+  magic: 2,
 };
 const mageStats = {
-  strength: 4,
-  dexterity: 7,
-  condition: 5,
-  intelligence: 20,
-  wisdom: 15,
-  charisma: 12,
+  sword: 5,
+  axe: 2,
+  mace: 2,
+  distance: 2,
+  magic: 10,
 };
 const archerStats = {
-  strength: 8,
-  dexterity: 20,
-  condition: 10,
-  intelligence: 5,
-  wisdom: 6,
-  charisma: 12,
+  sword: 5,
+  axe: 2,
+  mace: 2,
+  distance: 10,
+  magic: 5,
 };
 
 const getBaseStatistics = (heroClass: "warrior" | "mage" | "archer") => {

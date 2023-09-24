@@ -27,16 +27,18 @@ export const characterAttack = async (req: Request, res: Response) => {
 
     getValuesWithStatistics(character);
     let attackDamage;
+    const minDmg = character.updatedValues.minDmg;
+    const maxDmg = character.updatedValues.maxDmg;
 
     switch (attackPower) {
       case "low":
-        attackDamage = getAttackDamage(character.updatedValues.damage, 80, 5);
+        attackDamage = getAttackDamage(minDmg, maxDmg, 90, 0.5);
         break;
       case "medium":
-        attackDamage = getAttackDamage(character.updatedValues.damage, 65, 3);
+        attackDamage = getAttackDamage(minDmg, maxDmg, 85, 0.75);
         break;
       case "strong":
-        attackDamage = getAttackDamage(character.updatedValues.damage, 50, 1.5);
+        attackDamage = getAttackDamage(minDmg, maxDmg, 70, 1);
         break;
       default:
         return res.status(404).json({ message: "Attack not found" });

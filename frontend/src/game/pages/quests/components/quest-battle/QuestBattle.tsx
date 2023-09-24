@@ -60,10 +60,10 @@ function QuestBattle({ hero }: IQuestBattle) {
           value={hero.activeQuest.enemy!.health}
           maxValue={hero.activeQuest.enemy!.maxHealth}
         />
-        <BattleStats
+        {/* <BattleStats
           statistics={hero.activeQuest.enemy!.statistics}
           position={[0, 150]}
-        />
+        /> */}
         <Portrait
           position={[450, 0]}
           name={hero.activeQuest.enemy!.name}

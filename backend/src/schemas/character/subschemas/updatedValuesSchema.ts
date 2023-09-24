@@ -21,10 +21,15 @@ const updatedValuesSchema = new mongoose.Schema({
     required: true,
     default: 100,
   },
-  damage: {
+  minDmg: {
     type: Number,
     required: true,
-    default: 10,
+    default: 0.2,
+  },
+  maxDmg: {
+    type: Number,
+    required: true,
+    default: 0.2,
   },
   defense: {
     type: Number,

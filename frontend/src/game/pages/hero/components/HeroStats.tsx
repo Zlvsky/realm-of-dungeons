@@ -8,11 +8,10 @@ import { useDispatch } from "react-redux";
 import fetchHero from "../../../../utils/fetchers/fetchHero";
 import { ICharacter } from "../../../../interfaces/MainInterface";
 
-type Statistic = "strength" | "dexterity" | "intelligence" | "condition" | "wisdom" | "charisma";
+type Statistic = "axe" | "sword" | "mace" | "distance" | "magic";
 
 interface IHeroStats {
   hero: ICharacter,
-  updateHero: any;
 }
 interface ISingleStat {
   position: [number, number];
@@ -103,12 +102,11 @@ function  HeroStats({ hero }: IHeroStats) {
 
   return (
     <Container position={[0, 430]}>
-      <SingleStat position={[0, 0]} stat={"strength"} col={1} />
-      <SingleStat position={[0, 80]} stat={"dexterity"} col={1} />
-      <SingleStat position={[0, 160]} stat={"intelligence"} col={1} />
-      <SingleStat position={[280, 0]} stat={"condition"} col={2} />
-      <SingleStat position={[280, 80]} stat={"wisdom"} col={2} />
-      <SingleStat position={[280, 160]} stat={"charisma"} col={2} />
+      <SingleStat position={[0, 0]} stat={"magic"} col={1} />
+      <SingleStat position={[0, 80]} stat={"sword"} col={1} />
+      <SingleStat position={[0, 160]} stat={"axe"} col={1} />
+      <SingleStat position={[280, 0]} stat={"mace"} col={2} />
+      <SingleStat position={[280, 80]} stat={"distance"} col={2} />
     </Container>
   );
 }
