@@ -6,7 +6,6 @@ function levelUpIfReady(character: ICharacter) {
     character.progression.level += 1;
     character.progression.previousLevelExperience = character.progression.levelExperience;
     character.progression.levelExperience = getNextLevelExperience[character.progression.level];
-    character.progression.availableStatPoints = 5;
   }
 }
 

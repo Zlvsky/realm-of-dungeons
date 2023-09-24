@@ -6,11 +6,17 @@ interface itemWithSlotIndex {
 }
 
 interface IStatistics {
-  axe: number;
-  sword: number;
-  mace: number;
+  melee: number;
   distance: number;
   magic: number;
+  luck: number;
+  resistance: number;
+}
+
+interface IStatisticProgression {
+  levelExperience: number;
+  previousLevelExperience: number;
+  experience: number;
 }
 
 export interface ICharacter extends mongoose.Document {
@@ -22,7 +28,12 @@ export interface ICharacter extends mongoose.Document {
     levelExperience: number;
     previousLevelExperience: number;
     experience: number;
-    availableStatPoints: number;
+    statistics: {
+      melee: IStatisticProgression;
+      distance: IStatisticProgression;
+      magic: IStatisticProgression;
+      resistance: IStatisticProgression;
+    };
   };
   activeQuest: {
     timeStarted: string | null;
@@ -74,7 +85,7 @@ export interface ICharacter extends mongoose.Document {
     mana: number;
     minDmg: number;
     maxDmg: number;
-    defense: number;
+    armor: number;
     statistics: IStatistics;
   };
   extras: {
@@ -118,16 +129,15 @@ export interface IItemObject {
     | "mana";
   armorType?: "cloth" | "leather" | "plate";
   damage?: number;
-  defense?: number;
+  armor?: number;
   image: string;
   requiredLevel?: number;
   statistics?: {
-    axe?: number;
-    sword?: number;
-    mace?: number;
+    melee?: number;
     distance?: number;
     magic?: number;
-    defense?: number;
+    luck?: number;
+    resistance?: number;
     health?: number;
     mana?: number;
   };

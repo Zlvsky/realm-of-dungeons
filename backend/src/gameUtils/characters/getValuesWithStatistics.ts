@@ -7,11 +7,9 @@ const getValuesWithStatistics = (character: ICharacter) => {
     if (weaponItem) weaponDamage = weaponItem.damage!;
 
     let combatStatistic = 10;
-    if (weaponItem?.subType === "axe") combatStatistic = character.updatedValues.statistics.axe;
-    if (weaponItem?.subType === "sword") combatStatistic = character.updatedValues.statistics.sword;
-    if (weaponItem?.subType === "mace") combatStatistic = character.updatedValues.statistics.mace;
-    if (weaponItem?.subType === "bow" || weaponItem?.subType === "crossbow") combatStatistic = character.updatedValues.statistics.distance;
     if (weaponItem?.subType === "wand") combatStatistic = character.updatedValues.statistics.magic;
+    else if (weaponItem?.subType === "bow" || weaponItem?.subType === "crossbow") combatStatistic = character.updatedValues.statistics.distance;
+    else combatStatistic = character.updatedValues.statistics.melee;
     
     let classCombatIndicator = 0.085;
     if (character.class === "warrior") classCombatIndicator = 0.085;

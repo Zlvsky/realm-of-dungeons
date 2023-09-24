@@ -19,12 +19,65 @@ const progressionSchema = new mongoose.Schema({
   previousLevelExperience: {
     type: Number,
     required: true,
-    defaut: 0,
-  },
-  availableStatPoints: {
-    type: Number,
-    required: true,
     default: 0,
+  },
+  statistics: {
+    melee: {
+      experience: {
+        type: Number,
+        default: 0,
+      },
+      levelExperience: {
+        type: Number,
+        default: 0,
+      },
+      previousLevelExperience: {
+        type: Number,
+        default: 0,
+      },
+    },
+    distance: {
+      experience: {
+        type: Number,
+        default: 0,
+      },
+      levelExperience: {
+        type: Number,
+        default: 0,
+      },
+      previousLevelExperience: {
+        type: Number,
+        default: 0,
+      },
+    },
+    magic: {
+      experience: {
+        type: Number,
+        default: 0,
+      },
+      levelExperience: {
+        type: Number,
+        default: 0,
+      },
+      previousLevelExperience: {
+        type: Number,
+        default: 0,
+      },
+    },
+    resistance: {
+      experience: {
+        type: Number,
+        default: 0,
+      },
+      levelExperience: {
+        type: Number,
+        default: 0,
+      },
+      previousLevelExperience: {
+        type: Number,
+        default: 0,
+      },
+    },
   },
 });
 

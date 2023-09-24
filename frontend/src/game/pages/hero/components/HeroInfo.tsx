@@ -78,7 +78,7 @@ function HeroInfo({ hero }: IHeroProp) {
             }
           />
           <Text
-            text={`Defense: ${hero.updatedValues.defense}`}
+            text={`Defense: ${hero.updatedValues.armor}`}
             x={0}
             y={50}
             style={

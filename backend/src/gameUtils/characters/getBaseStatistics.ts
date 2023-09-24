@@ -1,23 +1,23 @@
 const warriorStats = {
-  sword: 10,
-  axe: 10,
-  mace: 10,
+  melee: 10,
   distance: 5,
   magic: 2,
+  luck: 2,
+  resistance: 5,
 };
 const mageStats = {
-  sword: 5,
-  axe: 2,
-  mace: 2,
+  melee: 5,
   distance: 2,
   magic: 10,
+  luck: 5,
+  resistance: 5,
 };
 const archerStats = {
-  sword: 5,
-  axe: 2,
-  mace: 2,
+  melee: 5,
   distance: 10,
   magic: 5,
+  luck: 8,
+  resistance: 5,
 };
 
 const getBaseStatistics = (heroClass: "warrior" | "mage" | "archer") => {

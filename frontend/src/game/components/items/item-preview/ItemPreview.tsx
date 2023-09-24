@@ -80,10 +80,10 @@ function ItemPreview({
   const ItemValues = () => {
 
     const ItemValue = () => {
-      if (!itemData?.defense === undefined || itemData.damage === undefined) return null;
+      if (!itemData?.armor === undefined || itemData.damage === undefined) return null;
       let valueText;
-      if (itemData?.defense !== undefined)
-        valueText = `Defense: ${itemData.defense}`;
+      if (itemData?.armor !== undefined)
+        valueText = `Defense: ${itemData.armor}`;
       if (itemData?.damage !== undefined) valueText = `Damage: ${itemData.damage}`;
       return (
         <Text

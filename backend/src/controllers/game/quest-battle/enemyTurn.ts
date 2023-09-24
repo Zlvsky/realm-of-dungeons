@@ -31,7 +31,7 @@ export const enemyTurn = async (req: Request, res: Response) => {
       enemy.damage,
       70,
       1,
-      character.updatedValues.defense
+      character.updatedValues.armor
     );
 
     character.updatedValues.health -= enemyDamage;

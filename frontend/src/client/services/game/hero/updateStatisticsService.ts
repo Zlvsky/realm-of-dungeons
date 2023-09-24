@@ -4,9 +4,9 @@ import Cookies from "js-cookie";
 
 export interface IUpdateStatistics {
   statistic:
-    | "axe"
-    | "sword"
-    | "mace"
+    | "melee"
+    | "luck"
+    | "resistance"
     | "distance"
     | "magic"
 }

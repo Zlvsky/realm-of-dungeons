@@ -46,8 +46,8 @@ export const addItem = async (req: Request, res: Response) => {
       item.subType = req.body.subType;
     } 
 
-    if (isIncluded(req.body.defense)) {
-      item.defense = Number(req.body.defense);
+    if (isIncluded(req.body.armor)) {
+      item.armor = Number(req.body.armor);
     } 
     
     await item.save();

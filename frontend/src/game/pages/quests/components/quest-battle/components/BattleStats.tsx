@@ -42,11 +42,11 @@ function BattleStats({ statistics, position }: any) {
 
   return (
     <Container position={position}>
-      <SingleStat position={[0, 0]} stat={"magic"} />
-      <SingleStat position={[140, 0]} stat={"sword"} />
-      <SingleStat position={[260, 0]} stat={"axe"} />
-      <SingleStat position={[0, 80]} stat={"mace"} />
-      <SingleStat position={[140, 80]} stat={"distance"} />
+      <SingleStat position={[0, 0]} stat={"melee"} />
+      <SingleStat position={[140, 0]} stat={"distance"} />
+      <SingleStat position={[260, 0]} stat={"magic"} />
+      <SingleStat position={[0, 80]} stat={"luck"} />
+      <SingleStat position={[140, 80]} stat={"resistance"} />
     </Container>
   );
 }

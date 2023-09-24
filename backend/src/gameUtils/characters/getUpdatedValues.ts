@@ -8,8 +8,8 @@ const calculateEquipmentValues = (equipment: ICharacter["equipment"]) => {
 
       if (item === null) return accumulator;
 
-      if (item.defense) {
-        accumulator.defense += item.defense;
+      if (item.armor) {
+        accumulator.armor += item.armor;
       }
 
       if (item.damage) {
@@ -20,7 +20,7 @@ const calculateEquipmentValues = (equipment: ICharacter["equipment"]) => {
         const statisticsKeys: any[] = Object.keys(item.statistics);
         statisticsKeys.forEach((stat: keyof typeof item.statistics) => {
           if (item.statistics && item.statistics[stat]) {
-            if (stat === "defense" || stat === "health" || stat === "mana") {
+            if (stat === "health" || stat === "mana") {
               accumulator[stat] = accumulator[stat] + item.statistics[stat]!;
             } else {
               accumulator.statistics[stat] =
@@ -33,16 +33,16 @@ const calculateEquipmentValues = (equipment: ICharacter["equipment"]) => {
       return accumulator;
     },
     {
-      defense: 0,
+      armor: 0,
       damage: 0,
       health: 0,
       mana: 0,
       statistics: {
-        axe: 0,
-        sword: 0,
-        mace: 0,
+        melee: 0,
         distance: 0,
         magic: 0,
+        luck: 0,
+        resistance: 0,
       },
     }
   );
@@ -54,8 +54,8 @@ const updateCharacterValues = async (character: ICharacter) => {
     if (!character) return false;
     const equipmentValues = calculateEquipmentValues(character.equipment);
 
-    character.updatedValues.defense =
-      character.generalValues.basicDefense + equipmentValues.defense;
+    character.updatedValues.armor =
+      character.generalValues.basicDefense + equipmentValues.armor;
 
     for (const stat in equipmentValues.statistics) {
       let statCopy: any = stat;
