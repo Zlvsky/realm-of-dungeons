@@ -1,112 +1,63 @@
-import { ColorMatrixFilter } from "pixi.js";
-import { Container, Sprite, Text, withFilters } from "@pixi/react";
-import { TextStyle } from "pixi.js";
-import plusbtn from "../../../../assets/images/plusbtn.png";
-import { updateStatistics } from "../../../../client/appClient";
-import { setHero } from "../../../../redux/reducers/gameSlice";
-import { useDispatch } from "react-redux";
-import fetchHero from "../../../../utils/fetchers/fetchHero";
+import { Container } from "@pixi/react";
 import { ICharacter } from "../../../../interfaces/MainInterface";
+import ProgressStat from "./ProgressStat";
 
-type Statistic = "melee" | "distance" | "magic" | "luck" | "resistance";
+import MeleeIcon from "../../../../assets/images/icons/stats/melee.png";
+import DistanceIcon from "../../../../assets/images/icons/stats/distance.png";
+import MagicIcon from "../../../../assets/images/icons/stats/magic.png";
+import ResistanceIcon from "../../../../assets/images/icons/stats/resistance.png";
+import DefenseIcon from "../../../../assets/images/icons/stats/defense.png";
+import LuckIcon from "../../../../assets/images/icons/stats/luck.png";
+import DynamicStat from "./DynamicStat";
 
 interface IHeroStats {
   hero: ICharacter,
 }
-interface ISingleStat {
-  position: [number, number];
-  stat: Statistic
-  col: number;
-}
-
-const Filters: any = withFilters(Container, {
-  matrix: ColorMatrixFilter,
-});
 
 function  HeroStats({ hero }: IHeroStats) {
 
-  const dispatch = useDispatch();
-
-  const updateHero = (data: any) => {
-    dispatch(setHero(data));
-  };
-
-
-  const updateStatistic = async (
-    statistic: Statistic
-  ) => {
-    const response = await updateStatistics({ statistic });
-    if (response.status !== 200) return false;
-    fetchHero(updateHero);
-    return true;
-  };
-
-  const SingleStat = ({ position, stat, col }: ISingleStat) => {
-    const isAvailable = hero.progression.level > 0;
-
-    const handleUpdate = (statistic: Statistic) => {
-      if (isAvailable) updateStatistic(statistic);
-    }
-
-    return (
-      <Container position={position}>
-        <Text
-          text={`${stat.toUpperCase()}`}
-          x={0}
-          y={0}
-          style={
-            new TextStyle({
-              align: "center",
-              fontFamily: "MedievalSharp",
-              letterSpacing: 1,
-              fontSize: 24,
-              fill: ["#898989"],
-            })
-          }
-        />
-        <Text
-          text={hero.updatedValues.statistics[stat].toString()}
-          x={0}
-          y={30}
-          style={
-            new TextStyle({
-              align: "center",
-              fontFamily: "MedievalSharp",
-              fontSize: 24,
-              fill: ["#D1D1D1"],
-            })
-          }
-        />
-        <Filters
-          matrix={{ enabled: true }}
-          apply={
-            !isAvailable
-              ? ({ matrix }: any) => matrix.blackAndWhite()
-              : undefined
-          }
-        >
-          <Sprite
-            image={plusbtn}
-            width={55}
-            height={55}
-            x={col === 1 ? 190 : 160}
-            y={-14}
-            cursor={isAvailable ? "pointer" : "normal"}
-            interactive={true}
-            onclick={() => handleUpdate(stat)}
-          />
-        </Filters>
-      </Container>
-    );
-  };
-
   return (
     <Container position={[0, 430]}>
-      <SingleStat position={[0, 0]} stat={"melee"} col={1} />
-      <SingleStat position={[0, 80]} stat={"distance"} col={1} />
-      <SingleStat position={[0, 160]} stat={"magic"} col={1} />
-      <SingleStat position={[280, 0]} stat={"luck"} col={2} />
-      <SingleStat position={[280, 80]} stat={"resistance"} col={2} />
+      <ProgressStat
+        position={[0, 0]}
+        stat="MELEE"
+        icon={MeleeIcon}
+        level={hero.updatedValues.statistics.melee}
+        progress={hero.progression.statistics.melee}
+      />
+      <ProgressStat
+        position={[0, 70]}
+        stat="DISTANCE"
+        icon={DistanceIcon}
+        level={hero.updatedValues.statistics.distance}
+        progress={hero.progression.statistics.distance}
+      />
+      <ProgressStat
+        position={[0, 140]}
+        stat="MAGIC"
+        icon={MagicIcon}
+        level={hero.updatedValues.statistics.magic}
+        progress={hero.progression.statistics.magic}
+      />
+      <ProgressStat
+        position={[0, 210]}
+        stat="RESISTANCE"
+        icon={ResistanceIcon}
+        level={hero.updatedValues.statistics.resistance}
+        progress={hero.progression.statistics.resistance}
+      />
+      <DynamicStat
+        position={[0, 300]}
+        stat={"DEFENSE"}
+        icon={DefenseIcon}
+        level={hero.updatedValues.armor}
+      />
+      <DynamicStat
+        position={[360, 300]}
+        stat={"LUCK"}
+        icon={LuckIcon}
+        level={hero.updatedValues.statistics.luck}
+      />
     </Container>
   );
 }

@@ -77,19 +77,6 @@ function HeroInfo({ hero }: IHeroProp) {
               })
             }
           />
-          <Text
-            text={`Defense: ${hero.updatedValues.armor}`}
-            x={0}
-            y={50}
-            style={
-              new TextStyle({
-                align: "center",
-                fontFamily: "MedievalSharp",
-                fontSize: 20,
-                fill: ["#ffffff"],
-              })
-            }
-          />
         </Container>
       </Container>
     );

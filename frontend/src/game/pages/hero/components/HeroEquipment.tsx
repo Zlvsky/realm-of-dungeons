@@ -65,7 +65,7 @@ function HeroEquipment() {
   };
 
   return (
-    <Container position={[100, 150]} interactive={true}>
+    <Container position={[100, 100]} interactive={true}>
       <HeroInfo hero={hero} />
       <HeroStats hero={hero} />
       {equipmentSlots.map((position, index) => (
