@@ -83,7 +83,6 @@ function MerchantShop({ currentMerchant }: IMerchantShop) {
         <ItemPreview
           position={[495, 80]}
           itemData={currentItem.itemData.item}
-          price={40}
           action={currentItem.action}
           handleAction={handleAction}
         />

@@ -21,7 +21,7 @@ export const questBattleEnd = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "Battle is not ended" });
 
     if (quest.battleWinner === 1) {
-        character.generalValues.gold += quest.rewards.gold;
+        character.generalValues.gold = Math.round((character.generalValues.gold + quest.rewards.gold) * 100) / 100;
         character.progression.experience += quest.rewards.xp;
         levelUpIfReady(character);
     } else if (quest.battleWinner === 2) {

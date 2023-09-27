@@ -41,7 +41,7 @@ function ItemPreview({
   handleAction,
 }: IItemPreview) {
   let boxHeight = 340;
-  if (itemData.value && !hideValue) boxHeight = 390;
+  if (itemData.value !== undefined && !hideValue) boxHeight = 390;
   const boxWidth = 325;
 
   const ItemImage = () => {
@@ -179,7 +179,7 @@ function ItemPreview({
   }
 
   const ItemPrice = () => {
-    if (!itemData.value || hideValue) return null;
+    if (itemData.value === undefined || hideValue) return null;
     return (
       <Container position={[20, 0]}>
         <Graphics

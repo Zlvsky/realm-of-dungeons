@@ -32,7 +32,7 @@ export const merchantBuyItem = async (req: Request, res: Response) => {
         return res.status(400).json({ message: "You don't have empty slot in inventory" });
 
     emptyInventorySlot.item = merchantItem;
-    character.generalValues.gold -= merchantItem.value;
+    character.generalValues.gold = Math.round((character.generalValues.gold - merchantItem.value) * 100) / 100;
 
     await character.save();
     return res.json("success");

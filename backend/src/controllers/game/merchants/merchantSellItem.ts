@@ -28,7 +28,7 @@ export const merchantSellItem = async (req: Request, res: Response) => {
 
     const itemValue = inventoryItem.item.value;
       
-    if (!itemValue)
+    if (itemValue === undefined || itemValue === null)
       return res.status(404).json({ message: "You can't sell that item" });
 
     const isMerchantInterested = merchant.interestedIn.includes(inventoryItem.item.type);
