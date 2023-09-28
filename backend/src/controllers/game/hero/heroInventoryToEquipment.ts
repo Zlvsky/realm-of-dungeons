@@ -40,6 +40,15 @@ export const updateInventoryToEquipment = async (
       inventorySlot.item !== null &&
       inventorySlot.item.type === itemType
     ) {
+      // check if required level is not too big
+      if (
+        inventorySlot.item?.requiredLevel &&
+        inventorySlot.item.requiredLevel > character.progression.level
+      ) {
+        return res
+          .status(400)
+          .json({ message: "Your level is too low to equip this item" });
+      }
       const equippedItem = equipmentItem.item;
       const inventoryItem = item;
       equipmentItem.item = inventoryItem;
@@ -49,6 +58,15 @@ export const updateInventoryToEquipment = async (
       inventorySlot.item !== null &&
       inventorySlot.item.type === itemType
     ) {
+      // check if required level is not too big
+      if (
+        inventorySlot.item?.requiredLevel &&
+        inventorySlot.item.requiredLevel > character.progression.level
+      ) {
+        return res
+          .status(400)
+          .json({ message: "Your level is too low to equip this item" });
+      }
       equipmentItem.item = item;
       inventorySlot.item = null;
     }

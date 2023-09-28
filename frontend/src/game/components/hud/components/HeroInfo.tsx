@@ -19,12 +19,14 @@ function HeroInfo() {
             />
         )
     }
+
+    if (!hero) return null;
     
     return (
       <Container position={[0, 0]}>
         <RenderAvatar />
         <Text
-          text={`LEVEL: ${hero?.progression.level}`}
+          text={`LEVEL: ${hero.progression.level}`}
           x={110}
           y={30}
           style={
@@ -46,7 +48,7 @@ function HeroInfo() {
         <Text
           x={150}
           y={72}
-          text={hero?.generalValues.gold.toString()}
+          text={Math.round(hero.generalValues.gold).toFixed(2)}
           style={
             new TextStyle({
               align: "left",

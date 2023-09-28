@@ -163,7 +163,7 @@ function ItemPreview({
         y={yPosition}
         style={
           new TextStyle({
-            align: "center",
+            align: "left",
             fontFamily: "Almendra",
             fontSize: 20,
             fontWeight: "100",
@@ -177,6 +177,30 @@ function ItemPreview({
       />
     );
   }
+
+  const ItemRequiredLevel = () => {
+    const requiredLevel = itemData?.requiredLevel;
+    if (!requiredLevel) return null;
+    return (
+      <Text
+        text={`Required level: ${requiredLevel}`}
+        x={boxWidth / 2 }
+        y={300}
+        anchor={[0.5, 0]}
+        style={
+          new TextStyle({
+            align: "center",
+            fontFamily: "Almendra",
+            fontSize: 18,
+            fill: ["#ffffff"],
+            letterSpacing: 0.5,
+            wordWrap: true,
+            wordWrapWidth: boxWidth - 20,
+          })
+        }
+      />
+    );
+  };
 
   const ItemPrice = () => {
     if (itemData.value === undefined || hideValue) return null;
@@ -226,6 +250,7 @@ function ItemPreview({
       <ItemValues />
       <ItemStats />
       <ItemDescription />
+      <ItemRequiredLevel />
       <ItemPrice />
       <ActionButton
         action={action}
