@@ -6,6 +6,7 @@ export interface updateEquipmentToInventoryInterface {
   item: any;
   slotIndex: number;
   itemType: string;
+  itemSubType: string;
 }
 
 export const updateEquipmentToInventoryService = async (
@@ -20,6 +21,7 @@ export const updateEquipmentToInventoryService = async (
         item: body.item,
         slotIndex: body.slotIndex,
         itemType: body.itemType,
+        itemSubType: body.itemSubType,
       },
       {
         headers: {

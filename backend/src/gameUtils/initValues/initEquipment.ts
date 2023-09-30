@@ -1,10 +1,10 @@
 const initEquipment = [
   {
-    type: "helmet",
+    type: "head",
     item: null,
   },
   {
-    type: "armor",
+    type: "chest",
     item: null,
   },
   {

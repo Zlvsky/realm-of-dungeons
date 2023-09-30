@@ -24,31 +24,31 @@ export interface IArmorObject {
 const headsArray = [
   ...heads.cloth.noMinLevel,
   ...heads.leather.noMinLevel,
-  ...heads.cloth.noMinLevel,
+  ...heads.plate.noMinLevel,
 
   ...heads.cloth.minLevel10,
   ...heads.leather.minLevel10,
-  ...heads.cloth.minLevel10,
+  ...heads.plate.minLevel10,
 ];
 
 const chestsArray = [
   ...chests.cloth.noMinLevel,
   ...chests.leather.noMinLevel,
-  ...chests.cloth.noMinLevel,
+  ...chests.plate.noMinLevel,
 
   ...chests.cloth.minLevel10,
   ...chests.leather.minLevel10,
-  ...chests.cloth.minLevel10,
+  ...chests.plate.minLevel10,
 ];
 
 const legsArray = [
   ...legs.cloth.noMinLevel,
   ...legs.leather.noMinLevel,
-  ...legs.cloth.noMinLevel,
+  ...legs.plate.noMinLevel,
 
   ...legs.cloth.minLevel10,
   ...legs.leather.minLevel10,
-  ...legs.cloth.minLevel10,
+  ...legs.plate.minLevel10,
 ];
 
 export const armors: IItemObject[] = [

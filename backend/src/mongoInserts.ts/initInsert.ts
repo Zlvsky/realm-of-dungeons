@@ -2,7 +2,7 @@ import insertMerchants from "./merchants/insertMerchants";
 import insertItems from "./merchants/insertItems";
 
 function initInsert() {
-    insertMerchants()
+    // insertMerchants()
     insertItems();
 }
 

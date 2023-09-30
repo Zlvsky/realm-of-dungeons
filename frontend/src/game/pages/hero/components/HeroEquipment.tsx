@@ -37,7 +37,8 @@ function HeroEquipment() {
       slotType: "",
       slotIndex: -1,
     };
-    const closestSlotIndex = getEquipmentSlot(currentItem?.type);
+
+    const closestSlotIndex = getEquipmentSlot(currentItem?.type, currentItem?.subType);
     const isInSlot = checkIfInsideSlot(position, closestSlotIndex);
     if (isInSlot) {
       returnData.position = closestSlotIndex;
@@ -73,8 +74,9 @@ function HeroEquipment() {
           key={index}
           x={position.x}
           y={position.y}
-          currentItem={currentItem?.type}
-          itemType={position.type}
+          itemType={currentItem?.type}
+          itemSubType={currentItem?.subType}
+          slotType={position.type}
         />
       ))}
       {inventorySlots.map((position, index) => (
@@ -82,7 +84,8 @@ function HeroEquipment() {
           key={index}
           x={position.x}
           y={position.y}
-          currentItem={currentItem?.type}
+          itemType={currentItem?.type}
+          itemSubType={currentItem?.subType}
         />
       ))}
       {/* equipment items */}
@@ -92,7 +95,7 @@ function HeroEquipment() {
             <Item
               key={index}
               itemData={item}
-              itemPosition={getEquipmentPosition(item.type)}
+              itemPosition={getEquipmentPosition(item.type, item.item.subType)}
               itemSpot={"EQUIPMENT"}
               onDrop={handleItemDrop}
               setCurrentItem={setCurrentItem}
@@ -117,10 +120,7 @@ function HeroEquipment() {
           );
       })}
       {currentItemPreview && (
-        <ItemPreview
-          position={[670, -70]}
-          itemData={currentItemPreview}
-        />
+        <ItemPreview position={[670, -70]} itemData={currentItemPreview} />
       )}
     </Container>
   );

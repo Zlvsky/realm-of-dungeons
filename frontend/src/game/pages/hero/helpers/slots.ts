@@ -1,11 +1,11 @@
 export const equipmentSlots = [
   {
-    type: "helmet",
+    type: "head",
     x: 0,
     y: 0,
   },
   {
-    type: "armor",
+    type: "chest",
     x: 0,
     y: 100,
   },

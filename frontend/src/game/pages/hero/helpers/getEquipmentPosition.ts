@@ -1,7 +1,7 @@
 import { equipmentSlots, inventorySlots } from "./slots";
 
-export const getEquipmentSlot = (type: string) => {
-  const slot = equipmentSlots.find((el) => el.type === type);
+export const getEquipmentSlot = (type: string, subType: string) => {
+  const slot = equipmentSlots.find((el) => el.type === type || el.type === subType);
   return slot;
 };
 
@@ -11,8 +11,8 @@ export const getInventoryPosition = (slotIndex: number) => {
   return { x: slot.x + 40, y: slot.y + 40 };
 };
 
-export const getEquipmentPosition = (type: string) => {
-    const slot = getEquipmentSlot(type);
+export const getEquipmentPosition = (type: string, subType: string) => {
+    const slot = getEquipmentSlot(type, subType);
     if(!slot) return;
     return { x: slot.x + 40, y: slot.y + 40}
 };

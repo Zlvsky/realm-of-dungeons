@@ -17,21 +17,19 @@ function capitalizeFirstLetter(string: string) {
 }
 
 const Box = ({ width, height }: any) => {
-    return (
-      <Graphics
-        x={0}
-        y={0}
-        draw={(g) => {
-          g.lineStyle(2, 0x656565);
-          g.beginFill(0x2c2c2c, 0.3);
-          g.drawRect(0, 0, width, height);
-          g.endFill();
-        }}
-      />
-    );
-}
-
-
+  return (
+    <Graphics
+      x={0}
+      y={0}
+      draw={(g) => {
+        g.lineStyle(2, 0x656565);
+        g.beginFill(0x2c2c2c, 0.3);
+        g.drawRect(0, 0, width, height);
+        g.endFill();
+      }}
+    />
+  );
+};
 
 function ItemPreview({
   position,
@@ -78,13 +76,14 @@ function ItemPreview({
   };
 
   const ItemValues = () => {
-
     const ItemValue = () => {
-      if (!itemData?.armor === undefined || itemData.damage === undefined) return null;
+      if (!itemData?.armor === undefined && itemData.damage === undefined)
+        return null;
       let valueText;
       if (itemData?.armor !== undefined)
         valueText = `Defense: ${itemData.armor}`;
-      if (itemData?.damage !== undefined) valueText = `Damage: ${itemData.damage}`;
+      if (itemData?.damage !== undefined)
+        valueText = `Damage: ${itemData.damage}`;
       return (
         <Text
           text={valueText}
@@ -102,8 +101,8 @@ function ItemPreview({
           }
         />
       );
-    }
-    
+    };
+
     return (
       <>
         <Text
@@ -154,7 +153,9 @@ function ItemPreview({
   };
 
   const ItemDescription = () => {
-    const statsLength = itemData?.statistics ? Object.keys(itemData.statistics).length : 0;
+    const statsLength = itemData?.statistics
+      ? Object.keys(itemData.statistics).length
+      : 0;
     const yPosition = 200 + statsLength * 25;
     return (
       <Text
@@ -176,7 +177,7 @@ function ItemPreview({
         }
       />
     );
-  }
+  };
 
   const ItemRequiredLevel = () => {
     const requiredLevel = itemData?.requiredLevel;
@@ -184,7 +185,7 @@ function ItemPreview({
     return (
       <Text
         text={`Required level: ${requiredLevel}`}
-        x={boxWidth / 2 }
+        x={boxWidth / 2}
         y={300}
         anchor={[0.5, 0]}
         style={

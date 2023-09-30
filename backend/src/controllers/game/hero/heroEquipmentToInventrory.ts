@@ -14,7 +14,7 @@ export const updateEquipmentToInventory = async (
   req: Request,
   res: Response
 ) => {
-  const { characterId, item, slotIndex, itemType } = req.body;
+  const { characterId, item, slotIndex, itemType, itemSubType } = req.body;
 
   try {
     // checking if index have item inside
@@ -24,7 +24,7 @@ export const updateEquipmentToInventory = async (
       return res.status(404).json({ message: "Inventory not found" });
     }
     const equipmentItem = character.equipment.find(
-      (slot) => slot.type === itemType
+      (slot) => slot.type === itemType || slot.type === itemSubType
     );
 
     const inventorySlot = character.inventory.find(
@@ -35,7 +35,11 @@ export const updateEquipmentToInventory = async (
       return res.status(404).json({ message: "Inventory slot not found" });
     }
 
-    if (inventorySlot.item !== null && inventorySlot.item.type === itemType) {
+    if (
+      inventorySlot.item !== null &&
+      (inventorySlot.item.type === itemType ||
+        inventorySlot.item.subType === itemSubType)
+    ) {
       // check if required level is not too big
       if (
         inventorySlot.item?.requiredLevel &&

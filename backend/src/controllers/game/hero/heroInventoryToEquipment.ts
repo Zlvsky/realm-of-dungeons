@@ -38,7 +38,8 @@ export const updateInventoryToEquipment = async (
     if (
       equipmentItem.item !== null &&
       inventorySlot.item !== null &&
-      inventorySlot.item.type === itemType
+      (inventorySlot.item.type === itemType ||
+        inventorySlot.item.subType === itemType)
     ) {
       // check if required level is not too big
       if (
@@ -56,7 +57,8 @@ export const updateInventoryToEquipment = async (
     } else if (
       equipmentItem.item === null &&
       inventorySlot.item !== null &&
-      inventorySlot.item.type === itemType
+      (inventorySlot.item.type === itemType ||
+        inventorySlot.item.subType === itemType)
     ) {
       // check if required level is not too big
       if (

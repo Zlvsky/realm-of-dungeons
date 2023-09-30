@@ -129,6 +129,7 @@ const Item = ({
       item: itemData.item,
       slotIndex: slotIndex,
       itemType: itemData.item.type,
+      itemSubType: itemData.item.subType,
     });
     if (response.status !== 200) return console.log(response.data);
     fetchHero(updateHero);

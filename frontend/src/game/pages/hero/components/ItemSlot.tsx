@@ -4,21 +4,22 @@ import { Graphics } from "@pixi/react";
 interface IItemSlot {
   x: number;
   y: number;
-  currentItem: string | null;
-  itemType: string;
+  itemType: string | null;
+  itemSubType: string | null;
+  slotType: string;
 }
 
-const ItemSlot = ({ x, y, currentItem, itemType }: IItemSlot) => {
+const ItemSlot = ({ x, y, itemType, itemSubType, slotType }: IItemSlot) => {
   const slotRef = useRef<any>(null);
   const [borderColor, setBorderColor] = useState("0x656565");
   
   useEffect(() => {
-    if (currentItem === itemType) {
+    if (itemType === slotType || itemSubType === slotType) {
       setBorderColor("0xffffff");
     } else {
       setBorderColor("0x656565");
     }
-  }, [currentItem]);
+  }, [itemType, itemSubType]);
 
   useEffect(() => {
     const graphicsInstance = slotRef.current?.graphics;
