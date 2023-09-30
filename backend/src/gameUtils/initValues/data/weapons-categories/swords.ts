@@ -9,7 +9,7 @@ export const swords: IWeaponObject = {
       subType: "sword",
       damage: 10,
       image: "https://i.ibb.co/GT9HqhH/wooden-sword.png",
-      value: 0,
+      value: 2,
     },
     {
       itemId: 2302,

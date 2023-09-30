@@ -1,10 +1,19 @@
 import { Request, Response } from "express";
 import { Character } from "../../../schemas/character/characterSchema";
 import { Merchants } from "../../../schemas/game/merchantsSchema";
+import { IItem, IMerchant } from "../../../types/account/MainInterfaces";
 
 const getSellValue = (value: number, isInterested: boolean) => {
-    if (isInterested) return Math.round(value * 0.75);
-    return Math.round(value * 0.4);
+    if (isInterested) return Math.round(value * 0.6);
+    return Math.round(value * 0.3);
+}
+
+const isMerchantInterested = (item: IItem, merchant: IMerchant) => {
+  const itemType = item.type;
+  const itemSubType = item.subType;
+  const itemArmorType = item?.armorType;
+  const typesToCheck = [itemType, itemSubType, itemArmorType];
+  return merchant.interestedIn.some((item: any) => typesToCheck.includes(item));
 }
 
 export const merchantSellItem = async (req: Request, res: Response) => {
@@ -31,10 +40,10 @@ export const merchantSellItem = async (req: Request, res: Response) => {
     if (itemValue === undefined || itemValue === null)
       return res.status(404).json({ message: "You can't sell that item" });
 
-    const isMerchantInterested = merchant.interestedIn.includes(inventoryItem.item.type);
+    const isInterested = isMerchantInterested(inventoryItem.item, merchant);
 
     inventoryItem.item = null;
-    character.generalValues.gold += getSellValue(itemValue, isMerchantInterested);
+    character.generalValues.gold += getSellValue(itemValue, isInterested);
 
     await character.save();
     return res.json("success");

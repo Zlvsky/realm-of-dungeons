@@ -11,9 +11,10 @@ import HeroItems from "./components/hero/HeroItems";
 import MerchantItems from "./components/merchant/MerchantItems";
 import { merchantBuy, merchantSell } from "../../../client/appClient";
 import fetchHero from "../../../utils/fetchers/fetchHero";
+import { IItem } from "../../../interfaces/MainInterface";
 
 interface IMerchantShop {
-    currentMerchant: string;
+  currentMerchant: string;
 }
 
 interface ICurrentItem {
@@ -21,15 +22,23 @@ interface ICurrentItem {
     slotIndex: number;
     item: any;
   };
-  action: "BUY" | "SELL",
+  action: "BUY" | "SELL";
 }
 
 function MerchantShop({ currentMerchant }: IMerchantShop) {
-  const [merchantData] = useState<any>(merchantsData.find(
-      (el) => el.name === currentMerchant
-    ));
+  const [merchantData] = useState<any>(
+    merchantsData.find((el) => el.name === currentMerchant)
+  );
   const [currentItem, setCurrentItem] = useState<ICurrentItem | null>();
   const hero: any = useSelector(getHero)!;
+
+  const isMerchantInterested = (item: IItem, merchant: any) => {
+    const itemType = item.type;
+    const itemSubType = item.subType;
+    const itemArmorType = item?.armorType;
+    const typesToCheck = [itemType, itemSubType, itemArmorType];
+    return merchant.interestedIn.some((item: any) => typesToCheck.includes(item));
+  };
 
   const dispatch = useDispatch();
 
@@ -37,34 +46,44 @@ function MerchantShop({ currentMerchant }: IMerchantShop) {
     dispatch(setHero(data));
   };
 
-    const handleSellItem = async () => {
-      const dataToSend = {
-        merchantName: currentMerchant,
-        inventorySlot: currentItem?.itemData.slotIndex!,
-      };
-      const response = await merchantSell(dataToSend);
-      if (response.status !== 200) return console.log(response.data);
-      setCurrentItem(null);
-      fetchHero(updateHero);
-      ;
-    };
+  const getItemValue = () => {
+    const itemValue = currentItem?.itemData.item.value;
+    if (currentItem?.action === "BUY") return itemValue;
+    const isInterested = isMerchantInterested(
+      currentItem?.itemData.item,
+      merchantData
+    );
+    if (isInterested) return Math.round(itemValue * 0.6);
+    return Math.round(itemValue * 0.3);
+  };
 
-    const handleBuyItem = async () => {
-      const dataToSend = {
-        merchantName: currentMerchant.toLowerCase(),
-        slotIndex: currentItem?.itemData.slotIndex!
-      }
-      const response = await merchantBuy(dataToSend);
-      if (response.status !== 200) return console.log(response.data);
-      setCurrentItem(null);
-      fetchHero(updateHero);
+  const handleSellItem = async () => {
+    const dataToSend = {
+      merchantName: currentMerchant,
+      inventorySlot: currentItem?.itemData.slotIndex!,
     };
+    const response = await merchantSell(dataToSend);
+    if (response.status !== 200) return console.log(response.data);
+    setCurrentItem(null);
+    fetchHero(updateHero);
+  };
+
+  const handleBuyItem = async () => {
+    const dataToSend = {
+      merchantName: currentMerchant.toLowerCase(),
+      slotIndex: currentItem?.itemData.slotIndex!,
+    };
+    const response = await merchantBuy(dataToSend);
+    if (response.status !== 200) return console.log(response.data);
+    setCurrentItem(null);
+    fetchHero(updateHero);
+  };
 
   const handleAction = () => {
     if (currentItem?.action === "BUY") handleBuyItem();
     else if (currentItem?.action === "SELL") handleSellItem();
-  }
-  
+  };
+
   return (
     <Container position={[0, 2]}>
       <TilingSprite
@@ -83,6 +102,7 @@ function MerchantShop({ currentMerchant }: IMerchantShop) {
         <ItemPreview
           position={[495, 80]}
           itemData={currentItem.itemData.item}
+          value={getItemValue()}
           action={currentItem.action}
           handleAction={handleAction}
         />

@@ -120,7 +120,6 @@ function HeroEquipment() {
         <ItemPreview
           position={[670, -70]}
           itemData={currentItemPreview}
-          hideValue
         />
       )}
     </Container>

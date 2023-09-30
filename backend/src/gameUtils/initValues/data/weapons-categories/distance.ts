@@ -9,7 +9,7 @@ export const distanceWeapons: IWeaponObject = {
       subType: "bow",
       damage: 12,
       image: "https://i.ibb.co/cvJnKJx/bow.png",
-      value: 0,
+      value: 2,
     },
     {
       itemId: 2102,

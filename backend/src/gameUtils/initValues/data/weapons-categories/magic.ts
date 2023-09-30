@@ -9,7 +9,7 @@ export const magicWeapons: IWeaponObject = {
       subType: "wand",
       damage: 15,
       image: "https://i.ibb.co/7SXJnbr/Apprentice-Wand.png",
-      value: 0,
+      value: 2,
     },
     {
       itemId: 2202,

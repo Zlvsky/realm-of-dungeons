@@ -1,4 +1,4 @@
-import getItemsForMerchant from "../../gameUtils/merchants/getRandomItems";
+import getItemsForMerchant from "../../gameUtils/merchants/getItemsForMerchant";
 import getStaticItemsForMerchant from "../../gameUtils/merchants/getStaticItems";
 import { Character } from "../../schemas/character/characterSchema";
 import { Merchants } from "../../schemas/game/merchantsSchema";

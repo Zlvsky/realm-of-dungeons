@@ -8,7 +8,7 @@ interface IItemPreview {
   position: [number, number];
   itemData: IItem;
   action?: "BUY" | "SELL";
-  hideValue?: boolean
+  value?: number;
   handleAction?: any;
 }
 
@@ -37,11 +37,11 @@ function ItemPreview({
   position,
   itemData,
   action,
-  hideValue,
+  value,
   handleAction,
 }: IItemPreview) {
   let boxHeight = 340;
-  if (itemData.value !== undefined && !hideValue) boxHeight = 390;
+  if (value !== undefined) boxHeight = 390;
   const boxWidth = 325;
 
   const ItemImage = () => {
@@ -203,7 +203,7 @@ function ItemPreview({
   };
 
   const ItemPrice = () => {
-    if (itemData.value === undefined || hideValue) return null;
+    if (value === undefined) return null;
     return (
       <Container position={[20, 0]}>
         <Graphics
@@ -224,7 +224,7 @@ function ItemPreview({
           position={[0, boxHeight - 50]}
         />
         <Text
-          text={`Price: ${itemData.value}`}
+          text={`Price: ${value}`}
           x={50}
           y={boxHeight - 40}
           style={

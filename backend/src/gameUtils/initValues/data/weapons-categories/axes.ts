@@ -9,7 +9,7 @@ export const axes: IWeaponObject = {
       subType: "axe",
       damage: 10,
       image: "https://i.ibb.co/xML1x5J/weak-axe.png",
-      value: 0,
+      value: 2,
     },
     {
       itemId: 2402,

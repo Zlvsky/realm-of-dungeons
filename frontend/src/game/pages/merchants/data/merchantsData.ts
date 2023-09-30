@@ -9,10 +9,12 @@ const merchantsData = [
   {
     name: "Alchemist",
     image: alchemistAvatar,
+    interestedIn: ["potion", "herbs"],
   },
   {
     name: "Treasurer",
     image: treasurerAvatar,
+    interestedIn: ["loot"],
   },
   // {
   //   name: "Blacksmith",
@@ -21,14 +23,17 @@ const merchantsData = [
   {
     name: "Witch",
     image: witchAvatar,
+    interestedIn: ["cloth", "staff", "wand", "spellbook"],
   },
   {
     name: "Armourer",
     image: armourerAvatar,
+    interestedIn: ["leather", "plate"],
   },
   {
     name: "Weaponsmith",
     image: weaponsmithAvatar,
+    interestedIn: ["sword", "axe", "mace", "bow", "crossbow", "shield"],
   },
 ];
 

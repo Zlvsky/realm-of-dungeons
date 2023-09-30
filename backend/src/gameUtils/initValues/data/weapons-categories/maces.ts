@@ -9,7 +9,7 @@ export const maces: IWeaponObject = {
       subType: "mace",
       damage: 10,
       image: "https://i.ibb.co/DRnbR0g/stone-club.png",
-      value: 0,
+      value: 2,
     },
     {
       itemId: 2502,
