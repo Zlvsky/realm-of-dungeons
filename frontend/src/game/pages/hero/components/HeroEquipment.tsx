@@ -15,6 +15,7 @@ import HeroInfo from './HeroInfo';
 import HeroStats from './HeroStats';
 import ItemPreview from '../../../components/items/item-preview/ItemPreview';
 import { getHero } from '../../../../redux/reducers/gameSlice';
+import EmpyEquipmentSlots from './EmpyEquipmentSlots';
 
 function HeroEquipment() {
   const hero = useSelector(getHero)!;
@@ -89,6 +90,7 @@ function HeroEquipment() {
         />
       ))}
       {/* equipment items */}
+      <EmpyEquipmentSlots heroEquipment={hero.equipment} />
       {hero.equipment.map((item: any, index: number) => {
         if (item.item !== null)
           return (
