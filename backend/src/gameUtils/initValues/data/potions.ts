@@ -1,26 +1,35 @@
-export const potions = {
+// 10-20 HEALTH POTIONS
+// 30-40 MANA POTIONS
+
+const potionsData = {
   health: {
     noMinLevel: [
-      { name: "Minor Health Potion", healing: 20, weight: 0.2 },
-      { name: "Healing Elixir", healing: 40, weight: 0.4 },
-      // Add more health potions for no minimum level here
+      {
+        itemId: 10,
+        name: "Small Health Potion",
+        type: "potion",
+        subType: "health",
+        image: "https://i.ibb.co/zHv3g7L/small-Health-Potion.png",
+        description: "Recovers small amount of health",
+        value: 5,
+      },
     ],
     minLevel10: [
-      { name: "Greater Health Potion", healing: 60, weight: 0.6 },
-      // Add more health potions for minimum level 10 here
+      {
+        itemId: 11,
+        name: "Strong Health Potion",
+        type: "potion",
+        subType: "health",
+        image: "https://i.ibb.co/Tg3Kcwq/strong-Health-Potion.png",
+        description: "Recovers moderate amount of health",
+        value: 15,
+      },
     ],
-    // Add more minimum level categories for health potions as needed
   },
-  mana: {
-    noMinLevel: [
-      { name: "Minor Mana Potion", restoration: 20, weight: 0.2 },
-      { name: "Mana Elixir", restoration: 40, weight: 0.4 },
-      // Add more mana potions for no minimum level here
-    ],
-    minLevel10: [
-      { name: "Greater Mana Potion", restoration: 60, weight: 0.6 },
-      // Add more mana potions for minimum level 10 here
-    ],
-    // Add more minimum level categories for mana potions as needed
-  },
+  mana: {},
 };
+
+export const potions = [
+  ...potionsData.health.noMinLevel,
+  ...potionsData.health.minLevel10,
+]
