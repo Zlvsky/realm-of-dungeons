@@ -30,9 +30,9 @@ async function insertMerchants() {
       );
       await Merchants.insertMany(filteredItems);
     }
-    console.log("Merchants inserted successfully!");
+    return console.log("Merchants inserted successfully!");
   } catch (error: any) {
-    console.error("Error inserting/updating merchants:", error);
+    return console.error("Error inserting/updating merchants:", error);
   }
 }
 

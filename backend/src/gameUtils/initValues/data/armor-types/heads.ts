@@ -32,6 +32,7 @@ export const heads: IArmorObject = {
           mana: 60,
           magic: 2,
         },
+        requiredLevel: 10,
         value: 30,
       },
     ],
@@ -61,6 +62,7 @@ export const heads: IArmorObject = {
         statistics: {
           distance: 1,
         },
+        requiredLevel: 10,
         value: 30,
       },
     ],
@@ -87,6 +89,7 @@ export const heads: IArmorObject = {
         armorType: "plate",
         armor: 7,
         image: "https://i.ibb.co/6YYcCVx/Steel-Helmet.png",
+        requiredLevel: 10,
         value: 30,
       },
     ],

@@ -1,18 +1,18 @@
 import { IItem, IMerchant } from "../../types/account/MainInterfaces";
 
-function adjustStaticItem(baseItem: IItem | null, heroLevel: number) {
-    if (!baseItem) return null;
-     const item = JSON.parse(JSON.stringify(baseItem));
-     const randomPriceValue = 0.5 + Math.random() * heroLevel;
-     const newPrice = item.value * randomPriceValue;
-     item.value = Math.round(newPrice * 20) / 20;
-     return item;
-}
+// function adjustStaticItem(baseItem: IItem | null, heroLevel: number) {
+//     if (!baseItem) return null;
+//      const item = JSON.parse(JSON.stringify(baseItem));
+//      const randomPriceValue = 0.5 + Math.random() * heroLevel;
+//      const newPrice = item.value * randomPriceValue;
+//      item.value = Math.round(newPrice * 20) / 20;
+//      return item;
+// }
 
 const getScaledItems = (staticItems: {item: IItem | null}[], heroLevel: number) => {
     const scaledItems = staticItems.map((staticItem, index) => {
       const dataToReturn = {
-        item: adjustStaticItem(staticItem.item, heroLevel),
+        item: staticItem.item,
         slotIndex: index,
       };
       return dataToReturn;

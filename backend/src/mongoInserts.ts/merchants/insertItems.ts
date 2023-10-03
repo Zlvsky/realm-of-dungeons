@@ -30,9 +30,9 @@ async function insertItems() {
       );
       await Item.insertMany(filteredItems);
     }
-    console.log("Items inserted successfully!");
+    return console.log("Items inserted successfully!");
   } catch (error: any) {
-    console.error("Error inserting/updating items:", error);
+    return console.error("Error inserting/updating items:", error);
   }
 }
 

@@ -27,6 +27,7 @@ export const chests: IArmorObject = {
         statistics: {
           magic: 1,
         },
+        requiredLevel: 10,
         value: 25,
       },
     ],
@@ -53,6 +54,7 @@ export const chests: IArmorObject = {
         armorType: "leather",
         armor: 9,
         image: "https://i.ibb.co/XV0htVd/Leather-Armor.png",
+        requiredLevel: 10,
         value: 20,
       },
     ],
@@ -79,6 +81,7 @@ export const chests: IArmorObject = {
         armorType: "plate",
         armor: 10,
         image: "https://i.ibb.co/Y2yHhDr/Iron-Armor.png",
+        requiredLevel: 10,
         value: 35,
       },
     ],

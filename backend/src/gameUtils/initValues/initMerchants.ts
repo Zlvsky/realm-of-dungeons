@@ -7,16 +7,18 @@ const mapItems = (items: IItem[]) => {
   })
 }
 
-const getAlchemistStaticItems = (items: IItem[]) => {
-  const filteredItems = items.filter(item => item.name.includes("health potion"));
-  return mapItems(filteredItems);
+const getAlchemistStaticItems = async () => {
+  const itemsIds = [10, 11];
+  const items = await Item.aggregate([
+    { $match: { itemId: { $in: itemsIds } } },
+  ]);
+  return mapItems(items);
 }
 
  
 
 const initMerchants = async (): Promise<IMerchant[]> => {
-  const items = await Item.find();
-  const alchemistStaticItems = getAlchemistStaticItems(items);
+  const alchemistStaticItems = await getAlchemistStaticItems();
 
 
   return [

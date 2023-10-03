@@ -1,13 +1,15 @@
 import { ICharacter, IItem } from "../../../../types/account/MainInterfaces";
 
+// health potions item ids 10-20
+// mana potions item ids 30-40
+
 const handleUsePotion = (potion: IItem, character: ICharacter) => {
-    const potionName = potion.name.toLowerCase();
     const characterValues = character.updatedValues;
 
-    if (potionName.includes("health")) {
+    if (potion.subType === "health") {
         let healthToRecover = 0;
-        if (potionName.includes("big")) healthToRecover = Math.round(characterValues.maxHealth * 0.4);
-        else if (potionName.includes("small")) healthToRecover = Math.round(characterValues.maxHealth * 0.2);
+        if (potion.itemId === 10) healthToRecover = Math.round(characterValues.maxHealth * 0.2);
+        else if (potion.itemId === 11) healthToRecover = Math.round(characterValues.maxHealth * 0.1);
         characterValues.health += healthToRecover;
         if (characterValues.health > characterValues.maxHealth) {
           characterValues.health = characterValues.maxHealth;

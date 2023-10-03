@@ -27,6 +27,7 @@ export const legs: IArmorObject = {
         statistics: {
           magic: 1,
         },
+        requiredLevel: 10,
         value: 20,
       },
     ],
@@ -56,6 +57,7 @@ export const legs: IArmorObject = {
         statistics: {
           distance: 1,
         },
+        requiredLevel: 10,
         value: 30,
       },
     ],
@@ -82,6 +84,7 @@ export const legs: IArmorObject = {
         armorType: "plate",
         armor: 9,
         image: "https://i.ibb.co/Z60XHLr/Iron-Legs.png",
+        requiredLevel: 10,
         value: 30,
       },
     ],
