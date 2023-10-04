@@ -8,6 +8,7 @@ import initEquipment from "../../gameUtils/initValues/initEquipment";
 import initInventory from "../../gameUtils/initValues/initInventory";
 import generateQuests from "../../gameUtils/quests/generateQuests";
 import getNextLevelExperience from "../../gameUtils/characters/getNextLevelExperience";
+import getNextStatisticLevelExperience from "../../gameUtils/characters/getNextStatisticLevelExperience";
 
 const router = express.Router();
 
@@ -22,6 +23,12 @@ export const createCharacter = async (req: Request, res: Response) => {
         level: 1,
         levelExperience: getNextLevelExperience[1],
         previousLevelExperience: getNextLevelExperience[0],
+        statistics: {
+          melee: {levelExperience: getNextStatisticLevelExperience[1]},
+          distance: {levelExperience: getNextStatisticLevelExperience[1]},
+          magic: {levelExperience: getNextStatisticLevelExperience[1]},
+          resistance: {levelExperience: getNextStatisticLevelExperience[1]},
+        }
       },
       statistics: getBaseStatistics(req.body.class),
       equipment: initEquipment,

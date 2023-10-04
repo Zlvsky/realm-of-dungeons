@@ -3,6 +3,7 @@ import { Character } from "../../../schemas/character/characterSchema";
 import { getAttackDamage } from "../../../utils/getAttackDamage";
 import getValuesWithStatistics from "../../../gameUtils/characters/getValuesWithStatistics";
 import handleUsePotion from "./helpers/handleUsePotion";
+import addExperienceToStat from "../../../gameUtils/characters/addExperienceToStat";
 
 export const characterAttack = async (req: Request, res: Response) => {
   const { characterId, attackPower } = req.body;
@@ -49,6 +50,7 @@ export const characterAttack = async (req: Request, res: Response) => {
     if (attackDamage === 0) {
       activeQuest.textLogs.push("You missed");
     } else {
+      addExperienceToStat(character, "weapon")
       activeQuest.textLogs.push(`You dealt ${attackDamage} damage`);
     }
 
