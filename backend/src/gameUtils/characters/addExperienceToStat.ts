@@ -4,7 +4,7 @@ import levelUpStatisticIfReady from "./levelUpStatisticIfReady";
 const statXP = 1;
 
 const addWeaponStatExperience = (character: ICharacter) => {
-    const weaponItem = character.equipment.find(item => item.type === "wepaon");
+    const weaponItem = character.equipment.find(item => item.type === "weapon");
     const weaponType = weaponItem?.item?.subType;
     if (!weaponType) return;
     if (weaponType === "axe" || weaponType === 'sword' || weaponType === "mace") {

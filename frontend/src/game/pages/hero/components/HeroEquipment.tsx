@@ -122,7 +122,7 @@ function HeroEquipment() {
           );
       })}
       {currentItemPreview && (
-        <ItemPreview position={[670, -70]} itemData={currentItemPreview} />
+        <ItemPreview position={[670, 0]} itemData={currentItemPreview} />
       )}
     </Container>
   );
