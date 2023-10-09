@@ -10,7 +10,7 @@ const initialState: IGame = {
     scaleH: 1,
   },
   hero: null,
-  currentStage: "quests",
+  currentStage: "hero",
 };
 
 export const gameSlice = createSlice({

@@ -1,4 +1,5 @@
 import { Container, Sprite } from "@pixi/react";
+import portalsBtn from "../../../../assets/images/portalsbtn.png";
 import questsBtn from "../../../../assets/images/btn.png";
 import heroBtn from "../../../../assets/images/herobtn.png";
 import templeBtn from "../../../../assets/images/templebtn.png";
@@ -14,11 +15,21 @@ function Navigations() {
     return (
       <Container position={[0, 160]}>
         <Sprite
-          image={questsBtn}
+          image={portalsBtn}
           width={150}
           height={120}
           x={0}
           y={0}
+          cursor={"pointer"}
+          interactive={true}
+          onclick={() => changeStage("portals")}
+        />
+        <Sprite
+          image={questsBtn}
+          width={150}
+          height={120}
+          x={0}
+          y={120}
           cursor={"pointer"}
           interactive={true}
           onclick={() => changeStage("quests")}
@@ -28,7 +39,7 @@ function Navigations() {
           width={150}
           height={120}
           x={0}
-          y={120}
+          y={240}
           interactive={true}
           cursor={"pointer"}
           onclick={() => changeStage("hero")}
@@ -38,7 +49,7 @@ function Navigations() {
           width={150}
           height={120}
           x={0}
-          y={240}
+          y={360}
           interactive={true}
           cursor={"pointer"}
           onclick={() => changeStage("temple")}
@@ -48,7 +59,7 @@ function Navigations() {
           width={150}
           height={120}
           x={0}
-          y={360}
+          y={480}
           interactive={true}
           cursor={"pointer"}
           onclick={() => changeStage("merchants")}
