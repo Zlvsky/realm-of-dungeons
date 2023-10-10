@@ -21,6 +21,15 @@ const canvasHeight = 937;
 const rectWidth = 615;
 const rectHeight = 450;
 
+const iconWithTextStyle = {
+  align: "center",
+  fontFamily: "MedievalSharp",
+  fontSize: 24,
+  fill: ["#BCBCBC"],
+  wordWrap: true,
+  wordWrapWidth: 610,
+};
+
 function BattleEndPopup({
   battleWinner,
   rewards,
@@ -105,11 +114,13 @@ function BattleEndPopup({
               text={rewards.gold}
               image={GoldIcon}
               position={[330, 230]}
+              textStyle={iconWithTextStyle}
             />
             <IconWithText
               text={rewards.xp}
               image={XpIcon}
               position={[150, 230]}
+              textStyle={iconWithTextStyle}
             />
           </>
         )}

@@ -15,6 +15,15 @@ import fetchHero from "../../../../utils/fetchers/fetchHero";
 import { useDispatch } from "react-redux";
 import IconWithText from "../../../../components/common/text/IconWithText";
 
+const iconWithTextStyle = {
+  align: "center",
+  fontFamily: "MedievalSharp",
+  fontSize: 24,
+  fill: ["#BCBCBC"],
+  wordWrap: true,
+  wordWrapWidth: 610,
+};
+
 function SelectQuest({ questsData }: any) {
   const [selectedQuest, setSelectedQuest] = useState(1);
   
@@ -101,6 +110,7 @@ function SelectQuest({ questsData }: any) {
         text={secondsToTime(questsData[selectedQuest].duration)}
         image={HourglassIcon}
         position={[350, 550]}
+        textStyle={iconWithTextStyle}
       />
       <Text
         x={350}
@@ -121,11 +131,13 @@ function SelectQuest({ questsData }: any) {
         text={questsData[selectedQuest].rewards.gold}
         image={GoldIcon}
         position={[350, 680]}
+        textStyle={iconWithTextStyle}
       />
       <IconWithText
         text={questsData[selectedQuest].rewards.xp}
         image={XpIcon}
         position={[350, 750]}
+        textStyle={iconWithTextStyle}
       />
       <Sprite
         image={AcceptBtn}

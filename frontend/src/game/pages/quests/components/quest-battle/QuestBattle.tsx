@@ -17,7 +17,6 @@ import { ICharacter } from "../../../../../interfaces/MainInterface";
 
 interface IQuestBattle {
   hero: ICharacter;
-  updateHero: any
 }
 
 function QuestBattle({ hero }: IQuestBattle) {
