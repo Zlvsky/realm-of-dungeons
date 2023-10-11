@@ -8,7 +8,7 @@ export const realmsData = (destination: string) => {
           monsters: "1-10",
           fee: "1,50",
         };
-      case "CRPYT":
+      case "CRYPT":
         return {
             name: "Crypt",
             description: "Nothing scary",

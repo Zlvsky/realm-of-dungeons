@@ -24,6 +24,7 @@ import initInsert from "./mongoInserts.ts/initInsert";
 import scheduledRefreshMerchantItems from "./scheduled-tasks/merchants/refreshMerchantsItems";
 import { merchantBuyItem } from "./controllers/game/merchants/merchantBuyItem";
 import { merchantSellItem } from "./controllers/game/merchants/merchantSellItem";
+import { changeRealm } from "./controllers/game/realms/changeRealm";
 
 const uri = process.env.MONGO_CONNECTION_URL;
 if(!uri) throw new Error(".env file is not created")
@@ -68,6 +69,8 @@ app.post("/api/hero/update/statistics", updateStatistics);
 // ITEMS ACTIONS
 app.post("/api/create/item", addItem);
 
+// PORTALS
+app.post("/api/realm", changeRealm);
 
 // QUESTS ACTIONS
 app.post("/api/quest/updateActiveQuest", updateActiveQuest);

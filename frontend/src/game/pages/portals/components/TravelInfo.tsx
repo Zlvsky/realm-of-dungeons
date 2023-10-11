@@ -3,6 +3,10 @@ import { ColorMatrixFilter, TextStyle } from "pixi.js";
 import IconWithText from "../../../../components/common/text/IconWithText";
 import GoldIcon from "../../../../assets/images/icons/gui/gold-icon.png";
 import AcceptBtn from "../../../../assets/images/acceptbtn.png";
+import { changeRealmRequest } from "../../../../client/appClient";
+import fetchHero from "../../../../utils/fetchers/fetchHero";
+import { useDispatch } from "react-redux";
+import { setHero } from "../../../../redux/reducers/gameSlice";
 
 const textStyle: any = {
   align: "left",
@@ -17,9 +21,17 @@ const DisabledFilter: any = withFilters(Container, {
 });
 
 function TravelInfo( { destination, currentDestination }: any ) {
+    const dispatch = useDispatch();
+    const isCurrentRealm = currentDestination === destination?.name?.toUpperCase();
+
+    const updateHero = (data: any) => {
+      dispatch(setHero(data));
+    };
 
     const handleAcceptDestination = async () => {
-
+      const response = await changeRealmRequest(destination?.name?.toUpperCase());
+      if (response.status !== 200) return console.log("failed");
+      fetchHero(updateHero);
     }; 
 
     const TravelFee = () => {
@@ -27,7 +39,7 @@ function TravelInfo( { destination, currentDestination }: any ) {
           <Container>
             <Text text={`Fee:`} x={0} y={0} style={new TextStyle(textStyle)} />
             <IconWithText
-              text={destination.fee.toString()}
+              text={destination?.fee?.toString()}
               image={GoldIcon}
               position={[50, -6]}
               textStyle={textStyle}
@@ -40,7 +52,7 @@ function TravelInfo( { destination, currentDestination }: any ) {
       <DisabledFilter
         matrix={{ enabled: true }}
         apply={
-          currentDestination === destination.name.toUpperCase()
+          isCurrentRealm
             ? ({ matrix }: any) => matrix.blackAndWhite()
             : undefined
         }
@@ -51,7 +63,8 @@ function TravelInfo( { destination, currentDestination }: any ) {
           height={150}
           x={300}
           y={-63}
-          cursor={"pointer"}
+          
+          cursor={isCurrentRealm ? "default" : "pointer"}
           interactive={true}
           onclick={handleAcceptDestination}
         />

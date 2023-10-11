@@ -25,6 +25,7 @@ import { getUserDetailsService } from "./services/user/getUserDetailsService";
 import { IMerchantBuy, merchantBuyService } from "./services/game/merchants/merchantBuyService";
 import { IMerchantSell, merchantSellService } from "./services/game/merchants/merchantSellService";
 import { questActionPotionService } from "./services/game/quests/actions/questActionPotionService";
+import { changeRealmService } from "./services/game/realms/changeRealmService";
 
 // REGISTER AND LOGIN
 export async function register(body: signUpInterface) {
@@ -112,6 +113,11 @@ export async function templeHeal() {
 
 export async function templeRenew() {
   return await templeRenewService();
+}
+
+// PORTALS
+export async function changeRealmRequest(realm: string) {
+  return changeRealmService(realm);
 }
 
 // MERCHANTS

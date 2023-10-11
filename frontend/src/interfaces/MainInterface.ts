@@ -21,6 +21,7 @@ export interface ICharacter {
   nickname: string;
   class: string;
   avatar: string;
+  currentRealm: string;
   progression: {
     level: number;
     levelExperience: number;

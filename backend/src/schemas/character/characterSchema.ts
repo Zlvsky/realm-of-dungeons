@@ -29,6 +29,11 @@ const CharacterSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  currentRealm: {
+    type: String,
+    required: true,
+    default: "CAVE",
+  },
   progression: progressionSchema,
   availableQuests: [availableQuestsSchema],
   activeQuest: activeQuestSchema,

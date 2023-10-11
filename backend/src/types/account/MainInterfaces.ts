@@ -19,10 +19,13 @@ interface IStatisticProgression {
   experience: number;
 }
 
+export type TCurrentRealm = "CAVE" | "CRYPT";
+
 export interface ICharacter extends mongoose.Document {
   nickname: string;
   class: string;
   avatar: string;
+  currentRealm: TCurrentRealm;
   progression: {
     level: number;
     levelExperience: number;
