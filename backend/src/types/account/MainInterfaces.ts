@@ -25,7 +25,10 @@ export interface ICharacter extends mongoose.Document {
   nickname: string;
   class: string;
   avatar: string;
-  currentRealm: TCurrentRealm;
+  realms: {
+    currentRealm: TCurrentRealm;
+    availableRealms: TCurrentRealm[];
+  };
   progression: {
     level: number;
     levelExperience: number;

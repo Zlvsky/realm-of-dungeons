@@ -17,11 +17,17 @@ interface IStatisticProgression {
   experience: number;
 }
 
+export type TCurrentRealm = "CAVE" | "CRYPT";
+
 export interface ICharacter {
   nickname: string;
   class: string;
   avatar: string;
   currentRealm: string;
+  realms: {
+    currentRealm: TCurrentRealm;
+    availableRealms: TCurrentRealm[];
+  };
   progression: {
     level: number;
     levelExperience: number;

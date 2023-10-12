@@ -1,7 +1,6 @@
 import { useState, useCallback } from "react";
-import { Container, Graphics, Sprite, Text } from "@pixi/react";
+import { Container, Graphics, Sprite } from "@pixi/react";
 import portalsbg from "../../../assets/images/game-world/portals.png";
-import { TextStyle } from "pixi.js";
 import { useSelector } from "react-redux";
 import { getHero } from "../../../redux/reducers/gameSlice";
 import { realmsData } from "./data/realmsData";
@@ -16,7 +15,7 @@ const rectHeight = 600;
 
 function Portals() {
   const hero = useSelector(getHero)!;
-  const [destination, setDestination] = useState(realmsData(hero.currentRealm));
+  const [realm, setRealm] = useState(realmsData(hero.realms.currentRealm));
   const startX = (canvasWidth - rectWidth) / 2;
   const startY = (canvasHeight - rectHeight) / 2;
 
@@ -41,14 +40,12 @@ function Portals() {
       <Container position={[startX, startY]}>
         <Graphics draw={portalsFrame} zIndex={0} />
         <Destinations
-          destination={destination}
-          setDestination={setDestination}
+          availableRealms={hero.realms.availableRealms}
+          realm={realm}
+          setRealm={setRealm}
         />
-        <RealmInfo destination={destination} />
-        <TravelInfo
-          destination={destination}
-          currentDestination={hero.currentRealm}
-        />
+        <RealmInfo realm={realm} />
+        <TravelInfo realm={realm} currentRealm={hero.realms.currentRealm} />
       </Container>
     </Container>
   );

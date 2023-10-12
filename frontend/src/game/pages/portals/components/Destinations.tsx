@@ -3,11 +3,10 @@ import { TextStyle } from "pixi.js";
 import ArrowIcon from "../../../../assets/images/arrow_white.png";
 import { realmsData } from "../data/realmsData";
 
-function Destinations({ destination, setDestination }: any) {
-  const questsNames = ["CAVE", "CRYPT"];
+function Destinations({ availableRealms, realm, setRealm }: any) {
   return (
     <Container position={[0, 40]}>
-      {questsNames.map((el, index) => {
+      {availableRealms.map((el: string, index: number) => {
         return (
           <Container x={0} y={100 * index} key={index}>
             <Text
@@ -26,10 +25,16 @@ function Destinations({ destination, setDestination }: any) {
                   fill: ["#BCBCBC"],
                 })
               }
-              onclick={() => setDestination(realmsData(el))}
+              onclick={() => setRealm(realmsData(el))}
             />
-            {destination?.name?.toUpperCase() === el && (
-              <Sprite image={ArrowIcon} position={[110, 40]} anchor={[0.5, 0]} height={25} width={20} />
+            {realm?.name?.toUpperCase() === el && (
+              <Sprite
+                image={ArrowIcon}
+                position={[110, 40]}
+                anchor={[0.5, 0]}
+                height={25}
+                width={20}
+              />
             )}
           </Container>
         );

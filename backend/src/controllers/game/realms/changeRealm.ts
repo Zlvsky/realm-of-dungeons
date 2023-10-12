@@ -18,13 +18,16 @@ export const changeRealm = async (req: Request, res: Response) => {
     if (!character)
       return res.status(404).json({ message: "Character not found" });
 
+    if (!character.realms.availableRealms.includes(realm))
+      return res.status(400).json({ message: "You don't have access to this realm" });
+
     const realmTravelFee = getRealmTravelFee(realm);
 
     if (character.generalValues.gold < realmTravelFee!)
       return res.status(400).json({ message: "Not enough gold" });
 
     character.generalValues.gold -= realmTravelFee!; 
-    character.currentRealm = realm;
+    character.realms.currentRealm = realm;
 
     await character.save();
     return res.json("success");

@@ -8,6 +8,7 @@ import statisticsSchema from "./subschemas/statisticsSchema";
 import merchantsItemsSchema from "./subschemas/merchantsItemsSchema";
 import updatedValuesSchema from "./subschemas/updatedValuesSchema";
 import { itemSchema } from "../game/itemSchema";
+import realmsSchema from "./subschemas/realmsSchema";
 
 // to be added: SKILLS, GUILD, FRIENDS
 
@@ -29,11 +30,7 @@ const CharacterSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  currentRealm: {
-    type: String,
-    required: true,
-    default: "CAVE",
-  },
+  realms: realmsSchema,
   progression: progressionSchema,
   availableQuests: [availableQuestsSchema],
   activeQuest: activeQuestSchema,
