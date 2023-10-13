@@ -118,7 +118,7 @@ export interface IUser extends Document {
 export interface IItemObject {
   itemId: number;
   name: string;
-  type: "armor" | "weapon" | "jewellery" | "potion";
+  type: "armor" | "weapon" | "jewellery" | "potion" | "realm orb";
   subType:
     | "head"
     | "chest"
@@ -132,7 +132,8 @@ export interface IItemObject {
     | "necklace"
     | "ring"
     | "health"
-    | "mana";
+    | "mana"
+    | "quest";
   armorType?: "cloth" | "leather" | "plate";
   damage?: number;
   armor?: number;

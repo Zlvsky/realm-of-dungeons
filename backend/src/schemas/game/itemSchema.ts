@@ -7,7 +7,7 @@ export const itemSchema: Schema<IItem> = new mongoose.Schema({
   type: {
     type: String,
     required: true,
-    enum: ["armor", "weapon", "jewellery", "potion"],
+    enum: ["armor", "weapon", "jewellery", "potion", "realm orb"],
   },
   subType: {
     type: String,
@@ -26,6 +26,7 @@ export const itemSchema: Schema<IItem> = new mongoose.Schema({
       "ring",
       "health",
       "mana",
+      "quest"
     ],
   },
   armorType: {

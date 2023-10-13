@@ -11,12 +11,12 @@ export const templeHealRenew = async (req: Request, res: Response) => {
 
     const renewDateString = character.extras.healRenewDate;
     if (!renewDateString)
-      return res.status(404).json({ message: "Heal is ready" });
+      return res.status(200).json({ message: "Heal is ready" });
 
     const now = new Date();
     const renewDate = new Date(renewDateString);
 
-    if (renewDate > now) return res.status(404).json({ message: "Renew not ready" });
+    if (renewDate > now) return res.status(200).json({ message: "Renew not ready" });
 
     character.extras.availableHeals = 2;
     character.extras.healRenewDate = null;
