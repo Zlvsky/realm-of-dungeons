@@ -1,12 +1,14 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Container, Graphics, Sprite } from "@pixi/react";
 import portalsbg from "../../../assets/images/game-world/portals.png";
-import { useSelector } from "react-redux";
-import { getHero } from "../../../redux/reducers/gameSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getHero, setHero } from "../../../redux/reducers/gameSlice";
 import { realmsData } from "./data/realmsData";
 import RealmInfo from "./components/RealmInfo";
 import TravelInfo from "./components/TravelInfo";
 import Destinations from "./components/Destinations";
+import { unlockRealmRequest } from "../../../client/appClient";
+import fetchHero from "../../../utils/fetchers/fetchHero";
 
 const canvasWidth = 1316;
 const canvasHeight = 937;
@@ -15,9 +17,24 @@ const rectHeight = 600;
 
 function Portals() {
   const hero = useSelector(getHero)!;
+  const dispatch = useDispatch();
   const [realm, setRealm] = useState(realmsData(hero.realms.currentRealm));
   const startX = (canvasWidth - rectWidth) / 2;
   const startY = (canvasHeight - rectHeight) / 2;
+
+  const updateHero = (data: any) => {
+    dispatch(setHero(data));
+  };
+
+  useEffect(() => {
+    const handleUnlockRealm = async () => {
+      const response = await unlockRealmRequest();
+      if (response.status !== 200) return false;
+      fetchHero(updateHero);
+      return true;
+    };
+    handleUnlockRealm();
+  }, []);
 
   const portalsFrame = useCallback((g: any) => {
     g.clear();

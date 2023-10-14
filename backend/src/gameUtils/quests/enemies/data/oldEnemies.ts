@@ -1,4 +1,4 @@
-export const questEnemies = [
+export const oldEnemies = [
   {
     name: "Zombie",
     avatar: "https://i.ibb.co/P90zvZ7/zombie.png",
@@ -148,8 +148,3 @@ export const questEnemies = [
     skills: null,
   },
 ];
-
-export const getRandomEnemy = () => {
-  const randomIndex = Math.floor(Math.random() * questEnemies.length);
-  return questEnemies[randomIndex];
-};

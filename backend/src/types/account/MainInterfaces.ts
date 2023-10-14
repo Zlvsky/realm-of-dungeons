@@ -19,7 +19,24 @@ interface IStatisticProgression {
   experience: number;
 }
 
-export type TCurrentRealm = "CAVE" | "CRYPT";
+export interface IEnemy {
+  name: string | null;
+  avatar: string | null;
+  level: number;
+  maxLevel: number;
+  health: number;
+  maxHealth: number;
+  damage: number;
+  attackText: string;
+  skills: ISkills[] | null;
+  loot?: {
+    itemId: number;
+    dropChance: number;
+  }[];
+  isBoss?: boolean;
+}
+
+export type TCurrentRealm = "CAVERNS" | "CRYPT";
 
 export interface ICharacter extends mongoose.Document {
   nickname: string;
@@ -56,16 +73,8 @@ export interface ICharacter extends mongoose.Document {
         itemId?: string;
       };
     } | null;
-    enemy: {
-      name: string | null;
-      health: number;
-      attackText: string;
-      maxHealth: number;
-      level: number;
-      damage: number;
-      skills: ISkills[] | null;
-      avatar: string | null;
-    } | null;
+    enemy: IEnemy | null;
+    isBoss: boolean;
     textLogs: string[];
   };
   availableQuests: IQuest[];
@@ -176,7 +185,8 @@ export interface IQuest {
 
 export interface ISkills {
   skillName: string | null;
-  damage: number | null;
+  damage?: number | null;
+  heal?: number | null;
   cooldown: number;
   text: string | null;
 }

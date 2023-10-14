@@ -2,14 +2,13 @@ import { AxiosError } from "axios";
 import axiosClient from "../../../axiosClient";
 import Cookies from "js-cookie";
 
-export const changeRealmService = async (realm: string) => {
+export const unlockRealmService = async () => {
   const jwt = Cookies.get("jwt");
   try {
     const res = await axiosClient.post(
-      "/realm/change",
+      "/realm/unlock",
       {
         characterId: localStorage.getItem("hero"),
-        realm: realm,
       },
       {
         headers: {

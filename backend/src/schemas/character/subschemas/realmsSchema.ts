@@ -4,12 +4,12 @@ const realmsSchema = new mongoose.Schema({
   currentRealm: {
     type: String,
     required: true,
-    default: "CAVE",
+    default: "CAVERNS",
   },
   availableRealms: {
     type: [String],
     required: true,
-    default: ["CAVE"],
+    default: ["CAVERNS"],
   },
 });
 

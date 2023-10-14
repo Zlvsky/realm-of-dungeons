@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 
 import { ICharacter } from "../../../types/account/MainInterfaces";
 import { Character } from "../../../schemas/character/characterSchema";
-import generateEnemy from "../../../gameUtils/quests/generateEnemy";
+import generateEnemy from "../../../gameUtils/quests/enemies/generateEnemy";
 
 export const updateActiveQuest = async (req: Request, res: Response) => {
   const { characterId, questId } = req.body;
@@ -57,7 +57,7 @@ export const startQuestBattle = async (req: Request, res: Response) => {
     if (character.activeQuest.quest && character.activeQuest.timeStarted) {
       const now = new Date();
       const questTime = new Date(character.activeQuest.timeStarted);
-      const randomEnemy = generateEnemy(character.progression.level);
+      const randomEnemy = generateEnemy(character.realms.currentRealm, character.progression.level, character.activeQuest?.isBoss);
       if(now > questTime) {
         character.activeQuest.quest.battleStarted = true;
         character.activeQuest.enemy = randomEnemy;

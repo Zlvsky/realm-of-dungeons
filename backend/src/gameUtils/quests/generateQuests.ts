@@ -1,4 +1,5 @@
-import { getRandomQuests, quests } from "./getRandomQuest";
+import { TCurrentRealm } from "../../types/account/MainInterfaces";
+import { getRandomQuests } from "./quests/getRandomQuest";
 
 const getMaxBaseXp = (level: number) => {
     switch (true) {
@@ -51,7 +52,7 @@ export const generateGold = (level: number, questIndex: number) => {
 }
 
 
-const generateQuest = (level: number, quest: {title: string, description: string}, questIndex: number, timeStamps: number[]) => {
+const generateQuest = (level: number, quest: {title: string, description: string, isBoss: boolean}, questIndex: number, timeStamps: number[]) => {
     const timeStampIndex = Math.round(Math.random() * (timeStamps.length - 1));
     const randomTimeStamp = timeStamps[timeStampIndex];
     const xp = generateXP(level, questIndex);
@@ -65,14 +66,16 @@ const generateQuest = (level: number, quest: {title: string, description: string
             gold: gold
         },
         battleStarted: false,
+        isBoss: quest.isBoss
     }
 }
 
-const generateQuests = (level: number) => {
-    const randomQuests = getRandomQuests();
-    const firstQuest = generateQuest(level, quests[randomQuests[0]], 0.5, [120, 180, 240]);
-    const secondQuest = generateQuest(level, quests[randomQuests[1]], 1, [300, 360, 420]);
-    const thirdQuest = generateQuest(level, quests[randomQuests[2]], 2, [840, 900, 960]);
+const generateQuests = (currentRealm: TCurrentRealm, level: number, isBoss?: boolean) => {
+  // generate quest for availableQuests realm 
+    const randomQuests = getRandomQuests(currentRealm, isBoss);
+    const firstQuest = generateQuest(level, randomQuests[0], 0.5, [120, 180, 240]);
+    const secondQuest = generateQuest(level, randomQuests[1], 1, [300, 360, 420]);
+    const thirdQuest = generateQuest(level, randomQuests[2], 2, [840, 900, 960]);
     return [
       firstQuest,
       secondQuest,

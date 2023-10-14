@@ -33,7 +33,7 @@ export const questBattleEnd = async (req: Request, res: Response) => {
     activeQuest.timeStarted = null;
     activeQuest.textLogs = [];
 
-    character.availableQuests = generateQuests(character.progression.level);
+    character.availableQuests = generateQuests(character.realms.currentRealm, character.progression.level);
 
     await character.save();
     return res.json("success");

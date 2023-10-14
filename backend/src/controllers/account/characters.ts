@@ -33,7 +33,7 @@ export const createCharacter = async (req: Request, res: Response) => {
       statistics: getBaseStatistics(req.body.class),
       equipment: initEquipment,
       inventory: initInventory(req.body.class),
-      availableQuests: generateQuests(1),
+      availableQuests: generateQuests("CAVERNS", 1, false),
       avatar: getCharacterAvatar(req.body.class),
       owner: getUserIdFromToken(req.headers.authorization), // Set the owner of the character to the authenticated user (implementation of this step is outside the scope of this answer)
       updatedValues: {

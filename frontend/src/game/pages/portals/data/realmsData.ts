@@ -1,10 +1,10 @@
 export const realmsData = (destination: string) => {
     switch (destination) {
-      case "CAVE":
+      case "CAVERNS":
         return {
-          name: "Cave",
+          name: "Caverns of Echoes",
           description:
-            "You can draw holy healing water from the magical fountain located in the middle of the temple to heal your wounds",
+            "A vast and ominous underground expanse of dangerous caverns. The realm is rich with treacherous tunnels, hidden chambers, and molten veins, creating a diverse and dangerous environment for adventurers.",
           monsters: "1-10",
           fee: "1,50",
         };

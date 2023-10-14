@@ -17,7 +17,7 @@ interface IStatisticProgression {
   experience: number;
 }
 
-export type TCurrentRealm = "CAVE" | "CRYPT";
+export type TCurrentRealm = "CAVERNS" | "CRYPT";
 
 export interface ICharacter {
   nickname: string;

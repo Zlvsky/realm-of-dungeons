@@ -12,7 +12,8 @@ const enemySchema = new mongoose.Schema({
     type: [
       {
         skillName: { type: String, default: null },
-        damage: { type: Number, default: null },
+        damage: { type: Number, required: false, default: null },
+        heal: { type: Number, required: false, default: null },
         cooldown: { type: Number, default: 3 },
         text: { type: String, default: null },
       },
@@ -20,7 +21,7 @@ const enemySchema = new mongoose.Schema({
     default: null,
   },
   avatar: { type: String, default: null },
-  boss: { type: Boolean, default: false },
+  isBoss: { type: Boolean, default: false },
 });
 
 const questSchema = new mongoose.Schema({
@@ -46,6 +47,10 @@ const activeQuestSchema = new mongoose.Schema({
   enemy: {
     type: enemySchema,
     default: null,
+  },
+  isBoss: {
+    type: Boolean,
+    default: false,
   },
   textLogs: { type: [String], default: [] },
 });

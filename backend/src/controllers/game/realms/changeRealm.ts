@@ -3,10 +3,10 @@ import { Character } from "../../../schemas/character/characterSchema";
 
 const getRealmTravelFee = (realm: string) => {
     switch (realm) {
-        case "CAVE":
-            return 1.50;
-        case "CRYPT":
-            return 6.00;        
+      case "CAVERNS":
+        return 1.5;
+      case "CRYPT":
+        return 6.0;
     }
 }
 

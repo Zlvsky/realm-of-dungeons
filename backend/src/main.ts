@@ -25,6 +25,7 @@ import scheduledRefreshMerchantItems from "./scheduled-tasks/merchants/refreshMe
 import { merchantBuyItem } from "./controllers/game/merchants/merchantBuyItem";
 import { merchantSellItem } from "./controllers/game/merchants/merchantSellItem";
 import { changeRealm } from "./controllers/game/realms/changeRealm";
+import { unlockRealm } from "./controllers/game/realms/unlockRealm";
 
 const uri = process.env.MONGO_CONNECTION_URL;
 if(!uri) throw new Error(".env file is not created")
@@ -70,7 +71,8 @@ app.post("/api/hero/update/statistics", updateStatistics);
 app.post("/api/create/item", addItem);
 
 // PORTALS
-app.post("/api/realm", changeRealm);
+app.post("/api/realm/change", changeRealm);
+app.post("/api/realm/unlock", unlockRealm);
 
 // QUESTS ACTIONS
 app.post("/api/quest/updateActiveQuest", updateActiveQuest);
