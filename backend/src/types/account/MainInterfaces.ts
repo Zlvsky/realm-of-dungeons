@@ -77,7 +77,11 @@ export interface ICharacter extends mongoose.Document {
     isBoss: boolean;
     textLogs: string[];
   };
-  availableQuests: IQuest[];
+  availableQuests: {
+    realm: TCurrentRealm;
+    finishedQuests: number;
+    quests: IQuest[];
+  }[];
   statistics: IStatistics;
   owner: mongoose.Types.ObjectId | IUser;
   equipment: [

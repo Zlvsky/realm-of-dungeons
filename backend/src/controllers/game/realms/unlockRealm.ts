@@ -1,12 +1,11 @@
 import { Request, Response } from "express";
 import { Character } from "../../../schemas/character/characterSchema";
+import generateQuests from "../../../gameUtils/quests/generateQuests";
 
 const getOrbRealm = (id: number) => {
   switch (id) {
     case 100:
       return "CRYPT";
-    case 101:
-      return "DUNGEON";
     default:
       return false;
   }
@@ -24,7 +23,7 @@ export const unlockRealm = async (req: Request, res: Response) => {
 
     if (!orbInInventory) return res.json("success");
 
-    const realm: any = getOrbRealm(orbInInventory.item?.id);
+    const realm: any = getOrbRealm(orbInInventory.item?.itemId!);
 
     if (!realm) return res.json("success");
 
@@ -34,6 +33,12 @@ export const unlockRealm = async (req: Request, res: Response) => {
     character.realms.availableRealms.push(realm);
 
     orbInInventory.item = null;
+
+    character.availableQuests.push({
+      realm: realm,
+      finishedQuests: 0,
+      quests: generateQuests(realm, character.progression.level, false),
+    });
     
     await character.save();
     return res.json("success");

@@ -39,6 +39,12 @@ function SelectQuest({ hero }: any) {
 
   const questsData = hero.availableQuests;
   const currentRealm = hero.realms.currentRealm;
+
+  const availableQuestsIndex = questsData.findIndex(
+    (el: any) => el.realm === currentRealm
+  )!;
+
+  const currentQuestsData = questsData[availableQuestsIndex].quests;
   
   const dispatch = useDispatch();
 
@@ -48,7 +54,7 @@ function SelectQuest({ hero }: any) {
 
   const handleAcceptQuest = async () => {
     const response = await updateActiveQuest({
-      questId: questsData[selectedQuest]._id,
+      questId: currentQuestsData[selectedQuest]._id,
     });
     if (response.status !== 200) return console.log(response.data);
     fetchHero(updateHero);
@@ -96,7 +102,7 @@ function SelectQuest({ hero }: any) {
       <Text
         x={350}
         y={300}
-        text={questsData[selectedQuest].description}
+        text={currentQuestsData[selectedQuest].description}
         style={
           new TextStyle({
             align: "center",
@@ -124,7 +130,7 @@ function SelectQuest({ hero }: any) {
         }
       />
       <IconWithText
-        text={secondsToTime(questsData[selectedQuest].duration)}
+        text={secondsToTime(currentQuestsData[selectedQuest].duration)}
         image={HourglassIcon}
         position={[350, 550]}
         textStyle={iconWithTextStyle}
@@ -145,13 +151,13 @@ function SelectQuest({ hero }: any) {
         }
       />
       <IconWithText
-        text={questsData[selectedQuest].rewards.gold}
+        text={currentQuestsData[selectedQuest].rewards.gold}
         image={GoldIcon}
         position={[350, 680]}
         textStyle={iconWithTextStyle}
       />
       <IconWithText
-        text={questsData[selectedQuest].rewards.xp}
+        text={currentQuestsData[selectedQuest].rewards.xp}
         image={XpIcon}
         position={[350, 750]}
         textStyle={iconWithTextStyle}

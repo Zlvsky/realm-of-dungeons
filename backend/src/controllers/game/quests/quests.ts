@@ -12,9 +12,19 @@ export const updateActiveQuest = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "Character not found" });
     }
 
-    const selectedQuest: any = character.availableQuests.find(
+    const currentRealm = character.realms.currentRealm;
+
+    const availableQuestsIndex = character.availableQuests.findIndex(
+      (el) => el.realm === currentRealm
+    );
+
+    const realmAvailableQuests =
+      character.availableQuests[availableQuestsIndex].quests;
+
+    const selectedQuest: any = realmAvailableQuests.find(
       (quest) => quest._id!.toString() === questId
     );
+    
     if (!selectedQuest) {
       return res.status(404).json({ message: "Quest not found" });
     }

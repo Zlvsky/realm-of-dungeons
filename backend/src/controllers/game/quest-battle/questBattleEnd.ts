@@ -14,6 +14,7 @@ export const questBattleEnd = async (req: Request, res: Response) => {
     const { activeQuest } = character;
     const enemy = activeQuest?.enemy;
     const quest = activeQuest?.quest;
+    const currentRealm = character.realms.currentRealm;
 
     if (!enemy) return res.status(404).json({ message: "Enemy not found" });
     if (!quest) return res.status(404).json({ message: "Quest not found" });
@@ -33,7 +34,11 @@ export const questBattleEnd = async (req: Request, res: Response) => {
     activeQuest.timeStarted = null;
     activeQuest.textLogs = [];
 
-    character.availableQuests = generateQuests(character.realms.currentRealm, character.progression.level);
+    const availableQuestsIndex = character.availableQuests.findIndex(el => el.realm === currentRealm)!;
+    character.availableQuests[availableQuestsIndex].quests = generateQuests(
+      currentRealm,
+      character.progression.level
+    );
 
     await character.save();
     return res.json("success");

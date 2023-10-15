@@ -24,16 +24,22 @@ export const createCharacter = async (req: Request, res: Response) => {
         levelExperience: getNextLevelExperience[1],
         previousLevelExperience: getNextLevelExperience[0],
         statistics: {
-          melee: {levelExperience: getNextStatisticLevelExperience[1]},
-          distance: {levelExperience: getNextStatisticLevelExperience[1]},
-          magic: {levelExperience: getNextStatisticLevelExperience[1]},
-          resistance: {levelExperience: getNextStatisticLevelExperience[1]},
-        }
+          melee: { levelExperience: getNextStatisticLevelExperience[1] },
+          distance: { levelExperience: getNextStatisticLevelExperience[1] },
+          magic: { levelExperience: getNextStatisticLevelExperience[1] },
+          resistance: { levelExperience: getNextStatisticLevelExperience[1] },
+        },
       },
       statistics: getBaseStatistics(req.body.class),
       equipment: initEquipment,
       inventory: initInventory(req.body.class),
-      availableQuests: generateQuests("CAVERNS", 1, false),
+      availableQuests: [
+        {
+          realm: "CAVERNS",
+          finishedQuests: 0,
+          quests: generateQuests("CAVERNS", 1, false),
+        },
+      ],
       avatar: getCharacterAvatar(req.body.class),
       owner: getUserIdFromToken(req.headers.authorization), // Set the owner of the character to the authenticated user (implementation of this step is outside the scope of this answer)
       updatedValues: {
@@ -42,6 +48,7 @@ export const createCharacter = async (req: Request, res: Response) => {
       generalValues: {},
       activeQuest: {},
       merchantsItems: {},
+      realms: {},
     });
 
     // Save character to the database

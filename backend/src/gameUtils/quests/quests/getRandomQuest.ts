@@ -5,6 +5,8 @@ const getRealmQuests = (realm: TCurrentRealm) => {
   switch (realm) {
     case "CAVERNS":
       return cavernsQuests;
+    case "CRYPT":
+      return cavernsQuests;
   }
 };
 
