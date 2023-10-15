@@ -37,7 +37,7 @@ export const createCharacter = async (req: Request, res: Response) => {
         {
           realm: "CAVERNS",
           finishedQuests: 0,
-          quests: generateQuests("CAVERNS", 1, false),
+          quests: generateQuests("CAVERNS", 1),
         },
       ],
       avatar: getCharacterAvatar(req.body.class),

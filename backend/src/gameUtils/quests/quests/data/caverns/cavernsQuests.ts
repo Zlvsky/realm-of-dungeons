@@ -51,11 +51,14 @@ export const cavernsQuests = {
         "Unearth the enigmatic nature of the chasm, where the boundaries between realms blur. Dive into the Chimeric Void and confront the anomalies that challenge the very fabric of reality.",
     },
   ],
-  bossess: [
-    {
-      title: "Forged in Flames",
-      description:
-        "Reports speak of an ancient and colossal guardian known as the Molten Core Golem residing deep within the Cinderforge Cavern. Are you brave enough to delve into the forge of the earth's fury?",
-    },
-  ],
+  bossess: {
+    requiredLevel: 9,
+    quests: [
+      {
+        title: "Forged in Flames",
+        description:
+          "Reports speak of an ancient and colossal guardian known as the Molten Core Golem residing deep within the Cinderforge Cavern. Are you brave enough to delve into the forge of the earth's fury?",
+      },
+    ],
+  },
 };

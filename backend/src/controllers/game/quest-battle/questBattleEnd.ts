@@ -39,6 +39,7 @@ export const questBattleEnd = async (req: Request, res: Response) => {
       currentRealm,
       character.progression.level
     );
+    character.availableQuests[availableQuestsIndex].finishedQuests += 1;
 
     await character.save();
     return res.json("success");

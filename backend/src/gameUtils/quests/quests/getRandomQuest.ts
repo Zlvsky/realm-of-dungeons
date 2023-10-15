@@ -10,12 +10,22 @@ const getRealmQuests = (realm: TCurrentRealm) => {
   }
 };
 
-export const getRandomQuests = (currentRealm: TCurrentRealm, isBoss?: boolean) => {
+const isBossAvailable = (bossRequiredLevel: number, level: number) => {
+  if (bossRequiredLevel > level) return false;
+  const bossChance = 20;
+  const randomNum = Math.random() * 100;
+  return randomNum <= bossChance;
+}
+
+export const getRandomQuests = (currentRealm: TCurrentRealm, level: number) => {
   const regularQuestsIndexArray: Set<number> = new Set();
   let bossessIndex;
   const realmQuests = getRealmQuests(currentRealm)!;
   const regularQuests = realmQuests.regular;
-  const bossessQuests = realmQuests.bossess;
+  const bossessQuests = realmQuests.bossess.quests;
+  const bossRequiredLevel = realmQuests.bossess.requiredLevel;
+
+  const isBoss = isBossAvailable(bossRequiredLevel, level);
 
   const questsToReturn = [];
 
@@ -31,6 +41,14 @@ export const getRandomQuests = (currentRealm: TCurrentRealm, isBoss?: boolean) =
     regularQuestsIndexArray.add(index);
   }
 
+  regularQuestsIndexArray.forEach((index) => {
+    const regularQuest = regularQuests[index];
+    questsToReturn.push({
+      ...regularQuest,
+      isBoss: false,
+    });
+  });
+
   if (isBoss && bossessIndex) {
     const bossQuest = bossessQuests[bossessIndex];
     questsToReturn.push({
@@ -38,14 +56,6 @@ export const getRandomQuests = (currentRealm: TCurrentRealm, isBoss?: boolean) =
       isBoss: true,
     })
   };
-
-  regularQuestsIndexArray.forEach((index) => {
-    const regularQuest = regularQuests[index];
-    questsToReturn.push({
-      ...regularQuest,
-      isBoss: false,
-    });
-  })
 
   return questsToReturn;
 };
