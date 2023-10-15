@@ -22,14 +22,14 @@ const DisabledFilter: any = withFilters(Container, {
 
 function TravelInfo({ realm, currentRealm }: any) {
   const dispatch = useDispatch();
-  const isCurrentRealm = currentRealm === realm?.name?.toUpperCase();
+  const isCurrentRealm = currentRealm === realm?.value;
 
   const updateHero = (data: any) => {
     dispatch(setHero(data));
   };
 
   const handleAcceptDestination = async () => {
-    const response = await changeRealmRequest(realm?.name?.toUpperCase());
+    const response = await changeRealmRequest(realm?.value);
     if (response.status !== 200) return console.log("failed");
     fetchHero(updateHero);
   };

@@ -27,7 +27,7 @@ function Destinations({ availableRealms, realm, setRealm }: any) {
               }
               onclick={() => setRealm(realmsData(el))}
             />
-            {realm?.name?.toUpperCase() === el && (
+            {realm?.value === el && (
               <Sprite
                 image={ArrowIcon}
                 position={[110, 40]}

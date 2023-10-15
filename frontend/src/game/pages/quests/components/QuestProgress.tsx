@@ -2,6 +2,7 @@ import { useEffect, useState} from 'react';
 import { Container, Sprite, Text } from "@pixi/react";
 import { TextStyle } from "pixi.js"
 import QuestProgressBackground from "../../../../assets/images/game-world/questProgress.png"
+import CavernsBg from "../../../../assets/images/game-world/realms/caverns/caverns.jpg";
 import secondsRemaining from '../../../../utils/calculations/secondsRemaining';
 import secondsToTime from '../../../../utils/parsing-data/secondsToTime';
 import CancelBtn from "../../../../assets/images/cancelbtn.png";
@@ -18,10 +19,22 @@ const isQuestReady = (questTime: string) => {
   return false;
 };
 
+const getRealmBackground = (realm: string) => {
+  switch (realm) {
+    case "CAVERNS":
+      return CavernsBg;
+    default:
+      return QuestProgressBackground;
+  }
+};
 
-function QuestProgress({ activeQuest }: any) {
+
+function QuestProgress({ hero }: any) {
   const [futureTime, setFutureTime] = useState<any>(null);
   const [timeRemaining, setTimeRemaining] = useState<any>(null);
+
+  const activeQuest = hero.activeQuest;
+  const currentRealm = hero.realms.currentRealm;
 
   const dispatch = useDispatch();
 
@@ -81,7 +94,7 @@ function QuestProgress({ activeQuest }: any) {
 
   return (
     <Container position={[0, 0]}>
-      <Sprite image={QuestProgressBackground} width={1316} height={935} />
+      <Sprite image={getRealmBackground(currentRealm)} width={1316} height={935} />
       <Text
         anchor={0.5}
         x={1316 / 2}

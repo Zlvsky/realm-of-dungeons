@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { Container, Sprite, Text, Graphics } from "@pixi/react";
 import QuestsBg from "../../../.././assets/images/game-world/quests.png";
+import CavernsBg from "../../../.././assets/images/game-world/realms/caverns/caverns-tavern.jpg";
 import HourglassIcon from "../../../../assets/images/icons/gui/hourglass.png"
 import GoldIcon from "../../../../assets/images/icons/gui/gold-icon.png"
 import XpIcon from "../../../../assets/images/icons/gui/xp.png";
@@ -24,8 +25,20 @@ const iconWithTextStyle = {
   wordWrapWidth: 610,
 };
 
-function SelectQuest({ questsData }: any) {
+const getRealmBackground = (realm: string) => {
+  switch (realm) {
+    case "CAVERNS":
+      return CavernsBg; 
+    default:
+      return QuestsBg;
+  }
+}
+
+function SelectQuest({ hero }: any) {
   const [selectedQuest, setSelectedQuest] = useState(1);
+
+  const questsData = hero.availableQuests;
+  const currentRealm = hero.realms.currentRealm;
   
   const dispatch = useDispatch();
 
@@ -55,7 +68,11 @@ function SelectQuest({ questsData }: any) {
   }, []);
   return (
     <Container position={[0, 0]}>
-      <Sprite image={QuestsBg} width={1316} height={935} />
+      <Sprite
+        image={getRealmBackground(currentRealm)}
+        width={1316}
+        height={935}
+      />
       <Graphics draw={questFrame} zIndex={0} />
       <Text
         anchor={0.5}

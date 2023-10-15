@@ -15,10 +15,10 @@ function Quests() {
     <Container position={[0, 2]}>
       {hero?.activeQuest.quest === null ||
       hero?.activeQuest.timeStarted === null ? (
-        <SelectQuest questsData={hero.availableQuests} />
+        <SelectQuest hero={hero} />
       ) : (
         <QuestProgress
-          activeQuest={hero.activeQuest}
+          hero={hero}
         />
       )}
     </Container>
