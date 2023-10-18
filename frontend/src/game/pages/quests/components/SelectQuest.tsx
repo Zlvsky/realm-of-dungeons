@@ -162,6 +162,18 @@ function SelectQuest({ hero }: any) {
         position={[350, 750]}
         textStyle={iconWithTextStyle}
       />
+      {currentQuestsData[selectedQuest].rewards?.item && (
+        <IconWithText
+          text={currentQuestsData[selectedQuest].rewards?.item.name}
+          image={currentQuestsData[selectedQuest].rewards?.item.image}
+          position={[500, 715]}
+          imageWidth={60}
+          imageHeight={60}
+          imageY={-10}
+          textStyle={iconWithTextStyle}
+        />
+      )}
+
       <Sprite
         image={AcceptBtn}
         width={150}

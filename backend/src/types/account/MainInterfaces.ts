@@ -70,7 +70,7 @@ export interface ICharacter extends mongoose.Document {
       rewards: {
         gold: number;
         xp: number;
-        itemId?: string;
+        item?: IItem;
       };
     } | null;
     enemy: IEnemy | null;
@@ -183,8 +183,8 @@ export interface IQuest {
   rewards: {
     gold: number;
     xp: number;
-    itemId?: string;
-  }
+    item?: IItem;
+  };
 }
 
 export interface ISkills {

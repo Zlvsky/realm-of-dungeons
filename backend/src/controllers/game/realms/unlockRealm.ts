@@ -37,7 +37,7 @@ export const unlockRealm = async (req: Request, res: Response) => {
     character.availableQuests.push({
       realm: realm,
       finishedQuests: 0,
-      quests: generateQuests(realm, character.progression.level),
+      quests: await generateQuests(realm, character.progression.level),
     });
     
     await character.save();

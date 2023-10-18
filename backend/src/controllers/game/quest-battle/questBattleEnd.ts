@@ -24,6 +24,12 @@ export const questBattleEnd = async (req: Request, res: Response) => {
     if (quest.battleWinner === 1) {
         character.generalValues.gold = Math.round((character.generalValues.gold + quest.rewards.gold) * 100) / 100;
         character.progression.experience += quest.rewards.xp;
+        if (quest.rewards?.item) {
+          const freeInventorySlot = character.inventory.find(
+            (slot) => slot.item === null
+          );
+          if (freeInventorySlot) freeInventorySlot.item = quest.rewards.item;
+        }
         levelUpIfReady(character);
     } else if (quest.battleWinner === 2) {
         character.updatedValues.health = 0;
@@ -35,10 +41,8 @@ export const questBattleEnd = async (req: Request, res: Response) => {
     activeQuest.textLogs = [];
 
     const availableQuestsIndex = character.availableQuests.findIndex(el => el.realm === currentRealm)!;
-    character.availableQuests[availableQuestsIndex].quests = generateQuests(
-      currentRealm,
-      character.progression.level
-    );
+    const generatedQuest = await generateQuests(currentRealm, character.progression.level);
+    character.availableQuests[availableQuestsIndex].quests = generatedQuest;
     character.availableQuests[availableQuestsIndex].finishedQuests += 1;
 
     await character.save();

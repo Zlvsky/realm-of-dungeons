@@ -34,7 +34,7 @@ const questSchema = new mongoose.Schema({
   rewards: {
     gold: { type: Number, default: null },
     xp: { type: Number, default: null },
-    itemId: { type: itemSchema, default: null },
+    item: { type: itemSchema, default: null },
   },
 });
 
