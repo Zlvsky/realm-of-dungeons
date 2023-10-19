@@ -104,9 +104,6 @@ export const cavernsEnemies: { regular: IEnemy[]; bossess: IEnemy[] } = {
           cooldown: 4,
           text: "Golem draws heat from enivornment, healing for ",
         },
-      ],
-      loot: [
-        {itemId: 100, dropChance: 100}
       ]
     },
   ],

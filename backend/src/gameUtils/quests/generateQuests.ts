@@ -102,7 +102,7 @@ export const generateGold = (realm: TCurrentRealm, questIndex: number) => {
 
 const generateQuest = async (
   realm: TCurrentRealm,
-  quest: { title: string; description: string; isBoss: boolean },
+  quest: { title: string; description: string; isBoss: boolean, itemReward?: {itemId: number, dropChance: number}[] },
   questIndex: number,
   timeStamps: number[]
 ) => {
@@ -110,6 +110,7 @@ const generateQuest = async (
   const randomTimeStamp = timeStamps[timeStampIndex];
   const xp = generateXP(realm, questIndex);
   const gold = generateGold(realm, questIndex);
+  const itemPool = quest?.itemReward || getRealmItemPool(realm);
   return {
     title: quest.title,
     description: quest.description,
@@ -117,7 +118,7 @@ const generateQuest = async (
     rewards: {
       xp: xp,
       gold: gold,
-      item: await generateItemReward(getRealmItemPool(realm)),
+      item: await generateItemReward(itemPool),
     },
     battleStarted: false,
     isBoss: quest.isBoss,

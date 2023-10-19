@@ -29,10 +29,6 @@ export interface IEnemy {
   damage: number;
   attackText: string;
   skills: ISkills[] | null;
-  loot?: {
-    itemId: number;
-    dropChance: number;
-  }[];
   isBoss?: boolean;
 }
 

@@ -58,6 +58,7 @@ export const cavernsQuests = {
         title: "Forged in Flames",
         description:
           "Reports speak of an ancient and colossal guardian known as the Molten Core Golem residing deep within the Cinderforge Cavern. Are you brave enough to delve into the forge of the earth's fury?",
+        itemReward: [{ itemId: 100, dropChance: 100 }],
       },
     ],
   },

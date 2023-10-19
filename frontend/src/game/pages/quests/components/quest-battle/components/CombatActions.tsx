@@ -1,11 +1,15 @@
 import { Container, Graphics, Sprite } from '@pixi/react';
-import lowAttack from "../../../../../../assets/images/combat/combat-actions/low.png"
-import mediumAttack from "../../../../../../assets/images/combat/combat-actions/medium.png"
-import strongAttack from "../../../../../../assets/images/combat/combat-actions/strong.png"
-import { questActionAttack, questActionPotion } from '../../../../../../client/appClient';
-import fetchHero from '../../../../../../utils/fetchers/fetchHero';
 import { useDispatch } from 'react-redux';
 import { setHero } from '../../../../../../redux/reducers/gameSlice';
+import fetchHero from '../../../../../../utils/fetchers/fetchHero';
+import { questActionAttack, questActionPotion } from '../../../../../../client/appClient';
+
+import lowAttack from "../../../../../../assets/images/combat/combat-actions/low.png";
+import mediumAttack from "../../../../../../assets/images/combat/combat-actions/medium.png";
+import strongAttack from "../../../../../../assets/images/combat/combat-actions/strong.png";
+
+import potionBlank from "../../../../../../assets/images/equipment-slots/potionEqSlot.png";
+import spellSlot from "../../../../../../assets/images/equipment-slots/spellsSlot.png";
 
 interface IAction {
   x: number;
@@ -35,7 +39,7 @@ function CombatActions({ hero }: any) {
 
   const potionImage = () => {
     const potionSlot = hero.equipment.find((item: any) => item.type === "potion");  
-    if (!potionSlot.item) return null;
+    if (!potionSlot.item) return potionBlank;
     return potionSlot.item.image;
   }
 
@@ -84,8 +88,8 @@ function CombatActions({ hero }: any) {
         image={strongAttack}
         action={() => performAttack("strong")}
       />
-      <ActionButton x={225} image={strongAttack} action={""} />
-      <ActionButton x={300} image={strongAttack} action={""} />
+      <ActionButton x={225} image={spellSlot} action={""} />
+      <ActionButton x={300} image={spellSlot} action={""} />
       <ActionButton x={375} image={potionImage()} action={usePotion} />
     </Container>
   );

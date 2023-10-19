@@ -90,6 +90,7 @@ function QuestBattle({ hero }: IQuestBattle) {
         />
         <BattleStats
           statistics={hero.updatedValues.statistics}
+          armor={hero.updatedValues.armor}
           position={[0, 150]}
         />
         <Portrait
