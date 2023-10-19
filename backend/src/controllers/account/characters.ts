@@ -12,10 +12,22 @@ import getNextStatisticLevelExperience from "../../gameUtils/characters/getNextS
 
 const router = express.Router();
 
+const statisticProgression = (baseStatistics: any, stat: string) => {
+  const statLevel: number = baseStatistics[stat];
+
+  return {
+    levelExperience: getNextStatisticLevelExperience[statLevel],
+    previousLevelExperience: getNextStatisticLevelExperience[statLevel - 1],
+    experience: getNextStatisticLevelExperience[statLevel - 1],
+  };
+}
+
 // POST /api/characters
 export const createCharacter = async (req: Request, res: Response) => {
   try {
     // Create new character object
+    const baseStatistics = getBaseStatistics(req.body.class);
+
     const character = new Character({
       nickname: req.body.nickname,
       class: req.body.class,
@@ -24,13 +36,13 @@ export const createCharacter = async (req: Request, res: Response) => {
         levelExperience: getNextLevelExperience[1],
         previousLevelExperience: getNextLevelExperience[0],
         statistics: {
-          melee: { levelExperience: getNextStatisticLevelExperience[1] },
-          distance: { levelExperience: getNextStatisticLevelExperience[1] },
-          magic: { levelExperience: getNextStatisticLevelExperience[1] },
-          resistance: { levelExperience: getNextStatisticLevelExperience[1] },
+          melee: statisticProgression(baseStatistics, "melee"),
+          distance: statisticProgression(baseStatistics, "distance"),
+          magic: statisticProgression(baseStatistics, "magic"),
+          resistance: statisticProgression(baseStatistics, "resistance"),
         },
       },
-      statistics: getBaseStatistics(req.body.class),
+      statistics: baseStatistics,
       equipment: initEquipment,
       inventory: initInventory(req.body.class),
       availableQuests: [
