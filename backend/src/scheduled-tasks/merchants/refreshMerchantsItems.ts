@@ -1,3 +1,4 @@
+import generateMerchantItems from "../../gameUtils/merchants/generateMerchantItems";
 import getItemsForMerchant from "../../gameUtils/merchants/getItemsForMerchant";
 import getStaticItemsForMerchant from "../../gameUtils/merchants/getStaticItems";
 import { Character } from "../../schemas/character/characterSchema";
@@ -28,25 +29,7 @@ const refreshMerchantsItems = async () => {
     const merchants = await getAllMerchants();
     if (!characters || !merchants) return;
     for (const character of characters) {
-        for (const merchant of merchants) {
-            const merchantName = merchant.name;
-            if (merchantName === "Weaponsmith") {
-              const refreshedItems = await getItemsForMerchant(merchant, character.progression.level);
-              character.merchantsItems.weaponsmith = refreshedItems;
-            }
-            if (merchantName === "Armourer") {
-              const refreshedItems = await getItemsForMerchant(merchant, character.progression.level);
-              character.merchantsItems.armourer = refreshedItems;
-            }
-            if (merchantName === "Witch") {
-              const refreshedItems = await getItemsForMerchant(merchant, character.progression.level);
-              character.merchantsItems.witch = refreshedItems;
-            }
-            if (merchantName === "Alchemist") {
-              const refreshedItems = await getStaticItemsForMerchant(merchant, character.progression.level);
-              character.merchantsItems.alchemist = refreshedItems;
-            }
-        }
+        await generateMerchantItems(character);
         character.save();
     }
    

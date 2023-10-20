@@ -48,7 +48,7 @@ function HeroInfo() {
         <Text
           x={150}
           y={72}
-          text={Math.round(hero.generalValues.gold).toFixed(2)}
+          text={hero.generalValues.gold.toFixed(2)}
           style={
             new TextStyle({
               align: "left",

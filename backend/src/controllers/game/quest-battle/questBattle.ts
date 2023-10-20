@@ -50,7 +50,7 @@ export const characterAttack = async (req: Request, res: Response) => {
     if (attackDamage === 0) {
       activeQuest.textLogs.push("You missed");
     } else {
-      addExperienceToStat(character, "weapon")
+      await addExperienceToStat(character, "weapon")
       activeQuest.textLogs.push(`You dealt ${attackDamage} damage`);
     }
 

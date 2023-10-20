@@ -3,7 +3,7 @@ import levelUpStatisticIfReady from "./levelUpStatisticIfReady";
 
 const statXP = 1;
 
-const addWeaponStatExperience = (character: ICharacter) => {
+const addWeaponStatExperience = async (character: ICharacter) => {
     const weaponItem = character.equipment.find(item => item.type === "weapon");
     const weaponType = weaponItem?.item?.subType;
     if (!weaponType) return;
@@ -11,30 +11,30 @@ const addWeaponStatExperience = (character: ICharacter) => {
         if (character.class === "warrior") character.progression.statistics.melee.experience += statXP;
         else if (character.class === "archer") character.progression.statistics.melee.experience += statXP * 0.5;
         else if (character.class === "mage") character.progression.statistics.melee.experience += statXP * 0.2;
-        levelUpStatisticIfReady(character, "melee");
+        await levelUpStatisticIfReady(character, "melee");
     } else if (weaponType === "bow" || weaponType === "crossbow") {
         if (character.class === "warrior") character.progression.statistics.distance.experience += statXP * 0.5;
         else if (character.class === "archer") character.progression.statistics.distance.experience += statXP;
         else if (character.class === "mage") character.progression.statistics.distance.experience += statXP * 0.2;
-        levelUpStatisticIfReady(character, "distance");
+        await levelUpStatisticIfReady(character, "distance");
     } else if (weaponType === "wand") {
         if (character.class === "warrior") character.progression.statistics.magic.experience += statXP * 0.2;
         else if (character.class === "archer") character.progression.statistics.magic.experience += statXP * 0.4;
         else if (character.class === "mage") character.progression.statistics.magic.experience += statXP;
-        levelUpStatisticIfReady(character, "magic");
+        await levelUpStatisticIfReady(character, "magic");
     }
 }
 
-const addResistanceStatExperience = (character: ICharacter) => {
+const addResistanceStatExperience = async (character: ICharacter) => {
   if (character.class === "warrior") character.progression.statistics.magic.experience += statXP;
   else if (character.class === "archer") character.progression.statistics.magic.experience += statXP * 0.7;
   else if (character.class === "mage") character.progression.statistics.magic.experience += statXP * 0.4;
-  levelUpStatisticIfReady(character, "resistance");
+  await levelUpStatisticIfReady(character, "resistance");
 };
 
-const addExperienceToStat = (character: ICharacter, type: "weapon" | "resistance") => {
-    if (type === "weapon") addWeaponStatExperience(character);
-    else addResistanceStatExperience(character);
+const addExperienceToStat = async (character: ICharacter, type: "weapon" | "resistance") => {
+    if (type === "weapon") await addWeaponStatExperience(character);
+    else await addResistanceStatExperience(character);
     
 }
 

@@ -1,7 +1,9 @@
 import { ICharacter } from "../../types/account/MainInterfaces";
 import getNextStatisticLevelExperience from "./getNextStatisticLevelExperience";
+import updateCharacterValues from "./getUpdatedValues";
+import getValuesWithStatistics from "./getValuesWithStatistics";
 
-function levelUpStatisticIfReady(
+async function levelUpStatisticIfReady(
   character: ICharacter,
   statistic: keyof typeof character.progression.statistics
 ) {
@@ -14,6 +16,10 @@ function levelUpStatisticIfReady(
       character.progression.statistics[statistic].levelExperience;
     character.progression.statistics[statistic].levelExperience =
       getNextStatisticLevelExperience[character.statistics[statistic]];
+
+    await updateCharacterValues(character);
+
+    getValuesWithStatistics(character);
   }
 }
 

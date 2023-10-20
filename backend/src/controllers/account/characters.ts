@@ -9,6 +9,7 @@ import initInventory from "../../gameUtils/initValues/initInventory";
 import generateQuests from "../../gameUtils/quests/generateQuests";
 import getNextLevelExperience from "../../gameUtils/characters/getNextLevelExperience";
 import getNextStatisticLevelExperience from "../../gameUtils/characters/getNextStatisticLevelExperience";
+import generateMerchantItems from "../../gameUtils/merchants/generateMerchantItems";
 
 const router = express.Router();
 
@@ -62,6 +63,8 @@ export const createCharacter = async (req: Request, res: Response) => {
       merchantsItems: {},
       realms: {},
     });
+
+    await generateMerchantItems(character);
 
     // Save character to the database
     await character.save();
