@@ -63,7 +63,7 @@ function ProgressStat({ position, icon, level, stat, progress }: IHeroSingleStat
           draw={(g) => {
             g.clear();
             g.beginFill(0x933824);
-            g.drawRect(0, 0, 250 * levelPercentage, 12);
+            g.drawRect(0, 0, 420 * levelPercentage, 12);
             g.endFill();
           }}
         />

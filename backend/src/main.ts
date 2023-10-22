@@ -26,6 +26,8 @@ import { merchantBuyItem } from "./controllers/game/merchants/merchantBuyItem";
 import { merchantSellItem } from "./controllers/game/merchants/merchantSellItem";
 import { changeRealm } from "./controllers/game/realms/changeRealm";
 import { unlockRealm } from "./controllers/game/realms/unlockRealm";
+import { trainStatistic } from "./controllers/game/trainers/trainStatistic";
+import { getTrainingFee } from "./controllers/game/trainers/getTrainingFee";
 
 const uri = process.env.MONGO_CONNECTION_URL;
 if(!uri) throw new Error(".env file is not created")
@@ -92,6 +94,10 @@ app.post("/api/temple/renew", templeHealRenew);
 // MERCHANTS
 app.post("/api/merchant/buy", merchantBuyItem);
 app.post("/api/merchant/sell", merchantSellItem);
+
+// TRAINERS
+app.post("/api/trainer/train", trainStatistic);
+app.post("/api/trainer/fee", getTrainingFee);
 
 // ADMIN PANEL
 app.use(express.static(path.join(__dirname, "admin-panel", "dist")));

@@ -80,7 +80,7 @@ function TrainerPage({ currentTrainer }: ITrainerPage) {
             />
           </Container>
           <SpecificProgressBar currentTrainer={currentTrainer} hero={hero} />
-          <TrainerAction />
+          <TrainerAction currentTrainer={currentTrainer} />
         </Container>
       </Container>
     );

@@ -27,6 +27,8 @@ import { IMerchantSell, merchantSellService } from "./services/game/merchants/me
 import { questActionPotionService } from "./services/game/quests/actions/questActionPotionService";
 import { changeRealmService } from "./services/game/realms/changeRealmService";
 import { unlockRealmService } from "./services/game/realms/unlockRealmService";
+import { trainerTrainService } from "./services/game/trainers/trainerTrainService";
+import { trainerFeeService } from "./services/game/trainers/trainerFeeService";
 
 // REGISTER AND LOGIN
 export async function register(body: signUpInterface) {
@@ -132,4 +134,13 @@ export async function merchantBuy(body: IMerchantBuy) {
 
 export async function merchantSell(body: IMerchantSell) {
   return await merchantSellService(body);
+};
+
+// TRAINERS
+export async function trainerTrainRequest(stat: string) {
+  return await trainerTrainService(stat);
+};
+
+export async function trainerFeeRequest(stat: string) {
+  return await trainerFeeService(stat);
 };

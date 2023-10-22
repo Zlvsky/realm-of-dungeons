@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProgressStat from '../../hero/components/ProgressStat';
 import { ICharacter } from '../../../../interfaces/MainInterface';
 
@@ -50,7 +50,11 @@ const getProgressBarData = (currentTrainer: string, hero: ICharacter) => {
 };
 
 function SpecificProgressBar({ hero, currentTrainer }: ITrainingProgressBar) {
-    const [statisticData] = useState(getProgressBarData(currentTrainer, hero)!);
+    const [statisticData, setStatisticData] = useState(getProgressBarData(currentTrainer, hero)!);
+
+    useEffect(() => {
+      setStatisticData(getProgressBarData(currentTrainer, hero)!);
+    }, [hero]);
     
     return (
       <ProgressStat
