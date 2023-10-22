@@ -9,7 +9,7 @@ interface IAvatar {
 function Avatar({ image, name }: IAvatar) {
     return (
       <Container position={[84, 10]}>
-        <Sprite image={image} position={[0, 0]} width={250} height={250}/>
+        <Sprite image={image} position={[0, 0]} width={250} height={250}  />
         <Graphics
           x={0}
           y={220}

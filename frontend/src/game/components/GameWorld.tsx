@@ -7,6 +7,7 @@ import Temple from '../pages/temple/Temple';
 import Merchants from "../pages/merchants/Merchants";
 import { useMemo } from "react";
 import Portals from "../pages/portals/Portals";
+import Trainers from "../pages/trainers/Trainers";
 
 function GameWorld() {
   const dimensions = useSelector(getGameDimensions);
@@ -21,6 +22,7 @@ function GameWorld() {
     if (stage === "hero") return <Hero />;
     if (stage === "temple") return <Temple />;
     if (stage === "merchants") return <Merchants />;
+    if (stage === "trainers") return <Trainers />;
     return <></>;
   }, [stage, isBattleStarted]);
 

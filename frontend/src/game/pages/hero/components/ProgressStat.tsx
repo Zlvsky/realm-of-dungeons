@@ -5,7 +5,7 @@ interface IHeroSingleStat {
     position: [number, number];
     icon: string;
     level: number;
-    stat: "MELEE" | "DISTANCE" | "MAGIC" | "RESISTANCE";
+    stat: "MELEE" | "DISTANCE" | "MAGIC" | "RESISTANCE" | string;
     progress: any;
 }
 

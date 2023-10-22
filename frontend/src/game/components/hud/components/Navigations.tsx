@@ -4,6 +4,7 @@ import questsBtn from "../../../../assets/images/btn.png";
 import heroBtn from "../../../../assets/images/herobtn.png";
 import templeBtn from "../../../../assets/images/templebtn.png";
 import merchantsBtn from "../../../../assets/images/merchantsbtn.png";
+import trainersBtn from "../../../../assets/images/trainersbtn.png";
 import { useDispatch } from 'react-redux';
 import { setCurrentStage } from '../../../../redux/reducers/gameSlice';
 
@@ -63,6 +64,16 @@ function Navigations() {
           interactive={true}
           cursor={"pointer"}
           onclick={() => changeStage("merchants")}
+        />
+        <Sprite
+          image={trainersBtn}
+          width={150}
+          height={120}
+          x={0}
+          y={600}
+          interactive={true}
+          cursor={"pointer"}
+          onclick={() => changeStage("trainers")}
         />
       </Container>
     );
