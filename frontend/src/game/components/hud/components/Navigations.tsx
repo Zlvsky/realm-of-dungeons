@@ -1,12 +1,47 @@
 import { Container, Sprite } from "@pixi/react";
-import portalsBtn from "../../../../assets/images/portalsbtn.png";
-import questsBtn from "../../../../assets/images/btn.png";
-import heroBtn from "../../../../assets/images/herobtn.png";
-import templeBtn from "../../../../assets/images/templebtn.png";
-import merchantsBtn from "../../../../assets/images/merchantsbtn.png";
-import trainersBtn from "../../../../assets/images/trainersbtn.png";
+import portalsBtn from "../../../../assets/images/hud/buttons/portalsbtn.png";
+import questsBtn from "../../../../assets/images/hud/buttons/questsbtn.png";
+import heroBtn from "../../../../assets/images/hud/buttons/herobtn.png";
+import templeBtn from "../../../../assets/images/hud/buttons/templebtn.png";
+import merchantsBtn from "../../../../assets/images/hud/buttons/merchantsbtn.png";
+import trainersBtn from "../../../../assets/images/hud/buttons/trainersbtn.png";
 import { useDispatch } from 'react-redux';
 import { setCurrentStage } from '../../../../redux/reducers/gameSlice';
+
+const commonProps = {
+  width: 200,
+  height: 58,
+  x: 0,
+  cursor: "pointer",
+  interactive: true,
+}
+
+const buttonsData = [
+  {
+    image: questsBtn,
+    stage: "quests",
+  },
+  {
+    image: portalsBtn,
+    stage: "portals",
+  },
+  {
+    image: heroBtn,
+    stage: "hero",
+  },
+  {
+    image: merchantsBtn,
+    stage: "merchants",
+  },
+  {
+    image: trainersBtn,
+    stage: "trainers",
+  },
+  {
+    image: templeBtn,
+    stage: "temple",
+  },
+];
 
 function Navigations() {
     const dispatch = useDispatch();
@@ -14,67 +49,16 @@ function Navigations() {
         dispatch(setCurrentStage(stage))
     }
     return (
-      <Container position={[0, 160]}>
-        <Sprite
-          image={portalsBtn}
-          width={150}
-          height={120}
-          x={0}
-          y={0}
-          cursor={"pointer"}
-          interactive={true}
-          onclick={() => changeStage("portals")}
-        />
-        <Sprite
-          image={questsBtn}
-          width={150}
-          height={120}
-          x={0}
-          y={120}
-          cursor={"pointer"}
-          interactive={true}
-          onclick={() => changeStage("quests")}
-        />
-        <Sprite
-          image={heroBtn}
-          width={150}
-          height={120}
-          x={0}
-          y={240}
-          interactive={true}
-          cursor={"pointer"}
-          onclick={() => changeStage("hero")}
-        />
-        <Sprite
-          image={templeBtn}
-          width={150}
-          height={120}
-          x={0}
-          y={360}
-          interactive={true}
-          cursor={"pointer"}
-          onclick={() => changeStage("temple")}
-        />
-        <Sprite
-          image={merchantsBtn}
-          width={150}
-          height={120}
-          x={0}
-          y={480}
-          interactive={true}
-          cursor={"pointer"}
-          onclick={() => changeStage("merchants")}
-        />
-        <Sprite
-          image={trainersBtn}
-          width={150}
-          height={120}
-          x={0}
-          y={600}
-          interactive={true}
-          cursor={"pointer"}
-          onclick={() => changeStage("trainers")}
-        />
+      <Container position={[50, 260]}>
+        {buttonsData.map((button, index) => (
+          <Sprite
+            image={button.image}
+            y={80 * index}
+            onclick={() => changeStage(button.stage)}
+            key={index}
+            {...commonProps}
+          />
+        ))}
       </Container>
     );
 }

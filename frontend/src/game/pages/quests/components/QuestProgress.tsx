@@ -3,6 +3,7 @@ import { Container, Sprite, Text } from "@pixi/react";
 import { TextStyle } from "pixi.js"
 import QuestProgressBackground from "../../../../assets/images/game-world/questProgress.png"
 import CavernsBg from "../../../../assets/images/game-world/realms/caverns/caverns.jpg";
+import CryptBg from "../../../../assets/images/game-world/realms/crypt/crypt.jpg";
 import secondsRemaining from '../../../../utils/calculations/secondsRemaining';
 import secondsToTime from '../../../../utils/parsing-data/secondsToTime';
 import CancelBtn from "../../../../assets/images/cancelbtn.png";
@@ -23,6 +24,8 @@ const getRealmBackground = (realm: string) => {
   switch (realm) {
     case "CAVERNS":
       return CavernsBg;
+    case "CRYPT":
+      return CryptBg;
     default:
       return QuestProgressBackground;
   }

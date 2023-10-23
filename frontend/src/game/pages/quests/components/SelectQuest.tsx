@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { Container, Sprite, Text, Graphics } from "@pixi/react";
 import QuestsBg from "../../../.././assets/images/game-world/quests.png";
+import CryptBg from "../../../.././assets/images/game-world/realms/crypt/crypt-tavern.jpg";
 import CavernsBg from "../../../.././assets/images/game-world/realms/caverns/caverns-tavern.jpg";
 import HourglassIcon from "../../../../assets/images/icons/gui/hourglass.png"
 import GoldIcon from "../../../../assets/images/icons/gui/gold-icon.png"
@@ -29,6 +30,8 @@ const getRealmBackground = (realm: string) => {
   switch (realm) {
     case "CAVERNS":
       return CavernsBg; 
+    case "CRYPT":
+      return CryptBg; 
     default:
       return QuestsBg;
   }
