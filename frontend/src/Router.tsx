@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import ProtectedRoute from "./components/authentication/ProtectedRoute";
 import Home from "./pages/home/Home";
@@ -8,6 +7,8 @@ import Cookies from "js-cookie";
 import UserPanel from "./pages/user-panel/UserPanel";
 import CreateHero from "./pages/create-hero/CreateHero";
 import Game from "./game/Game";
+import GameNotificationsGlobal from "./components/game-notifications/GameNotificationsGlobal";
+import NotificationsGlobal from "./components/notifications/NotificationsGlobal";
 
 function Router() {
   const user = Cookies.get("jwt");
@@ -29,6 +30,8 @@ function Router() {
         </Route>
         <Route index path="/" element={<Home />} />
       </Routes>
+      <NotificationsGlobal />
+      <GameNotificationsGlobal />
     </BrowserRouter>
   );
 }

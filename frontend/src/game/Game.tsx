@@ -8,9 +8,6 @@ import { getUserCharacter } from "../client/appClient";
 import GameWorld from "./components/GameWorld";
 import GameStage from "./game-context/GameStage";
 import loadFontsForPixi from "../utils/loaders/loadFontsForPixi";
-import { TilingSprite } from "@pixi/react";
-
-import divider1 from "../assets/images/hud/divider1.png";
 import HudBorders from "./components/borders/HudBorders";
 
 PIXI.BaseTexture.defaultOptions.scaleMode = PIXI.SCALE_MODES.LINEAR;

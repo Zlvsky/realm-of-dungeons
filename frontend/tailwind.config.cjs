@@ -18,6 +18,22 @@ module.exports = {
         gradientBrownTop: "#52201F",
         gradientBrownBottom: "#2E1510",
       },
+      keyframes: {
+        notificationStart: {
+          from: { transform: "translate(-25%, -24px)", opacity: 0 },
+          to: { transform: "translate(-25%, 0px)", opacity: 1 },
+        },
+        notificationEnd: {
+          from: { transform: "translate(-25%, 0px)", opacity: 1 },
+          to: { transform: "translate(-25%, -24px)", opacity: 0 },
+        },
+      },
+      animation: {
+        notificationStart:
+          "notificationStart 0.5s cubic-bezier(0.1, 0.65, 0.45, 1) forwards",
+        notificationEnd:
+          "notificationEnd 0.5s cubic-bezier(0.1, 0.65, 0.45, 1) forwards",
+      },
     },
   },
   plugins: [],
@@ -33,5 +49,7 @@ module.exports = {
     "py-4",
     "px-15",
     "px-10",
+    "animate-notificationStart",
+    "animate-notificationEnd",
   ],
 };

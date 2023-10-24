@@ -4,6 +4,7 @@ import { updateEquipmentToInventory, updateInventoryToEquipment, updateInventory
 import fetchHero from "../../../../utils/fetchers/fetchHero";
 import { useDispatch } from "react-redux";
 import { setHero } from "../../../../redux/reducers/gameSlice";
+import displayError from "../../../../utils/notifications/errors";
 
 const useDrag = ({ x, y, onDrop, setCurrentItem, setCurrentItemPreview, itemData }: any) => {
   const sprite = useRef<any>();
@@ -109,7 +110,7 @@ const Item = ({
       item: itemData.item,
       inventorySlotIndex: itemData.slotIndex
     });
-    if (response.status !== 200) return console.log(response.data);
+    if (response.status !== 200) return displayError(dispatch, response);
     fetchHero(updateHero);
   };
 
@@ -120,7 +121,7 @@ const Item = ({
       slotIndex: slotIndex,
       lastIndex: inventoryIndex,
     });
-    if (response.status !== 200) return console.log(response.data);
+    if (response.status !== 200) return displayError(dispatch, response);
     fetchHero(updateHero);
   };
 
@@ -131,7 +132,7 @@ const Item = ({
       itemType: itemData.item.type,
       itemSubType: itemData.item.subType,
     });
-    if (response.status !== 200) return console.log(response.data);
+    if (response.status !== 200) return displayError(dispatch, response);
     fetchHero(updateHero);
   }
 
