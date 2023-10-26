@@ -20,12 +20,12 @@ module.exports = {
       },
       keyframes: {
         notificationStart: {
-          from: { transform: "translate(-25%, -24px)", opacity: 0 },
-          to: { transform: "translate(-25%, 0px)", opacity: 1 },
+          from: { transform: "translate(-50%, -24px)", opacity: 0 },
+          to: { transform: "translate(-50%, 0px)", opacity: 1 },
         },
         notificationEnd: {
-          from: { transform: "translate(-25%, 0px)", opacity: 1 },
-          to: { transform: "translate(-25%, -24px)", opacity: 0 },
+          from: { transform: "translate(-50%, 0px)", opacity: 1 },
+          to: { transform: "translate(-50%, -24px)", opacity: 0 },
         },
       },
       animation: {

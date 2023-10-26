@@ -21,6 +21,9 @@ export const changeRealm = async (req: Request, res: Response) => {
     if (!character.realms.availableRealms.includes(realm))
       return res.status(400).json({ message: "You don't have access to this realm" });
 
+    if (Boolean(character.activeQuest.quest)) 
+      return res.status(400).json({ message: "Finish quest first" });
+
     const realmTravelFee = getRealmTravelFee(realm);
 
     if (character.generalValues.gold < realmTravelFee!)

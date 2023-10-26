@@ -7,6 +7,7 @@ import { changeRealmRequest } from "../../../../client/appClient";
 import fetchHero from "../../../../utils/fetchers/fetchHero";
 import { useDispatch } from "react-redux";
 import { setHero } from "../../../../redux/reducers/gameSlice";
+import displayError from "../../../../utils/notifications/errors";
 
 const textStyle: any = {
   align: "left",
@@ -30,7 +31,7 @@ function TravelInfo({ realm, currentRealm }: any) {
 
   const handleAcceptDestination = async () => {
     const response = await changeRealmRequest(realm?.value);
-    if (response.status !== 200) return console.log("failed");
+    if (response.status !== 200) return displayError(dispatch, response)
     fetchHero(updateHero);
   };
 

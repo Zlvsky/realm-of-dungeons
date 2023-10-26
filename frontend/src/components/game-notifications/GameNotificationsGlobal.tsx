@@ -9,7 +9,6 @@ function GameNotificationsGlobal() {
   return (
     <>
       {gameNotifications?.map((el: any) => {
-        console.log(el);
         return (
           <GameNotification
             key={el.message}

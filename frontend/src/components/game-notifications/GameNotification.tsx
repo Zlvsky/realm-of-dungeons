@@ -22,7 +22,7 @@ const GameNotification = ({
 
   const dimensions = useSelector(getGameDimensions);
 
-  console.log(dimensions)
+  const scaleW = dimensions.scaleW > 1 ? 1 : dimensions.scaleW;
 
   useEffect(() => {
     if (show) setMounted(true);
@@ -47,7 +47,7 @@ const GameNotification = ({
       });
 
       const gaps = 24 * (currentIndex + 1);
-      let top = 30;
+      let top = 45;
       for (let i = 0; i < currentIndex; i++) {
         top -= elements[i].clientHeight;
       }
@@ -75,28 +75,26 @@ const GameNotification = ({
 
   return mounted ? (
     <div
-      className={`pop-up-notification absolute max-w-[600px]  z-20  ${
+      className={`pop-up-notification fixed z-20 w-full left-1/2 -translate-x-1/2 flex flex-row  ${
         show ? "animate-notificationStart" : "animate-notificationEnd"
       }
       `}
-      style={
-        top
-          ? {
-              top: top,
-              marginLeft: 350 * dimensions.scaleW,
-              left: (1316 * dimensions.scaleW) / 2,
-            }
-          : { top: "24px" }
-      }
+      style={{
+        top: top || "24px",
+        maxWidth: dimensions.width,
+      }}
       onAnimationEnd={onAnimationEnd}
       ref={NotificationRef}
     >
-      <span
-        className="font-bold uppercase font-sans bg-gradient-to-b from-accent to-amber-900 text-transparent bg-clip-text"
-        style={{ fontSize: `${20 * dimensions.scaleW}px` }}
-      >
-        {message}
-      </span>
+      <div style={{ width: 350 * scaleW, height: 1 }}></div>
+      <div className="flex justify-center flex-1">
+        <span
+          className="font-bold tracking-wider uppercase font-sans bg-gradient-to-b from-accent to-red-600 text-transparent bg-clip-text"
+          style={{ fontSize: `${20 * scaleW}px` }}
+        >
+          {message}
+        </span>
+      </div>
     </div>
   ) : null;
 };
