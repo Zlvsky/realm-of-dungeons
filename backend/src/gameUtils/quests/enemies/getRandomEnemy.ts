@@ -1,10 +1,13 @@
 import { TCurrentRealm } from "../../../types/account/MainInterfaces";
 import { cavernsEnemies } from "./data/caverns/cavernsEnemies";
+import { cryptEnemies } from "./data/crypt/cryptEnemies";
 
 const getRealmEnemies = (realm: TCurrentRealm) => {
   switch (realm) {
     case "CAVERNS":
       return cavernsEnemies;
+    case "CRYPT":
+      return cryptEnemies;
   }
 };
 

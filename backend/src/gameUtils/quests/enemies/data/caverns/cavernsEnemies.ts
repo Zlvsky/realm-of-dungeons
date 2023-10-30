@@ -87,8 +87,8 @@ export const cavernsEnemies: { regular: IEnemy[]; bossess: IEnemy[] } = {
       avatar: "https://i.ibb.co/bF0Zd0D/molten-core-golem.jpg",
       level: 10,
       maxLevel: 15,
-      health: 350,
-      maxHealth: 350,
+      health: 150,
+      maxHealth: 150,
       damage: 20,
       attackText: "Golem hits you, dealing ",
       skills: [
