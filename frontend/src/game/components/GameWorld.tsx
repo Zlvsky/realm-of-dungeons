@@ -8,6 +8,7 @@ import Merchants from "../pages/merchants/Merchants";
 import { useMemo } from "react";
 import Portals from "../pages/portals/Portals";
 import Trainers from "../pages/trainers/Trainers";
+import Dungeon from "../pages/dungeon/Dungeon";
 
 function GameWorld() {
   const dimensions = useSelector(getGameDimensions);
@@ -18,6 +19,7 @@ function GameWorld() {
 
   const CurrentStage = useMemo(() => {
     if (stage === "quests" || isBattleStarted) return <Quests />;
+    if (stage === "dungeon") return <Dungeon />;
     if (stage === "portals") return <Portals />;
     if (stage === "hero") return <Hero />;
     if (stage === "temple") return <Temple />;

@@ -1,6 +1,7 @@
 import { Container, Sprite } from "@pixi/react";
 import portalsBtn from "../../../../assets/images/hud/buttons/portalsbtn.png";
 import questsBtn from "../../../../assets/images/hud/buttons/questsbtn.png";
+import dungeonBtn from "../../../../assets/images/hud/buttons/dungeonbtn.png";
 import heroBtn from "../../../../assets/images/hud/buttons/herobtn.png";
 import templeBtn from "../../../../assets/images/hud/buttons/templebtn.png";
 import merchantsBtn from "../../../../assets/images/hud/buttons/merchantsbtn.png";
@@ -20,6 +21,10 @@ const buttonsData = [
   {
     image: questsBtn,
     stage: "quests",
+  },
+  {
+    image: dungeonBtn,
+    stage: "dungeon",
   },
   {
     image: portalsBtn,
