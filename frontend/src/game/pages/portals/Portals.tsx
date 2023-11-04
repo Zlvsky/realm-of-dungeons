@@ -3,7 +3,7 @@ import { Container, Graphics, Sprite } from "@pixi/react";
 import portalsbg from "../../../assets/images/game-world/portals.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getHero, setHero } from "../../../redux/reducers/gameSlice";
-import { realmsData } from "./data/realmsData";
+import { realmsData } from "../../../data/realms/data/realmsData";
 import RealmInfo from "./components/RealmInfo";
 import TravelInfo from "./components/TravelInfo";
 import Destinations from "./components/Destinations";

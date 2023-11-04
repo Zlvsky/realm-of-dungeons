@@ -1,7 +1,7 @@
 import { Container, Sprite, Text } from "@pixi/react";
 import { TextStyle } from "pixi.js";
 import ArrowIcon from "../../../../assets/images/arrow_white.png";
-import { realmsData } from "../data/realmsData";
+import { realmsData } from "../../../../data/realms/data/realmsData";
 
 function Destinations({ availableRealms, realm, setRealm }: any) {
   return (
