@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Character } from "../../../schemas/character/characterSchema";
 import generateQuests from "../../../gameUtils/quests/generateQuests";
+import { getDungeonEnemies } from "../../../gameUtils/dungeons/getDungeonEnemies";
 
 const getOrbRealm = (id: number) => {
   switch (id) {
@@ -38,6 +39,13 @@ export const unlockRealm = async (req: Request, res: Response) => {
       realm: realm,
       finishedQuests: 0,
       quests: await generateQuests(realm, character.progression.level),
+    });
+
+    character.dungeons.push({
+      realm: realm,
+      currentMonster: 0,
+      dungeonRenewDate: null,
+      enemies: getDungeonEnemies(realm),
     });
     
     await character.save();

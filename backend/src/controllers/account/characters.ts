@@ -10,6 +10,7 @@ import generateQuests from "../../gameUtils/quests/generateQuests";
 import getNextLevelExperience from "../../gameUtils/characters/getNextLevelExperience";
 import getNextStatisticLevelExperience from "../../gameUtils/characters/getNextStatisticLevelExperience";
 import generateMerchantItems from "../../gameUtils/merchants/generateMerchantItems";
+import { cavernsDungeonEnemies } from "../../gameUtils/dungeons/caverns/cavernsDungeonEnemies";
 
 const router = express.Router();
 
@@ -51,6 +52,14 @@ export const createCharacter = async (req: Request, res: Response) => {
           realm: "CAVERNS",
           finishedQuests: 0,
           quests: await generateQuests("CAVERNS", 1),
+        },
+      ],
+      dungeons: [
+        {
+          realm: "CAVERNS",
+          currentMonster: 0,
+          dungeonRenewDate: null,
+          enemies: cavernsDungeonEnemies,
         },
       ],
       avatar: getCharacterAvatar(req.body.class),

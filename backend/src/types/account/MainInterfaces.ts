@@ -78,6 +78,7 @@ export interface ICharacter extends mongoose.Document {
     finishedQuests: number;
     quests: IQuest[];
   }[];
+  dungeons: IDungeon[],
   statistics: IStatistics;
   owner: mongoose.Types.ObjectId | IUser;
   equipment: [
@@ -197,4 +198,26 @@ export interface IMerchant {
   randomItems: boolean;
   interestedIn: string[];
   staticItems: { item: IItem | null }[];
+}
+
+export interface IDungeon {
+  realm: string;
+  currentMonster: number;
+  dungeonRenewDate: string | null;
+  enemies: {
+    name: string;
+    health: number;
+    maxHealth: number;
+    level: number;
+    damage: number;
+    attackText: string;
+    avatar: string;
+    description: string;
+    skills: ISkills[];
+    rewards: {
+      gold: number;
+      xp: number;
+      item?: IItem;
+    };
+  }[];
 }

@@ -9,6 +9,7 @@ import merchantsItemsSchema from "./subschemas/merchantsItemsSchema";
 import updatedValuesSchema from "./subschemas/updatedValuesSchema";
 import { itemSchema } from "../game/itemSchema";
 import realmsSchema from "./subschemas/realmsSchema";
+import dungeonsSchema from "./subschemas/dungeonsSchema";
 
 // to be added: SKILLS, GUILD, FRIENDS
 
@@ -34,6 +35,7 @@ const CharacterSchema = new mongoose.Schema({
   progression: progressionSchema,
   availableQuests: [availableQuestsSchema],
   activeQuest: activeQuestSchema,
+  dungeons: [dungeonsSchema],
   equipment: [
     {
       type: { type: String, required: true },
