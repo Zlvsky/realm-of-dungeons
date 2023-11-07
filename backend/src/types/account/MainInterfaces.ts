@@ -213,7 +213,7 @@ export interface IDungeon {
     attackText: string;
     avatar: string;
     description: string;
-    skills: ISkills[];
+    skills: ISkills[] | null;
     rewards: {
       gold: number;
       xp: number;
