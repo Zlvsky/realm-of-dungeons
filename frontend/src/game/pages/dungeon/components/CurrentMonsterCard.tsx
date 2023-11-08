@@ -3,8 +3,8 @@ import { TextStyle } from "pixi.js";
 
 const FRAME_WIDTH = 300;
 
-function CurrentMonsterCard({ dungeons }:any ) {
-    const currentMonster = dungeons.monsters[dungeons.currentMonster];
+function CurrentMonsterCard({ dungeon }:any ) {
+    const currentMonster = dungeon.enemies[dungeon.currentMonster];
 
     const MonsterInfo = () => {
         return (
@@ -75,7 +75,7 @@ function CurrentMonsterCard({ dungeons }:any ) {
     return (
       <Container position={[505, 220]}>
         <Sprite
-          image={currentMonster.img}
+          image={currentMonster.avatar}
           position={[0, 0]}
           width={FRAME_WIDTH}
           height={FRAME_WIDTH}

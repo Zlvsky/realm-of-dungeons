@@ -17,8 +17,10 @@ const CheckMark = () => {
   );
 };
 
-function PreviousMonsterCard({ dungeons }: any) {
-  const currentMonster = dungeons.monsters[dungeons.currentMonster];
+function PreviousMonsterCard({ dungeon }: any) {
+  const currentMonster = dungeon.enemies[dungeon.currentMonster - 1];
+
+  if (!currentMonster) return null;
 
   const MonsterInfo = () => {
     return (
@@ -68,7 +70,7 @@ function PreviousMonsterCard({ dungeons }: any) {
   return (
     <Container position={[205, 290]}>
       <Sprite
-        image={currentMonster.img}
+        image={currentMonster.avatar}
         position={[0, 0]}
         width={FRAME_WIDTH}
         height={FRAME_WIDTH}

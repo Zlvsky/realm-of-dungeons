@@ -3,10 +3,10 @@ import { BlurFilter, TextStyle } from "pixi.js";
 
 const FRAME_WIDTH = 250;
 
-function NextMonsterCard({ dungeons }: any) {
-  const currentMonster = dungeons.monsters[dungeons.currentMonster];
+function NextMonsterCard({ dungeon }: any) {
+  const currentMonster = dungeon.enemies[dungeon.currentMonster + 1];
 
-  const blurFilter = new BlurFilter(11);
+  const blurFilter = new BlurFilter(15);
 
   const MonsterInfo = () => {
     return (
@@ -53,10 +53,12 @@ function NextMonsterCard({ dungeons }: any) {
     );
   };
 
+  if (!currentMonster) return null;
+
   return (
     <Container position={[854, 290]}>
       <Sprite
-        image={currentMonster.img}
+        image={currentMonster.avatar}
         position={[0, 0]}
         width={FRAME_WIDTH}
         height={FRAME_WIDTH}

@@ -1,8 +1,6 @@
-import { ICharacter } from "../../../../interfaces/MainInterface";
-
-export const getDungeonTitle = (hero: ICharacter, realm: any) => {
+export const getDungeonTitle = (realmDungeon: any, realm: any) => {
     const realmName = realm.name;
-    const currentIndex = 1;
+    const currentIndex = realmDungeon.currentMonster + 1;
     const monstersLength = 10;
 
 

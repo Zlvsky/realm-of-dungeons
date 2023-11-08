@@ -25,7 +25,7 @@ const MonsterFrame = ({ monster, index, currentMonster }: any) => {
   return (
     <Container position={[100 * index, 0]}>
       <Sprite
-        image={monster.img}
+        image={monster.avatar}
         position={[0, 0]}
         width={70}
         height={70}
@@ -46,15 +46,15 @@ const MonsterFrame = ({ monster, index, currentMonster }: any) => {
   );
 };
 
-function MonstersList({ dungeons }: any) {
+function MonstersList({ dungeon }: any) {
   return (
     <Container position={[170, 100]}>
-      {dungeons.monsters.map((monster: any, index: number) => {
+      {dungeon?.enemies.map((monster: any, index: number) => {
         return (
           <MonsterFrame
             monster={monster}
             index={index}
-            currentMonster={dungeons.currentMonster}
+            currentMonster={dungeon.currentMonster}
             key={index}
           />
         );

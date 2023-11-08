@@ -2,18 +2,18 @@ import { useState, useEffect } from "react";
 import { Container, Sprite, Text } from "@pixi/react";
 import { TextStyle } from "pixi.js";
 
-import acceptbtn from "../../../../assets/images/acceptbtn.png";
+import fightbtn from "../../../../assets/images/fightbtn.png";
 import secondsRemaining from "../../../../utils/calculations/secondsRemaining";
 import secondsToTimeHours from "../../../../utils/parsing-data/secondsToTimeHours";
 
-function DungeonButton({ hero, dungeons }: any ) {
+function DungeonButton({ hero, dungeon }: any ) {
 
     const [timeRemaining, setTimeRemaining] = useState<any>(null);
 
     function calculateRemainingTime() {
       return new Promise<void>((resolve) => {
         const checkTimeRemaining = () => {
-          const secondsLeft = secondsRemaining(hero.extras.healRenewDate!);
+          const secondsLeft = secondsRemaining(dungeon.dungeonRenewDate!);
           if (secondsLeft < 0) {
             setTimeRemaining("00:00:00");
             resolve();
@@ -27,12 +27,12 @@ function DungeonButton({ hero, dungeons }: any ) {
     }
 
     useEffect(() => {
-      if (hero.extras.healRenewDate) calculateRemainingTime();
+      if (dungeon.dungeonRenewDate) calculateRemainingTime();
     }, [hero]);
 
     return (
       <Container position={[0, 820]}>
-        {dungeons.dungeonRenewDate && (
+        {dungeon.dungeonRenewDate && (
           <Text
             anchor={0.5}
             x={1316 / 2}
@@ -50,7 +50,7 @@ function DungeonButton({ hero, dungeons }: any ) {
           />
         )}
         <Sprite
-          image={acceptbtn}
+          image={fightbtn}
           width={150}
           height={150}
           anchor={0.5}
