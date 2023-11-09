@@ -8,6 +8,10 @@ const dungeonsSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
+  isBattleStarted: {
+    type: Boolean,
+    default: false,
+  },
   enemies: [
     {
       name: { type: String, default: null },

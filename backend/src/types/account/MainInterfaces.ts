@@ -203,6 +203,7 @@ export interface IMerchant {
 export interface IDungeon {
   realm: string;
   currentMonster: number;
+  isBattleStarted?: boolean;
   dungeonRenewDate: string | null;
   enemies: {
     name: string;

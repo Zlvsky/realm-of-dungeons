@@ -191,6 +191,7 @@ export interface IDungeon {
   realm: string;
   currentMonster: number;
   dungeonRenewDate: string | null;
+  isBattleStarted: boolean;
   enemies: {
     name: string;
     health: number;
