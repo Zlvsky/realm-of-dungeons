@@ -12,11 +12,12 @@ import NextMonsterCard from './components/NextMonsterCard';
 import DungeonButton from './components/DungeonButton';
 import { isDungeonAvailable } from './helpers/isDungeonAvailable';
 import DungeonUnavailable from './components/DungeonUnavailable';
+import DungeonBattle from './dungeon-battle/DungeonBattle';
 
 function Dungeon() {
   const hero = useSelector(getHero)!;
 
-  const [realm, setRealm] = useState(realmsData(hero.realms.currentRealm));
+  const realm = realmsData(hero.realms.currentRealm);
 
   const [realmDungeon] = useState(
     hero.dungeons.find((dungeon) => dungeon.realm === hero.realms.currentRealm)
@@ -25,6 +26,8 @@ function Dungeon() {
   const isAvailable = isDungeonAvailable(hero);
 
   if (!isAvailable) return <DungeonUnavailable realm={hero.realms.currentRealm} />
+
+  if (realmDungeon?.isBattleStarted) return <DungeonBattle hero={hero} realmDungeon={realmDungeon} />;
 
     return (
       <Container position={[0, 2]} interactive={true}>

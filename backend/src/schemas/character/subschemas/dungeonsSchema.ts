@@ -12,6 +12,8 @@ const dungeonsSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  battleWinner: { type: Number, enum: [1, 2], default: null },
+  whosTurn: { type: Number, enum: [1, 2], default: 1 },
   enemies: [
     {
       name: { type: String, default: null },

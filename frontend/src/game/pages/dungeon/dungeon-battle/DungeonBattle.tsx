@@ -1,26 +1,26 @@
-import { useEffect, useState } from "react";
-import { Container, Text, TilingSprite } from "@pixi/react";
-import { TextStyle } from "pixi.js";
-import BgPattern from "../../../../../assets/images/dark_wall.png";
-import BattleStats from "../../../../components/battle/BattleStats";
-import Bar from "../../../../components/battle/Bar";
-import Portrait from "../../../../components/battle/Portrait";
-import CombatActions from "../../../../components/battle/CombatActions";
-import CombatLogs from "../../../../components/battle/CombatLogs";
-import { questEnemyTurn } from "../../../../../client/appClient";
-import { setHero } from "../../../../../redux/reducers/gameSlice";
+import { useState, useEffect } from "react";
+import { ICharacter, IDungeon } from '../../../../interfaces/MainInterface';
+import { setHero } from "../../../../redux/reducers/gameSlice";
 import { useDispatch } from "react-redux";
-import fetchHero from "../../../../../utils/fetchers/fetchHero";
-import BattleEndPopup from "../../../../components/battle/BattleEndPopup";
-import { questBattleEndService } from "../../../../../client/services/game/quests/questBattleEndService";
-import { ICharacter } from "../../../../../interfaces/MainInterface";
+import fetchHero from "../../../../utils/fetchers/fetchHero";
+import { Container, Text, TilingSprite } from "@pixi/react";
+import Bar from "../../../components/battle/Bar";
+import Portrait from "../../../components/battle/Portrait";
+import BattleStats from "../../../components/battle/BattleStats";
+import { TextStyle } from "pixi.js";
+import CombatActions from "../../../components/battle/CombatActions";
+import CombatLogs from "../../../components/battle/CombatLogs";
+import BattleEndPopup from "../../../components/battle/BattleEndPopup";
+import BgPattern from "../../../../assets/images/dark_wall.png";
 
-interface IQuestBattle {
+interface IDungeonBattle {
   hero: ICharacter;
+  realmDungeon: IDungeon;
 }
 
-function QuestBattle({ hero }: IQuestBattle) {
+function DungeonBattle({ hero, realmDungeon }: IDungeonBattle) {
   const [battleWinner, setBattleWinner] = useState<1 | 2 | null>(null);
+  const enemy = realmDungeon.enemies[realmDungeon.currentMonster];
 
   const dispatch = useDispatch();
 
@@ -41,9 +41,9 @@ function QuestBattle({ hero }: IQuestBattle) {
   };
 
   useEffect(() => {
-    if (hero.activeQuest.quest!.battleWinner) {
-      setBattleWinner(hero.activeQuest.quest!.battleWinner);
-    } else if (hero.activeQuest.quest!.whosTurn === 2) {
+    if (realmDungeon!.battleWinner) {
+      setBattleWinner(realmDungeon!.battleWinner);
+    } else if (realmDungeon!.whosTurn === 2) {
       setTimeout(() => {
         handleEnemyTurn();
       }, 1000);
@@ -56,18 +56,18 @@ function QuestBattle({ hero }: IQuestBattle) {
         <Bar
           position={[0, 0]}
           name={"Hit points"}
-          value={hero.activeQuest.enemy!.health}
-          maxValue={hero.activeQuest.enemy!.maxHealth}
+          value={enemy!.health}
+          maxValue={enemy!.maxHealth}
         />
         {/* <BattleStats
-          statistics={hero.activeQuest.enemy!.statistics}
+          statistics={enemy!.statistics}
           position={[0, 150]}
         /> */}
         <Portrait
           position={[450, 0]}
-          name={hero.activeQuest.enemy!.name}
-          level={hero.activeQuest.enemy!.level}
-          img={hero.activeQuest.enemy!.avatar}
+          name={enemy!.name}
+          level={enemy!.level}
+          img={enemy!.avatar}
         />
       </Container>
     );
@@ -105,9 +105,9 @@ function QuestBattle({ hero }: IQuestBattle) {
 
   const Turn = () => {
     const whosTurn =
-      hero?.activeQuest.quest!.whosTurn === 1
+      realmDungeon!.whosTurn === 1
         ? "You"
-        : hero?.activeQuest.enemy!.name;
+        : enemy!.name;
 
     return (
       <Container position={[500, 380]}>
@@ -141,11 +141,11 @@ function QuestBattle({ hero }: IQuestBattle) {
       <Turn />
       <HeroSection />
       <CombatActions hero={hero} />
-      <CombatLogs logs={hero.activeQuest.textLogs} />
+      {/* <CombatLogs logs={realmDungeon.textLogs} /> */}
       {battleWinner && (
         <BattleEndPopup
           battleWinner={battleWinner}
-          rewards={hero.activeQuest.quest!.rewards}
+          rewards={enemy!.rewards}
           handleBattleEnd={handleBattleEnd}
         />
       )}
@@ -153,4 +153,4 @@ function QuestBattle({ hero }: IQuestBattle) {
   );
 }
 
-export default QuestBattle;
+export default DungeonBattle;

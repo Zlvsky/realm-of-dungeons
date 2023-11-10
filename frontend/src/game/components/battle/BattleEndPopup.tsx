@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
 import { Container, Graphics, Sprite, Text } from '@pixi/react';
 import { TextStyle } from 'pixi.js';
-import IconWithText from '../../../../../../components/common/text/IconWithText';
-import GoldIcon from "../../../../../../assets/images/icons/gui/gold-icon.png";
-import XpIcon from "../../../../../../assets/images/icons/gui/xp.png";
-import continuebtn from "../../../../../../assets/images/continuebtn.png";
+import IconWithText from '../../../components/common/text/IconWithText';
+import GoldIcon from "../../../assets/images/icons/gui/gold-icon.png";
+import XpIcon from "../../../assets/images/icons/gui/xp.png";
+import continuebtn from "../../../assets/images/continuebtn.png";
 
 interface IBattleEnd {
   battleWinner: 1 | 2;

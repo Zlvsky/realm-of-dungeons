@@ -28,6 +28,7 @@ import { changeRealm } from "./controllers/game/realms/changeRealm";
 import { unlockRealm } from "./controllers/game/realms/unlockRealm";
 import { trainStatistic } from "./controllers/game/trainers/trainStatistic";
 import { getTrainingFee } from "./controllers/game/trainers/getTrainingFee";
+import { startDungeonBattle } from "./controllers/game/dungeon/dungeon";
 
 const uri = process.env.MONGO_CONNECTION_URL;
 if(!uri) throw new Error(".env file is not created")
@@ -86,6 +87,15 @@ app.post("/api/quest/action/attack", characterAttack);
 app.post("/api/quest/action/potion", characterUsePotion);
 app.post("/api/quest/enemyTurn", enemyTurn);
 app.post("/api/quest/battleEnd", questBattleEnd);
+
+// DUNGEONS
+app.post("/api/dungeon/startBattle", startDungeonBattle);
+
+// DUNGEON BATTLE
+// app.post("/api/quest/action/attack", characterAttack);
+// app.post("/api/quest/action/potion", characterUsePotion);
+// app.post("/api/quest/enemyTurn", enemyTurn);
+// app.post("/api/quest/battleEnd", questBattleEnd);
 
 // TEMPLE
 app.post("/api/temple/heal", templeHealing);

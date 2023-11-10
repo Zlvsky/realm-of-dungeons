@@ -5,10 +5,20 @@ import { TextStyle } from "pixi.js";
 import fightbtn from "../../../../assets/images/fightbtn.png";
 import secondsRemaining from "../../../../utils/calculations/secondsRemaining";
 import secondsToTimeHours from "../../../../utils/parsing-data/secondsToTimeHours";
+import { startDungeonBattleService } from "../../../../client/services/game/dungeons/startDungeonBattleService";
+import displayError from "../../../../utils/notifications/errors";
+import { useDispatch } from "react-redux";
+import { setHero } from "../../../../redux/reducers/gameSlice";
+import fetchHero from "../../../../utils/fetchers/fetchHero";
 
 function DungeonButton({ hero, dungeon }: any ) {
-
     const [timeRemaining, setTimeRemaining] = useState<any>(null);
+
+    const dispatch = useDispatch();
+
+    const updateHero = (data: any) => {
+      dispatch(setHero(data));
+    };
 
     function calculateRemainingTime() {
       return new Promise<void>((resolve) => {
@@ -24,6 +34,12 @@ function DungeonButton({ hero, dungeon }: any ) {
         };
         checkTimeRemaining();
       });
+    }
+
+    const handleStartDungeonBattle = async () => {
+      const response = await startDungeonBattleService();
+      if (response.status !== 200) return displayError(dispatch, response);
+      fetchHero(updateHero);
     }
 
     useEffect(() => {
@@ -58,7 +74,7 @@ function DungeonButton({ hero, dungeon }: any ) {
           y={50}
           cursor={"pointer"}
           interactive={true}
-          onclick={() => {}}
+          onclick={handleStartDungeonBattle}
         />
       </Container>
     );

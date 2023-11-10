@@ -1,15 +1,15 @@
 import { Container, Graphics, Sprite } from '@pixi/react';
 import { useDispatch } from 'react-redux';
-import { setHero } from '../../../../../../redux/reducers/gameSlice';
-import fetchHero from '../../../../../../utils/fetchers/fetchHero';
-import { questActionAttack, questActionPotion } from '../../../../../../client/appClient';
+import { setHero } from '../../../redux/reducers/gameSlice';
+import fetchHero from '../../../utils/fetchers/fetchHero';
+import { questActionAttack, questActionPotion } from '../../../client/appClient';
 
-import lowAttack from "../../../../../../assets/images/combat/combat-actions/low.png";
-import mediumAttack from "../../../../../../assets/images/combat/combat-actions/medium.png";
-import strongAttack from "../../../../../../assets/images/combat/combat-actions/strong.png";
+import lowAttack from "../../../assets/images/combat/combat-actions/low.png";
+import mediumAttack from "../../../assets/images/combat/combat-actions/medium.png";
+import strongAttack from "../../../assets/images/combat/combat-actions/strong.png";
 
-import potionBlank from "../../../../../../assets/images/equipment-slots/potionEqSlot.png";
-import spellSlot from "../../../../../../assets/images/equipment-slots/spellsSlot.png";
+import potionBlank from "../../../assets/images/equipment-slots/potionEqSlot.png";
+import spellSlot from "../../../assets/images/equipment-slots/spellsSlot.png";
 
 interface IAction {
   x: number;

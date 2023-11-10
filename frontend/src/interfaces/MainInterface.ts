@@ -192,6 +192,8 @@ export interface IDungeon {
   currentMonster: number;
   dungeonRenewDate: string | null;
   isBattleStarted: boolean;
+  battleWinner?: 1 | 2 | null;
+  whosTurn?: 1 | 2;
   enemies: {
     name: string;
     health: number;
