@@ -24,11 +24,13 @@ import { IUpdateStatistics, updateStatisticsService } from "./services/game/hero
 import { getUserDetailsService } from "./services/user/getUserDetailsService";
 import { IMerchantBuy, merchantBuyService } from "./services/game/merchants/merchantBuyService";
 import { IMerchantSell, merchantSellService } from "./services/game/merchants/merchantSellService";
-import { questActionPotionService } from "./services/game/quests/actions/questActionPotionService";
 import { changeRealmService } from "./services/game/realms/changeRealmService";
 import { unlockRealmService } from "./services/game/realms/unlockRealmService";
 import { trainerTrainService } from "./services/game/trainers/trainerTrainService";
 import { trainerFeeService } from "./services/game/trainers/trainerFeeService";
+import { startDungeonBattleService } from "./services/game/dungeons/startDungeonBattleService";
+import { getDungeonEnemiesService } from "./services/game/dungeons/getDungeonEnemies";
+import { battleActionPotionService } from "./services/battle/battleActionPotionService";
 
 // REGISTER AND LOGIN
 export async function register(body: signUpInterface) {
@@ -80,6 +82,11 @@ export async function updateStatistics(body: IUpdateStatistics) {
   return await updateStatisticsService(body);
 }
 
+// BATTLE
+export async function battleActionPotionRequest() {
+  return await battleActionPotionService();
+}
+
 // QUESTS
 export async function updateActiveQuest(body: updateActiveQuestInterface) {
   return await updateActiveQuestService(body);
@@ -95,10 +102,6 @@ export async function startQuestBattle() {
 
 export async function questActionAttack(body: IQuestActionAttack) {
   return await questActionAttackService(body);
-}
-
-export async function questActionPotion() {
-  return await questActionPotionService();
 }
 
 export async function questEnemyTurn() {
@@ -144,3 +147,13 @@ export async function trainerTrainRequest(stat: string) {
 export async function trainerFeeRequest(stat: string) {
   return await trainerFeeService(stat);
 };
+
+// DUNGEONS
+
+export async function startDungeonBattleRequest() {
+  return await startDungeonBattleService();
+}
+
+export async function getDungeonEnemiesRequest() {
+  return await getDungeonEnemiesService();
+}

@@ -3,8 +3,8 @@ import { BlurFilter, TextStyle } from "pixi.js";
 
 const FRAME_WIDTH = 250;
 
-function NextMonsterCard({ dungeon }: any) {
-  const currentMonster = dungeon.enemies[dungeon.currentMonster + 1];
+function NextMonsterCard({ dungeon, enemies }: any) {
+  const currentMonster = enemies[dungeon.currentMonster + 1];
 
   const blurFilter = new BlurFilter(15);
 
@@ -53,7 +53,7 @@ function NextMonsterCard({ dungeon }: any) {
     );
   };
 
-  if (!currentMonster) return null;
+  if (!currentMonster || currentMonster.length === 0) return null;
 
   return (
     <Container position={[854, 290]}>

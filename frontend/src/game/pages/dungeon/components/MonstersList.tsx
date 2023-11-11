@@ -46,10 +46,10 @@ const MonsterFrame = ({ monster, index, currentMonster }: any) => {
   );
 };
 
-function MonstersList({ dungeon }: any) {
+function MonstersList({ dungeon, enemies }: any) {
   return (
     <Container position={[170, 100]}>
-      {dungeon?.enemies.map((monster: any, index: number) => {
+      {enemies?.map((monster: any, index: number) => {
         return (
           <MonsterFrame
             monster={monster}

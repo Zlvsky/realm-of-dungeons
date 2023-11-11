@@ -3,8 +3,10 @@ import { TextStyle } from "pixi.js";
 
 const FRAME_WIDTH = 300;
 
-function CurrentMonsterCard({ dungeon }:any ) {
-    const currentMonster = dungeon.enemies[dungeon.currentMonster];
+function CurrentMonsterCard({ dungeon, enemies }:any ) {
+    const currentMonster = enemies[dungeon.currentMonster];
+
+    if (!currentMonster || currentMonster.length === 0) return null;
 
     const MonsterInfo = () => {
         return (

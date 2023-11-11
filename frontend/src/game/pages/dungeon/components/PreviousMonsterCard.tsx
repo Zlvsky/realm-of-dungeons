@@ -17,10 +17,10 @@ const CheckMark = () => {
   );
 };
 
-function PreviousMonsterCard({ dungeon }: any) {
-  const currentMonster = dungeon.enemies[dungeon.currentMonster - 1];
+function PreviousMonsterCard({ dungeon, enemies }: any) {
+  const currentMonster = enemies[dungeon.currentMonster - 1];
 
-  if (!currentMonster) return null;
+  if (!currentMonster || currentMonster.length === 0) return null;
 
   const MonsterInfo = () => {
     return (

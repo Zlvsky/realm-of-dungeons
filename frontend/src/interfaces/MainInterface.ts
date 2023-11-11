@@ -168,7 +168,7 @@ export interface IQuest {
   rewards: {
     gold: number;
     xp: number;
-    itemId?: string;
+    item?: IItem;
   };
 }
 
@@ -191,23 +191,26 @@ export interface IDungeon {
   realm: string;
   currentMonster: number;
   dungeonRenewDate: string | null;
-  isBattleStarted: boolean;
-  battleWinner?: 1 | 2 | null;
-  whosTurn?: 1 | 2;
-  enemies: {
-    name: string;
-    health: number;
-    maxHealth: number;
-    level: number;
-    damage: number;
-    attackText: string;
-    avatar: string;
-    description: string;
-    skills: ISkills[] | null;
-    rewards: {
-      gold: number;
-      xp: number;
-      item?: IItem;
-    };
-  }[];
-}
+  battle: {
+    isBattleStarted?: boolean;
+    battleWinner?: 1 | 2 | null;
+    whosTurn?: 1 | 2;
+    textLogs: string[];
+    enemy: {
+      name: string;
+      health: number;
+      maxHealth: number;
+      level: number;
+      damage: number;
+      attackText: string;
+      avatar: string;
+      description: string;
+      skills: ISkills[] | null;
+      rewards: {
+        gold: number;
+        xp: number;
+        item?: IItem;
+      };
+    } | null;
+  };
+};

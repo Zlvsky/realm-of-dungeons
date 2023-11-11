@@ -20,13 +20,19 @@ interface IDungeonBattle {
 
 function DungeonBattle({ hero, realmDungeon }: IDungeonBattle) {
   const [battleWinner, setBattleWinner] = useState<1 | 2 | null>(null);
-  const enemy = realmDungeon.enemies[realmDungeon.currentMonster];
+  const enemy = realmDungeon.battle.enemy;
 
   const dispatch = useDispatch();
 
   const updateHero = (data: any) => {
     dispatch(setHero(data));
   };
+
+   const performAttack = async (attackPower: "low" | "medium" | "strong") => {
+     const response = await questActionAttack({ attackPower });
+     if (response.status !== 200) return console.log(response.data);
+     fetchHero(updateHero);
+   };
 
   const handleEnemyTurn = async () => {
     const response = await questEnemyTurn();
@@ -41,9 +47,9 @@ function DungeonBattle({ hero, realmDungeon }: IDungeonBattle) {
   };
 
   useEffect(() => {
-    if (realmDungeon!.battleWinner) {
-      setBattleWinner(realmDungeon!.battleWinner);
-    } else if (realmDungeon!.whosTurn === 2) {
+    if (realmDungeon!.battle.battleWinner) {
+      setBattleWinner(realmDungeon!.battle.battleWinner);
+    } else if (realmDungeon!.battle.whosTurn === 2) {
       setTimeout(() => {
         handleEnemyTurn();
       }, 1000);
@@ -105,7 +111,7 @@ function DungeonBattle({ hero, realmDungeon }: IDungeonBattle) {
 
   const Turn = () => {
     const whosTurn =
-      realmDungeon!.whosTurn === 1
+      realmDungeon!.battle.whosTurn === 1
         ? "You"
         : enemy!.name;
 
@@ -140,12 +146,12 @@ function DungeonBattle({ hero, realmDungeon }: IDungeonBattle) {
       <MobSection />
       <Turn />
       <HeroSection />
-      <CombatActions hero={hero} />
-      {/* <CombatLogs logs={realmDungeon.textLogs} /> */}
+      <CombatActions hero={hero} performAttack={performAttack} />
+      <CombatLogs logs={realmDungeon.battle.textLogs} />
       {battleWinner && (
         <BattleEndPopup
           battleWinner={battleWinner}
-          rewards={enemy!.rewards}
+          rewards={enemy?.rewards!}
           handleBattleEnd={handleBattleEnd}
         />
       )}

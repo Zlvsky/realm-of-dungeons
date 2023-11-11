@@ -1,15 +1,12 @@
 import { AxiosError } from "axios";
-import axiosClient from "../../../../axiosClient";
+import axiosClient from "../../../axiosClient";
 import Cookies from "js-cookie";
 
-export const questActionPotionService = async () => {
+export const getDungeonEnemiesService = async () => {
   const jwt = Cookies.get("jwt");
   try {
-    const res = await axiosClient.post(
-      "/quest/action/potion",
-      {
-        characterId: localStorage.getItem("hero"),
-      },
+    const res = await axiosClient.get(
+      `/dungeon/enemies/${localStorage.getItem("hero")}`,
       {
         headers: {
           authorization: jwt,

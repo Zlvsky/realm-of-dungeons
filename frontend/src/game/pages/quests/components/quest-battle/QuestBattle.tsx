@@ -7,7 +7,7 @@ import Bar from "../../../../components/battle/Bar";
 import Portrait from "../../../../components/battle/Portrait";
 import CombatActions from "../../../../components/battle/CombatActions";
 import CombatLogs from "../../../../components/battle/CombatLogs";
-import { questEnemyTurn } from "../../../../../client/appClient";
+import { questActionAttack, questEnemyTurn } from "../../../../../client/appClient";
 import { setHero } from "../../../../../redux/reducers/gameSlice";
 import { useDispatch } from "react-redux";
 import fetchHero from "../../../../../utils/fetchers/fetchHero";
@@ -26,6 +26,12 @@ function QuestBattle({ hero }: IQuestBattle) {
 
   const updateHero = (data: any) => {
     dispatch(setHero(data));
+  };
+
+  const performAttack = async (attackPower: "low" | "medium" | "strong") => {
+    const response = await questActionAttack({ attackPower });
+    if (response.status !== 200) return console.log(response.data);
+    fetchHero(updateHero);
   };
 
   const handleEnemyTurn = async () => {
@@ -140,7 +146,7 @@ function QuestBattle({ hero }: IQuestBattle) {
       <MobSection />
       <Turn />
       <HeroSection />
-      <CombatActions hero={hero} />
+      <CombatActions hero={hero} performAttack={performAttack} />
       <CombatLogs logs={hero.activeQuest.textLogs} />
       {battleWinner && (
         <BattleEndPopup

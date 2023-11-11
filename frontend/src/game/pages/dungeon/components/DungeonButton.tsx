@@ -5,11 +5,11 @@ import { TextStyle } from "pixi.js";
 import fightbtn from "../../../../assets/images/fightbtn.png";
 import secondsRemaining from "../../../../utils/calculations/secondsRemaining";
 import secondsToTimeHours from "../../../../utils/parsing-data/secondsToTimeHours";
-import { startDungeonBattleService } from "../../../../client/services/game/dungeons/startDungeonBattleService";
 import displayError from "../../../../utils/notifications/errors";
 import { useDispatch } from "react-redux";
 import { setHero } from "../../../../redux/reducers/gameSlice";
 import fetchHero from "../../../../utils/fetchers/fetchHero";
+import { startDungeonBattleRequest } from "../../../../client/appClient";
 
 function DungeonButton({ hero, dungeon }: any ) {
     const [timeRemaining, setTimeRemaining] = useState<any>(null);
@@ -37,7 +37,7 @@ function DungeonButton({ hero, dungeon }: any ) {
     }
 
     const handleStartDungeonBattle = async () => {
-      const response = await startDungeonBattleService();
+      const response = await startDungeonBattleRequest();
       if (response.status !== 200) return displayError(dispatch, response);
       fetchHero(updateHero);
     }
