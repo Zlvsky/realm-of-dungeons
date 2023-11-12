@@ -15,18 +15,24 @@ function GameWorld() {
   const stage = useSelector(getCurrentStage);
   const hero = useSelector(getHero);
 
-  const isBattleStarted = hero?.activeQuest.quest?.battleStarted;
+  const isQuestBattleStarted = hero?.activeQuest.quest?.battleStarted;
+  
+  const realmDungeon = hero?.dungeons.find(
+    (dungeon) => dungeon?.realm === hero?.realms?.currentRealm
+  );
+
+  const isDungeonBattleStarted = realmDungeon?.battle?.isBattleStarted;
 
   const CurrentStage = useMemo(() => {
-    if (stage === "quests" || isBattleStarted) return <Quests />;
-    if (stage === "dungeon") return <Dungeon />;
+    if ((stage === "quests" && !isDungeonBattleStarted) || isQuestBattleStarted) return <Quests />;
+    if ((stage === "dungeon" && !isQuestBattleStarted) || isDungeonBattleStarted) return <Dungeon />;
     if (stage === "portals") return <Portals />;
     if (stage === "hero") return <Hero />;
     if (stage === "temple") return <Temple />;
     if (stage === "merchants") return <Merchants />;
     if (stage === "trainers") return <Trainers />;
     return <></>;
-  }, [stage, isBattleStarted]);
+  }, [stage, isQuestBattleStarted]);
 
   return (
     <Container

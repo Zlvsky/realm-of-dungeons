@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Character } from "../../../schemas/character/characterSchema";
 import handleUsePotion from "./helpers/handleUsePotion";
+import { getRealmDungeon } from "../../../gameUtils/dungeons/getRealmDungeon";
 
 interface ICharacterUsePotion { 
     characterId: string;
@@ -48,10 +49,7 @@ export const characterUsePotion = async (req: Request, res: Response) => {
 
     } else if (battleType === "DUNGEON") {
 
-        const realmDungeonIndex = character.dungeons.findIndex(
-          (dungeon) => dungeon.realm === character.realms.currentRealm
-        );
-        const realmDungeon = character.dungeons[realmDungeonIndex];
+        const realmDungeon = getRealmDungeon(character);
 
         if (!realmDungeon)
           return res

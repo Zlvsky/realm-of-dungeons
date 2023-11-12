@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { ICharacter } from "../../../types/account/MainInterfaces";
 import { Character } from "../../../schemas/character/characterSchema";
 import generateEnemy from "../../../gameUtils/quests/enemies/generateEnemy";
+import { getRealmDungeon } from "../../../gameUtils/dungeons/getRealmDungeon";
 
 export const updateActiveQuest = async (req: Request, res: Response) => {
   const { characterId, questId } = req.body;
@@ -28,6 +29,11 @@ export const updateActiveQuest = async (req: Request, res: Response) => {
     if (!selectedQuest) {
       return res.status(404).json({ message: "Quest not found" });
     }
+
+    const realmDungeon = getRealmDungeon(character);
+
+    if (realmDungeon.battle.isBattleStarted)
+      return res.status(400).json({ message: "Finish dungeon first" });
 
     character.activeQuest.quest = selectedQuest;
     character.activeQuest.timeStarted = new Date().toISOString();
@@ -64,10 +70,12 @@ export const startQuestBattle = async (req: Request, res: Response) => {
     if (!character) {
       return res.status(404).json({ message: "Character not found" });
     }
+
     if (character.activeQuest.quest && character.activeQuest.timeStarted) {
       const now = new Date();
       const questTime = new Date(character.activeQuest.timeStarted);
       const randomEnemy = generateEnemy(character.realms.currentRealm, character.progression.level, character.activeQuest?.isBoss);
+      
       if(now > questTime) {
         character.activeQuest.quest.battleStarted = true;
         character.activeQuest.enemy = randomEnemy;

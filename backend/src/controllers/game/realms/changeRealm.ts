@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Character } from "../../../schemas/character/characterSchema";
+import { getRealmDungeon } from "../../../gameUtils/dungeons/getRealmDungeon";
 
 const getRealmTravelFee = (realm: string) => {
     switch (realm) {
@@ -18,11 +19,16 @@ export const changeRealm = async (req: Request, res: Response) => {
     if (!character)
       return res.status(404).json({ message: "Character not found" });
 
+    const realmDungeon = getRealmDungeon(character);
+
     if (!character.realms.availableRealms.includes(realm))
       return res.status(400).json({ message: "You don't have access to this realm" });
 
     if (Boolean(character.activeQuest.quest)) 
       return res.status(400).json({ message: "Finish quest first" });
+
+    if (realmDungeon.battle.isBattleStarted)
+      return res.status(400).json({ message: "Finish dungeon first" });
 
     const realmTravelFee = getRealmTravelFee(realm);
 

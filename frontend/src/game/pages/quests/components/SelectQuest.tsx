@@ -16,6 +16,7 @@ import { updateActiveQuest } from "../../../../client/appClient";
 import fetchHero from "../../../../utils/fetchers/fetchHero";
 import { useDispatch } from "react-redux";
 import IconWithText from "../../../../components/common/text/IconWithText";
+import displayError from "../../../../utils/notifications/errors";
 
 const iconWithTextStyle = {
   align: "center",
@@ -59,7 +60,7 @@ function SelectQuest({ hero }: any) {
     const response = await updateActiveQuest({
       questId: currentQuestsData[selectedQuest]._id,
     });
-    if (response.status !== 200) return console.log(response.data);
+    if (response.status !== 200) return displayError(dispatch, response);
     fetchHero(updateHero);
   };
 

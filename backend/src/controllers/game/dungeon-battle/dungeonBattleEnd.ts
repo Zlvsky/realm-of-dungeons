@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Character } from "../../../schemas/character/characterSchema";
 import levelUpIfReady from "../../../gameUtils/characters/levelUpIfReady";
+import { getRealmDungeon } from "../../../gameUtils/dungeons/getRealmDungeon";
 
 export const dungeonBattleEnd = async (req: Request, res: Response) => {
   const { characterId } = req.body;
@@ -10,10 +11,7 @@ export const dungeonBattleEnd = async (req: Request, res: Response) => {
     if (!character)
       return res.status(404).json({ message: "Character not found" });
 
-    const realmDungeonIndex = character.dungeons.findIndex(
-      (dungeon) => dungeon.realm === character.realms.currentRealm
-    );
-    const realmDungeon = character.dungeons[realmDungeonIndex];
+    const realmDungeon = getRealmDungeon(character);
 
     if (!realmDungeon)
       return res
@@ -42,7 +40,7 @@ export const dungeonBattleEnd = async (req: Request, res: Response) => {
         const freeInventorySlot = character.inventory.find(
           (slot) => slot.item === null
         );
-        
+
         if (freeInventorySlot) freeInventorySlot.item = enemy.rewards.item;
       }
       levelUpIfReady(character);

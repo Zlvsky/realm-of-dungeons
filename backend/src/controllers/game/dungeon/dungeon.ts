@@ -5,6 +5,7 @@ import { Character } from "../../../schemas/character/characterSchema";
 import { getDungeonEnemies } from "../../../gameUtils/dungeons/getDungeonEnemies";
 import { cavernsDungeonEnemies } from "../../../gameUtils/dungeons/caverns/cavernsDungeonEnemies";
 import { cryptDungeonEnemies } from "../../../gameUtils/dungeons/crypt/cryptDungeonEnemies";
+import { getRealmDungeon } from "../../../gameUtils/dungeons/getRealmDungeon";
 
 export const getRealmDungeonEnemies = async (req: Request, res: Response) => {
   const { characterId } = req.params;
@@ -36,9 +37,14 @@ export const startDungeonBattle = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "Character not found" });
     }
 
-    const realmDungeonIndex = character.dungeons.findIndex((dungeon => dungeon.realm === character.realms.currentRealm));
-    const realmDungeon = character.dungeons[realmDungeonIndex];
+    const activeQuest = character.activeQuest.quest;
 
+    if (activeQuest) 
+      return res
+        .status(400)
+        .json({ message: "Finish quest first" });
+
+    const realmDungeon = getRealmDungeon(character);
 
     if (!realmDungeon)
         return res.status(400).json({ message: "You don't have access to that dungeon" });

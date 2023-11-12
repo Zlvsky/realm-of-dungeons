@@ -4,6 +4,7 @@ import { getAttackDamage } from "../../../utils/getAttackDamage";
 import getValuesWithStatistics from "../../../gameUtils/characters/getValuesWithStatistics";
 import addExperienceToStat from "../../../gameUtils/characters/addExperienceToStat";
 import { ICharacter } from "../../../types/account/MainInterfaces";
+import { getRealmDungeon } from "../../../gameUtils/dungeons/getRealmDungeon";
 
 interface ICharacterAttack {
   characterId: string;
@@ -81,10 +82,7 @@ export const characterAttack = async (req: Request, res: Response) => {
         quest.whosTurn = 2;
       }
     } else if (battleType === "DUNGEON") {
-      const realmDungeonIndex = character.dungeons.findIndex(
-        (dungeon) => dungeon.realm === character.realms.currentRealm
-      );
-      const realmDungeon = character.dungeons[realmDungeonIndex];
+      const realmDungeon = getRealmDungeon(character);
 
       if (!realmDungeon)
         return res.status(404).json({ message: "Dungeon not found" });
