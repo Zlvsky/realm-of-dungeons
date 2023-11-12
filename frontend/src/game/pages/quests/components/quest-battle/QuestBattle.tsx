@@ -7,13 +7,14 @@ import Bar from "../../../../components/battle/Bar";
 import Portrait from "../../../../components/battle/Portrait";
 import CombatActions from "../../../../components/battle/CombatActions";
 import CombatLogs from "../../../../components/battle/CombatLogs";
-import { questActionAttack, questEnemyTurn } from "../../../../../client/appClient";
+import { questEnemyTurn } from "../../../../../client/appClient";
 import { setHero } from "../../../../../redux/reducers/gameSlice";
 import { useDispatch } from "react-redux";
 import fetchHero from "../../../../../utils/fetchers/fetchHero";
 import BattleEndPopup from "../../../../components/battle/BattleEndPopup";
 import { questBattleEndService } from "../../../../../client/services/game/quests/questBattleEndService";
 import { ICharacter } from "../../../../../interfaces/MainInterface";
+import displayError from "../../../../../utils/notifications/errors";
 
 interface IQuestBattle {
   hero: ICharacter;
@@ -28,21 +29,15 @@ function QuestBattle({ hero }: IQuestBattle) {
     dispatch(setHero(data));
   };
 
-  const performAttack = async (attackPower: "low" | "medium" | "strong") => {
-    const response = await questActionAttack({ attackPower });
-    if (response.status !== 200) return console.log(response.data);
-    fetchHero(updateHero);
-  };
-
   const handleEnemyTurn = async () => {
     const response = await questEnemyTurn();
-    if (response.status !== 200) return console.log(response);
+    if (response.status !== 200) return displayError(dispatch, response);
     fetchHero(updateHero);
   };
 
   const handleBattleEnd = async () => {
     const response = await questBattleEndService();
-    if (response.status !== 200) return console.log(response);
+    if (response.status !== 200) return displayError(dispatch, response);
     fetchHero(updateHero);
   };
 
@@ -146,7 +141,7 @@ function QuestBattle({ hero }: IQuestBattle) {
       <MobSection />
       <Turn />
       <HeroSection />
-      <CombatActions hero={hero} performAttack={performAttack} />
+      <CombatActions hero={hero} battleType={"QUEST"} />
       <CombatLogs logs={hero.activeQuest.textLogs} />
       {battleWinner && (
         <BattleEndPopup

@@ -2,7 +2,7 @@ import { AxiosError } from "axios";
 import axiosClient from "../../../../axiosClient";
 import Cookies from "js-cookie";
 
-export const enemyTurnService = async () => {
+export const questEnemyTurnService = async () => {
   const jwt = Cookies.get("jwt");
   try {
     const res = await axiosClient.post(

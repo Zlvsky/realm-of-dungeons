@@ -13,8 +13,7 @@ import { addItem } from "./controllers/game/items/addItem";
 import { updateInventory } from "./controllers/game/hero/heroInventory";
 import { updateEquipmentToInventory } from "./controllers/game/hero/heroEquipmentToInventrory";
 import { clearActiveQuest, startQuestBattle, updateActiveQuest } from "./controllers/game/quests/quests";
-import { characterAttack, characterUsePotion } from "./controllers/game/quest-battle/questBattle";
-import { enemyTurn } from "./controllers/game/quest-battle/enemyTurn";
+import { questEnemyTurn } from "./controllers/game/quest-battle/questEnemyTurn";
 import { questBattleEnd } from "./controllers/game/quest-battle/questBattleEnd";
 import { templeHealing } from "./controllers/game/temple/templeHealing";
 import { templeHealRenew } from "./controllers/game/temple/templeHealRenew";
@@ -28,7 +27,11 @@ import { changeRealm } from "./controllers/game/realms/changeRealm";
 import { unlockRealm } from "./controllers/game/realms/unlockRealm";
 import { trainStatistic } from "./controllers/game/trainers/trainStatistic";
 import { getTrainingFee } from "./controllers/game/trainers/getTrainingFee";
-import { startDungeonBattle } from "./controllers/game/dungeon/dungeon";
+import { getRealmDungeonEnemies, startDungeonBattle } from "./controllers/game/dungeon/dungeon";
+import { characterUsePotion } from "./controllers/game/battle/characterUsePotion";
+import { characterAttack } from "./controllers/game/battle/characterAttack";
+import { dungeonEnemyTurn } from "./controllers/game/dungeon-battle/dungeonEnemyTurn";
+import { dungeonBattleEnd } from "./controllers/game/dungeon-battle/dungeonBattleEnd";
 
 const uri = process.env.MONGO_CONNECTION_URL;
 if(!uri) throw new Error(".env file is not created")
@@ -83,19 +86,20 @@ app.post("/api/quest/clearActiveQuest", clearActiveQuest);
 app.post("/api/quest/startQuestBattle", startQuestBattle);
 
 // QUEST BATTLE
-app.post("/api/quest/action/attack", characterAttack);
-app.post("/api/quest/action/potion", characterUsePotion);
-app.post("/api/quest/enemyTurn", enemyTurn);
+app.post("/api/quest/enemyTurn", questEnemyTurn);
 app.post("/api/quest/battleEnd", questBattleEnd);
 
 // DUNGEONS
 app.post("/api/dungeon/startBattle", startDungeonBattle);
+app.get("/api/dungeon/enemies/:characterId", getRealmDungeonEnemies);
 
 // DUNGEON BATTLE
-// app.post("/api/quest/action/attack", characterAttack);
-// app.post("/api/quest/action/potion", characterUsePotion);
-// app.post("/api/quest/enemyTurn", enemyTurn);
-// app.post("/api/quest/battleEnd", questBattleEnd);
+app.post("/api/dungeon/enemyTurn", dungeonEnemyTurn);
+app.post("/api/dungeon/battleEnd", dungeonBattleEnd);
+
+// BATTLE
+app.post("/api/battle/action/potion", characterUsePotion);
+app.post("/api/battle/action/attack", characterAttack);
 
 // TEMPLE
 app.post("/api/temple/heal", templeHealing);

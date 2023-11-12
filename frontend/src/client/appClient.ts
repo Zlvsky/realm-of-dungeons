@@ -15,8 +15,8 @@ import { updateEquipmentToInventoryInterface, updateEquipmentToInventoryService 
 import { updateActiveQuestInterface, updateActiveQuestService } from "./services/game/quests/updateActiveQuestService";
 import { clearActiveQuestService } from "./services/game/quests/clearActiveQuestService";
 import { startQuestBattleService } from "./services/game/quests/startQuestBattleService";
-import { IQuestActionAttack, questActionAttackService } from "./services/game/quests/actions/questActionAttackService";
-import { enemyTurnService } from "./services/game/quests/enemy/enemyTurnService";
+import { IQuestActionAttack, battleActionAttackService } from "./services/battle/battleActionAttackService";
+import { questEnemyTurnService } from "./services/game/quests/enemy/questEnemyTurnService";
 import { questBattleEndService } from "./services/game/quests/questBattleEndService";
 import { templeHealService } from "./services/game/temple/templeHealService";
 import { templeRenewService } from "./services/game/temple/templeRenewService";
@@ -31,6 +31,8 @@ import { trainerFeeService } from "./services/game/trainers/trainerFeeService";
 import { startDungeonBattleService } from "./services/game/dungeons/startDungeonBattleService";
 import { getDungeonEnemiesService } from "./services/game/dungeons/getDungeonEnemies";
 import { battleActionPotionService } from "./services/battle/battleActionPotionService";
+import { dungeonEnemyTurnService } from "./services/game/dungeons/enemy/dungeonEnemyTurnService";
+import { dungeonBattleEndService } from "./services/game/dungeons/dungeonBattleEndService";
 
 // REGISTER AND LOGIN
 export async function register(body: signUpInterface) {
@@ -83,8 +85,12 @@ export async function updateStatistics(body: IUpdateStatistics) {
 }
 
 // BATTLE
-export async function battleActionPotionRequest() {
-  return await battleActionPotionService();
+export async function battleActionPotionRequest(battleType: "QUEST" | "DUNGEON") {
+  return await battleActionPotionService(battleType);
+}
+
+export async function battleActionAttack(body: IQuestActionAttack) {
+  return await battleActionAttackService(body);
 }
 
 // QUESTS
@@ -100,12 +106,8 @@ export async function startQuestBattle() {
   return await startQuestBattleService();
 }
 
-export async function questActionAttack(body: IQuestActionAttack) {
-  return await questActionAttackService(body);
-}
-
 export async function questEnemyTurn() {
-  return await enemyTurnService();
+  return await questEnemyTurnService();
 }
 
 export async function questBattleEnd() {
@@ -156,4 +158,12 @@ export async function startDungeonBattleRequest() {
 
 export async function getDungeonEnemiesRequest() {
   return await getDungeonEnemiesService();
+}
+
+export async function dungeonEnemyTurn() {
+  return await dungeonEnemyTurnService();
+}
+
+export async function dungeonBattleEnd() {
+  return await dungeonBattleEndService();
 }

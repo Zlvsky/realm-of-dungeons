@@ -1,15 +1,14 @@
 import { AxiosError } from "axios";
-import axiosClient from "../../axiosClient";
+import axiosClient from "../../../../axiosClient";
 import Cookies from "js-cookie";
 
-export const battleActionPotionService = async (battleType: "QUEST" | "DUNGEON") => {
+export const dungeonEnemyTurnService = async () => {
   const jwt = Cookies.get("jwt");
   try {
     const res = await axiosClient.post(
-      "/battle/action/potion",
+      "/dungeon/enemyTurn",
       {
         characterId: localStorage.getItem("hero"),
-        battleType: battleType,
       },
       {
         headers: {

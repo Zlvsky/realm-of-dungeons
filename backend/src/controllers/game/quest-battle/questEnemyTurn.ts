@@ -3,7 +3,7 @@ import { getAttackDamage } from "../../../utils/getAttackDamage";
 import { Character } from "../../../schemas/character/characterSchema";
 import getValuesWithStatistics from "../../../gameUtils/characters/getValuesWithStatistics";
 
-export const enemyTurn = async (req: Request, res: Response) => {
+export const questEnemyTurn = async (req: Request, res: Response) => {
   const { characterId } = req.body;
   try {
     const character = await Character.findById(characterId)

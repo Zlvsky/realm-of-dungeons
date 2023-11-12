@@ -203,24 +203,27 @@ export interface IMerchant {
 export interface IDungeon {
   realm: string;
   currentMonster: number;
-  isBattleStarted?: boolean;
-  battleWinner?: 1 | 2 | null;
-  whosTurn?: 1 | 2;
   dungeonRenewDate: string | null;
-  enemies: {
-    name: string;
-    health: number;
-    maxHealth: number;
-    level: number;
-    damage: number;
-    attackText: string;
-    avatar: string;
-    description: string;
-    skills: ISkills[] | null;
-    rewards: {
-      gold: number;
-      xp: number;
-      item?: IItem;
-    };
-  }[];
+  battle: {
+    isBattleStarted?: boolean;
+    battleWinner?: 1 | 2 | null;
+    whosTurn?: 1 | 2;
+    textLogs: string[];
+    enemy: {
+      name: string;
+      health: number;
+      maxHealth: number;
+      level: number;
+      damage: number;
+      attackText: string;
+      avatar: string;
+      description: string;
+      skills: ISkills[] | null;
+      rewards: {
+        gold: number;
+        xp: number;
+        item?: IItem;
+      };
+    } | null;
+  };
 }

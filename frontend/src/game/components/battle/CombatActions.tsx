@@ -2,8 +2,7 @@ import { Container, Graphics, Sprite } from '@pixi/react';
 import { useDispatch } from 'react-redux';
 import { setHero } from '../../../redux/reducers/gameSlice';
 import fetchHero from '../../../utils/fetchers/fetchHero';
-import { battleActionPotionRequest, questActionAttack } from '../../../client/appClient';
-
+import { battleActionAttack, battleActionPotionRequest } from '../../../client/appClient';
 import lowAttack from "../../../assets/images/combat/combat-actions/low.png";
 import mediumAttack from "../../../assets/images/combat/combat-actions/medium.png";
 import strongAttack from "../../../assets/images/combat/combat-actions/strong.png";
@@ -18,7 +17,7 @@ interface IAction {
   action: any;
 }
 
-function CombatActions({ hero, performAttack }: any) {
+function CombatActions({ hero, battleType }: any) {
 
   const dispatch = useDispatch();
 
@@ -26,10 +25,14 @@ function CombatActions({ hero, performAttack }: any) {
     dispatch(setHero(data));
   };
 
-  
+  const performAttack = async (attackPower: "low" | "medium" | "strong") => {
+    const response = await battleActionAttack({ attackPower, battleType });
+    if (response.status !== 200) return displayError(dispatch, response);
+    fetchHero(updateHero);
+  };
 
   const usePotion = async () => {
-    const response = await battleActionPotionRequest();
+    const response = await battleActionPotionRequest(battleType);
     if (response.status !== 200) return displayError(dispatch, response);
     fetchHero(updateHero);
   }

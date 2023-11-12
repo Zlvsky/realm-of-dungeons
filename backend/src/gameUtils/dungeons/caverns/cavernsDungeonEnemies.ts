@@ -1,6 +1,6 @@
 import { IDungeon } from "../../../types/account/MainInterfaces";
 
-export const cavernsDungeonEnemies: IDungeon["enemies"] = [
+export const cavernsDungeonEnemies = [
   {
     name: "Obnoxious Rotworm",
     health: 150,
@@ -15,7 +15,7 @@ export const cavernsDungeonEnemies: IDungeon["enemies"] = [
     rewards: {
       gold: 10,
       xp: 250,
-      item: undefined,
+      itemReward: [{ itemId: 100, dropChance: 100 }],
     },
   },
   {
@@ -32,7 +32,7 @@ export const cavernsDungeonEnemies: IDungeon["enemies"] = [
     rewards: {
       gold: 15,
       xp: 350,
-      item: undefined,
+      itemReward: [{ itemId: 100, dropChance: 100 }],
     },
   },
   {
@@ -49,7 +49,7 @@ export const cavernsDungeonEnemies: IDungeon["enemies"] = [
     rewards: {
       gold: 20,
       xp: 500,
-      item: undefined,
+      itemReward: [{ itemId: 100, dropChance: 100 }],
     },
   },
   {
@@ -66,7 +66,7 @@ export const cavernsDungeonEnemies: IDungeon["enemies"] = [
     rewards: {
       gold: 25,
       xp: 600,
-      item: undefined,
+      itemReward: [{ itemId: 100, dropChance: 100 }],
     },
   },
   {
@@ -83,7 +83,7 @@ export const cavernsDungeonEnemies: IDungeon["enemies"] = [
     rewards: {
       gold: 30,
       xp: 650,
-      item: undefined,
+      itemReward: [{ itemId: 100, dropChance: 100 }],
     },
   },
   {
@@ -100,7 +100,7 @@ export const cavernsDungeonEnemies: IDungeon["enemies"] = [
     rewards: {
       gold: 32.5,
       xp: 700,
-      item: undefined,
+      itemReward: [{ itemId: 100, dropChance: 100 }],
     },
   },
   {
@@ -117,7 +117,7 @@ export const cavernsDungeonEnemies: IDungeon["enemies"] = [
     rewards: {
       gold: 35.5,
       xp: 760,
-      item: undefined,
+      itemReward: [{ itemId: 100, dropChance: 100 }],
     },
   },
   {
@@ -134,7 +134,7 @@ export const cavernsDungeonEnemies: IDungeon["enemies"] = [
     rewards: {
       gold: 35.5,
       xp: 760,
-      item: undefined,
+      itemReward: [{ itemId: 100, dropChance: 100 }],
     },
   },
   {
@@ -151,7 +151,7 @@ export const cavernsDungeonEnemies: IDungeon["enemies"] = [
     rewards: {
       gold: 35.5,
       xp: 760,
-      item: undefined,
+      itemReward: [{ itemId: 100, dropChance: 100 }],
     },
   },
   {
@@ -168,7 +168,7 @@ export const cavernsDungeonEnemies: IDungeon["enemies"] = [
     rewards: {
       gold: 50,
       xp: 1000,
-      item: undefined,
+      itemReward: [{ itemId: 100, dropChance: 100 }],
     },
   },
 ];

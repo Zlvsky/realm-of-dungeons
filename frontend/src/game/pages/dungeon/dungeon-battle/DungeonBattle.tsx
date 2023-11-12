@@ -12,6 +12,8 @@ import CombatActions from "../../../components/battle/CombatActions";
 import CombatLogs from "../../../components/battle/CombatLogs";
 import BattleEndPopup from "../../../components/battle/BattleEndPopup";
 import BgPattern from "../../../../assets/images/dark_wall.png";
+import { dungeonBattleEnd, dungeonEnemyTurn } from "../../../../client/appClient";
+import displayError from "../../../../utils/notifications/errors";
 
 interface IDungeonBattle {
   hero: ICharacter;
@@ -28,21 +30,15 @@ function DungeonBattle({ hero, realmDungeon }: IDungeonBattle) {
     dispatch(setHero(data));
   };
 
-   const performAttack = async (attackPower: "low" | "medium" | "strong") => {
-     const response = await questActionAttack({ attackPower });
-     if (response.status !== 200) return console.log(response.data);
-     fetchHero(updateHero);
-   };
-
   const handleEnemyTurn = async () => {
-    const response = await questEnemyTurn();
-    if (response.status !== 200) return console.log(response);
+    const response = await dungeonEnemyTurn();
+    if (response.status !== 200) return displayError(dispatch, response);
     fetchHero(updateHero);
   };
 
   const handleBattleEnd = async () => {
-    const response = await questBattleEndService();
-    if (response.status !== 200) return console.log(response);
+    const response = await dungeonBattleEnd();
+    if (response.status !== 200) return displayError(dispatch, response);
     fetchHero(updateHero);
   };
 
@@ -146,7 +142,7 @@ function DungeonBattle({ hero, realmDungeon }: IDungeonBattle) {
       <MobSection />
       <Turn />
       <HeroSection />
-      <CombatActions hero={hero} performAttack={performAttack} />
+      <CombatActions hero={hero} battleType="DUNGEON" />
       <CombatLogs logs={realmDungeon.battle.textLogs} />
       {battleWinner && (
         <BattleEndPopup
