@@ -1,5 +1,4 @@
-import { AxiosError } from "axios";
-import axiosClient from "../../axiosClient";
+import postRequestNoAuth from "../../requests/postRequestNoAuth";
 
 export interface signUpInterface {
   email: string;
@@ -8,27 +7,13 @@ export interface signUpInterface {
 }
 
 export const signUpService = async (body: signUpInterface) => {
-  try {
-    const res = await axiosClient.post("/register", {
+  const result = await postRequestNoAuth({
+    url: "/register",
+    params: {
       email: body.email,
       accountname: body.accountname,
       password: body.password,
-    });
-    const result = {
-      data: res.data,
-      status: res.status,
-      statusText: res.statusText,
-      headers: res.headers,
-      error: "",
-    };
-    return result;
-  } catch (err) {
-    const errors = err as AxiosError;
-    const result = {
-      data: {},
-      error: errors.code,
-      status: errors.status,
-    };
-    return result;
-  }
+    },
+  });
+  return result;
 };

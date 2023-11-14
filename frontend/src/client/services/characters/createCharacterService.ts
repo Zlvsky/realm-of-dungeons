@@ -1,6 +1,4 @@
-import { AxiosError } from "axios";
-import axiosClient from "../../axiosClient";
-import Cookies from "js-cookie";
+import postRequest from "../../requests/postRequest";
 
 export interface creaeteCharacterInterface {
   nickname: string;
@@ -8,35 +6,12 @@ export interface creaeteCharacterInterface {
 }
 
 export const createCharacterService = async (body: creaeteCharacterInterface) => {
-  const jwt = Cookies.get("jwt");
-  try {
-    const res = await axiosClient.post(
-      "/user/createCharacter",
-      {
-        nickname: body.nickname,
-        class: body.class,
-      },
-      {
-        headers: {
-          authorization: jwt,
-        },
-      }
-    );
-    const result = {
-      data: res.data,
-      status: res.status,
-      statusText: res.statusText,
-      headers: res.headers,
-      error: "",
-    };
-    return result;
-  } catch (err) {
-    const errors = err as AxiosError;
-    const result: any = {
-      data: errors.response?.data,
-      error: errors.message,
-      status: errors.response?.status,
-    };
-    return result;
-  }
+  const result = await postRequest({
+    url: "/user/createCharacter",
+    params: {
+      nickname: body.nickname,
+      class: body.class,
+    },
+  });
+  return result;
 };
