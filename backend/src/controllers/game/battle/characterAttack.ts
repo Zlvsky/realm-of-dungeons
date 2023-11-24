@@ -32,7 +32,7 @@ const getAttackDamageToEnemy = (
       break;
   }
 
-  if (!attackDamage) return false;
+  if (!attackDamage && attackDamage !== 0) return false;
 
   return attackDamage;
 };
@@ -64,7 +64,7 @@ export const characterAttack = async (req: Request, res: Response) => {
 
       const attackDamage = getAttackDamageToEnemy(character, attackPower);
 
-      if (!attackDamage)
+      if (!attackDamage && attackDamage !== 0)
         return res.status(400).json({ message: "Attack not found" });
 
       enemy.health -= attackDamage;
@@ -100,7 +100,7 @@ export const characterAttack = async (req: Request, res: Response) => {
 
       const attackDamage = getAttackDamageToEnemy(character, attackPower);
 
-      if (!attackDamage)
+      if (!attackDamage && attackDamage !== 0)
         return res.status(400).json({ message: "Attack not found" });
 
       realmDungeon.battle.enemy.health -= attackDamage;

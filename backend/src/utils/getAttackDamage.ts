@@ -7,8 +7,9 @@ export const damageWithArmorReduction = (damage: number, armor?: number) => {
   const minReduction = armor / 2;
   const maxReduction = armor - 1;
   const damageReduction = (Math.random() * maxReduction) + minReduction;
-  const totalDamage = damage - damageReduction;
-  return Math.round(totalDamage);
+  const totalDamage = Math.round(damage - damageReduction);
+  if (totalDamage < 0) return 0;
+  return totalDamage;
 }
 
 export const getAttackDamage = (

@@ -37,7 +37,7 @@ export const questEnemyTurn = async (req: Request, res: Response) => {
     character.updatedValues.health -= enemyDamage;
     
 
-    if (enemyDamage === 0) {
+    if (enemyDamage <= 0) {
       activeQuest.textLogs.push(`- ${enemy.name} missed attack`);
     } else {
       activeQuest.textLogs.push(`- ${enemy.attackText} ${enemyDamage} damage`);

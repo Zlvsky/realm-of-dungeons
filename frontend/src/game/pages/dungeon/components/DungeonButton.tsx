@@ -11,7 +11,7 @@ import { setHero } from "../../../../redux/reducers/gameSlice";
 import fetchHero from "../../../../utils/fetchers/fetchHero";
 import { startDungeonBattleRequest } from "../../../../client/appClient";
 
-function DungeonButton({ hero, dungeon }: any ) {
+function  DungeonButton({ hero, dungeon }: any ) {
     const [timeRemaining, setTimeRemaining] = useState<any>(null);
 
     const dispatch = useDispatch();
@@ -48,7 +48,7 @@ function DungeonButton({ hero, dungeon }: any ) {
 
     return (
       <Container position={[0, 820]}>
-        {dungeon.dungeonRenewDate && (
+        {dungeon.dungeonRenewDate && timeRemaining !== "00:00:00" && timeRemaining && (
           <Text
             anchor={0.5}
             x={1316 / 2}
