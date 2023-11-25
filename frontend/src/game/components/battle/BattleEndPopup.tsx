@@ -123,6 +123,17 @@ function BattleEndPopup({
               position={[150, 230]}
               textStyle={iconWithTextStyle}
             />
+            {rewards.item && (
+              <IconWithText
+                text={rewards?.item.name}
+                image={rewards?.item.image}
+                position={[200, 110]}
+                imageWidth={60}
+                imageHeight={60}
+                imageY={-10}
+                textStyle={iconWithTextStyle}
+              />
+            )}
           </>
         )}
         <Sprite

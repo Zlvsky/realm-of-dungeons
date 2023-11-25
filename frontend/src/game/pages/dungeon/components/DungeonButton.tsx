@@ -46,6 +46,8 @@ function  DungeonButton({ hero, dungeon }: any ) {
       if (dungeon.dungeonRenewDate) calculateRemainingTime();
     }, [hero]);
 
+    if (dungeon.currentMonster === 10) return null;
+
     return (
       <Container position={[0, 820]}>
         {dungeon.dungeonRenewDate && timeRemaining !== "00:00:00" && timeRemaining && (

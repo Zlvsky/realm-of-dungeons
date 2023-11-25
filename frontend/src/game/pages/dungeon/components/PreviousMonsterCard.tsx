@@ -18,9 +18,10 @@ const CheckMark = () => {
 };
 
 function PreviousMonsterCard({ dungeon, enemies }: any) {
-  const currentMonster = enemies[dungeon.currentMonster - 1];
+  const previousMonster = dungeon.currentMonster === 10 ? 8 : dungeon.currentMonster - 1;
+  const previousEnemy = enemies[previousMonster];
 
-  if (!currentMonster || currentMonster.length === 0) return null;
+  if (!previousEnemy || previousEnemy.length === 0) return null;
 
   const MonsterInfo = () => {
     return (
@@ -36,7 +37,7 @@ function PreviousMonsterCard({ dungeon, enemies }: any) {
           }}
         />
         <Text
-          text={`LEVEL ${currentMonster.level}`}
+          text={`LEVEL ${previousEnemy.level}`}
           x={FRAME_WIDTH / 2}
           anchor={0.5}
           y={15}
@@ -50,7 +51,7 @@ function PreviousMonsterCard({ dungeon, enemies }: any) {
           }
         />
         <Text
-          text={currentMonster.name}
+          text={previousEnemy.name}
           y={60}
           x={FRAME_WIDTH / 2}
           anchor={0.5}
@@ -70,7 +71,7 @@ function PreviousMonsterCard({ dungeon, enemies }: any) {
   return (
     <Container position={[205, 290]}>
       <Sprite
-        image={currentMonster.avatar}
+        image={previousEnemy.avatar}
         position={[0, 0]}
         width={FRAME_WIDTH}
         height={FRAME_WIDTH}

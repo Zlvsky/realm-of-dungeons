@@ -1,7 +1,7 @@
 import { useCallback } from "react"
 import { Container, Graphics, Sprite, Text } from "@pixi/react";
 
-import cavernBg from "../.././../../assets/images/game-world/dungeons/cavern/cavernDungeon.png";
+import cavernBg from "../.././../../assets/images/game-world/dungeons/cavern/cavernDungeon.jpg";
 import { TextStyle } from "pixi.js";
 
 const canvasWidth = 1316;

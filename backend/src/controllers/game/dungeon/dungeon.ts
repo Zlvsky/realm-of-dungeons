@@ -63,8 +63,9 @@ export const startDungeonBattle = async (req: Request, res: Response) => {
         const dungeonEnemy = await getDungeonEnemies(character, realmDungeon);
         realmDungeon.battle.enemy = dungeonEnemy;
         realmDungeon.battle.isBattleStarted = true;
-        // todo - add 1 hour to date
-        realmDungeon.dungeonRenewDate = new Date().toISOString();
+        const now = new Date();
+        now.setHours(now.getHours() + 1);
+        realmDungeon.dungeonRenewDate = now.toISOString();
       }
     }
 

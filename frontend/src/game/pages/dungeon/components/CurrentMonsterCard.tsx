@@ -1,12 +1,27 @@
 import { Container, Graphics, Sprite, Text } from "@pixi/react";
 import { TextStyle } from "pixi.js";
 
+import checkMark from "../../../../assets/images/hud/check.png";
+
 const FRAME_WIDTH = 300;
 
-function CurrentMonsterCard({ dungeon, enemies }:any ) {
-    const currentMonster = enemies[dungeon.currentMonster];
+const CheckMark = () => {
+  return (
+    <Sprite
+      image={checkMark}
+      position={[FRAME_WIDTH / 2, -20]}
+      anchor={[0.5, 0]}
+      width={40}
+      height={40}
+    />
+  );
+};
 
-    if (!currentMonster || currentMonster.length === 0) return null;
+function CurrentMonsterCard({ dungeon, enemies }:any ) {
+    const currentMonster = dungeon.currentMonster === 10 ? 9 : dungeon.currentMonster;
+    const currentEnemy = enemies[currentMonster];
+
+    if (!currentEnemy || currentEnemy.length === 0) return null;
 
     const MonsterInfo = () => {
         return (
@@ -22,7 +37,7 @@ function CurrentMonsterCard({ dungeon, enemies }:any ) {
               }}
             />
             <Text
-              text={`LEVEL ${currentMonster.level}`}
+              text={`LEVEL ${currentEnemy.level}`}
               x={FRAME_WIDTH / 2}
               anchor={0.5}
               y={20}
@@ -36,7 +51,7 @@ function CurrentMonsterCard({ dungeon, enemies }:any ) {
               }
             />
             <Text
-              text={currentMonster.name}
+              text={currentEnemy.name}
               y={60}
               x={FRAME_WIDTH / 2}
               anchor={0.5}
@@ -56,7 +71,7 @@ function CurrentMonsterCard({ dungeon, enemies }:any ) {
     const MonsterDescription = () => {
         return (
           <Text
-            text={currentMonster.description}
+            text={currentEnemy.description}
             y={390}
             x={10}
             style={
@@ -77,7 +92,7 @@ function CurrentMonsterCard({ dungeon, enemies }:any ) {
     return (
       <Container position={[505, 220]}>
         <Sprite
-          image={currentMonster.avatar}
+          image={currentEnemy.avatar}
           position={[0, 0]}
           width={FRAME_WIDTH}
           height={FRAME_WIDTH}
@@ -94,6 +109,7 @@ function CurrentMonsterCard({ dungeon, enemies }:any ) {
             g.endFill();
           }}
         />
+        {(dungeon.currentMonster === 10) && <CheckMark />}
       </Container>
     );
 }

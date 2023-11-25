@@ -4,4 +4,5 @@ export const getUserDetailsService = async () => {
   const result = await getRequest({
     url: "/user/details",
   });
+  return result;
 };
