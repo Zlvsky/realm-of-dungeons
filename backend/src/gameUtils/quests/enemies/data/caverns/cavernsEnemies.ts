@@ -46,7 +46,7 @@ export const cavernsEnemies: { regular: IEnemy[]; bossess: IEnemy[] } = {
     },
     {
       name: "Tarantula",
-      avatar: "https://i.ibb.co/S62tt1T/scorpion.jpg",
+      avatar: "https://i.ibb.co/CH5YKtw/tarantula.jpg",
       health: 30,
       maxHealth: 30,
       damage: 3,
@@ -104,7 +104,7 @@ export const cavernsEnemies: { regular: IEnemy[]; bossess: IEnemy[] } = {
           cooldown: 4,
           text: "Golem draws heat from enivornment, healing for ",
         },
-      ]
+      ],
     },
   ],
 };
