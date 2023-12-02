@@ -1,6 +1,8 @@
 import { Container, Graphics, Sprite, Text } from "@pixi/react";
 import { TextStyle } from "pixi.js";
 import dealBtn from "../../../../assets/images/dealbtn.png";
+import { useDispatch } from "react-redux";
+import { setCurrentStage } from "../../../../redux/reducers/gameSlice";
 
 interface ISingleMerchant {
   position: [number, number];
@@ -19,7 +21,13 @@ function SingleMerchant({
   setCurrentMerchant,
 }: ISingleMerchant) {
 
+  const dispatch = useDispatch();
+  const changeStage = (stage: string) => {
+    dispatch(setCurrentStage(stage));
+  };
+
   const handleNavigateToMerchang = () => {
+    changeStage("merchant_shop");
     setCurrentMerchant(name);
   };
 

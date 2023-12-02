@@ -1,6 +1,8 @@
 import { Container, Graphics, Sprite, Text } from "@pixi/react";
 import { TextStyle } from "pixi.js";
 import enterBtn from "../../../../assets/images/enterbtn.png";
+import { useDispatch } from "react-redux";
+import { setCurrentStage } from "../../../../redux/reducers/gameSlice";
 
 interface ISingleTrainer {
   position: [number, number];
@@ -18,7 +20,14 @@ function SingleTrainer({
   image,
   setCurrentTrainer,
 }: ISingleTrainer) {
+
+  const dispatch = useDispatch();
+  const changeStage = (stage: string) => {
+    dispatch(setCurrentStage(stage));
+  };
+
   const handleNavigateToTrainer = () => {
+    changeStage("single_trainer");
     setCurrentTrainer(name);
   };
 

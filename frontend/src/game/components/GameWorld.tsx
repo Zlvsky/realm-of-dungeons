@@ -29,8 +29,8 @@ function GameWorld() {
     if (stage === "portals") return <Portals />;
     if (stage === "hero") return <Hero />;
     if (stage === "temple") return <Temple />;
-    if (stage === "merchants") return <Merchants />;
-    if (stage === "trainers") return <Trainers />;
+    if (stage === "merchants" || stage === "merchant_shop" ) return <Merchants stage={stage} />;
+    if (stage === "trainers" || stage === "single_trainer") return <Trainers stage={stage} />;
     return <></>;
   }, [stage, isQuestBattleStarted]);
 
