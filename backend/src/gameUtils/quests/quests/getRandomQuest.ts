@@ -49,7 +49,7 @@ export const getRandomQuests = (currentRealm: TCurrentRealm, level: number) => {
     });
   });
 
-  if (isBoss && bossessIndex) {
+  if (isBoss && bossessIndex !== undefined) {
     const bossQuest = bossessQuests[bossessIndex];
     questsToReturn.push({
       ...bossQuest,

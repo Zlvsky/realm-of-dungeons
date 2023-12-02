@@ -14,14 +14,12 @@ export const generateItemReward = async (itemPool: ItemPool) => {
 
     if (dropsLength === 0) return undefined;
 
-    const randomItemNumber = Math.floor(Math.random() * (dropsLength + 1));
+    const randomItemNumber = Math.floor(Math.random() * dropsLength);
 
     const droppedItemId = availableItemDrops[randomItemNumber]?.itemId;
-
     if (!droppedItemId) return undefined;
 
     const item = await Item.findOne({ itemId: droppedItemId });
-
     if (!item) return undefined;
 
     return item;

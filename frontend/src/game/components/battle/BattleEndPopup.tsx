@@ -127,7 +127,7 @@ function BattleEndPopup({
               <IconWithText
                 text={rewards?.item.name}
                 image={rewards?.item.image}
-                position={[200, 110]}
+                position={[180, 295]}
                 imageWidth={60}
                 imageHeight={60}
                 imageY={-10}

@@ -104,6 +104,20 @@ function SelectQuest({ hero }: any) {
         setSelectedQuest={setSelectedQuest}
       />
       <Text
+        x={1316 / 2}
+        y={250}
+        anchor={[0.5, 0]}
+        text={currentQuestsData[selectedQuest].title}
+        style={
+          new TextStyle({
+            align: "center",
+            fontFamily: "Almendra",
+            fontSize: 29,
+            fill: ["#dfdfdf"],
+          })
+        }
+      />
+      <Text
         x={350}
         y={300}
         text={currentQuestsData[selectedQuest].description}
