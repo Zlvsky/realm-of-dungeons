@@ -1,3 +1,30 @@
+// 15-20
+const lowDrops = [
+  { itemId: 2103, dropChance: 40 },
+  { itemId: 2203, dropChance: 40 },
+  { itemId: 2205, dropChance: 40 },
+  { itemId: 2403, dropChance: 40 },
+  { itemId: 2305, dropChance: 40 },
+  { itemId: 2306, dropChance: 40 },
+];
+// 18-35
+const highDrops = [
+  { itemId: 2306, dropChance: 50 },
+  { itemId: 2307, dropChance: 50 },
+  { itemId: 2404, dropChance: 50 },
+  { itemId: 2405, dropChance: 20 },
+  { itemId: 2206, dropChance: 50 },
+  { itemId: 2207, dropChance: 30 },
+  { itemId: 2105, dropChance: 50 },
+  { itemId: 2106, dropChance: 30 },
+];
+// boss
+const finalDrops = [
+  { itemId: 2207, dropChance: 100 },
+  { itemId: 2106, dropChance: 100 },
+  { itemId: 2405, dropChance: 100 },
+];
+
 export const cryptDungeonEnemies = [
   {
     name: "Crypt Stalker",
@@ -13,7 +40,7 @@ export const cryptDungeonEnemies = [
     rewards: {
       gold: 25,
       xp: 600,
-      itemReward: [{ itemId: 100, dropChance: 100 }],
+      itemReward: lowDrops,
     },
   },
   {
@@ -30,7 +57,7 @@ export const cryptDungeonEnemies = [
     rewards: {
       gold: 30,
       xp: 650,
-      itemReward: [{ itemId: 100, dropChance: 100 }],
+      itemReward: lowDrops,
     },
   },
   {
@@ -47,7 +74,7 @@ export const cryptDungeonEnemies = [
     rewards: {
       gold: 35,
       xp: 700,
-      itemReward: [{ itemId: 100, dropChance: 100 }],
+      itemReward: highDrops,
     },
   },
   {
@@ -64,7 +91,7 @@ export const cryptDungeonEnemies = [
     rewards: {
       gold: 36,
       xp: 750,
-      itemReward: [{ itemId: 100, dropChance: 100 }],
+      itemReward: highDrops,
     },
   },
   {
@@ -81,7 +108,7 @@ export const cryptDungeonEnemies = [
     rewards: {
       gold: 38,
       xp: 800,
-      itemReward: [{ itemId: 100, dropChance: 100 }],
+      itemReward: highDrops,
     },
   },
   {
@@ -98,7 +125,7 @@ export const cryptDungeonEnemies = [
     rewards: {
       gold: 40,
       xp: 900,
-      itemReward: [{ itemId: 100, dropChance: 100 }],
+      itemReward: highDrops,
     },
   },
   {
@@ -115,7 +142,7 @@ export const cryptDungeonEnemies = [
     rewards: {
       gold: 40,
       xp: 950,
-      itemReward: [{ itemId: 100, dropChance: 100 }],
+      itemReward: highDrops,
     },
   },
   {
@@ -132,7 +159,7 @@ export const cryptDungeonEnemies = [
     rewards: {
       gold: 40,
       xp: 1200,
-      itemReward: [{ itemId: 100, dropChance: 100 }],
+      itemReward: highDrops,
     },
   },
   {
@@ -149,7 +176,7 @@ export const cryptDungeonEnemies = [
     rewards: {
       gold: 45,
       xp: 1400,
-      itemReward: [{ itemId: 100, dropChance: 100 }],
+      itemReward: highDrops,
     },
   },
   {
@@ -166,7 +193,7 @@ export const cryptDungeonEnemies = [
     rewards: {
       gold: 70,
       xp: 2000,
-      itemReward: [{ itemId: 100, dropChance: 100 }],
+      itemReward: finalDrops,
     },
   },
 ];

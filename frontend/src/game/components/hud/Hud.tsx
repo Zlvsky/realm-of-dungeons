@@ -5,6 +5,7 @@ import {  useSelector } from "react-redux";
 import { getGameDimensions } from "../../../redux/reducers/gameSlice";
 
 import hudBg from "../../../assets/images/hud/wallBg.png";
+import Logout from "./components/Logout";
 
 function Menu() {
   const dimensions = useSelector(getGameDimensions);
@@ -17,6 +18,7 @@ function Menu() {
       <Sprite image={hudBg} width={350} height={935} />
       <HeroInfo />
       <Navigations />
+      <Logout />
     </Container>
   );
 }

@@ -1,4 +1,42 @@
-import { IDungeon } from "../../../types/account/MainInterfaces";
+// 6-12
+const lowDrops = [
+  { itemId: 2303, dropChance: 35 },
+  { itemId: 2403, dropChance: 35 },
+  { itemId: 2503, dropChance: 35 },
+  { itemId: 2203, dropChance: 40 },
+  { itemId: 2103, dropChance: 40 },
+  { itemId: 2503, dropChance: 40 },
+  { itemId: 2304, dropChance: 30 },
+  { itemId: 2204, dropChance: 30 },
+  { itemId: 2104, dropChance: 30 },
+];
+// 12-18
+const midDrops = [
+  { itemId: 2104, dropChance: 40 },
+  { itemId: 2103, dropChance: 40 },
+  { itemId: 2203, dropChance: 40 },
+  { itemId: 2205, dropChance: 40 },
+  { itemId: 2403, dropChance: 40 },
+  { itemId: 2305, dropChance: 40 },
+  { itemId: 2306, dropChance: 40 },
+];
+// 18-35
+const highDrops = [
+  { itemId: 2306, dropChance: 50 },
+  { itemId: 2307, dropChance: 50 },
+  { itemId: 2404, dropChance: 50 },
+  { itemId: 2405, dropChance: 20 },
+  { itemId: 2206, dropChance: 50 },
+  { itemId: 2207, dropChance: 30 },
+  { itemId: 2105, dropChance: 50 },
+  { itemId: 2106, dropChance: 30 },
+];
+// boss
+const finalDrops = [
+  { itemId: 2207, dropChance: 100 },
+  { itemId: 2106, dropChance: 100 },
+  { itemId: 2405, dropChance: 100 },
+];
 
 export const cavernsDungeonEnemies = [
   {
@@ -15,7 +53,7 @@ export const cavernsDungeonEnemies = [
     rewards: {
       gold: 10,
       xp: 250,
-      itemReward: [{ itemId: 100, dropChance: 100 }],
+      itemReward: lowDrops,
     },
   },
   {
@@ -32,7 +70,7 @@ export const cavernsDungeonEnemies = [
     rewards: {
       gold: 15,
       xp: 350,
-      itemReward: [{ itemId: 100, dropChance: 100 }],
+      itemReward: lowDrops,
     },
   },
   {
@@ -49,7 +87,7 @@ export const cavernsDungeonEnemies = [
     rewards: {
       gold: 20,
       xp: 500,
-      itemReward: [{ itemId: 100, dropChance: 100 }],
+      itemReward: midDrops,
     },
   },
   {
@@ -66,7 +104,7 @@ export const cavernsDungeonEnemies = [
     rewards: {
       gold: 25,
       xp: 600,
-      itemReward: [{ itemId: 100, dropChance: 100 }],
+      itemReward: midDrops,
     },
   },
   {
@@ -83,7 +121,7 @@ export const cavernsDungeonEnemies = [
     rewards: {
       gold: 30,
       xp: 650,
-      itemReward: [{ itemId: 100, dropChance: 100 }],
+      itemReward: midDrops,
     },
   },
   {
@@ -100,7 +138,7 @@ export const cavernsDungeonEnemies = [
     rewards: {
       gold: 32.5,
       xp: 700,
-      itemReward: [{ itemId: 100, dropChance: 100 }],
+      itemReward: highDrops,
     },
   },
   {
@@ -117,7 +155,7 @@ export const cavernsDungeonEnemies = [
     rewards: {
       gold: 35.5,
       xp: 760,
-      itemReward: [{ itemId: 100, dropChance: 100 }],
+      itemReward: highDrops,
     },
   },
   {
@@ -134,7 +172,7 @@ export const cavernsDungeonEnemies = [
     rewards: {
       gold: 35.5,
       xp: 760,
-      itemReward: [{ itemId: 100, dropChance: 100 }],
+      itemReward: highDrops,
     },
   },
   {
@@ -151,7 +189,7 @@ export const cavernsDungeonEnemies = [
     rewards: {
       gold: 35.5,
       xp: 760,
-      itemReward: [{ itemId: 100, dropChance: 100 }],
+      itemReward: highDrops,
     },
   },
   {
@@ -168,7 +206,7 @@ export const cavernsDungeonEnemies = [
     rewards: {
       gold: 50,
       xp: 1000,
-      itemReward: [{ itemId: 100, dropChance: 100 }],
+      itemReward: finalDrops,
     },
   },
 ];
