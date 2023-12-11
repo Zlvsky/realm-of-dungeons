@@ -9,8 +9,6 @@ import SectionDivider from "../../components/common/dividers/SectionDivider";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 
-
-
 const homeBackground = {
   backgroundImage: `url(${homeBg})`,
   backgroundSize: "cover",

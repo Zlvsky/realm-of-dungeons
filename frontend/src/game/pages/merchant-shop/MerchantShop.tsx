@@ -12,6 +12,7 @@ import MerchantItems from "./components/merchant/MerchantItems";
 import { merchantBuy, merchantSell } from "../../../client/appClient";
 import fetchHero from "../../../utils/fetchers/fetchHero";
 import { IItem } from "../../../interfaces/MainInterface";
+import displayError from "../../../utils/notifications/errors";
 
 interface IMerchantShop {
   currentMerchant: string;
@@ -63,7 +64,7 @@ function MerchantShop({ currentMerchant }: IMerchantShop) {
       inventorySlot: currentItem?.itemData.slotIndex!,
     };
     const response = await merchantSell(dataToSend);
-    if (response.status !== 200) return console.log(response.data);
+    if (response.status !== 200) return displayError(dispatch, response);
     setCurrentItem(null);
     fetchHero(updateHero);
   };
@@ -74,8 +75,7 @@ function MerchantShop({ currentMerchant }: IMerchantShop) {
       slotIndex: currentItem?.itemData.slotIndex!,
     };
     const response = await merchantBuy(dataToSend);
-    if (response.status !== 200) return console.log(response.data);
-    setCurrentItem(null);
+    if (response.status !== 200) return displayError(dispatch, response);
     fetchHero(updateHero);
   };
 

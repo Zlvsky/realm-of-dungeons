@@ -7,12 +7,15 @@ import Input from "../../components/common/forms/Input";
 import { createCharacter } from "../../client/appClient";
 import { useNavigate } from "react-router-dom";
 import getClassDetails from "./helpers/ClassesData";
+import displayError from "../../utils/notifications/errors";
+import { useDispatch } from "react-redux";
 
 function CreateHero() {
   const [nickname, setNickname] = useState("");
   const [heroIndex, setHeroIndex] = useState<1 | 2 | 3>(1);
   const [currentHeroData, setCurrentHeroData] = useState<any>({});
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const heroClass = {
     1: "warrior",
@@ -61,7 +64,7 @@ function CreateHero() {
       class: heroClass[heroIndex],
     };
     const response = await createCharacter(data);
-    if (response.status !== 200) return console.log(response.data);
+    if (response.status !== 200) return displayError(dispatch, response);
     navigate("/start");
   };
 

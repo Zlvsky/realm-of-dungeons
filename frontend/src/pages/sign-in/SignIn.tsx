@@ -5,13 +5,16 @@ import Form from "../../components/common/forms/Form";
 import Input from "../../components/common/forms/Input";
 import Header from "../../components/common/text/Header";
 import FullWrapper from "../../components/layouts/page-wrappers/FullWrapper";
-import setCookies from "../../utils/cookies/setCookie";
+import { fetchUser } from "../../utils/fetchers/fetchUser";
+import { useDispatch } from "react-redux";
+import { displayGlobalError } from "../../utils/notifications/errors";
 
 function SignIn() {
   const [accountName, setAccountName] = useState("");
   const [password, setPassword] = useState("");
   
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onSubmit = async () => {
     const data = {
@@ -19,9 +22,8 @@ function SignIn() {
       password: password
     };
     const response = await login(data);
-    if(response.status !== 200) return console.log(response);
-    console.log("success", response.data);
-    setCookies(response.data.token);
+    if(response.status !== 200) return displayGlobalError(dispatch, response);
+    fetchUser(dispatch)
     navigate("/start");
   };
 

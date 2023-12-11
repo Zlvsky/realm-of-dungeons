@@ -1,5 +1,4 @@
 import { getUserCharacter } from "../../client/appClient";
-import { setHero } from "../../redux/reducers/gameSlice";
 
 const fetchHero = async (updateHero: any) => {
   const heroId = localStorage.getItem("hero");

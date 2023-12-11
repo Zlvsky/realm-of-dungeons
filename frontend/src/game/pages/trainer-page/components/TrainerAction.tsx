@@ -8,6 +8,7 @@ import { getHero, setHero } from "../../../../redux/reducers/gameSlice";
 import { useDispatch, useSelector } from "react-redux";
 import fetchHero from "../../../../utils/fetchers/fetchHero";
 import { trainerFeeRequest, trainerTrainRequest } from "../../../../client/appClient";
+import displayError from "../../../../utils/notifications/errors";
 
 const textStyle: any = {
   align: "left",
@@ -45,13 +46,13 @@ function TrainerAction({ currentTrainer }: {currentTrainer: string} ) {
 
   const handleFetchFee = async () => {
     const response = await trainerFeeRequest(currentStat);
-    if (response.status !== 200) return console.log(response.data);
+    if (response.status !== 200) return displayError(dispatch, response);
     setFee(response.data.fee.toFixed(2));
   };
 
   const handleAcceptTraining = async () => {
     const response = await trainerTrainRequest(currentStat);
-    if (response.status !== 200) return console.log(response.data);
+    if (response.status !== 200) return displayError(dispatch, response);
     await fetchHero(updateHero);
   };
 

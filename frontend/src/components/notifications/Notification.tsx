@@ -69,7 +69,7 @@ const Notification = ({
 
   return mounted ? (
     <div
-      className={`pop-up-notification fixed w-full max-w-[410px] left-1/2 -translate-x-1/2 pl-4 pr-5 py-4 bg-white shadow-hover z-20  ${
+      className={`pop-up-notification fixed w-full max-w-[410px] left-1/2 -translate-x-1/2 pl-4 pr-5 py-4 bg-bgBrown border border-borderBrown border-t-borderTopBrown shadow-hover z-20  ${
         show ? "animate-notificationStart" : "animate-notificationEnd"
       }
       `}
@@ -77,9 +77,9 @@ const Notification = ({
       onAnimationEnd={onAnimationEnd}
       ref={NotificationRef}
     >
-      <div className="flex flex-row items-center justify-between">
-        <div className="flex flex-row items-center gap-3">
-          <span className="text-dark">{message}</span>
+      <div className="flex flex-row items-center justify-center">
+        <div className="flex flex-row items-center justify-center gap-3">
+          <span className="text-accent text-lg font-sans">{message}</span>
         </div>
       </div>
     </div>

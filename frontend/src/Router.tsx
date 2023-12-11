@@ -3,15 +3,22 @@ import ProtectedRoute from "./components/authentication/ProtectedRoute";
 import Home from "./pages/home/Home";
 import SignIn from "./pages/sign-in/SignIn";
 import SignUp from "./pages/sign-up/SignUp";
-import Cookies from "js-cookie";
 import UserPanel from "./pages/user-panel/UserPanel";
 import CreateHero from "./pages/create-hero/CreateHero";
 import Game from "./game/Game";
 import GameNotificationsGlobal from "./components/game-notifications/GameNotificationsGlobal";
 import NotificationsGlobal from "./components/notifications/NotificationsGlobal";
+import { useSelector } from "react-redux";
+import { getUser } from "./redux/reducers/userSlice";
+import LoadingScreen from "./components/layouts/page-wrappers/LoadingScreen";
+import usePersistUser from "./hooks/usePersistUser";
 
 function Router() {
-  const user = Cookies.get("jwt");
+  const loading = usePersistUser();
+  const user = useSelector(getUser);
+
+  if (loading) return <LoadingScreen />;
+
   return (
     <BrowserRouter>
       <Routes>

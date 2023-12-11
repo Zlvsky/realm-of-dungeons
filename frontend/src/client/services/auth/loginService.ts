@@ -1,3 +1,4 @@
+import setCookies from "../../../utils/cookies/setCookie";
 import postRequestNoAuth from "../../requests/postRequestNoAuth";
 
 export interface signInInterface {
@@ -13,5 +14,6 @@ export const signInService = async (body: signInInterface) => {
       password: body.password,
     },
   });
+  if (result.status === 200) setCookies(result.data.token);
   return result;
 };

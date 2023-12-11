@@ -12,6 +12,7 @@ import { clearActiveQuest, startQuestBattle } from '../../../../client/appClient
 import { setHero } from '../../../../redux/reducers/gameSlice';
 import { useDispatch } from 'react-redux';
 import fetchHero from '../../../../utils/fetchers/fetchHero';
+import displayError from '../../../../utils/notifications/errors';
 
 const isQuestReady = (questTime: string) => {
   const questDate = new Date(questTime);
@@ -86,7 +87,7 @@ function QuestProgress({ hero }: any) {
 
   const handleCancelQuest = async () => {
     const response = await clearActiveQuest();
-    if (response.status !== 200) return console.log(response.data);
+    if (response.status !== 200) return displayError(dispatch, response);
     fetchHero(updateHero);
   };
 
