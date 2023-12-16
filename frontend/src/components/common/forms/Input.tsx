@@ -35,7 +35,13 @@ const Input = ({
       </label>
       <input
         className={classNames(
-          `bg-bgBrown border border-borderBrown border-t-borderTopBrown font-sans placeholder-primary text-primary block w-full py-3 px-4 focus-visible:outline-none`,
+          `bg-bgBrown border font-sans placeholder-primary text-primary block w-full py-3 px-4 focus-visible:outline-none
+          ${
+            error
+              ? "border-red-800"
+              : "border-borderBrown border-t-borderTopBrown"
+          }
+          `,
           inputClassName
         )}
         id={name}
@@ -47,7 +53,7 @@ const Input = ({
         required={required}
       />
       {error && (
-        <p className="text-error text-sm font-semibold pl-2">{error}</p>
+        <p className="absolute text-red-800 text-sm font-semibold -bottom-5">{error}</p>
       )}
     </div>
   );

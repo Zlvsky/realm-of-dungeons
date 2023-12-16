@@ -6,6 +6,7 @@ import Form from '../../components/common/forms/Form';
 import Input from '../../components/common/forms/Input';
 import Header from '../../components/common/text/Header';
 import FullWrapper from '../../components/layouts/page-wrappers/FullWrapper';
+import { validateRegister } from './validate/validateRegister';
 
 function SignUp() {
     const [accountName, setAccountName] = useState("");
@@ -14,9 +15,15 @@ function SignUp() {
     const [repeatPassword, setRepeatPassword] = useState("");
     const [terms, setTerms] = useState(false);
 
+    const [errors, setErrors] = useState<any>({});
+
     const navigate = useNavigate();
 
     const onSubmit = async () => {
+      setErrors({});
+      const formErrors = validateRegister(email, accountName, password, repeatPassword);
+      if (Object.entries(formErrors).length > 0) return setErrors(formErrors);
+
       const data = {
         accountname: accountName,
         email: email,
@@ -24,7 +31,6 @@ function SignUp() {
       };
       const response = await register(data);
       if (response.status !== 200) return console.log(response);
-      console.log("success", response.data);
       navigate("/signin");
     };
 
@@ -48,7 +54,7 @@ function SignUp() {
                 value={accountName}
                 onChange={(e: any) => setAccountName(e.target.value)}
                 // onKeyPress={inputOnlyLetters}
-                // error={errors?.fullName}
+                error={errors?.accountName}
                 required
               />
               <Input
@@ -60,7 +66,7 @@ function SignUp() {
                 value={email}
                 onChange={(e: any) => setEmail(e.target.value)}
                 // onKeyPress={inputOnlyLetters}
-                // error={errors?.fullName}
+                error={errors?.email}
                 required
               />
               <Input
@@ -72,7 +78,7 @@ function SignUp() {
                 value={password}
                 onChange={(e: any) => setPassword(e.target.value)}
                 // onKeyPress={inputOnlyLetters}
-                // error={errors?.fullName}
+                error={errors?.password}
                 required
               />
               <Input
@@ -84,7 +90,7 @@ function SignUp() {
                 value={repeatPassword}
                 onChange={(e: any) => setRepeatPassword(e.target.value)}
                 // onKeyPress={inputOnlyLetters}
-                // error={errors?.fullName}
+                error={errors?.repeatPassword}
                 required
               />
               <Checkbox

@@ -4,10 +4,10 @@ import bcrypt from "bcrypt";
 import { IUser } from "../../types/account/MainInterfaces";
 
 const UserSchema: Schema = new mongoose.Schema({
-  accountname: { type: String, required: true },
-  email: { type: String, required: true },
-  password: { type: String, required: true },
-  isAdmin: { type: Boolean, required: false},
+  accountname: { type: String, required: true, unique: true, minLength: 3, maxLength: 20  },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true, minLength: 8 },
+  isAdmin: { type: Boolean, required: false },
   characters: [
     {
       type: mongoose.Schema.Types.ObjectId,
