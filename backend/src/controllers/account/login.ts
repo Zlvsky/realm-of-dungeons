@@ -8,13 +8,13 @@ export const loginUser = async (req: Request, res: Response) => {
     const user = await User.findOne({ accountname: req.body.accountname });
 
     if (!user) {
-      return res.status(404).send("User not found");
+      return res.status(404).json({ message: "User not found" });
     }
 
     const isMatch = await bcrypt.compare(req.body.password, user.password);
 
     if (!isMatch) {
-      return res.status(401).send("Invalid credentials");
+      return res.status(401).json({ message: "Invalid credentials" });
     }
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET!);
@@ -23,6 +23,6 @@ export const loginUser = async (req: Request, res: Response) => {
     return res.status(200).json({ token });
   } catch (err) {
     console.log(err);
-    return res.status(500).send("Internal Server Error");
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 };

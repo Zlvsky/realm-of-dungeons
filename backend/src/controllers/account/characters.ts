@@ -26,6 +26,11 @@ const statisticProgression = (baseStatistics: any, stat: string) => {
 
 // POST /api/characters
 export const createCharacter = async (req: Request, res: Response) => {
+
+  const character = await Character.findOne({ nickname: req.body.nickname });
+
+  if (character) return res.status(400).json({ message: "Character name already taken" });
+
   try {
     // Create new character object
     const baseStatistics = getBaseStatistics(req.body.class);

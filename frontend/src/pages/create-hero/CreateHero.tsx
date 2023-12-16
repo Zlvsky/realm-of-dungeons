@@ -7,7 +7,7 @@ import Input from "../../components/common/forms/Input";
 import { createCharacter } from "../../client/appClient";
 import { useNavigate } from "react-router-dom";
 import getClassDetails from "./helpers/ClassesData";
-import displayError from "../../utils/notifications/errors";
+import { displayGlobalError } from "../../utils/notifications/errors";
 import { useDispatch } from "react-redux";
 
 function CreateHero() {
@@ -64,7 +64,7 @@ function CreateHero() {
       class: heroClass[heroIndex],
     };
     const response = await createCharacter(data);
-    if (response.status !== 200) return displayError(dispatch, response);
+    if (response.status !== 200) return displayGlobalError(dispatch, response);
     navigate("/start");
   };
 

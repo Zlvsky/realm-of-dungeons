@@ -13,7 +13,7 @@ const displayBadRequest = (message: any, dispatch: Dispatch<AnyAction>) => {
 export const displayGlobalError = (dispatch: Dispatch<AnyAction>, response: any) => {
   if (response.status !== 200) {
     const alert: any = {
-      message: response.data,
+      message: response.data?.message,
       type: "error",
     };
     dispatch(setNotifications(alert));

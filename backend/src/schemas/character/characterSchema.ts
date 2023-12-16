@@ -22,6 +22,7 @@ const CharacterSchema = new mongoose.Schema({
   nickname: {
     type: String,
     required: true,
+    unique: true,
   },
   avatar: {
     type: String,
