@@ -7,6 +7,7 @@ import Input from '../../components/common/forms/Input';
 import Header from '../../components/common/text/Header';
 import FullWrapper from '../../components/layouts/page-wrappers/FullWrapper';
 import { validateRegister } from './validate/validateRegister';
+import Footer from '../../components/footer/Footer';
 
 function SignUp() {
     const [accountName, setAccountName] = useState("");
@@ -36,7 +37,7 @@ function SignUp() {
 
     return (
       <FullWrapper>
-        <div className="flex flex-col justify-center items-center max-w-lg mx-auto min-h-screen">
+        <div className="flex flex-col justify-center items-center max-w-lg mx-auto min-h-screen px-2">
           <div className="w-full text-center mt-28">
             <p className="text-secondary font-sans text-lg">
               CREATE YOUR ACCOUNT
@@ -100,12 +101,16 @@ function SignUp() {
               >
                 Accept terms of Use, Privacy Notice and Cookies Notice
               </Checkbox>
-              <p className='text-primaryLight text-right font-sans text-sm'>
-                Already have an account? <Link to="/signin" className='underline text-primary'>SignIn</Link>
+              <p className="text-primaryLight text-right font-sans text-sm">
+                Already have an account?{" "}
+                <Link to="/signin" className="underline text-primary">
+                  SignIn
+                </Link>
               </p>
             </Form>
           </div>
         </div>
+        <Footer />
       </FullWrapper>
     );
 }

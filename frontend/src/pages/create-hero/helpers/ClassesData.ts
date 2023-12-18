@@ -7,7 +7,7 @@ const warriorDetails = {
     wisdom: 2,
     charisma: 8,
   },
-  avatar: "https://i.ibb.co/6gRG6JR/warrior.png",
+  avatar: "/avatars/warrior.jpg",
 };
 const mageDetails = {
   statistics: {
@@ -18,7 +18,7 @@ const mageDetails = {
     wisdom: 15,
     charisma: 12,
   },
-  avatar: "https://i.ibb.co/LgfgW8D/mage.png",
+  avatar: "/avatars/mage.jpg",
 };
 const archerDetails = {
   statistics: {
@@ -29,7 +29,7 @@ const archerDetails = {
     wisdom: 6,
     charisma: 12,
   },
-  avatar: "https://i.ibb.co/5sBfpDZ/archer.png",
+  avatar: "/avatars/archer.jpg",
 };
 
 const getClassDetails = (heroClass: any) => {

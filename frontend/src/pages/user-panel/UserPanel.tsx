@@ -5,6 +5,7 @@ import Button from '../../components/common/button/Button';
 import Header from '../../components/common/text/Header';
 import FullWrapper from '../../components/layouts/page-wrappers/FullWrapper';
 import HeroSelect from './components/HeroSelect';
+import Footer from '../../components/footer/Footer';
 
 function UserPanel() {
     const [userData, setUserData] = useState<any>([]);
@@ -37,7 +38,7 @@ function UserPanel() {
 
     return (
       <FullWrapper>
-        <div className="flex flex-col justify-center items-center max-w-lg mx-auto min-h-screen">
+        <div className="flex flex-col justify-center items-center max-w-lg mx-auto min-h-screen mb-24">
           <div className="w-full text-center mt-28">
             <Header>Welcome {userData.accountname}</Header>
             <p className="text-secondary font-sans text-lg mt-10">
@@ -46,13 +47,14 @@ function UserPanel() {
           </div>
           <div className="w-full">
             <ListedHeroes />
-            <div className='flex justify-center'>
+            <div className="flex justify-center">
               <Link to="/createhero">
                 <Button bgColor="borderBrown">CREATE NEW HERO</Button>
               </Link>
             </div>
           </div>
         </div>
+        <Footer />
       </FullWrapper>
     );
 }

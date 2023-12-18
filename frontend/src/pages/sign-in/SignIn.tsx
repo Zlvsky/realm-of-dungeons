@@ -8,6 +8,7 @@ import FullWrapper from "../../components/layouts/page-wrappers/FullWrapper";
 import { fetchUser } from "../../utils/fetchers/fetchUser";
 import { useDispatch } from "react-redux";
 import { displayGlobalError } from "../../utils/notifications/errors";
+import Footer from "../../components/footer/Footer";
 
 function SignIn() {
   const [accountName, setAccountName] = useState("");
@@ -29,7 +30,7 @@ function SignIn() {
 
   return (
     <FullWrapper>
-      <div className="flex flex-col justify-center items-center max-w-lg mx-auto min-h-screen">
+      <div className="flex flex-col justify-center items-center max-w-lg mx-auto min-h-screen px-2">
         <div className="w-full text-center mt-28">
           <p className="text-secondary font-sans text-lg">
             LOGIN TO YOUR ACCOUNT
@@ -69,6 +70,7 @@ function SignIn() {
           </Form>
         </div>
       </div>
+      <Footer />
     </FullWrapper>
   );
 }

@@ -1,3 +1,5 @@
+import buttonBg from "../../../assets/images/buttonStock.png";
+
 interface ButtonInterface {
   textColor?: string;
   bgColor?: string;
@@ -23,7 +25,8 @@ function Button({
   return (
     <button
       disabled={disabled}
-      className={`text-${textColor} bg-${bgColor} py-${py} px-14 flex items-center justify-center gap-1 rounded-md font-${font}`}
+      style={{backgroundImage: `url(${buttonBg})`}}
+      className={`text-${textColor} py-${py} font-sans bg-center bg-no-repeat bg-contain px-12 flex items-center justify-center gap-1 tracking-wider`}
       {...rest}
     />
   );
@@ -32,9 +35,9 @@ function Button({
 Button.defaultProps = {
   textColor: "white",
   bgColor: "accent",
-  py: "3",
+  py: "4",
   size: "lg",
-  font: "semibold",
+
 };
 
 export default Button;

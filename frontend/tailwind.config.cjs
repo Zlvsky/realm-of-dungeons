@@ -17,6 +17,7 @@ module.exports = {
         borderTopBrown: "#734a32",
         gradientBrownTop: "#52201F",
         gradientBrownBottom: "#2E1510",
+        grey1: "#919191",
       },
       keyframes: {
         notificationStart: {
