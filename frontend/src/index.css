@@ -29,3 +29,27 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 }
+
+@layer base {
+  .clean-style ul,
+  .clean-style ol,
+  .clean-style p {
+    list-style: revert;
+    margin: revert;
+    padding: revert;
+    letter-spacing: revert;
+    line-height: revert;
+  }
+  .clean-style table {
+    border-width: 1px;
+  }
+  .clean-style table > tbody, .clean-style table > tbody > tr, .clean-style table > tbody > tr > td  {
+    border-width: inherit;
+    border-color: inherit;
+  }
+  .clean-style h1, .clean-style h2, .clean-style h3, .clean-style h4, .clean-style h5, .clean-style h6 {
+    font-size: revert;
+    line-height: revert;
+    letter-spacing: revert;
+  }
+}

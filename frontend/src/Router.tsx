@@ -12,6 +12,8 @@ import { useSelector } from "react-redux";
 import { getUser } from "./redux/reducers/userSlice";
 import LoadingScreen from "./components/layouts/page-wrappers/LoadingScreen";
 import usePersistUser from "./hooks/usePersistUser";
+import PrivacyPolicy from "./pages/terms/PrivacyPolicy";
+import Terms from "./pages/terms/Terms";
 
 function Router() {
   const loading = usePersistUser();
@@ -22,20 +24,29 @@ function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          element={<ProtectedRoute accessBy="non-authenticated" user={user} />}
-        >
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} />
+        <Route path="/">
+          <Route path="/" element={<Home />} index />
+
+          <Route
+            element={
+              <ProtectedRoute accessBy="non-authenticated" user={user} />
+            }
+          >
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/signin" element={<SignIn />} />
+          </Route>
+
+          <Route
+            element={<ProtectedRoute accessBy="authenticated" user={user} />}
+          >
+            <Route path="/start" element={<UserPanel />} />
+            <Route path="/createhero" element={<CreateHero />} />
+            <Route path="/game" element={<Game />} />
+          </Route>
+
+          <Route path="/legal/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/legal/terms" element={<Terms />} />
         </Route>
-        <Route
-          element={<ProtectedRoute accessBy="authenticated" user={user} />}
-        >
-          <Route path="/start" element={<UserPanel />} />
-          <Route path="/createhero" element={<CreateHero />} />
-          <Route path="/game" element={<Game />} />
-        </Route>
-        <Route index path="/" element={<Home />} />
       </Routes>
       <NotificationsGlobal />
       <GameNotificationsGlobal />

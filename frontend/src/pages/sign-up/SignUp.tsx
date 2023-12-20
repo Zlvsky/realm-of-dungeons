@@ -99,7 +99,14 @@ function SignUp() {
                 onChange={(e: any) => setTerms(e.target.checked)}
                 required
               >
-                Accept terms of Use, Privacy Notice and Cookies Notice
+                Accept{" "}
+                <Link to="/legal/terms" target='_blank' className="underline text-primary">
+                  Terms of Use
+                </Link>
+                {" "}and{" "}
+                <Link to="/legal/terms" target='_blank' className="underline text-primary">
+                  Privacy Policy
+                </Link>{" "}
               </Checkbox>
               <p className="text-primaryLight text-right font-sans text-sm">
                 Already have an account?{" "}

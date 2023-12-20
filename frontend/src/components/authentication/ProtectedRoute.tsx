@@ -10,12 +10,13 @@ interface ProtectedRouteProps {
 const ProtectedRoute = ({ children, accessBy, user }: ProtectedRouteProps) => {
   const isAuthenticated = Boolean(user);
 
-  if (accessBy === "non-authenticated" && !isAuthenticated) {
-    return children ?? <Outlet />;
+  if (accessBy === "non-authenticated") {
+    if (!isAuthenticated) return children ? children : <Outlet />;
+    return <Navigate to="/" />;
   }
 
   if (accessBy === "authenticated" && isAuthenticated) {
-    return children ?? <Outlet />;
+    return children ? children : <Outlet />;
   }
 
   return <Navigate to="/" replace />;

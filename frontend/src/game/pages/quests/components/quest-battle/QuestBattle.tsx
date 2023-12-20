@@ -15,13 +15,21 @@ import BattleEndPopup from "../../../../components/battle/BattleEndPopup";
 import { questBattleEndService } from "../../../../../client/services/game/quests/questBattleEndService";
 import { ICharacter } from "../../../../../interfaces/MainInterface";
 import displayError from "../../../../../utils/notifications/errors";
-
+import { Text as AnimatedText } from "@pixi/react-animated";
+import { Spring, animated } from "react-spring";
 interface IQuestBattle {
   hero: ICharacter;
 }
 
 function QuestBattle({ hero }: IQuestBattle) {
   const [battleWinner, setBattleWinner] = useState<1 | 2 | null>(null);
+
+  const [visible, setVisible] = useState(true);
+
+  // const { y } = useSpring({
+  //   y: visible ? -20 : -50, // Adjust these values for the desired animation
+  //   onRest: () => setVisible(false), // Hide the text after the animation is complete
+  // });
 
   const dispatch = useDispatch();
 
@@ -104,6 +112,39 @@ function QuestBattle({ hero }: IQuestBattle) {
     );
   };
 
+  const DamageOutput = () => {
+    const [visible, setVisible] = useState(true);
+
+    return (
+      <Container position={[500, 380]}>
+        <Spring
+          from={{ x: 250 / 2, y: 120 }}
+          to={{ x: 250 / 2, y: 90 }}
+          onRest={() => setVisible(false)}
+        >
+          {(props: any) => (
+            <AnimatedText
+              text={`MISSED`}
+              {...props}
+              visible={visible}
+              anchor={0.5}
+            />
+          )}
+        </Spring>
+      </Container>
+    );
+  };
+  /*
+style={
+                new TextStyle({
+                  align: "center",
+                  fontFamily: "Almendra",
+                  fontSize: 26,
+                  fontWeight: "700",
+                  fill: ["#BC330C"],
+                })
+              }
+*/
   const Turn = () => {
     const whosTurn =
       hero?.activeQuest.quest!.whosTurn === 1
@@ -141,6 +182,7 @@ function QuestBattle({ hero }: IQuestBattle) {
       <MobSection />
       <Turn />
       <HeroSection />
+      {/* <DamageOutput /> */}
       <CombatActions hero={hero} battleType={"QUEST"} />
       <CombatLogs logs={hero.activeQuest.textLogs} />
       {battleWinner && (
