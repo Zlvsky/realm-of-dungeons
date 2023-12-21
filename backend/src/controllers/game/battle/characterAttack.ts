@@ -41,6 +41,10 @@ export const characterAttack = async (req: Request, res: Response) => {
   const { characterId, attackPower, battleType }: ICharacterAttack = req.body;
   try {
     const character = await Character.findById(characterId);
+    const dataToReturn: any = {
+      who: 2,
+      damage: "DEALT"
+    }
 
     if (!character)
       return res.status(404).json({ message: "Character not found" });
@@ -71,9 +75,11 @@ export const characterAttack = async (req: Request, res: Response) => {
 
       if (attackDamage === 0) {
         activeQuest.textLogs.push("You missed");
+        dataToReturn.text = "MISSED";
       } else {
         await addExperienceToStat(character, "weapon");
         activeQuest.textLogs.push(`You dealt ${attackDamage} damage`);
+        dataToReturn.text = `-${attackDamage}`;
       }
 
       if (enemy.health <= 0) {
@@ -107,9 +113,11 @@ export const characterAttack = async (req: Request, res: Response) => {
 
       if (attackDamage === 0) {
         realmDungeon.battle.textLogs.push("You missed");
+        dataToReturn.text = "MISSED";
       } else {
         await addExperienceToStat(character, "weapon");
         realmDungeon.battle.textLogs.push(`You dealt ${attackDamage} damage`);
+        dataToReturn.text = `-${attackDamage}`;
       }
 
       if (realmDungeon.battle.enemy.health <= 0) {
@@ -122,7 +130,7 @@ export const characterAttack = async (req: Request, res: Response) => {
     }
 
     await character.save();
-    return res.json("success");
+    return res.status(200).json(dataToReturn);
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Server Error" });

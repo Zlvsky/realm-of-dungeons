@@ -9,6 +9,11 @@ export const dungeonEnemyTurn = async (req: Request, res: Response) => {
   try {
     const character = await Character.findById(characterId);
 
+    const dataToReturn: any = {
+      who: 1,
+      damage: "DEALT",
+    };
+
     if (!character)
       return res.status(404).json({ message: "Character not found" });
 
@@ -43,8 +48,10 @@ export const dungeonEnemyTurn = async (req: Request, res: Response) => {
 
     if (enemyDamage <= 0) {
       battle.textLogs.push(`- ${enemy.name} missed attack`);
+      dataToReturn.text = "MISSED";
     } else {
       battle.textLogs.push(`- ${enemy.attackText} ${enemyDamage} damage`);
+      dataToReturn.text = `-${enemyDamage}`;
     }
 
     if (character.updatedValues.health <= 0) {
@@ -54,7 +61,7 @@ export const dungeonEnemyTurn = async (req: Request, res: Response) => {
     }
 
     await character.save();
-    return res.json("success");
+    return res.status(200).json(dataToReturn);
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Server Error" });

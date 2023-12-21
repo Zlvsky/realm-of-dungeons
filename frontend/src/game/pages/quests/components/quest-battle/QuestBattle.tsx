@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Container, Text, TilingSprite } from "@pixi/react";
 import { TextStyle } from "pixi.js";
 import BgPattern from "../../../../../assets/images/dark_wall.png";
@@ -16,13 +16,62 @@ import { questBattleEndService } from "../../../../../client/services/game/quest
 import { ICharacter } from "../../../../../interfaces/MainInterface";
 import displayError from "../../../../../utils/notifications/errors";
 import { Text as AnimatedText } from "@pixi/react-animated";
-import { Spring, animated } from "react-spring";
+import { Spring } from "react-spring";
 interface IQuestBattle {
   hero: ICharacter;
 }
 
+const DamageOutput = ({ damageOutputInfo, setDamageOutputInfo }: any) => {
+  const yPosition = damageOutputInfo?.who === 1 ? 380 : -15
+
+  const style = new TextStyle({
+        align: "center",
+        fontFamily: "Almendra",
+        fontSize: 26,
+        fontWeight: "700",
+        fill: damageOutputInfo?.damage === "HEALED" ? "#2fa019" : "#BC330C",
+      })
+
+  if (damageOutputInfo === null) return null;
+
+  return (
+    <Container position={[500, yPosition]}>
+      <Spring
+        from={{
+          x: 250 / 2,
+          y: 120,
+        }}
+        to={{
+          x: 250 / 2,
+          y: 90,
+        }}
+        onRest={() =>
+          setTimeout(() => {
+            setDamageOutputInfo(null);
+          }, 350)
+        }
+        config={{ friction: 12 }}
+      >
+        {(props: any) => {
+          return (
+            <AnimatedText
+              isSprite={true}
+              text={damageOutputInfo?.text}
+              anchor={0.5}
+              style={style}
+              {...props}
+            />
+          );
+        }}
+      </Spring>
+    </Container>
+  );
+};
+
 function QuestBattle({ hero }: IQuestBattle) {
   const [battleWinner, setBattleWinner] = useState<1 | 2 | null>(null);
+  const [enemyOutput, setEnemyOutput] = useState<{text: string; who: number, damage: string} | null>(null);
+  const [heroOutput, setHeroOutput] = useState<{text: string; who: number, damage: string} | null>(null);
 
   const [visible, setVisible] = useState(true);
 
@@ -40,6 +89,7 @@ function QuestBattle({ hero }: IQuestBattle) {
   const handleEnemyTurn = async () => {
     const response = await questEnemyTurn();
     if (response.status !== 200) return displayError(dispatch, response);
+    setEnemyOutput(response.data);
     fetchHero(updateHero);
   };
 
@@ -55,7 +105,7 @@ function QuestBattle({ hero }: IQuestBattle) {
     } else if (hero.activeQuest.quest!.whosTurn === 2) {
       setTimeout(() => {
         handleEnemyTurn();
-      }, 1000);
+      }, 1200);
     }
   }, [hero]);
 
@@ -112,39 +162,6 @@ function QuestBattle({ hero }: IQuestBattle) {
     );
   };
 
-  const DamageOutput = () => {
-    const [visible, setVisible] = useState(true);
-
-    return (
-      <Container position={[500, 380]}>
-        <Spring
-          from={{ x: 250 / 2, y: 120 }}
-          to={{ x: 250 / 2, y: 90 }}
-          onRest={() => setVisible(false)}
-        >
-          {(props: any) => (
-            <AnimatedText
-              text={`MISSED`}
-              {...props}
-              visible={visible}
-              anchor={0.5}
-            />
-          )}
-        </Spring>
-      </Container>
-    );
-  };
-  /*
-style={
-                new TextStyle({
-                  align: "center",
-                  fontFamily: "Almendra",
-                  fontSize: 26,
-                  fontWeight: "700",
-                  fill: ["#BC330C"],
-                })
-              }
-*/
   const Turn = () => {
     const whosTurn =
       hero?.activeQuest.quest!.whosTurn === 1
@@ -182,8 +199,19 @@ style={
       <MobSection />
       <Turn />
       <HeroSection />
-      {/* <DamageOutput /> */}
-      <CombatActions hero={hero} battleType={"QUEST"} />
+      <DamageOutput
+        damageOutputInfo={heroOutput}
+        setDamageOutputInfo={setHeroOutput}
+      />
+      <DamageOutput
+        damageOutputInfo={enemyOutput}
+        setDamageOutputInfo={setEnemyOutput}
+      />
+      <CombatActions
+        hero={hero}
+        battleType={"QUEST"}
+        setDamageOutputInfo={setHeroOutput}
+      />
       <CombatLogs logs={hero.activeQuest.textLogs} />
       {battleWinner && (
         <BattleEndPopup

@@ -12,6 +12,10 @@ export const characterUsePotion = async (req: Request, res: Response) => {
   const { characterId, battleType }: ICharacterUsePotion = req.body;
   try {
     const character = await Character.findById(characterId);
+    const dataToReturn: any = {
+      who: 1,
+      damage: "HEALED",
+    };
 
     if (!character)
       return res.status(404).json({ message: "Character not found" });
@@ -47,6 +51,8 @@ export const characterUsePotion = async (req: Request, res: Response) => {
 
         quest.whosTurn = 2;
 
+        dataToReturn.text = "HEALED";
+
     } else if (battleType === "DUNGEON") {
 
         const realmDungeon = getRealmDungeon(character);
@@ -72,6 +78,8 @@ export const characterUsePotion = async (req: Request, res: Response) => {
             realmDungeon.battle.textLogs.push(usedPotion);
 
             realmDungeon.battle.whosTurn = 2;
+
+            dataToReturn.text = "HEALED";
     } else {
         return res.status(400).json({ message: "Battle type must be provided" });
     }
@@ -81,7 +89,7 @@ export const characterUsePotion = async (req: Request, res: Response) => {
     equippedPotion.item = null;
 
     await character.save();
-    return res.json("success");
+    return res.status(200).json(dataToReturn);
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Server Error" });

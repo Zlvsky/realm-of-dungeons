@@ -17,8 +17,7 @@ interface IAction {
   action: any;
 }
 
-function CombatActions({ hero, battleType }: any) {
-
+function CombatActions({ hero, battleType, setDamageOutputInfo }: any) {
   const dispatch = useDispatch();
 
   const updateHero = (data: any) => {
@@ -29,19 +28,23 @@ function CombatActions({ hero, battleType }: any) {
     const response = await battleActionAttack({ attackPower, battleType });
     if (response.status !== 200) return displayError(dispatch, response);
     fetchHero(updateHero);
+    setDamageOutputInfo(response.data);
   };
 
   const usePotion = async () => {
     const response = await battleActionPotionRequest(battleType);
     if (response.status !== 200) return displayError(dispatch, response);
     fetchHero(updateHero);
-  }
+    setDamageOutputInfo(response.data);
+  };
 
   const potionImage = () => {
-    const potionSlot = hero.equipment.find((item: any) => item.type === "potion");  
+    const potionSlot = hero.equipment.find(
+      (item: any) => item.type === "potion"
+    );
     if (!potionSlot.item) return potionBlank;
     return potionSlot.item.image;
-  }
+  };
 
   const ActionButton = ({ x, image, action }: IAction) => {
     return (

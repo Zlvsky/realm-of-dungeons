@@ -6,12 +6,12 @@ import getValuesWithStatistics from "../../../gameUtils/characters/getValuesWith
 export const questEnemyTurn = async (req: Request, res: Response) => {
   const { characterId } = req.body;
   try {
-    const character = await Character.findById(characterId)
-      .populate({
-        path: "equipment.item",
-        model: "Item",
-      })
-      .exec();
+    const character = await Character.findById(characterId);
+
+    const dataToReturn: any = {
+      who: 1,
+      damage: "DEALT",
+    };
 
     if (!character)
       return res.status(404).json({ message: "Character not found" });
@@ -39,8 +39,10 @@ export const questEnemyTurn = async (req: Request, res: Response) => {
 
     if (enemyDamage <= 0) {
       activeQuest.textLogs.push(`- ${enemy.name} missed attack`);
+      dataToReturn.text = "MISSED";
     } else {
       activeQuest.textLogs.push(`- ${enemy.attackText} ${enemyDamage} damage`);
+      dataToReturn.text = `-${enemyDamage}`;
     }
 
     if (character.updatedValues.health <= 0) {
@@ -50,7 +52,7 @@ export const questEnemyTurn = async (req: Request, res: Response) => {
     }
 
     await character.save();
-    return res.json("success");
+    return res.status(200).json(dataToReturn);
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Server Error" });

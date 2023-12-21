@@ -14,15 +14,66 @@ import BattleEndPopup from "../../../components/battle/BattleEndPopup";
 import BgPattern from "../../../../assets/images/dark_wall.png";
 import { dungeonBattleEnd, dungeonEnemyTurn } from "../../../../client/appClient";
 import displayError from "../../../../utils/notifications/errors";
+import { Text as AnimatedText } from "@pixi/react-animated";
+import { Spring } from "react-spring";
 
 interface IDungeonBattle {
   hero: ICharacter;
   realmDungeon: IDungeon;
 }
 
+const DamageOutput = ({ damageOutputInfo, setDamageOutputInfo }: any) => {
+  const yPosition = damageOutputInfo?.who === 1 ? 380 : -15;
+
+  const style = new TextStyle({
+    align: "center",
+    fontFamily: "Almendra",
+    fontSize: 26,
+    fontWeight: "700",
+    fill: damageOutputInfo?.damage === "HEALED" ? "#2fa019" : "#BC330C",
+  });
+
+  if (damageOutputInfo === null) return null;
+
+  return (
+    <Container position={[500, yPosition]}>
+      <Spring
+        from={{
+          x: 250 / 2,
+          y: 120,
+        }}
+        to={{
+          x: 250 / 2,
+          y: 90,
+        }}
+        onRest={() =>
+          setTimeout(() => {
+            setDamageOutputInfo(null);
+          }, 350)
+        }
+        config={{ friction: 12 }}
+      >
+        {(props: any) => {
+          return (
+            <AnimatedText
+              isSprite={true}
+              text={damageOutputInfo?.text}
+              anchor={0.5}
+              style={style}
+              {...props}
+            />
+          );
+        }}
+      </Spring>
+    </Container>
+  );
+};
+
 function DungeonBattle({ hero, realmDungeon }: IDungeonBattle) {
   const [battleWinner, setBattleWinner] = useState<1 | 2 | null>(null);
   const enemy = realmDungeon.battle.enemy;
+  const [enemyOutput, setEnemyOutput] = useState<{text: string; who: number, damage: string} | null>(null);
+  const [heroOutput, setHeroOutput] = useState<{text: string; who: number, damage: string} | null>(null);
 
   const dispatch = useDispatch();
 
@@ -33,6 +84,7 @@ function DungeonBattle({ hero, realmDungeon }: IDungeonBattle) {
   const handleEnemyTurn = async () => {
     const response = await dungeonEnemyTurn();
     if (response.status !== 200) return displayError(dispatch, response);
+    setEnemyOutput(response.data);
     fetchHero(updateHero);
   };
 
@@ -48,7 +100,7 @@ function DungeonBattle({ hero, realmDungeon }: IDungeonBattle) {
     } else if (realmDungeon!.battle.whosTurn === 2) {
       setTimeout(() => {
         handleEnemyTurn();
-      }, 1000);
+      }, 1200);
     }
   }, [hero]);
 
@@ -142,7 +194,19 @@ function DungeonBattle({ hero, realmDungeon }: IDungeonBattle) {
       <MobSection />
       <Turn />
       <HeroSection />
-      <CombatActions hero={hero} battleType="DUNGEON" />
+      <DamageOutput
+        damageOutputInfo={heroOutput}
+        setDamageOutputInfo={setHeroOutput}
+      />
+      <DamageOutput
+        damageOutputInfo={enemyOutput}
+        setDamageOutputInfo={setEnemyOutput}
+      />
+      <CombatActions
+        hero={hero}
+        battleType="DUNGEON"
+        setDamageOutputInfo={setHeroOutput}
+      />
       <CombatLogs logs={realmDungeon.battle.textLogs} />
       {battleWinner && (
         <BattleEndPopup
