@@ -35,6 +35,12 @@ export const updateActiveQuest = async (req: Request, res: Response) => {
     if (realmDungeon.battle.isBattleStarted)
       return res.status(400).json({ message: "Finish dungeon first" });
 
+    const maxHealth = character.updatedValues.maxHealth;
+    const currentHealth = character.updatedValues.health;
+
+    if ((currentHealth / maxHealth) < 0.1)
+      return res.status(400).json({ message: "You are too wounded" });
+
     character.activeQuest.quest = selectedQuest;
     character.activeQuest.timeStarted = new Date().toISOString();
     character.activeQuest.textLogs = [];

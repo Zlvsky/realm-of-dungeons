@@ -51,6 +51,12 @@ export const startDungeonBattle = async (req: Request, res: Response) => {
     if (realmDungeon.battle.isBattleStarted)
       return res.status(400).json({ message: "Finish dungeon battle first" });
 
+    const maxHealth = character.updatedValues.maxHealth;
+    const currentHealth = character.updatedValues.health;
+
+    if (currentHealth / maxHealth < 0.1)
+      return res.status(400).json({ message: "You are too wounded" });
+
     if (!realmDungeon.dungeonRenewDate) {
       const dungeonEnemy = await getDungeonEnemies(character, realmDungeon);
       realmDungeon.battle.enemy = dungeonEnemy;
