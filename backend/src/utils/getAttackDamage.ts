@@ -22,6 +22,8 @@ export const getAttackDamage = (
   const randomNumber = Math.random() * 100;
   if (100 - chanceToHit > randomNumber) return 0;
   const damageOutput = Math.round(Math.random() * maxDmg) + minDmg;
+  if (damageOutput > 0 && damageOutput < 1) return 1;
   const damage = damageOutput * powerIndex;
-  return damageWithArmorReduction(damage, armor);
+  const damageAfterReduction = damageWithArmorReduction(damage, armor);
+  return damageAfterReduction
 };

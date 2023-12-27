@@ -37,6 +37,7 @@ const refreshMerchantsItems = async () => {
 
 const scheduledRefreshMerchantItems = () => {
     cron.schedule("0 0 * * *", () => {
+    // cron.schedule("* * * * *", () => {
       console.log("performing merchant items refresh")
       refreshMerchantsItems();
     });

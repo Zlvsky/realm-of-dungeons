@@ -10,13 +10,14 @@ const merchantItemsBasedOnLevel = (merchantName: string, heroLevel: number) => {
   if (merchantName === "Armourer") itemsData = armourerItems;
   if (merchantName === "Witch") itemsData = witchItems;
   const itemsInLevelRange = itemsData?.find(
-    (el) => el.minLevel <= heroLevel && el.maxLevel > heroLevel
+    el => el.minLevel <= heroLevel && el.maxLevel > heroLevel
   );
-  return itemsInLevelRange!.itemsId;
+  return itemsInLevelRange?.itemsId;
 };
 
 const getMerchantItems = async (merchantName: string, heroLevel: number, count: number) => {
   const merchantItemsId = merchantItemsBasedOnLevel(merchantName, heroLevel);
+  if (!merchantItemsId) return;
   try {
     const randomItems = await Item.aggregate([
       { $match: { itemId: { $in: merchantItemsId } } },
@@ -77,7 +78,7 @@ const getItemsForMerchant = async (merchant: IMerchant, heroLevel: number) => {
       heroLevel,
       itemsCount
     );
-    if (merchantItems.length === 0) return [];
+    if (!merchantItems || merchantItems.length === 0) return [];
     return getRetrievedItems(merchantItems);
 }
 
