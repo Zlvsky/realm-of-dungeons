@@ -60,4 +60,39 @@ const testCharacterDamage = () => {
     });
 }
 
-testCharacterDamage();
+// testCharacterDamage();
+
+
+const testMobDamage = (damage: number) => {
+  describe(`mob attack damage with: ${damage}dmg`, () => {
+    it("testing mob damage", async () => {
+      let dmgSum = 0;
+      let highestDmg = 0;
+      let lowestDmg = 99999;
+
+      // const heroArmor = hero.updatedValues.armor;
+      const heroArmor = 20;
+      
+
+      console.log("heroArmor: ", heroArmor);
+
+      for (let i = 0; i < 100; i++) {
+        const mobDmg = getAttackDamage(damage, damage, 100, 1, heroArmor);
+
+        dmgSum += mobDmg;
+
+        if (mobDmg > highestDmg) highestDmg = mobDmg;
+        if (mobDmg < lowestDmg) lowestDmg = mobDmg;
+      }
+
+      const mobAvarageDmg = dmgSum / 100;
+
+      console.log("-----mob avarage damage-----", mobAvarageDmg);
+      console.log("-----mob highest damage-----", highestDmg);
+      console.log("-----mob lowest damage-----", lowestDmg);
+
+    })
+  })
+}
+
+testMobDamage(8);

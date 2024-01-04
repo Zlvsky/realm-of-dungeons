@@ -31,7 +31,7 @@ export const cryptDungeonEnemies = [
     health: 360,
     maxHealth: 360,
     level: 15,
-    damage: 35,
+    damage: 40,
     attackText: "Stalker strikes from shadows, dealing ",
     avatar: "https://i.ibb.co/wd1RVcN/1-Crrypt-Stalker.jpg",
     description:
@@ -48,7 +48,7 @@ export const cryptDungeonEnemies = [
     health: 400,
     maxHealth: 400,
     level: 17,
-    damage: 42,
+    damage: 45,
     attackText: "Knight swings his ethereal axe, dealing ",
     avatar: "https://i.ibb.co/4t4YdyC/2-Haunted-Knight.jpg",
     description:
@@ -65,7 +65,7 @@ export const cryptDungeonEnemies = [
     health: 480,
     maxHealth: 480,
     level: 20,
-    damage: 43,
+    damage: 49,
     attackText: "The Spider sinks its fangs, dealing ",
     avatar: "https://i.ibb.co/CmNQp04/3-Spider-Queen.jpg",
     description:
@@ -82,7 +82,7 @@ export const cryptDungeonEnemies = [
     health: 500,
     maxHealth: 500,
     level: 22,
-    damage: 50,
+    damage: 55,
     attackText: "Sorcerer hurls fire bolts, dealing ",
     avatar: "https://i.ibb.co/gmJMnF2/4-Undead-Sorcerer.jpg",
     description:
@@ -99,7 +99,7 @@ export const cryptDungeonEnemies = [
     health: 500,
     maxHealth: 500,
     level: 25,
-    damage: 60,
+    damage: 70,
     attackText: "Gargoyle smash his stone wings, dealing ",
     avatar: "https://i.ibb.co/2qMHxjF/5-Guardian-Gargoyle.jpg",
     description:
@@ -116,7 +116,7 @@ export const cryptDungeonEnemies = [
     health: 600,
     maxHealth: 600,
     level: 30,
-    damage: 65,
+    damage: 80,
     attackText: "Warden thrust his sword, dealing ",
     avatar: "https://i.ibb.co/MZb232V/6-Cursed-Warden.jpg",
     description:
@@ -133,7 +133,7 @@ export const cryptDungeonEnemies = [
     health: 750,
     maxHealth: 750,
     level: 33,
-    damage: 70,
+    damage: 85,
     attackText: "Necromancer pawns attack you, dealing ",
     avatar: "https://i.ibb.co/8rLqxRS/7-Bloody-Necromancer.jpg",
     description:
@@ -150,7 +150,7 @@ export const cryptDungeonEnemies = [
     health: 900,
     maxHealth: 900,
     level: 38,
-    damage: 80,
+    damage: 90,
     attackText: "Inquistor swings his giant axe, dealing ",
     avatar: "https://i.ibb.co/RY3gqwG/8-Dark-Inquistor.jpg",
     description:
