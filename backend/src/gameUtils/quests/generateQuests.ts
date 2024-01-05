@@ -12,7 +12,7 @@ function getRandomNumberInRange(min: number, max: number, step: number) {
 const getMaxBaseXp = (realm: TCurrentRealm) => {
   switch (realm) {
     case "CAVERNS":
-      return getRandomNumberInRange(10, 50, 1);
+      return getRandomNumberInRange(30, 70, 1);
     case "CRYPT":
       return getRandomNumberInRange(50, 200, 1);
   }

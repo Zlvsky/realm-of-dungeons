@@ -95,4 +95,4 @@ const testMobDamage = (damage: number) => {
   })
 }
 
-testMobDamage(8);
+// testMobDamage(8);
