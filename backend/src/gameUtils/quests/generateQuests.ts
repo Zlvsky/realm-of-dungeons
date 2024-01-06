@@ -14,9 +14,18 @@ const getMaxBaseXp = (realm: TCurrentRealm) => {
     case "CAVERNS":
       return getRandomNumberInRange(30, 70, 1);
     case "CRYPT":
-      return getRandomNumberInRange(50, 200, 1);
+      return getRandomNumberInRange(50, 300, 1);
   }
 };
+
+const getLevelXpBonus = (realm: TCurrentRealm, heroLevel: number) => {
+  switch (realm) {
+    case "CAVERNS":
+      return 8 * heroLevel;
+    case "CRYPT":
+      return 15 * heroLevel;
+  }
+}
 
 const getRealmGoldReward = (realm: TCurrentRealm) => {
   switch (realm) {
@@ -88,10 +97,11 @@ const getRealmItemPool = (realm: TCurrentRealm) => {
   }
 }
 
-export const generateXP = (realm: TCurrentRealm, questIndex: number) => {
+export const generateXP = (realm: TCurrentRealm, questIndex: number, level: number) => {
   const baseXp = getMaxBaseXp(realm);
   const experience = baseXp * questIndex;
-  return Math.round(experience);
+  const levelExperienceBonus = getLevelXpBonus(realm, level);
+  return Math.round(experience + levelExperienceBonus);
 };
 
 export const generateGold = (realm: TCurrentRealm, questIndex: number) => {
@@ -104,11 +114,12 @@ const generateQuest = async (
   realm: TCurrentRealm,
   quest: { title: string; description: string; isBoss: boolean, itemReward?: {itemId: number, dropChance: number}[] },
   questIndex: number,
-  timeStamps: number[]
+  timeStamps: number[],
+  level: number
 ) => {
   const timeStampIndex = Math.round(Math.random() * (timeStamps.length - 1));
   const randomTimeStamp = timeStamps[timeStampIndex];
-  const xp = generateXP(realm, questIndex);
+  const xp = generateXP(realm, questIndex, level);
   const gold = generateGold(realm, questIndex);
   const itemPool = quest?.itemReward || getRealmItemPool(realm);
   return {
@@ -132,10 +143,11 @@ const generateQuests = async (realm: TCurrentRealm, level: number) => {
     realm,
     randomQuests[0],
     0.5,
-    [120, 180, 240]
+    [200, 260, 320],
+    level
   );
-  const secondQuest = await generateQuest(realm, randomQuests[1], 1, [300, 360, 420]);
-  const thirdQuest = await generateQuest(realm, randomQuests[2], 2, [840, 900, 960]);
+  const secondQuest = await generateQuest(realm, randomQuests[1], 1, [300, 360, 420], level);
+  const thirdQuest = await generateQuest(realm, randomQuests[2], 2.5, [840, 900, 960], level);
   return [firstQuest, secondQuest, thirdQuest];
 };
 
