@@ -53,7 +53,7 @@ export const legs: IArmorObject = {
         subType: "legs",
         armorType: "leather",
         armor: 7,
-        image: "https://i.ibb.co/dmDL8p6/Leather-Leggings.png",
+        image: "/items/armors/legs/leather/1504.png",
         statistics: {
           distance: 1,
         },
@@ -71,7 +71,7 @@ export const legs: IArmorObject = {
         subType: "legs",
         armorType: "plate",
         armor: 6,
-        image: "https://i.ibb.co/jhKZxfw/Chain-Legs.png",
+        image: "/items/armors/legs/plate/1505.png",
         value: 15,
       },
     ],

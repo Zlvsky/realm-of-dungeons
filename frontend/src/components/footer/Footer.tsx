@@ -13,7 +13,7 @@ function Footer() {
         <SectionDivider />
         <div className="flex flex-col items-center justify-center py-12">
           <img src={logo} alt="Dungeon Realms" width={350} />
-          <div className="flex flex-row gap-1 font-sans mt-6">
+          <div className="flex flex-row flex-wrap gap-1 font-sans mt-6">
             <Link to="/" className={commonLinkClass}>
               Home
             </Link>

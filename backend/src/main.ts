@@ -71,10 +71,10 @@ app.post("/api/hero/inventory/update", updateInventory);
 app.post("/api/hero/equipmenttoinventory/update", updateEquipmentToInventory);
 
 // -- STATISTICS
-app.post("/api/hero/update/statistics", updateStatistics);
+// app.post("/api/hero/update/statistics", updateStatistics);
 
 // ITEMS ACTIONS
-app.post("/api/create/item", addItem);
+// app.post("/api/create/item", addItem);
 
 // PORTALS
 app.post("/api/realm/change", changeRealm);
