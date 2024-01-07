@@ -20,6 +20,7 @@ interface IStatisticProgression {
 export type TCurrentRealm = "CAVERNS" | "CRYPT";
 
 export interface ICharacter {
+  _id: string;
   nickname: string;
   class: string;
   avatar: string;

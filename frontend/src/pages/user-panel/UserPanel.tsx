@@ -44,6 +44,9 @@ function UserPanel() {
             <p className="text-secondary font-sans text-lg mt-10">
               Choose your hero
             </p>
+            <p className="text-zinc-500 font-sans  text-base ">
+              **for best experience play on desktop**
+            </p>
           </div>
           <div className="w-full">
             <ListedHeroes />
