@@ -3,6 +3,8 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import path from "path";
+import fs from "fs";
+import https from "https";
 import bodyParser from "body-parser";
 
 import { loginUser } from "./controllers/account/login";
@@ -34,6 +36,9 @@ import { dungeonEnemyTurn } from "./controllers/game/dungeon-battle/dungeonEnemy
 import { dungeonBattleEnd } from "./controllers/game/dungeon-battle/dungeonBattleEnd";
 
 const uri = process.env.MONGO_CONNECTION_URL;
+const sslCert = process.env.CERT_PATH;
+const sslKey = process.env.KEY_PATH;
+
 if(!uri) throw new Error(".env file is not created")
 
 mongoose.set("strictQuery", false);
@@ -117,15 +122,31 @@ app.post("/api/merchant/sell", merchantSellItem);
 app.post("/api/trainer/train", trainStatistic);
 app.post("/api/trainer/fee", getTrainingFee);
 
-// ADMIN PANEL
-app.use(express.static(path.join(__dirname, "admin-panel", "dist")));
-app.get("*", (_, res) => {
-  res.sendFile(path.join(__dirname, "admin-panel", "dist", "index.html"));
+// ADMIN PANEL - todo
+// app.use(express.static(path.join(__dirname, "admin-panel", "dist")));
+app.get("/", (_, res) => {
+  res.send("Server running:)");
 });
 
 const port = process.env.PORT || 8080;
-app.listen(port, () => {
-  console.log(`Server started on port ${port}`);
-});
+
+// if ssl configured start server on https
+if (sslCert && sslKey) {
+  const options = {
+    key: fs.readFileSync(sslKey),
+    cert: fs.readFileSync(sslCert),
+  };
+  https.createServer(options, app).listen(port, () => {
+    console.log(`Server started on port ${port}`);
+  });
+// else start server default on http 
+} else {
+  app.listen(port, () => {
+    console.log(`Server started on port ${port}`);
+  });
+}
+
+
+
 
 export default app;

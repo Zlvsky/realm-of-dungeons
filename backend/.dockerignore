@@ -1,0 +1,5 @@
+node_modules
+/admin-panel/node_modules
+src/admin-panel/node_modules
+/src/admin-panel/node_modules
+*/node_modules
