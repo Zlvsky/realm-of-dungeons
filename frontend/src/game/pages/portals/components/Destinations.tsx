@@ -25,7 +25,7 @@ function Destinations({ availableRealms, realm, setRealm }: any) {
                   fill: ["#BCBCBC"],
                 })
               }
-              onclick={() => setRealm(realmsData(el))}
+              onpointerdown={() => setRealm(realmsData(el))}
             />
             {realm?.value === el && (
               <Sprite

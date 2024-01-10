@@ -83,7 +83,7 @@ function TrainerAction({ currentTrainer }: {currentTrainer: string} ) {
       y={-63}
       cursor={"pointer"}
       interactive={true}
-      onclick={handleAcceptTraining}
+      onpointerdown={handleAcceptTraining}
     />
   );
 

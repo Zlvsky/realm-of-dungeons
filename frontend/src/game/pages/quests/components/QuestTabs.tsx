@@ -24,7 +24,7 @@ function QuestTabs({ selectedQuest, setSelectedQuest }: any) {
                       fill: ["#BCBCBC"],
                     })
                   }
-                  onclick={() => setSelectedQuest(index)}
+                  onpointerdown={() => setSelectedQuest(index)}
                 />
                 {selectedQuest === index && (
                   <Sprite image={ArrowIcon} position={[40, 30]} />

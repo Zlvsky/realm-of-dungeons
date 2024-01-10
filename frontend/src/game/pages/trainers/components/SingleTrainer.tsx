@@ -82,7 +82,7 @@ function SingleTrainer({
         y={boxHeight + 40}
         cursor={"pointer"}
         interactive={true}
-        onclick={handleNavigateToTrainer}
+        onpointerdown={handleNavigateToTrainer}
       />
     </Container>
   );

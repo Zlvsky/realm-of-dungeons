@@ -59,7 +59,7 @@ function Navigations() {
           <Sprite
             image={button.image}
             y={80 * index}
-            onclick={() => changeStage(button.stage)}
+            onpointertap={() => changeStage(button.stage)}
             key={index}
             {...commonProps}
           />

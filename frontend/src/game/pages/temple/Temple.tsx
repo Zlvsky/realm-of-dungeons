@@ -188,7 +188,7 @@ function Temple() {
           y={480}
           cursor={"pointer"}
           interactive={true}
-          onclick={handleTempleHealRequest}
+          onpointerdown={handleTempleHealRequest}
         />
         <Text
           text={`${hero.extras.availableHeals}/2`}

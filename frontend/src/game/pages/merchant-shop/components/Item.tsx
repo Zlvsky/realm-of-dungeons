@@ -9,7 +9,7 @@ function Item({ itemData, itemPosition, setCurrentItem, action }: any) {
       height={60}
       interactive={true}
       cursor="pointer"
-      onclick={() =>
+      onpointerdown={() =>
         setCurrentItem({
           itemData: itemData,
           action: action,

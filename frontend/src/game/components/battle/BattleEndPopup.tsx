@@ -145,7 +145,7 @@ function BattleEndPopup({
           y={380}
           cursor={"pointer"}
           interactive={true}
-          onclick={handleBattleEnd}
+          onpointerdown={handleBattleEnd}
         />
       </Container>
     </Container>

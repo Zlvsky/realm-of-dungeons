@@ -82,7 +82,7 @@ function SingleMerchant({
         y={boxHeight + 40}
         cursor={"pointer"}
         interactive={true}
-        onclick={handleNavigateToMerchang}
+        onpointerdown={handleNavigateToMerchang}
       />
     </Container>
   );

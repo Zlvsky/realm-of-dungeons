@@ -14,7 +14,7 @@ function Logout() {
       position={[250, 870]}
       width={60}
       height={60}
-      onclick={navigateToStart}
+      onpointerdown={navigateToStart}
     />
   );
 }

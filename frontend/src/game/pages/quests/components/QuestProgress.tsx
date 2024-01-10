@@ -98,7 +98,11 @@ function QuestProgress({ hero }: any) {
 
   return (
     <Container position={[0, 0]}>
-      <Sprite image={getRealmBackground(currentRealm)} width={1316} height={935} />
+      <Sprite
+        image={getRealmBackground(currentRealm)}
+        width={1316}
+        height={935}
+      />
       <Text
         anchor={0.5}
         x={1316 / 2}
@@ -141,7 +145,7 @@ function QuestProgress({ hero }: any) {
           y={850}
           cursor={"pointer"}
           interactive={true}
-          onclick={handleCancelQuest}
+          onpointerdown={handleCancelQuest}
         />
       )}
       {timeRemaining === "00:00" && (
@@ -154,7 +158,7 @@ function QuestProgress({ hero }: any) {
           y={850}
           cursor={"pointer"}
           interactive={true}
-          onclick={enterBattle}
+          onpointerdown={enterBattle}
         />
       )}
     </Container>

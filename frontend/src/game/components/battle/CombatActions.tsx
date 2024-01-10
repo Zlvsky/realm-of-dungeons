@@ -67,7 +67,7 @@ function CombatActions({ hero, battleType, setDamageOutputInfo }: any) {
             height={60}
             cursor={"pointer"}
             interactive={true}
-            onclick={action}
+            onpointerdown={action}
           />
         )}
       </Container>

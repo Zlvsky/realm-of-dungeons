@@ -41,7 +41,7 @@ function ActionButton({
       y={boxHeight + 40}
       cursor={"pointer"}
       interactive={true}
-      onclick={handleAction}
+      onpointerdown={handleAction}
     />
   );
 }

@@ -200,7 +200,7 @@ function SelectQuest({ hero }: any) {
         y={780}
         cursor={"pointer"}
         interactive={true}
-        onclick={handleAcceptQuest}
+        onpointerdown={handleAcceptQuest}
       />
     </Container>
   );

@@ -64,7 +64,7 @@ function TravelInfo({ realm, currentRealm }: any) {
         y={-63}
         cursor={isCurrentRealm ? "default" : "pointer"}
         interactive={true}
-        onclick={handleAcceptDestination}
+        onpointerdown={handleAcceptDestination}
       />
     </DisabledFilter>
   );

@@ -50,23 +50,25 @@ function  DungeonButton({ hero, dungeon }: any ) {
 
     return (
       <Container position={[0, 820]}>
-        {dungeon.dungeonRenewDate && timeRemaining !== "00:00:00" && timeRemaining && (
-          <Text
-            anchor={0.5}
-            x={1316 / 2}
-            y={0}
-            text={timeRemaining}
-            style={
-              new TextStyle({
-                align: "center",
-                fontFamily: "MedievalSharp",
-                fontSize: 22,
-                letterSpacing: 1,
-                fill: ["#ffffff"],
-              })
-            }
-          />
-        )}
+        {dungeon.dungeonRenewDate &&
+          timeRemaining !== "00:00:00" &&
+          timeRemaining && (
+            <Text
+              anchor={0.5}
+              x={1316 / 2}
+              y={0}
+              text={timeRemaining}
+              style={
+                new TextStyle({
+                  align: "center",
+                  fontFamily: "MedievalSharp",
+                  fontSize: 22,
+                  letterSpacing: 1,
+                  fill: ["#ffffff"],
+                })
+              }
+            />
+          )}
         <Sprite
           image={fightbtn}
           width={150}
@@ -76,7 +78,7 @@ function  DungeonButton({ hero, dungeon }: any ) {
           y={50}
           cursor={"pointer"}
           interactive={true}
-          onclick={handleStartDungeonBattle}
+          onpointerdown={handleStartDungeonBattle}
         />
       </Container>
     );
