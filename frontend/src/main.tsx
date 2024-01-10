@@ -5,8 +5,11 @@ import { Provider } from 'react-redux';
 import { store } from "./redux/store";
 
 import Router from "./Router";
+import { startCollectingAnalitycs } from './firebase';
 
 import './index.css'
+
+startCollectingAnalitycs();
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
