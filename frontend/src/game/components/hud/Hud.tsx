@@ -6,6 +6,7 @@ import { getGameDimensions } from "../../../redux/reducers/gameSlice";
 
 import hudBg from "../../../assets/images/hud/wallBg.png";
 import Logout from "./components/Logout";
+import Discord from "./components/Discord";
 
 function Menu() {
   const dimensions = useSelector(getGameDimensions);
@@ -19,6 +20,7 @@ function Menu() {
       <HeroInfo />
       <Navigations />
       <Logout />
+      <Discord />
     </Container>
   );
 }
