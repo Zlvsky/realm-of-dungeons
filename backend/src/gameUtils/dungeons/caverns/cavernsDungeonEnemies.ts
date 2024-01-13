@@ -116,7 +116,7 @@ export const cavernsDungeonEnemies = [
     attackText: "Golem pounds the ground, dealing ",
     avatar: "https://i.ibb.co/vs0RKc0/stone-golem.jpg",
     description:
-      "The Werebear is a cursed creature that has force of strongest animal and intelligence of human, while angry he becomes relentless force of nature.",
+      "The Stone Golem is a massive construct of stone and earth, capable of unleashing devastating seismic attacks within the caverns.",
     skills: null,
     rewards: {
       gold: 30,

@@ -2,7 +2,9 @@ import { TCurrentRealm } from "../../../types/account/MainInterfaces";
 import { getRandomEnemy } from "./getRandomEnemy";
 
 const generateEnemy = (currentRealm: TCurrentRealm, playerLevel: number, isBoss?: boolean ) => {
-    const enemy = getRandomEnemy(currentRealm, isBoss);
+    const enemyObject = getRandomEnemy(currentRealm, isBoss);
+    const enemy = JSON.parse(JSON.stringify(enemyObject));
+
     let levelDifference = 1;
     if (enemy.maxLevel && playerLevel > enemy.maxLevel) {
         levelDifference = enemy.maxLevel - enemy.level;

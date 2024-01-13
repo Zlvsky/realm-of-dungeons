@@ -8,5 +8,6 @@ export const realmOrbsData = [
     subType: "quest",
     image: "https://i.ibb.co/PhRPFFT/crypt-orb.png",
     description: "Unlocks Crypt realm",
+    value: 15,
   },
 ];  
