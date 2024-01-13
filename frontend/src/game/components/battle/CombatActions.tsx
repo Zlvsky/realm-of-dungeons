@@ -1,4 +1,5 @@
-import { Container, Graphics, Sprite } from '@pixi/react';
+import { useState } from "react";
+import { Container, Graphics, Sprite, Text } from '@pixi/react';
 import { useDispatch } from 'react-redux';
 import { setHero } from '../../../redux/reducers/gameSlice';
 import fetchHero from '../../../utils/fetchers/fetchHero';
@@ -10,15 +11,22 @@ import strongAttack from "../../../assets/images/combat/combat-actions/strong.pn
 import potionBlank from "../../../assets/images/equipment-slots/potionEqSlot.png";
 import spellSlot from "../../../assets/images/equipment-slots/spellsSlot.png";
 import displayError from '../../../utils/notifications/errors';
+import ActionInfoPopups from "./ActionInfoPopups";
+
 
 interface IAction {
   x: number;
   image?: string;
-  action: any;
+  action?: any;
+  setCurrentActionHovered: Function;
+  index: number;
 }
 
 function CombatActions({ hero, battleType, setDamageOutputInfo }: any) {
+  const [currentActionHovered, setCurrentActionHovered] = useState<any>(null);
+
   const dispatch = useDispatch();
+  
 
   const updateHero = (data: any) => {
     dispatch(setHero(data));
@@ -46,9 +54,24 @@ function CombatActions({ hero, battleType, setDamageOutputInfo }: any) {
     return potionSlot.item.image;
   };
 
-  const ActionButton = ({ x, image, action }: IAction) => {
+  const ActionButton = ({ x, image, action, setCurrentActionHovered, index }: IAction) => {
+
+    const setActionHover = () => {
+      setCurrentActionHovered(index);
+    }
+
+    const clearActionHover = () => {
+      setCurrentActionHovered(null);
+    }
+
     return (
-      <Container position={[x, 0]} width={70} height={70}>
+      <Container
+        position={[x, 0]}
+        width={70}
+        height={70}
+        onpointerenter={setActionHover}
+        onpointerleave={clearActionHover}
+      >
         <Graphics
           x={0}
           y={0}
@@ -65,7 +88,7 @@ function CombatActions({ hero, battleType, setDamageOutputInfo }: any) {
             position={[5, 5]}
             width={60}
             height={60}
-            cursor={"pointer"}
+            cursor={action ? "pointer" : "default"}
             interactive={true}
             onpointerdown={action}
           />
@@ -76,24 +99,50 @@ function CombatActions({ hero, battleType, setDamageOutputInfo }: any) {
 
   return (
     <Container position={[400, 850]}>
+      <ActionInfoPopups
+        currentActionHovered={currentActionHovered}
+        hero={hero}
+      />
       <ActionButton
         x={0}
         image={lowAttack}
         action={() => performAttack("low")}
+        setCurrentActionHovered={setCurrentActionHovered}
+        index={1}
       />
       <ActionButton
         x={75}
         image={mediumAttack}
         action={() => performAttack("medium")}
+        setCurrentActionHovered={setCurrentActionHovered}
+        index={2}
       />
       <ActionButton
         x={150}
         image={strongAttack}
         action={() => performAttack("strong")}
+        setCurrentActionHovered={setCurrentActionHovered}
+        index={3}
       />
-      <ActionButton x={225} image={spellSlot} action={""} />
-      <ActionButton x={300} image={spellSlot} action={""} />
-      <ActionButton x={375} image={potionImage()} action={usePotion} />
+      <ActionButton
+        x={225}
+        image={spellSlot}
+        setCurrentActionHovered={setCurrentActionHovered}
+        index={4}
+      />
+      <ActionButton
+        x={300}
+        image={spellSlot}
+        setCurrentActionHovered={setCurrentActionHovered}
+        index={5}
+      />
+      <ActionButton
+        x={375}
+        image={potionImage()}
+        action={usePotion}
+        setCurrentActionHovered={setCurrentActionHovered}
+        index={6}
+      />
     </Container>
   );
 }

@@ -207,12 +207,12 @@ function QuestBattle({ hero }: IQuestBattle) {
         damageOutputInfo={enemyOutput}
         setDamageOutputInfo={setEnemyOutput}
       />
+      <CombatLogs logs={hero.activeQuest.textLogs} />
       <CombatActions
         hero={hero}
         battleType={"QUEST"}
         setDamageOutputInfo={setHeroOutput}
       />
-      <CombatLogs logs={hero.activeQuest.textLogs} />
       {battleWinner && (
         <BattleEndPopup
           battleWinner={battleWinner}

@@ -11,12 +11,13 @@ export const realmsData = (destination: string) => {
         };
       case "CRYPT":
         return {
-            value: "CRYPT",
-            name: "Crypt",
-            description: "Nothing scary",
-            monsters: "10-20",
-            fee: "6,00"
-        }
+          value: "CRYPT",
+          name: "Crypt",
+          description:
+            "Mysterious underground realm filled with shadowy corridors, eerie echoes, and chilling whispers. Ancient tombs and mausoleums line the labyrinthine passages, adorned with cryptic symbols and haunting carvings. Ghostly spirits and undead guardians guard long-forgotten treasures, while the air is thick with an otherworldly chill.",
+          monsters: "10-20",
+          fee: "6,00",
+        };
       default:
         return {};
     }

@@ -30,6 +30,7 @@ function TravelInfo({ realm, currentRealm }: any) {
   };
 
   const handleAcceptDestination = async () => {
+    if (isCurrentRealm) return;
     const response = await changeRealmRequest(realm?.value);
     if (response.status !== 200) return displayError(dispatch, response)
     fetchHero(updateHero);

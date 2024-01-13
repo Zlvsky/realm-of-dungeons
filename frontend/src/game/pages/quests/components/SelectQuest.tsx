@@ -99,13 +99,28 @@ function SelectQuest({ hero }: any) {
           })
         }
       />
+      <Text
+        anchor={[0.5, 0]}
+        x={1316 / 2}
+        y={130}
+        text={"Current realm: " + currentRealm}
+        style={
+          new TextStyle({
+            align: "center",
+            fontFamily: "Fondamento",
+            fontSize: 34,
+            fill: ["#BCBCBC"],
+            dropShadow: true,
+          })
+        }
+      />
       <QuestTabs
         selectedQuest={selectedQuest}
         setSelectedQuest={setSelectedQuest}
       />
       <Text
         x={1316 / 2}
-        y={250}
+        y={270}
         anchor={[0.5, 0]}
         text={currentQuestsData[selectedQuest].title}
         style={
@@ -119,7 +134,7 @@ function SelectQuest({ hero }: any) {
       />
       <Text
         x={350}
-        y={300}
+        y={320}
         text={currentQuestsData[selectedQuest].description}
         style={
           new TextStyle({

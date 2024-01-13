@@ -5,12 +5,13 @@ function Terms() {
   return (
     <FullWrapper>
       <div className="clean-style flex flex-col max-w-5xl mx-auto min-h-screen px-2 py-10 md:py-40">
-        <h1>Terms of Service for Realm Dungeons</h1>
+        <h1>Terms of Service for Realm of Dungeons</h1>
         <h4>Last Updated: 20.12.2023</h4>
         <p>
-          By accessing or using the Realm Dungeons website and online game, you
-          agree to comply with and be bound by the following Terms of Service.
-          If you do not agree with these terms, please do not use the Project.
+          By accessing or using the Realm of Dungeons website and online game,
+          you agree to comply with and be bound by the following Terms of
+          Service. If you do not agree with these terms, please do not use the
+          Project.
         </p>
         <ol>
           <li>
@@ -77,11 +78,12 @@ function Terms() {
             <ol>
               <li>
                 The collection and use of personal information are governed by
-                our Privacy Policy.
+                our <a href="/legal/privacy-policy">Privacy Policy</a>.
               </li>
               <li>
                 By using the Project, you consent to the collection and use of
-                your personal information as described in the Privacy Policy.
+                your personal information as described in the{" "}
+                <a href="/legal/privacy-policy">Privacy Policy</a>.
               </li>
             </ol>
           </li>
@@ -130,9 +132,9 @@ function Terms() {
           </li>
         </ol>
         <p>
-          By using the Realm Dungeons website and online game, you acknowledge
-          that you have read and understood these Terms of Service and agree to
-          abide by them.
+          By using the Realm of Dungeons website and online game, you
+          acknowledge that you have read and understood these Terms of Service
+          and agree to abide by them.
         </p>
       </div>
       <Footer />

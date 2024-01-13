@@ -5,7 +5,7 @@ import ArrowIcon from "../../../../assets/images/arrow_white.png";
 function QuestTabs({ selectedQuest, setSelectedQuest }: any) {
   const questsNames = ["QUEST 1", "QUEST 2", "QUEST 3"];
   return (
-    <Container position={[0, 100]}>
+    <Container position={[0, 120]}>
         {questsNames.map((el, index) => {
             return (
               <Container x={350 + index * 252} y={72} key={index}>

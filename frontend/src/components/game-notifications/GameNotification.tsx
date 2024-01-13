@@ -88,12 +88,14 @@ const GameNotification = ({
     >
       <div style={{ width: 350 * scaleW, height: 1 }}></div>
       <div className="flex justify-center flex-1">
-        <span
-          className="font-bold tracking-wider uppercase font-sans bg-gradient-to-b from-accent to-red-600 text-transparent bg-clip-text"
-          style={{ fontSize: `${20 * scaleW}px` }}
-        >
-          {message}
-        </span>
+        <div className="px-3 py-2 bg-bgBrown/80 border border-borderBrown border-t-borderTopBrown">
+          <span
+            className="font-bold tracking-wider uppercase font-sans bg-gradient-to-b from-accent to-red-600 text-transparent bg-clip-text"
+            style={{ fontSize: `${20 * scaleW}px` }}
+          >
+            {message}
+          </span>
+        </div>
       </div>
     </div>
   ) : null;

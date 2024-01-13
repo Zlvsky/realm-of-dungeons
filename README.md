@@ -8,10 +8,10 @@
 <div align="center">
   <a href="https://realmdungeons.web.app/" target="_blank">https://realmdungeons.web.app/</a>
 
-<h1 align="center">Realm Dungeons</h1>
+<h1 align="center">Realm of Dungeons</h1>
 
   <p align="left">
-    Realm Dungeons is an idle multiplayer fantasy RPG online clickable web game. In this game, you can create your own character, level up, and improve your character's skills. The progression of your character is driven by completing time-based quests, where you can enter battles and engage in turn-based combat. Upgrade your character's skills and equip better loot to become a formidable warrior in the dungeons!
+    Realm of Dungeons is an idle multiplayer fantasy RPG online clickable web game. In this game, you can create your own character, level up, and improve your character's skills. The progression of your character is driven by completing time-based quests, where you can enter battles and engage in turn-based combat. Upgrade your character's skills and equip better loot to become a formidable warrior in the dungeons!
   </p>
 </div>
 

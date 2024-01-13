@@ -202,12 +202,12 @@ function DungeonBattle({ hero, realmDungeon }: IDungeonBattle) {
         damageOutputInfo={enemyOutput}
         setDamageOutputInfo={setEnemyOutput}
       />
+      <CombatLogs logs={realmDungeon.battle.textLogs} />
       <CombatActions
         hero={hero}
         battleType="DUNGEON"
         setDamageOutputInfo={setHeroOutput}
       />
-      <CombatLogs logs={realmDungeon.battle.textLogs} />
       {battleWinner && (
         <BattleEndPopup
           battleWinner={battleWinner}

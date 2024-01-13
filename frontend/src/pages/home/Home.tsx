@@ -51,7 +51,7 @@ function Home() {
       <SectionDivider />
       <ImageWithText header="Create your hero and explore" image={Characters1}>
         <p className="text-secondary font-semibold font-sans text-lg">
-          Realm Dungeons is a fantasy multiplayer role-playing game based on
+          Realm of Dungeons is a fantasy multiplayer role-playing game based on
           idle system. <br />
           Create your own hero, explore realms by finishing quests. Defeat
           dungeon bossess, level up to become stronger. Train your skill

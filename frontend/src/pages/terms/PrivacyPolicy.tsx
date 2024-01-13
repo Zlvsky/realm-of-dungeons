@@ -5,11 +5,11 @@ function PrivacyPolicy() {
     return (
       <FullWrapper>
         <div className="clean-style flex flex-col max-w-5xl mx-auto min-h-screen px-2 py-10 md:py-40">
-          <h1>Privacy Policy for Realm Dungeons</h1>
+          <h1>Privacy Policy for Realm of Dungeons</h1>
           <h4>Last Updated: 20.12.2023</h4>
           <p>
             This Privacy Policy describes how Krzysztof Zaleski, the creator of
-            the Realm Dungeons website and online game, collects, uses, and
+            the Realm of Dungeons website and online game, collects, uses, and
             shares personal information obtained from users of the Project. By
             accessing or using the Project, you agree to the terms of this
             Privacy Policy.
@@ -105,9 +105,9 @@ function PrivacyPolicy() {
             </li>
           </ol>
           <p>
-            By using the Realm Dungeons website and online game, you acknowledge
-            that you have read and understood this Privacy Policy and agree to
-            its terms.
+            By using the Realm of Dungeons website and online game, you
+            acknowledge that you have read and understood this Privacy Policy
+            and agree to its terms.
           </p>
         </div>
         <Footer />
