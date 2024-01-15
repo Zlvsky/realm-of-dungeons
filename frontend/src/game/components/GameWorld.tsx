@@ -9,6 +9,7 @@ import { useMemo } from "react";
 import Portals from "../pages/portals/Portals";
 import Trainers from "../pages/trainers/Trainers";
 import Dungeon from "../pages/dungeon/Dungeon";
+import Ranking from "../pages/ranking/Ranking";
 
 function GameWorld() {
   const dimensions = useSelector(getGameDimensions);
@@ -29,6 +30,7 @@ function GameWorld() {
     if (stage === "portals") return <Portals />;
     if (stage === "hero") return <Hero />;
     if (stage === "temple") return <Temple />;
+    if (stage === "ranking") return <Ranking currentHeroId={hero?._id} />;
     if (stage === "merchants" || stage === "merchant_shop" ) return <Merchants stage={stage} />;
     if (stage === "trainers" || stage === "single_trainer") return <Trainers stage={stage} />;
     return <></>;

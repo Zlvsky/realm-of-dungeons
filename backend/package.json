@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/main.js",
     "dev": "nodemon src/main.ts",
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "author": "zlvsky",
   "license": "ISC",

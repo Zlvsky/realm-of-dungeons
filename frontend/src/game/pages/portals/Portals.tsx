@@ -15,12 +15,16 @@ const canvasHeight = 937;
 const rectWidth = 700;
 const rectHeight = 600;
 
+const allRealms = ["CAVERNS", "CRYPT"];
+
 function Portals() {
   const hero = useSelector(getHero)!;
   const dispatch = useDispatch();
   const [realm, setRealm] = useState(realmsData(hero.realms.currentRealm));
   const startX = (canvasWidth - rectWidth) / 2;
   const startY = (canvasHeight - rectHeight) / 2;
+
+  const heroUnlockedRealms = hero.realms.availableRealms;
 
   const updateHero = (data: any) => {
     dispatch(setHero(data));
@@ -57,12 +61,16 @@ function Portals() {
       <Container position={[startX, startY]}>
         <Graphics draw={portalsFrame} zIndex={0} />
         <Destinations
-          availableRealms={hero.realms.availableRealms}
+          availableRealms={allRealms}
           realm={realm}
           setRealm={setRealm}
         />
         <RealmInfo realm={realm} />
-        <TravelInfo realm={realm} currentRealm={hero.realms.currentRealm} />
+        <TravelInfo
+          realm={realm}
+          currentRealm={hero.realms.currentRealm}
+          unlockedRealms={heroUnlockedRealms}
+        />
       </Container>
     </Container>
   );

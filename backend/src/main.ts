@@ -34,10 +34,14 @@ import { characterUsePotion } from "./controllers/game/battle/characterUsePotion
 import { characterAttack } from "./controllers/game/battle/characterAttack";
 import { dungeonEnemyTurn } from "./controllers/game/dungeon-battle/dungeonEnemyTurn";
 import { dungeonBattleEnd } from "./controllers/game/dungeon-battle/dungeonBattleEnd";
+import { getRanking } from "./controllers/game/ranking/ranking";
+import { getCharacterPreview } from "./controllers/game/ranking/characterPreview";
 
 const uri = process.env.MONGO_CONNECTION_URL;
 const sslCert = process.env.CERT_PATH;
+// const sslCert = undefined;
 const sslKey = process.env.KEY_PATH;
+// const sslKey = undefined;
 
 if(!uri) throw new Error(".env file is not created")
 
@@ -121,6 +125,10 @@ app.post("/api/merchant/sell", merchantSellItem);
 // TRAINERS
 app.post("/api/trainer/train", trainStatistic);
 app.post("/api/trainer/fee", getTrainingFee);
+
+// RANKING
+app.get("/api/ranking/:currentPage", getRanking);
+app.get("/api/character/preview/:characterId", getCharacterPreview);
 
 // ADMIN PANEL - todo
 // app.use(express.static(path.join(__dirname, "admin-panel", "dist")));

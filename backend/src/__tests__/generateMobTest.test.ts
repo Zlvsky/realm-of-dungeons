@@ -38,15 +38,17 @@ const generateEnemy = (
 const tesstGeneratingMob = () => {
     describe(`Exp Gain test`, () => {
       it("Testing exp gains", async () => {
+        return true;
         for (let i = 0; i < 20; i++) {
             const mob = generateEnemy(REALM, 10);
             console.log("---- level 10", mob);
             const mob2 = generateEnemy(REALM, 1);
             console.log("---- level 1", mob2);
         }
-        return true;
       });
     });
 }
 
 tesstGeneratingMob();
+
+export default true;

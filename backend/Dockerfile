@@ -18,8 +18,8 @@ RUN apt-get update && \
     apt-get install -y certbot && \
     apt-get install -y cron
 
-COPY docker-entrypoint.sh ./
+COPY docker-setup.sh ./
 
-RUN chmod +x docker-entrypoint.sh
+RUN chmod +x docker-setup.sh
 
-CMD [ "./docker-entrypoint.sh" ]
+CMD [ "./docker-setup.sh" ]

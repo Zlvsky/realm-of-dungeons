@@ -21,9 +21,10 @@ const DisabledFilter: any = withFilters(Container, {
   matrix: ColorMatrixFilter,
 });
 
-function TravelInfo({ realm, currentRealm }: any) {
+function TravelInfo({ realm, currentRealm, unlockedRealms }: any) {
   const dispatch = useDispatch();
   const isCurrentRealm = currentRealm === realm?.value;
+  const isUnlocked = unlockedRealms.includes(realm.value);
 
   const updateHero = (data: any) => {
     dispatch(setHero(data));
@@ -70,10 +71,36 @@ function TravelInfo({ realm, currentRealm }: any) {
     </DisabledFilter>
   );
 
+  const UnlockInfo = () => {
+    return (
+      <Container>
+        <Text
+          text={`Reach ${realm?.unlockLevel} level & `}
+          x={0}
+          y={-20}
+          style={new TextStyle(textStyle)}
+        />
+        <Text
+          text={`Find the orb on a quest `}
+          x={0}
+          y={0}
+          style={new TextStyle(textStyle)}
+        />
+        <Sprite image={realm.orbImage} width={50} height={50} x={290} y={-23} />
+      </Container>
+    );
+  }
+
   return (
     <Container position={[220, 530]}>
-      <TravelFee />
-      <AcceptButton />
+      {isUnlocked ? (
+        <>
+          <TravelFee />
+          <AcceptButton />
+        </>
+      ) : (
+        <UnlockInfo />
+      )}
     </Container>
   );
 }

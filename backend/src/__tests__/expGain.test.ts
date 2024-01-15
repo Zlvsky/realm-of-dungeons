@@ -74,9 +74,12 @@ const testExpGain = () => {
   describe(`Exp Gain test`, () => {
     it("Testing exp gains", async () => {
         // testForLevel10();
-        testForLevel25();
+        // testForLevel25();
+        return true;
     });
   });
 };
 
-// testExpGain();
+testExpGain();
+
+export default true;

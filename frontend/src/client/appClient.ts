@@ -33,6 +33,8 @@ import { getDungeonEnemiesService } from "./services/game/dungeons/getDungeonEne
 import { battleActionPotionService } from "./services/battle/battleActionPotionService";
 import { dungeonEnemyTurnService } from "./services/game/dungeons/enemy/dungeonEnemyTurnService";
 import { dungeonBattleEndService } from "./services/game/dungeons/dungeonBattleEndService";
+import { rankingService } from "./services/game/ranking/rankingService";
+import { characterPreviewService } from "./services/game/ranking/characterPreviewService";
 
 // REGISTER AND LOGIN
 export async function register(body: signUpInterface) {
@@ -166,4 +168,14 @@ export async function dungeonEnemyTurn() {
 
 export async function dungeonBattleEnd() {
   return await dungeonBattleEndService();
+}
+
+// RANKING
+
+export async function rankingRequest(currentPage: number) {
+  return await rankingService(currentPage)
+}
+
+export async function characterPreviewRequest(characterId: string) {
+  return await characterPreviewService(characterId);
 }

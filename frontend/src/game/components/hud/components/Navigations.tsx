@@ -6,6 +6,7 @@ import heroBtn from "../../../../assets/images/hud/buttons/herobtn.png";
 import templeBtn from "../../../../assets/images/hud/buttons/templebtn.png";
 import merchantsBtn from "../../../../assets/images/hud/buttons/merchantsbtn.png";
 import trainersBtn from "../../../../assets/images/hud/buttons/trainersbtn.png";
+import rankingBtn from "../../../../assets/images/hud/buttons/rankingbtn.png";
 import { useDispatch } from 'react-redux';
 import { setCurrentStage } from '../../../../redux/reducers/gameSlice';
 
@@ -46,6 +47,10 @@ const buttonsData = [
     image: templeBtn,
     stage: "temple",
   },
+  {
+    image: rankingBtn,
+    stage: "ranking",
+  },
 ];
 
 function Navigations() {
@@ -54,16 +59,38 @@ function Navigations() {
         dispatch(setCurrentStage(stage))
     }
     return (
-      <Container position={[50, 260]}>
-        {buttonsData.map((button, index) => (
+      <Container position={[0, 180]}>
+        {/* <Container>
           <Sprite
-            image={button.image}
-            y={80 * index}
-            onpointertap={() => changeStage(button.stage)}
-            key={index}
+            image={heroBtn}
+            y={0}
+            onpointertap={() => changeStage("hero")}
             {...commonProps}
+            x={-10}
+            width={160}
+            height={50}
           />
-        ))}
+          <Sprite
+            image={rankingBtn}
+            y={0}
+            onpointertap={() => changeStage("ranking")}
+            {...commonProps}
+            x={160}
+            width={160}
+            height={50}
+          />
+        </Container> */}
+        <Container position={[50, 0]}>
+          {buttonsData.map((button, index) => (
+            <Sprite
+              image={button.image}
+              y={80 * index}
+              onpointertap={() => changeStage(button.stage)}
+              key={index}
+              {...commonProps}
+            />
+          ))}
+        </Container>
       </Container>
     );
 }

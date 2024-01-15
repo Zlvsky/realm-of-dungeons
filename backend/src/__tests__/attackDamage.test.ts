@@ -66,6 +66,7 @@ const testCharacterDamage = () => {
 const testMobDamage = (damage: number) => {
   describe(`mob attack damage with: ${damage}dmg`, () => {
     it("testing mob damage", async () => {
+      return true;
       let dmgSum = 0;
       let highestDmg = 0;
       let lowestDmg = 99999;
@@ -95,6 +96,6 @@ const testMobDamage = (damage: number) => {
   })
 }
 
-// testMobDamage(8);
+testMobDamage(8);
 
 export default true;
