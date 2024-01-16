@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 
 const getUserIdFromToken = (authHeader?: string): any => {
   if (!authHeader) {
-    throw new Error("Authorization header not found");
+    return null;
   }
 
   // Extract token from Authorization header

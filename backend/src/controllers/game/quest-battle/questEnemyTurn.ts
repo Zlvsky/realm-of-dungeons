@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { getAttackDamage } from "../../../utils/getAttackDamage";
 import { Character } from "../../../schemas/character/characterSchema";
 import getValuesWithStatistics from "../../../gameUtils/characters/getValuesWithStatistics";
+import { checkAuth } from "../../../utils/checkAuth";
 
 export const questEnemyTurn = async (req: Request, res: Response) => {
   const { characterId } = req.body;
@@ -15,6 +16,11 @@ export const questEnemyTurn = async (req: Request, res: Response) => {
 
     if (!character)
       return res.status(404).json({ message: "Character not found" });
+
+    const isAuthenticated = checkAuth(character.owner, req.headers.authorization);
+    if (!isAuthenticated) {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
 
     const { activeQuest } = character;
     const enemy = activeQuest?.enemy;

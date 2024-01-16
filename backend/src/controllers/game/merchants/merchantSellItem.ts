@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Character } from "../../../schemas/character/characterSchema";
 import { Merchants } from "../../../schemas/game/merchantsSchema";
 import { IItem, IMerchant } from "../../../types/account/MainInterfaces";
+import { checkAuth } from "../../../utils/checkAuth";
 
 const getSellValue = (value: number, isInterested: boolean) => {
     if (isInterested) return Math.round(value * 0.6);
@@ -25,6 +26,11 @@ export const merchantSellItem = async (req: Request, res: Response) => {
     if (!character)
       return res.status(404).json({ message: "Character not found" });
   
+    const isAuthenticated = checkAuth(character.owner, req.headers.authorization);
+      if (!isAuthenticated) {
+        return res.status(403).json({ message: "Unauthorized" });
+      }
+
     if (!merchant)
       return res.status(404).json({ message: "Merchant not found" });
 

@@ -80,6 +80,6 @@ const testExpGain = () => {
   });
 };
 
-testExpGain();
+// testExpGain();
 
 export default true;

@@ -1,11 +1,17 @@
 import { Request, Response } from "express";
 import { Character } from "../../../schemas/character/characterSchema";
+import getUserIdFromToken from "../../../utils/getUserIdFromToken";
 
 export const getRanking = async (req: Request, res: Response) => {
     const { currentPage } = req.params;
     const page = Number(currentPage);
 
     try {
+        const userId = getUserIdFromToken(req.headers.authorization);
+        if (!userId) {
+          return res.status(403).json({ message: "Unauthorized" });
+        }
+
         const itemsPerPage = 24;
 
         const startIndex = (page - 1) * itemsPerPage;

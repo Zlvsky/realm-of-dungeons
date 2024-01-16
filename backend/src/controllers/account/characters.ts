@@ -11,6 +11,7 @@ import getNextLevelExperience from "../../gameUtils/characters/getNextLevelExper
 import getNextStatisticLevelExperience from "../../gameUtils/characters/getNextStatisticLevelExperience";
 import generateMerchantItems from "../../gameUtils/merchants/generateMerchantItems";
 import { cavernsDungeonEnemies } from "../../gameUtils/dungeons/caverns/cavernsDungeonEnemies";
+import { checkAuth } from "../../utils/checkAuth";
 
 const router = express.Router();
 
@@ -26,10 +27,18 @@ const statisticProgression = (baseStatistics: any, stat: string) => {
 
 // POST /api/characters
 export const createCharacter = async (req: Request, res: Response) => {
+  const jwt = req.headers.authorization;
+
+  if (!jwt) return res.status(403).json({ message: "Unauthorized" });
+
+  const userId = getUserIdFromToken(jwt);
+
+  if (!userId) return res.status(403).json({ message: "Unauthorized" });
 
   const character = await Character.findOne({ nickname: req.body.nickname });
 
-  if (character) return res.status(400).json({ message: "Character name already taken" });
+  if (character)
+    return res.status(400).json({ message: "Character name already taken" });
 
   try {
     // Create new character object
@@ -68,7 +77,7 @@ export const createCharacter = async (req: Request, res: Response) => {
         },
       ],
       avatar: getCharacterAvatar(req.body.class),
-      owner: getUserIdFromToken(req.headers.authorization), // Set the owner of the character to the authenticated user (implementation of this step is outside the scope of this answer)
+      owner: userId, // Set the owner of the character to the authenticated user (implementation of this step is outside the scope of this answer)
       updatedValues: {
         statistics: getBaseStatistics(req.body.class),
       },
@@ -93,6 +102,7 @@ export const createCharacter = async (req: Request, res: Response) => {
 
 export const getCharacterById = async (req: Request, res: Response) => {
   const characterId = req.params.id;
+  const jwt = req.headers.authorization;
 
   // Get character by ID
   const character = await Character.findById(characterId);
@@ -100,16 +110,9 @@ export const getCharacterById = async (req: Request, res: Response) => {
   if (!character) {
     return res.status(404).json({ message: "Character not found" });
   }
-  
-  // Check if authenticated user owns the character (implementation of this step is outside the scope of this answer)
-  const userId: any = getUserIdFromToken(req.headers.authorization);
 
-  if (userId === null) {
-    return res.status(403).json({ message: "Unauthorized" });
-  }
-
-  const userIdObject = mongoose.Types.ObjectId.createFromHexString(userId)
-  if (character.owner === userIdObject) {
+  const isAuthenticated = checkAuth(character.owner, jwt);
+  if (!isAuthenticated) {
     return res.status(403).json({ message: "Unauthorized" });
   }
 
@@ -118,7 +121,11 @@ export const getCharacterById = async (req: Request, res: Response) => {
 
 export const getUserCharacters = async (req: Request, res: Response) => {
   try {
-    const userId: any = getUserIdFromToken(req.headers.authorization);
+    const userId = getUserIdFromToken(req.headers.authorization);
+    if (!userId) {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
     const characters = await Character.find({ owner: userId });
 
     if (characters.length === 0) {

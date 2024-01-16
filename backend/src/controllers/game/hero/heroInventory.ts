@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import { ICharacter } from "../../../types/account/MainInterfaces";
 import { Character } from "../../../schemas/character/characterSchema";
+import { checkAuth } from "../../../utils/checkAuth";
 
 export const updateInventory = async (req: Request, res: Response) => {
   const { characterId, item, slotIndex, lastIndex } = req.body;
@@ -13,6 +14,12 @@ export const updateInventory = async (req: Request, res: Response) => {
     if (!character) {
       return res.status(404).json({ message: "Inventory not found" });
     }
+
+    const isAuthenticated = checkAuth(character.owner, req.headers.authorization);
+      if (!isAuthenticated) {
+        return res.status(403).json({ message: "Unauthorized" });
+      }
+    
     const inventoryLastSlot = character.inventory.find(
       (slot) => slot.slotIndex === lastIndex
     );

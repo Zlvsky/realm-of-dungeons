@@ -4,6 +4,7 @@ import { ICharacter } from "../../../types/account/MainInterfaces";
 import { Character } from "../../../schemas/character/characterSchema";
 import getUpdatedValues from "../../../gameUtils/characters/getUpdatedValues";
 import getValuesWithStatistics from "../../../gameUtils/characters/getValuesWithStatistics";
+import { checkAuth } from "../../../utils/checkAuth";
 
 // 2 cases - 1 if dragged from equipment to empty inventory slot
 // 2- if dragged from equipment to occupied ivnentory slot
@@ -23,6 +24,12 @@ export const updateEquipmentToInventory = async (
     if (!character) {
       return res.status(404).json({ message: "Inventory not found" });
     }
+
+    const isAuthenticated = checkAuth(character.owner, req.headers.authorization);
+      if (!isAuthenticated) {
+        return res.status(403).json({ message: "Unauthorized" });
+      }
+
     const equipmentItem = character.equipment.find(
       (slot) => slot.type === itemType || slot.type === itemSubType
     );

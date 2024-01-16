@@ -80,7 +80,7 @@ export interface ICharacter extends mongoose.Document {
   }[];
   dungeons: IDungeon[],
   statistics: IStatistics;
-  owner: mongoose.Types.ObjectId | IUser;
+  owner: mongoose.Types.ObjectId;
   equipment: [
     {
       type: string;

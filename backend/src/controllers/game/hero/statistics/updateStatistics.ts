@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Character } from "../../../../schemas/character/characterSchema";
 import getValuesWithStatistics from "../../../../gameUtils/characters/getValuesWithStatistics";
 import updateCharacterValues from "../../../../gameUtils/characters/getUpdatedValues";
+import { checkAuth } from "../../../../utils/checkAuth";
 
 export const updateStatistics = async (req: Request, res: Response) => {
   const { characterId, statistic } = req.body;
@@ -10,6 +11,11 @@ export const updateStatistics = async (req: Request, res: Response) => {
       
     if (!character)
       return res.status(404).json({ message: "Character not found" });
+
+    const isAuthenticated = checkAuth(character.owner, req.headers.authorization);
+      if (!isAuthenticated) {
+        return res.status(403).json({ message: "Unauthorized" });
+      }
 
     switch (statistic) {
       case "melee":

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Character } from "../../../schemas/character/characterSchema";
 import generateQuests from "../../../gameUtils/quests/generateQuests";
+import { checkAuth } from "../../../utils/checkAuth";
 
 const getOrbRealm = (id: number) => {
   switch (id) {
@@ -18,6 +19,11 @@ export const unlockRealm = async (req: Request, res: Response) => {
 
     if (!character)
       return res.status(404).json({ message: "Character not found" });
+
+    const isAuthenticated = checkAuth(character.owner, req.headers.authorization);
+    if (!isAuthenticated) {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
 
     const orbInInventory = character.inventory.find(el => el?.item?.type === "realm orb");
 

@@ -5,6 +5,7 @@ import getValuesWithStatistics from "../../../gameUtils/characters/getValuesWith
 import addExperienceToStat from "../../../gameUtils/characters/addExperienceToStat";
 import { ICharacter } from "../../../types/account/MainInterfaces";
 import { getRealmDungeon } from "../../../gameUtils/dungeons/getRealmDungeon";
+import { checkAuth } from "../../../utils/checkAuth";
 
 interface ICharacterAttack {
   characterId: string;
@@ -41,6 +42,7 @@ export const characterAttack = async (req: Request, res: Response) => {
   const { characterId, attackPower, battleType }: ICharacterAttack = req.body;
   try {
     const character = await Character.findById(characterId);
+
     const dataToReturn: any = {
       who: 2,
       damage: "DEALT"
@@ -48,6 +50,11 @@ export const characterAttack = async (req: Request, res: Response) => {
 
     if (!character)
       return res.status(404).json({ message: "Character not found" });
+
+    const isAuthenticated = checkAuth(character.owner, req.headers.authorization);
+    if (!isAuthenticated) {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
 
     const { activeQuest } = character;
 

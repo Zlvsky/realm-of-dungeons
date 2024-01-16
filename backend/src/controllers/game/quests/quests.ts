@@ -4,6 +4,7 @@ import { ICharacter } from "../../../types/account/MainInterfaces";
 import { Character } from "../../../schemas/character/characterSchema";
 import generateEnemy from "../../../gameUtils/quests/enemies/generateEnemy";
 import { getRealmDungeon } from "../../../gameUtils/dungeons/getRealmDungeon";
+import { checkAuth } from "../../../utils/checkAuth";
 
 export const updateActiveQuest = async (req: Request, res: Response) => {
   const { characterId, questId } = req.body;
@@ -11,6 +12,11 @@ export const updateActiveQuest = async (req: Request, res: Response) => {
     const character: ICharacter | null = await Character.findById(characterId);
     if (!character) {
       return res.status(404).json({ message: "Character not found" });
+    }
+
+    const isAuthenticated = checkAuth(character.owner, req.headers.authorization);
+    if (!isAuthenticated) {
+      return res.status(403).json({ message: "Unauthorized" });
     }
 
     const currentRealm = character.realms.currentRealm;

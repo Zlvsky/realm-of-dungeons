@@ -6,6 +6,7 @@ import { getDungeonEnemies } from "../../../gameUtils/dungeons/getDungeonEnemies
 import { cavernsDungeonEnemies } from "../../../gameUtils/dungeons/caverns/cavernsDungeonEnemies";
 import { cryptDungeonEnemies } from "../../../gameUtils/dungeons/crypt/cryptDungeonEnemies";
 import { getRealmDungeon } from "../../../gameUtils/dungeons/getRealmDungeon";
+import { checkAuth } from "../../../utils/checkAuth";
 
 export const getRealmDungeonEnemies = async (req: Request, res: Response) => {
   const { characterId } = req.params;
@@ -14,6 +15,12 @@ export const getRealmDungeonEnemies = async (req: Request, res: Response) => {
     if (!character) {
       return res.status(404).json({ message: "Character not found" });
     }
+
+    const isAuthenticated = checkAuth(character.owner, req.headers.authorization);
+      if (!isAuthenticated) {
+        return res.status(403).json({ message: "Unauthorized" });
+      }
+
     const currentRealm = character.realms.currentRealm;
 
     switch (currentRealm) {

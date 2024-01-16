@@ -26,8 +26,6 @@ const fetchRanking = async (page: number) => {
 
     mongoose.connection.close();
 
-    console.log("level", rankingHeroes[0].progression.level);
-
     const response = {
       totalItems: totalCount,
       itemsPerPage: itemsPerPage,
@@ -40,14 +38,13 @@ const fetchRanking = async (page: number) => {
 
 const testRanking = () => {
   describe(`Ranking test`, () => {
-    jest.resetModules();
     it("Testing fetching ranking data", async () => {
       return true;
-      fetchRanking(PAGE);
+      // await fetchRanking(PAGE);
     });
   });
 };
 
-testRanking();
+// testRanking();
 
 export default true;

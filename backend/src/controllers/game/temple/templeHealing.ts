@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Character } from "../../../schemas/character/characterSchema";
+import { checkAuth } from "../../../utils/checkAuth";
 
 export const templeHealing = async (req: Request, res: Response) => {
   const { characterId } = req.body;
@@ -8,6 +9,11 @@ export const templeHealing = async (req: Request, res: Response) => {
 
     if (!character)
       return res.status(404).json({ message: "Character not found" });
+
+    const isAuthenticated = checkAuth(character.owner, req.headers.authorization);
+    if (!isAuthenticated) {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
 
     if (character.extras.availableHeals === 0)
       return res.status(404).json({ message: "All available heals were used" });
