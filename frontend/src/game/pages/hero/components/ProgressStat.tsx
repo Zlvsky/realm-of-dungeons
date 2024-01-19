@@ -7,9 +7,19 @@ interface IHeroSingleStat {
     level: number;
     stat: "MELEE" | "DISTANCE" | "MAGIC" | "RESISTANCE" | string;
     progress: any;
+    showPopup?: any;
+    hidePopup?: any;
 }
 
-function ProgressStat({ position, icon, level, stat, progress }: IHeroSingleStat) {
+function ProgressStat({
+  position,
+  icon,
+  level,
+  stat,
+  progress,
+  showPopup,
+  hidePopup,
+}: IHeroSingleStat) {
   const levelPercentage =
     (progress.experience - progress.previousLevelExperience) /
     (progress.levelExperience - progress.previousLevelExperience);
@@ -22,6 +32,9 @@ function ProgressStat({ position, icon, level, stat, progress }: IHeroSingleStat
           text={stat}
           x={0}
           y={0}
+          interactive={true}
+          onpointerenter={showPopup}
+          onpointerleave={hidePopup}
           style={
             new TextStyle({
               align: "left",
@@ -35,7 +48,7 @@ function ProgressStat({ position, icon, level, stat, progress }: IHeroSingleStat
           text={level.toString()}
           x={420}
           y={0}
-          anchor={[1,0]}
+          anchor={[1, 0]}
           style={
             new TextStyle({
               align: "right",

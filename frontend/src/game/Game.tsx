@@ -9,6 +9,7 @@ import GameWorld from "./components/GameWorld";
 import GameStage from "./game-context/GameStage";
 import loadFontsForPixi from "../utils/loaders/loadFontsForPixi";
 import HudBorders from "./components/borders/HudBorders";
+import { useNavigate } from "react-router-dom";
 
 PIXI.BaseTexture.defaultOptions.scaleMode = PIXI.SCALE_MODES.LINEAR;
 const ROOT_WIDTH = 1666;
@@ -24,14 +25,20 @@ function Game() {
     scaleH: 1,
   });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
-
   useEffect(() => {
     const fetchHero = async () => {
       const heroId = localStorage.getItem("hero");
-      if (heroId === null) return setLoading(false);
+      if (heroId === null) {
+        navigate("/start");
+        return setLoading(false);
+      }
       const response = await getUserCharacter(heroId);
-      if(response.status !== 200) return () => {console.log(response.data); setLoading(false)};
+      if(response.status !== 200) {
+        navigate("/start");
+        setLoading(false);
+      }
       dispatch(setHero(response.data));
       setLoading(false);
     }
@@ -69,6 +76,23 @@ function Game() {
     updateSize();
     return () => window.removeEventListener("resize", updateSize);
   }, []);
+
+  useEffect(() => {
+    const storageHeroId = localStorage.getItem("hero");
+    localStorage.removeItem("hero");
+    if (storageHeroId) localStorage.setItem("hero", storageHeroId);
+
+    const checkForSessionDuplicate = ({key}: any) => {
+      if (key === "hero") {
+        navigate("/start");
+        dispatch(setHero(null));
+      }
+    }
+
+    window.addEventListener("storage", checkForSessionDuplicate);
+
+    return () => window.removeEventListener("storage", checkForSessionDuplicate);
+  }, [])
 
   if(loading) {
     return (

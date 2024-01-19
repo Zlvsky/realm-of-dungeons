@@ -25,6 +25,7 @@ const dungeonEnemySchema = new mongoose.Schema({
   rewards: {
     gold: { type: Number, default: null },
     xp: { type: Number, default: null },
+    reputation: { type: Number, default: null },
     item: { type: itemSchema, default: null },
   },
 });

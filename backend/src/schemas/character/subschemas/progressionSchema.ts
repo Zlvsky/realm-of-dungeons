@@ -21,6 +21,10 @@ const progressionSchema = new mongoose.Schema({
     required: true,
     default: 0,
   },
+  reputation: {
+    type: Number,
+    default: 0,
+  },
   statistics: {
     melee: {
       experience: {

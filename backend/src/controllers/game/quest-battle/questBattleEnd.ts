@@ -30,6 +30,8 @@ export const questBattleEnd = async (req: Request, res: Response) => {
     if (quest.battleWinner === 1) {
         character.generalValues.gold = Math.round((character.generalValues.gold + quest.rewards.gold) * 100) / 100;
         character.progression.experience += quest.rewards.xp;
+        if (quest.rewards?.reputation)
+          character.progression.reputation += quest.rewards.reputation;
         if (quest.rewards?.item) {
           const freeInventorySlot = character.inventory.find(
             (slot) => slot.item === null
@@ -38,6 +40,11 @@ export const questBattleEnd = async (req: Request, res: Response) => {
         }
         levelUpIfReady(character);
     } else if (quest.battleWinner === 2) {
+        // SUBSTRACT REPUTATION AFTER LOSS 
+        if (character.progression.reputation !== 0 && quest.rewards?.reputation) {
+            if (character.progression.reputation - (quest.rewards.reputation * 3) < 0) character.progression.reputation = 0;
+            else character.progression.reputation -= (quest.rewards.reputation * 3);
+        }
         character.updatedValues.health = 0;
     }
 

@@ -19,6 +19,9 @@ export const updateActiveQuest = async (req: Request, res: Response) => {
       return res.status(403).json({ message: "Unauthorized" });
     }
 
+    if (character.activeQuest.quest !== null)
+      return res.status(400).json({ message: "You already have active quest " });
+
     const currentRealm = character.realms.currentRealm;
 
     const availableQuestsIndex = character.availableQuests.findIndex(
@@ -82,6 +85,9 @@ export const startQuestBattle = async (req: Request, res: Response) => {
     if (!character) {
       return res.status(404).json({ message: "Character not found" });
     }
+
+    if (character.activeQuest.quest === null)
+      return res.status(400).json({ message: "You don't have active quest" });
 
     if (character.activeQuest.quest && character.activeQuest.timeStarted) {
       const now = new Date();

@@ -38,10 +38,10 @@ import { getRanking } from "./controllers/game/ranking/ranking";
 import { getCharacterPreview } from "./controllers/game/ranking/characterPreview";
 
 const uri = process.env.MONGO_CONNECTION_URL;
-const sslCert = process.env.CERT_PATH;
-// const sslCert = undefined;
-const sslKey = process.env.KEY_PATH;
-// const sslKey = undefined;
+// const sslCert = process.env.CERT_PATH;
+const sslCert = undefined;
+// const sslKey = process.env.KEY_PATH;
+const sslKey = undefined;
 
 if(!uri) throw new Error(".env file is not created")
 

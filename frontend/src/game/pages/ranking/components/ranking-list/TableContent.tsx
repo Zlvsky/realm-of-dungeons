@@ -39,8 +39,20 @@ function TableContent({ selectedHero, setSelectedHero, currentHeroId, data }: an
               style={textStyle}
             />
             <Text x={130} text={hero.nickname} style={textStyle} />
-            <Text x={330} text={hero.progression.level.toString()} style={textStyle} />
-            <Text x={470} text={"0"} style={textStyle} />
+            <Text
+              x={330}
+              text={hero.progression.level.toString()}
+              style={textStyle}
+            />
+            <Text
+              x={470}
+              text={
+                hero.progression?.reputation
+                  ? hero.progression.reputation.toString()
+                  : "0"
+              }
+              style={textStyle}
+            />
           </Container>
         );
       })}

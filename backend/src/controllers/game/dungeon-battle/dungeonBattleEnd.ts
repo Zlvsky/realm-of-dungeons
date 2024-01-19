@@ -41,6 +41,8 @@ export const dungeonBattleEnd = async (req: Request, res: Response) => {
         100;
 
       character.progression.experience += enemy.rewards.xp;
+      if (character.progression?.reputation)
+        character.progression.reputation += enemy.rewards.reputation;
 
       if (enemy.rewards?.item) {
         const freeInventorySlot = character.inventory.find(

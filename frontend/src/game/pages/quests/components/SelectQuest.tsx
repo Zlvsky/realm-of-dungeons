@@ -17,6 +17,8 @@ import fetchHero from "../../../../utils/fetchers/fetchHero";
 import { useDispatch } from "react-redux";
 import IconWithText from "../../../../components/common/text/IconWithText";
 import displayError from "../../../../utils/notifications/errors";
+import ItemLoot from "./select-quest/ItemLoot";
+import HeroStatusBars from "./select-quest/HeroStatusBars";
 
 const iconWithTextStyle = {
   align: "center",
@@ -26,6 +28,11 @@ const iconWithTextStyle = {
   wordWrap: true,
   wordWrapWidth: 610,
 };
+
+const canvasWidth = 1316;
+const canvasHeight = 937;
+const rectWidth = 815;
+const rectHeight = 740;
 
 const getRealmBackground = (realm: string) => {
   switch (realm) {
@@ -40,6 +47,9 @@ const getRealmBackground = (realm: string) => {
 
 function SelectQuest({ hero }: any) {
   const [selectedQuest, setSelectedQuest] = useState(1);
+  
+  const startX = (canvasWidth - rectWidth) / 2;
+  const startY = (canvasHeight - rectHeight) / 2;
 
   const questsData = hero.availableQuests;
   const currentRealm = hero.realms.currentRealm;
@@ -68,14 +78,16 @@ function SelectQuest({ hero }: any) {
     g.clear();
     g.beginFill(0x29221c, 0.9);
     g.lineStyle(4, 0x29221c, 1);
-    g.moveTo(250, 50);
-    g.lineTo(250, 50);
-    g.lineTo(1065, 50);
-    g.lineTo(1065, 900);
-    g.lineTo(250, 900);
-    g.lineTo(250, 50);
+
+    g.moveTo(startX, 50);
+    g.lineTo(startX + rectWidth, 50);
+    g.lineTo(startX + rectWidth, rectHeight);
+    g.lineTo(startX, rectHeight );
+    g.lineTo(startX, 50);
+
     g.endFill();
   }, []);
+
   return (
     <Container position={[0, 0]}>
       <Sprite
@@ -147,76 +159,72 @@ function SelectQuest({ hero }: any) {
           })
         }
       />
-      <Text
-        x={350}
-        y={500}
-        text={"TIME: "}
-        style={
-          new TextStyle({
-            align: "center",
-            fontFamily: "MedievalSharp",
-            fontSize: 26,
-            fill: ["#BCBCBC"],
-            wordWrap: true,
-            wordWrapWidth: 610,
-          })
-        }
-      />
-      <IconWithText
-        text={secondsToTime(currentQuestsData[selectedQuest].duration)}
-        image={HourglassIcon}
-        position={[350, 550]}
-        textStyle={iconWithTextStyle}
-      />
-      <Text
-        x={350}
-        y={630}
-        text={"REWARDS: "}
-        style={
-          new TextStyle({
-            align: "center",
-            fontFamily: "MedievalSharp",
-            fontSize: 26,
-            fill: ["#BCBCBC"],
-            wordWrap: true,
-            wordWrapWidth: 610,
-          })
-        }
-      />
-      <IconWithText
-        text={currentQuestsData[selectedQuest].rewards.gold}
-        image={GoldIcon}
-        position={[350, 680]}
-        textStyle={iconWithTextStyle}
-      />
-      <IconWithText
-        text={currentQuestsData[selectedQuest].rewards.xp}
-        image={XpIcon}
-        position={[350, 750]}
-        textStyle={iconWithTextStyle}
-      />
-      {currentQuestsData[selectedQuest].rewards?.item && (
+      <Container position={[0, -30]}>
+        <Text
+          x={350}
+          y={500}
+          text={"TIME: "}
+          style={
+            new TextStyle({
+              align: "center",
+              fontFamily: "MedievalSharp",
+              fontSize: 26,
+              fill: ["#BCBCBC"],
+              wordWrap: true,
+              wordWrapWidth: 610,
+            })
+          }
+        />
         <IconWithText
-          text={currentQuestsData[selectedQuest].rewards?.item.name}
-          image={currentQuestsData[selectedQuest].rewards?.item.image}
-          position={[500, 715]}
-          imageWidth={60}
-          imageHeight={60}
-          imageY={-10}
+          text={secondsToTime(currentQuestsData[selectedQuest].duration)}
+          image={HourglassIcon}
+          position={[350, 550]}
           textStyle={iconWithTextStyle}
         />
-      )}
+        <Text
+          x={550}
+          y={500}
+          text={"REWARDS: "}
+          style={
+            new TextStyle({
+              align: "center",
+              fontFamily: "MedievalSharp",
+              fontSize: 26,
+              fill: ["#BCBCBC"],
+              wordWrap: true,
+              wordWrapWidth: 610,
+            })
+          }
+        />
+        <IconWithText
+          text={currentQuestsData[selectedQuest].rewards.gold}
+          image={GoldIcon}
+          position={[550, 550]}
+          textStyle={iconWithTextStyle}
+        />
+        <IconWithText
+          text={currentQuestsData[selectedQuest].rewards.xp}
+          image={XpIcon}
+          position={[720, 550]}
+          textStyle={iconWithTextStyle}
+        />
+        {currentQuestsData[selectedQuest].rewards?.item && (
+          <ItemLoot item={currentQuestsData[selectedQuest].rewards?.item} />
+        )}
+      </Container>
 
       <Sprite
         image={AcceptBtn}
         width={150}
         height={150}
-        x={575}
-        y={780}
+        x={1316 / 2}
+        anchor={[0.5, 0]}
+        y={600}
         cursor={"pointer"}
         interactive={true}
         onpointerdown={handleAcceptQuest}
       />
+      <HeroStatusBars hero={hero} />
     </Container>
   );
 }

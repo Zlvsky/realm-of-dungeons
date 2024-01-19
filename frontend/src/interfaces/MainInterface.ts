@@ -34,6 +34,7 @@ export interface ICharacter {
     levelExperience: number;
     previousLevelExperience: number;
     experience: number;
+    reputation: number;
     statistics: {
       melee: IStatisticProgression;
       distance: IStatisticProgression;

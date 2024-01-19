@@ -51,6 +51,7 @@ export const createCharacter = async (req: Request, res: Response) => {
         level: 1,
         levelExperience: getNextLevelExperience[1],
         previousLevelExperience: getNextLevelExperience[0],
+        reputation: 0,
         statistics: {
           melee: statisticProgression(baseStatistics, "melee"),
           distance: statisticProgression(baseStatistics, "distance"),

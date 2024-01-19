@@ -6,9 +6,18 @@ interface ISingleStat {
   stat: "DEFENSE" | "LUCK";
   level: number;
   icon: string;
+  showPopup?: any;
+  hidePopup?: any;
 }
 
-const DynamicStat = ({ position, stat, level, icon }: ISingleStat) => {
+const DynamicStat = ({
+  position,
+  stat,
+  level,
+  icon,
+  showPopup,
+  hidePopup,
+}: ISingleStat) => {
   return (
     <Container position={position}>
       <Sprite image={icon} width={55} height={55} x={0} y={0} />
@@ -17,6 +26,9 @@ const DynamicStat = ({ position, stat, level, icon }: ISingleStat) => {
           text={`${stat.toUpperCase()}`}
           x={0}
           y={0}
+          interactive={true}
+          onpointerenter={showPopup}
+          onpointerleave={hidePopup}
           style={
             new TextStyle({
               align: "center",

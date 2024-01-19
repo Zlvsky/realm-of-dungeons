@@ -6,6 +6,7 @@ import { IHeroProp } from '../../../interfaces/ComponentsInterfaces';
 function HeroSelect({ hero }: IHeroProp) {
   const navigate = useNavigate();
   const handleEnter = () => {
+    localStorage.removeItem("hero");
     localStorage.setItem("hero", hero._id);
     navigate("/game");
   };

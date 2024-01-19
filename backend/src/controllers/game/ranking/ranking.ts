@@ -24,7 +24,7 @@ export const getRanking = async (req: Request, res: Response) => {
           return res.status(400).json({ message: "Page don't exist" });
 
         const rankingHeroes = await Character.find({})
-          .select("_id nickname progression.level")
+          .select("_id nickname progression.level progression.reputation")
           .sort({ "progression.level": -1, "nickname": 1 })
           .skip(startIndex)
           .limit(itemsPerPage)

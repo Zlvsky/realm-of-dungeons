@@ -47,6 +47,7 @@ export interface ICharacter extends mongoose.Document {
     levelExperience: number;
     previousLevelExperience: number;
     experience: number;
+    reputation: number;
     statistics: {
       melee: IStatisticProgression;
       distance: IStatisticProgression;
@@ -66,6 +67,7 @@ export interface ICharacter extends mongoose.Document {
       rewards: {
         gold: number;
         xp: number;
+        reputation: number;
         item?: IItem;
       };
     } | null;
@@ -180,6 +182,7 @@ export interface IQuest {
   rewards: {
     gold: number;
     xp: number;
+    reputation: number;
     item?: IItem;
   };
 }
@@ -222,6 +225,7 @@ export interface IDungeon {
       rewards: {
         gold: number;
         xp: number;
+        reputation: number;
         item?: IItem;
       };
     } | null;

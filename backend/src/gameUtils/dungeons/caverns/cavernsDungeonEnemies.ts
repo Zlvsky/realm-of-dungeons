@@ -53,6 +53,7 @@ export const cavernsDungeonEnemies = [
     rewards: {
       gold: 10,
       xp: 250,
+      reputation: 10,
       itemReward: lowDrops,
     },
   },
@@ -70,6 +71,7 @@ export const cavernsDungeonEnemies = [
     rewards: {
       gold: 15,
       xp: 350,
+      reputation: 15,
       itemReward: lowDrops,
     },
   },
@@ -87,6 +89,7 @@ export const cavernsDungeonEnemies = [
     rewards: {
       gold: 20,
       xp: 500,
+      reputation: 20,
       itemReward: midDrops,
     },
   },
@@ -104,6 +107,7 @@ export const cavernsDungeonEnemies = [
     rewards: {
       gold: 25,
       xp: 600,
+      reputation: 25,
       itemReward: midDrops,
     },
   },
@@ -121,6 +125,7 @@ export const cavernsDungeonEnemies = [
     rewards: {
       gold: 30,
       xp: 650,
+      reputation: 30,
       itemReward: midDrops,
     },
   },
@@ -138,6 +143,7 @@ export const cavernsDungeonEnemies = [
     rewards: {
       gold: 32.5,
       xp: 700,
+      reputation: 35,
       itemReward: highDrops,
     },
   },
@@ -155,6 +161,7 @@ export const cavernsDungeonEnemies = [
     rewards: {
       gold: 35.5,
       xp: 760,
+      reputation: 40,
       itemReward: highDrops,
     },
   },
@@ -172,6 +179,7 @@ export const cavernsDungeonEnemies = [
     rewards: {
       gold: 35.5,
       xp: 760,
+      reputation: 45,
       itemReward: highDrops,
     },
   },
@@ -189,6 +197,7 @@ export const cavernsDungeonEnemies = [
     rewards: {
       gold: 35.5,
       xp: 760,
+      reputation: 50,
       itemReward: highDrops,
     },
   },
@@ -206,6 +215,7 @@ export const cavernsDungeonEnemies = [
     rewards: {
       gold: 50,
       xp: 1000,
+      reputation: 60,
       itemReward: finalDrops,
     },
   },

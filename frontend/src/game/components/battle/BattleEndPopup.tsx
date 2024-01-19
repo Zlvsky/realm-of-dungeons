@@ -12,6 +12,7 @@ interface IBattleEnd {
   rewards: {
     gold: number;
     xp: number;
+    reputation?: number;
     item?: IItem;
   };
   handleBattleEnd: () => void;
@@ -22,11 +23,11 @@ const canvasHeight = 937;
 const rectWidth = 615;
 const rectHeight = 450;
 
-const iconWithTextStyle = {
+const iconWithTextStyle: any = {
   align: "center",
   fontFamily: "MedievalSharp",
   fontSize: 24,
-  fill: ["#BCBCBC"],
+  fill: "#BCBCBC",
   wordWrap: true,
   wordWrapWidth: 610,
 };
@@ -109,7 +110,7 @@ function BattleEndPopup({
             })
           }
         />
-        {battleWinner === 1 && (
+        {battleWinner === 1 ? (
           <>
             <IconWithText
               text={rewards.gold}
@@ -132,6 +133,25 @@ function BattleEndPopup({
                 imageHeight={60}
                 imageY={-10}
                 textStyle={iconWithTextStyle}
+              />
+            )}
+            {rewards.reputation && (
+              <Text
+                text={`${rewards.reputation} reputation gained`}
+                position={[rectWidth / 2, 190]}
+                anchor={[0.5, 0]}
+                style={new TextStyle(iconWithTextStyle)}
+              />
+            )}
+          </>
+        ) : (
+          <>
+            {rewards.reputation && (
+              <Text
+                text={`${rewards.reputation * 3} reputation lost`}
+                position={[rectWidth / 2, 190]}
+                anchor={[0.5, 0]}
+                style={new TextStyle(iconWithTextStyle)}
               />
             )}
           </>

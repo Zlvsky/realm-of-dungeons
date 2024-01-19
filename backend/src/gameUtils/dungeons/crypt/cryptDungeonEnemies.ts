@@ -40,6 +40,7 @@ export const cryptDungeonEnemies = [
     rewards: {
       gold: 25,
       xp: 600,
+      reputation: 25,
       itemReward: lowDrops,
     },
   },
@@ -57,6 +58,7 @@ export const cryptDungeonEnemies = [
     rewards: {
       gold: 30,
       xp: 650,
+      reputation: 30,
       itemReward: lowDrops,
     },
   },
@@ -74,6 +76,7 @@ export const cryptDungeonEnemies = [
     rewards: {
       gold: 35,
       xp: 700,
+      reputation: 35,
       itemReward: highDrops,
     },
   },
@@ -91,6 +94,7 @@ export const cryptDungeonEnemies = [
     rewards: {
       gold: 36,
       xp: 750,
+      reputation: 40,
       itemReward: highDrops,
     },
   },
@@ -108,6 +112,7 @@ export const cryptDungeonEnemies = [
     rewards: {
       gold: 38,
       xp: 800,
+      reputation: 40,
       itemReward: highDrops,
     },
   },
@@ -125,6 +130,7 @@ export const cryptDungeonEnemies = [
     rewards: {
       gold: 40,
       xp: 900,
+      reputation: 45,
       itemReward: highDrops,
     },
   },
@@ -142,6 +148,7 @@ export const cryptDungeonEnemies = [
     rewards: {
       gold: 40,
       xp: 950,
+      reputation: 50,
       itemReward: highDrops,
     },
   },
@@ -159,6 +166,7 @@ export const cryptDungeonEnemies = [
     rewards: {
       gold: 40,
       xp: 1200,
+      reputation: 55,
       itemReward: highDrops,
     },
   },
@@ -176,6 +184,7 @@ export const cryptDungeonEnemies = [
     rewards: {
       gold: 45,
       xp: 1400,
+      reputation: 60,
       itemReward: highDrops,
     },
   },
@@ -193,6 +202,7 @@ export const cryptDungeonEnemies = [
     rewards: {
       gold: 70,
       xp: 2000,
+      reputation: 65,
       itemReward: finalDrops,
     },
   },

@@ -110,6 +110,15 @@ export const generateGold = (realm: TCurrentRealm, questIndex: number) => {
   return Math.round(gold * 20) / 20;
 };
 
+export const generateReputation = (realm :TCurrentRealm) => {
+  switch (realm) {
+    case "CAVERNS":
+      return 2;
+    case "CRYPT":
+      return 5;
+  }
+}
+
 const generateQuest = async (
   realm: TCurrentRealm,
   quest: { title: string; description: string; isBoss: boolean, itemReward?: {itemId: number, dropChance: number}[] },
@@ -130,6 +139,7 @@ const generateQuest = async (
       xp: xp,
       gold: gold,
       item: await generateItemReward(itemPool),
+      reputation: generateReputation(realm),
     },
     battleStarted: false,
     isBoss: quest.isBoss,

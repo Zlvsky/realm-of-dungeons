@@ -21,6 +21,14 @@ export const displayGlobalError = (dispatch: Dispatch<AnyAction>, response: any)
   //   if (response.status === 401) return handleLogout(dispatch);
 };
 
+export const displayCustomError = (dispatch: Dispatch<AnyAction>, message: string) => {
+  const alert: any = {
+    message: message,
+    type: "error",
+  };
+  dispatch(setNotifications(alert));
+}
+
 const displayError = (dispatch: Dispatch<AnyAction>, response: any) => {
   if (response.status !== 200 )
     return displayBadRequest(response.data?.message, dispatch);

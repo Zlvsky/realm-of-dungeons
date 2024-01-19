@@ -24,6 +24,7 @@ function EmpyEquipmentSlots({heroEquipment}: IEmptyEquipmentSlot) {
             x={position.x}
             y={position.y}
             anchor={0.5}
+            key={"emptySlot_" + index}
           />
         );
       })}
