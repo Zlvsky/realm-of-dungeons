@@ -16,6 +16,7 @@ const availableQuestsSchema = new mongoose.Schema({
         reputation: { type: Number, default: null },
         item: { type: itemSchema, default: null },
       },
+      isBoss: { type: Boolean, default: false },
     },
   ],
 });

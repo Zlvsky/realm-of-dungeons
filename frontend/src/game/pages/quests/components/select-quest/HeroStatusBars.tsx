@@ -70,8 +70,7 @@ const StaminaStatusBar = ( {hero}: IHeroProp ) => {
     const handleShowPopup = () => setStaminaHovered(true);
     const handleHidePopup = () => setStaminaHovered(false);
 
-    const healthPercentage =
-      hero.updatedValues.health / hero.updatedValues.maxHealth; 
+    const staminaPercentage = hero.extras.stamina / 120; 
 
       const textStyle = InfoPopupTextStyle();
 
@@ -82,13 +81,13 @@ const StaminaStatusBar = ( {hero}: IHeroProp ) => {
           y={3}
           draw={(g) => {
             g.clear();
-            g.beginFill("#b8671c", 0.8);
-            g.drawRect(0, 0, 415 * healthPercentage, 44);
+            g.beginFill("#b8671c", 0.5);
+            g.drawRect(0, 0, 415 * staminaPercentage, 44);
             g.endFill();
           }}
         />
         <Text
-          text={`Stamina: ${hero.updatedValues.health}/120`}
+          text={`Stamina: ${hero.extras.stamina}/120`}
           x={420 / 2}
           y={50 / 2}
           anchor={0.5}

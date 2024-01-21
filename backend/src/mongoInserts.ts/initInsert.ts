@@ -3,7 +3,7 @@ import insertItems from "./merchants/insertItems";
 
 async function initInsert() {
     await insertItems();
-    await insertMerchants()
+    // await insertMerchants()
 }
 
 export default initInsert;

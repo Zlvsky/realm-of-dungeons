@@ -6,7 +6,7 @@ export const witchItems = [
   },
   {
     minLevel: 10,
-    maxLevel: 15,
+    maxLevel: 100,
     itemsId: [1301, 1302, 1101, 1102, 1501, 1502, 2201, 2202, 2203],
   },
 ];

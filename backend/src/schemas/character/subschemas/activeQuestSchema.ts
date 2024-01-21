@@ -37,6 +37,7 @@ const questSchema = new mongoose.Schema({
     reputation: { type: Number, default: null },
     item: { type: itemSchema, default: null },
   },
+  isBoss: { type: Boolean, default: false },
 });
 
 const activeQuestSchema = new mongoose.Schema({

@@ -67,30 +67,30 @@ const testMobDamage = (damage: number) => {
   describe(`mob attack damage with: ${damage}dmg`, () => {
     it("testing mob damage", async () => {
       return true;
-      let dmgSum = 0;
-      let highestDmg = 0;
-      let lowestDmg = 99999;
+      // let dmgSum = 0;
+      // let highestDmg = 0;
+      // let lowestDmg = 99999;
 
-      // const heroArmor = hero.updatedValues.armor;
-      const heroArmor = 20;
+      // // const heroArmor = hero.updatedValues.armor;
+      // const heroArmor = 20;
       
 
-      console.log("heroArmor: ", heroArmor);
+      // console.log("heroArmor: ", heroArmor);
 
-      for (let i = 0; i < 100; i++) {
-        const mobDmg = getAttackDamage(damage, damage, 100, 1, heroArmor);
+      // for (let i = 0; i < 100; i++) {
+      //   const mobDmg = getAttackDamage(damage, damage, 100, 1, heroArmor);
 
-        dmgSum += mobDmg;
+      //   dmgSum += mobDmg;
 
-        if (mobDmg > highestDmg) highestDmg = mobDmg;
-        if (mobDmg < lowestDmg) lowestDmg = mobDmg;
-      }
+      //   if (mobDmg > highestDmg) highestDmg = mobDmg;
+      //   if (mobDmg < lowestDmg) lowestDmg = mobDmg;
+      // }
 
-      const mobAvarageDmg = dmgSum / 100;
+      // const mobAvarageDmg = dmgSum / 100;
 
-      console.log("-----mob avarage damage-----", mobAvarageDmg);
-      console.log("-----mob highest damage-----", highestDmg);
-      console.log("-----mob lowest damage-----", lowestDmg);
+      // console.log("-----mob avarage damage-----", mobAvarageDmg);
+      // console.log("-----mob highest damage-----", highestDmg);
+      // console.log("-----mob lowest damage-----", lowestDmg);
 
     })
   })

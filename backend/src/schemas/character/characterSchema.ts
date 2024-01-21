@@ -63,6 +63,10 @@ const CharacterSchema = new mongoose.Schema({
       type: String,
       default: null,
     },
+    stamina: {
+      type: Number,
+      default: 120,
+    },
   },
 });
 

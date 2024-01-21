@@ -40,15 +40,18 @@ export const questEnemyTurn = async (req: Request, res: Response) => {
       character.updatedValues.armor
     );
 
-    character.updatedValues.health -= enemyDamage;
+    character.updatedValues.health -= enemyDamage.dmg;
     
 
-    if (enemyDamage <= 0) {
+    if (enemyDamage.missed) {
       activeQuest.textLogs.push(`- ${enemy.name} missed attack`);
       dataToReturn.text = "MISSED";
+    } else if (enemyDamage.evaded) {
+      activeQuest.textLogs.push(`You evaded enemy attack`);
+      dataToReturn.text = "EVADED";
     } else {
-      activeQuest.textLogs.push(`- ${enemy.attackText} ${enemyDamage} damage`);
-      dataToReturn.text = `-${enemyDamage}`;
+      activeQuest.textLogs.push(`- ${enemy.attackText} ${enemyDamage.dmg} damage`);
+      dataToReturn.text = `-${enemyDamage.dmg}`;
     }
 
     if (character.updatedValues.health <= 0) {

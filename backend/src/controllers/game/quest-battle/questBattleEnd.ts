@@ -21,6 +21,7 @@ export const questBattleEnd = async (req: Request, res: Response) => {
     const enemy = activeQuest?.enemy;
     const quest = activeQuest?.quest;
     const currentRealm = character.realms.currentRealm;
+    const stamina = character.extras.stamina;
 
     if (!enemy) return res.status(404).json({ message: "Enemy not found" });
     if (!quest) return res.status(404).json({ message: "Quest not found" });
@@ -48,13 +49,19 @@ export const questBattleEnd = async (req: Request, res: Response) => {
         character.updatedValues.health = 0;
     }
 
+    if (stamina > 0) {
+      const duration = Math.round((activeQuest.quest?.duration! / 60) * 10) / 10;
+      if (stamina - duration < 0) character.extras.stamina = 0;
+      else character.extras.stamina = Math.round((character.extras.stamina - duration) * 10) / 10;
+    }
+
     activeQuest.enemy = null;
     activeQuest.quest = null;
     activeQuest.timeStarted = null;
     activeQuest.textLogs = [];
 
     const availableQuestsIndex = character.availableQuests.findIndex(el => el.realm === currentRealm)!;
-    const generatedQuest = await generateQuests(currentRealm, character.progression.level);
+    const generatedQuest = await generateQuests(currentRealm, character.progression.level, character.extras.stamina);
     character.availableQuests[availableQuestsIndex].quests = generatedQuest;
     character.availableQuests[availableQuestsIndex].finishedQuests += 1;
 

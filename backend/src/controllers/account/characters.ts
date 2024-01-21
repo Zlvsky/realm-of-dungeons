@@ -12,6 +12,9 @@ import getNextStatisticLevelExperience from "../../gameUtils/characters/getNextS
 import generateMerchantItems from "../../gameUtils/merchants/generateMerchantItems";
 import { cavernsDungeonEnemies } from "../../gameUtils/dungeons/caverns/cavernsDungeonEnemies";
 import { checkAuth } from "../../utils/checkAuth";
+import { getAllMerchants } from "../../scheduled-tasks/scheduledCharacterTasks";
+import getItemsForMerchant from "../../gameUtils/merchants/getItemsForMerchant";
+import getStaticItemsForMerchant from "../../gameUtils/merchants/getStaticItems";
 
 const router = express.Router();
 
@@ -44,6 +47,13 @@ export const createCharacter = async (req: Request, res: Response) => {
     // Create new character object
     const baseStatistics = getBaseStatistics(req.body.class);
 
+    const merchants = await getAllMerchants();
+
+    const alchemist = merchants?.find(merchant => merchant.name === "Alchemist");
+    const weaponsmith = merchants?.find(merchant => merchant.name === "Weaponsmith");
+    const armourer = merchants?.find(merchant => merchant.name === "Armourer");
+    const witch = merchants?.find(merchant => merchant.name === "Witch");
+
     const character = new Character({
       nickname: req.body.nickname,
       class: req.body.class,
@@ -66,7 +76,7 @@ export const createCharacter = async (req: Request, res: Response) => {
         {
           realm: "CAVERNS",
           finishedQuests: 0,
-          quests: await generateQuests("CAVERNS", 1),
+          quests: await generateQuests("CAVERNS", 1, 120),
         },
       ],
       dungeons: [
@@ -84,11 +94,16 @@ export const createCharacter = async (req: Request, res: Response) => {
       },
       generalValues: {},
       activeQuest: {},
-      merchantsItems: {},
+      merchantsItems: {
+        alchemist: await getStaticItemsForMerchant(alchemist!, 1),
+        weaponsmith: await getItemsForMerchant(weaponsmith!, 1),
+        armourer: await getItemsForMerchant(armourer!, 1),
+        witch: await getItemsForMerchant(witch!, 1),
+      },
       realms: {},
     });
 
-    await generateMerchantItems(character);
+    // await generateMerchantItems(character);
 
     // Save character to the database
     await character.save();

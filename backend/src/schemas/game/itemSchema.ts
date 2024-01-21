@@ -26,7 +26,7 @@ export const itemSchema: Schema<IItem> = new mongoose.Schema({
       "ring",
       "health",
       "mana",
-      "quest"
+      "quest",
     ],
   },
   armorType: {
@@ -37,6 +37,7 @@ export const itemSchema: Schema<IItem> = new mongoose.Schema({
   image: { type: String, required: true },
   requiredLevel: { type: Number, required: false },
   damage: { type: Number, required: false },
+  critChance: { type: Number, required: false },
   armor: { type: Number, required: false },
   statistics: {
     melee: { type: Number, required: false },

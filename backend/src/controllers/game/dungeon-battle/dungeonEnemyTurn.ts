@@ -44,20 +44,23 @@ export const dungeonEnemyTurn = async (req: Request, res: Response) => {
     const enemyDamage = getAttackDamage(
       enemy.damage,
       enemy.damage,
-      70,
+      95,
       1,
       character.updatedValues.armor
     );
 
-    character.updatedValues.health -= enemyDamage;
+    character.updatedValues.health -= enemyDamage.dmg;
     
 
-    if (enemyDamage <= 0) {
+    if (enemyDamage.missed) {
       battle.textLogs.push(`- ${enemy.name} missed attack`);
       dataToReturn.text = "MISSED";
+    } else if (enemyDamage.evaded) {
+      battle.textLogs.push(`You evaded enemy attack`);
+      dataToReturn.text = "EVADED";
     } else {
-      battle.textLogs.push(`- ${enemy.attackText} ${enemyDamage} damage`);
-      dataToReturn.text = `-${enemyDamage}`;
+      battle.textLogs.push(`- ${enemy.attackText} ${enemyDamage.dmg} damage`);
+      dataToReturn.text = `-${enemyDamage.dmg}`;
     }
 
     if (character.updatedValues.health <= 0) {

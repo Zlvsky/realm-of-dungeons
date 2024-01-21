@@ -51,6 +51,7 @@ export const updateActiveQuest = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "You are too wounded" });
 
     character.activeQuest.quest = selectedQuest;
+    character.activeQuest.isBoss = selectedQuest.isBoss;
     character.activeQuest.timeStarted = new Date().toISOString();
     character.activeQuest.textLogs = [];
     await character.save();

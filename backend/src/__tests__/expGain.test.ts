@@ -14,7 +14,7 @@ const testForLevel10 = () => {
   let minutesNeeded = 0;
 
   while (expSum < level10Exp) {
-    const questExp = generateXP("CAVERNS", 2, level);
+    const questExp = generateXP("CAVERNS", 2, level, 120);
     const timeStampIndex = Math.round(Math.random() * (timeStamps.length - 1));
     const randomTimeStamp = timeStamps[timeStampIndex];
 
@@ -49,7 +49,7 @@ const testForLevel25 = () => {
   let minutesNeeded = 0;
 
   while (expSum < level10Exp) {
-    const questExp = generateXP("CRYPT", 0.5, level);
+    const questExp = generateXP("CRYPT", 0.5, level, 120);
     const timeStampIndex = Math.round(Math.random() * (timeStamps.length - 1));
     const randomTimeStamp = timeStamps[timeStampIndex];
 

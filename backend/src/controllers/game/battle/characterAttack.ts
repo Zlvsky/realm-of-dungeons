@@ -20,16 +20,17 @@ const getAttackDamageToEnemy = (
   let attackDamage = undefined;
   const minDmg = character.updatedValues.minDmg;
   const maxDmg = character.updatedValues.maxDmg;
+  const critChance = character.updatedValues?.critChance;
 
   switch (attackPower) {
     case "low":
-      attackDamage = getAttackDamage(minDmg, maxDmg, 90, 0.5);
+      attackDamage = getAttackDamage(minDmg, maxDmg, 90, 0.5, 0, critChance);
       break;
     case "medium":
-      attackDamage = getAttackDamage(minDmg, maxDmg, 85, 0.75);
+      attackDamage = getAttackDamage(minDmg, maxDmg, 85, 0.75, 0, critChance);
       break;
     case "strong":
-      attackDamage = getAttackDamage(minDmg, maxDmg, 70, 1);
+      attackDamage = getAttackDamage(minDmg, maxDmg, 70, 1, 0, critChance);
       break;
   }
 
@@ -75,18 +76,30 @@ export const characterAttack = async (req: Request, res: Response) => {
 
       const attackDamage = getAttackDamageToEnemy(character, attackPower);
 
-      if (!attackDamage && attackDamage !== 0)
+      if (!attackDamage)
         return res.status(400).json({ message: "Attack not found" });
 
-      enemy.health -= attackDamage;
+      enemy.health -= attackDamage.dmg;
 
-      if (attackDamage === 0) {
+      if (attackDamage?.missed) {
         activeQuest.textLogs.push("You missed");
         dataToReturn.text = "MISSED";
+      } else if (attackDamage?.evaded) {
+        activeQuest.textLogs.push("Your hit was evaded");
+        dataToReturn.text = "EVADED";
       } else {
+
+        let isCrit = attackDamage.crit;
         await addExperienceToStat(character, "weapon");
-        activeQuest.textLogs.push(`You dealt ${attackDamage} damage`);
-        dataToReturn.text = `-${attackDamage}`;
+
+        if (isCrit) {
+          activeQuest.textLogs.push(`You critically dealt ${attackDamage.dmg} damage`);
+          dataToReturn.text = `-${attackDamage.dmg} CRITICAL!`;
+        } else {
+          activeQuest.textLogs.push(`You dealt ${attackDamage.dmg} damage`);
+          dataToReturn.text = `-${attackDamage.dmg}`;
+        }
+        
       }
 
       if (enemy.health <= 0) {
@@ -113,18 +126,30 @@ export const characterAttack = async (req: Request, res: Response) => {
 
       const attackDamage = getAttackDamageToEnemy(character, attackPower);
 
-      if (!attackDamage && attackDamage !== 0)
+      if (!attackDamage)
         return res.status(400).json({ message: "Attack not found" });
 
-      realmDungeon.battle.enemy.health -= attackDamage;
+      realmDungeon.battle.enemy.health -= attackDamage.dmg;
 
-      if (attackDamage === 0) {
+      if (attackDamage?.missed) {
         realmDungeon.battle.textLogs.push("You missed");
         dataToReturn.text = "MISSED";
+      } else if (attackDamage?.evaded) {
+        activeQuest.textLogs.push("Your hit was evaded");
+        dataToReturn.text = "EVADED";
       } else {
+
+        let isCrit = attackDamage.crit;
         await addExperienceToStat(character, "weapon");
-        realmDungeon.battle.textLogs.push(`You dealt ${attackDamage} damage`);
-        dataToReturn.text = `-${attackDamage}`;
+        
+        if (isCrit) {
+          realmDungeon.battle.textLogs.push(`You critically dealt ${attackDamage} damage`);
+          dataToReturn.text = `-${attackDamage} CRITICAL!`;
+        } else {
+          realmDungeon.battle.textLogs.push(`You dealt ${attackDamage} damage`);
+          dataToReturn.text = `-${attackDamage}`;
+        }
+        
       }
 
       if (realmDungeon.battle.enemy.health <= 0) {

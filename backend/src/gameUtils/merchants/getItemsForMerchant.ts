@@ -73,6 +73,7 @@ const getRetrievedItems = (items: IItem[]) => {
 
 const getItemsForMerchant = async (merchant: IMerchant, heroLevel: number) => {
     const itemsCount = 6;
+    if (!merchant) return [];
     const merchantItems = await getMerchantItems(
       merchant.name,
       heroLevel,

@@ -104,11 +104,13 @@ export interface ICharacter extends mongoose.Document {
     minDmg: number;
     maxDmg: number;
     armor: number;
+    critChance: number;
     statistics: IStatistics;
   };
   extras: {
     availableHeals: number;
     healRenewDate: string | null;
+    stamina: number;
   };
   merchantsItems: {
     alchemist: itemWithSlotIndex[];
@@ -148,6 +150,7 @@ export interface IItemObject {
     | "quest";
   armorType?: "cloth" | "leather" | "plate";
   damage?: number;
+  critChance?: number;
   armor?: number;
   image: string;
   requiredLevel?: number;

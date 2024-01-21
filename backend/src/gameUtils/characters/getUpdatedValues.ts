@@ -16,6 +16,10 @@ const calculateEquipmentValues = (equipment: ICharacter["equipment"]) => {
         accumulator.damage += item.damage;
       }
 
+      if (item.critChance) {
+        accumulator.critChance += item.critChance;
+      }
+
       if (item.statistics) {
         const statisticsKeys: any[] = Object.keys(item.statistics);
         statisticsKeys.forEach((stat: keyof typeof item.statistics) => {
@@ -37,6 +41,7 @@ const calculateEquipmentValues = (equipment: ICharacter["equipment"]) => {
       damage: 0,
       health: 0,
       mana: 0,
+      critChance: 0,
       statistics: {
         melee: 0,
         distance: 0,
@@ -69,6 +74,10 @@ const updateCharacterValues = async (character: ICharacter) => {
           equipmentValues.statistics[correctStat];
       }
     }
+
+    character.updatedValues.critChance =
+      equipmentValues.critChance + (0.5 * character.updatedValues.statistics.luck);
+
   } catch (err) {
     console.error(err);
     return;

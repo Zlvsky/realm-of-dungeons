@@ -99,6 +99,7 @@ export interface ICharacter {
   extras: {
     availableHeals: number;
     healRenewDate: string | null;
+    stamina: number;
   };
   merchantsItems: {
     alchemist: itemWithSlotIndex[];

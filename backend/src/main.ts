@@ -21,8 +21,6 @@ import { templeHealing } from "./controllers/game/temple/templeHealing";
 import { templeHealRenew } from "./controllers/game/temple/templeHealRenew";
 import { updateStatistics } from "./controllers/game/hero/statistics/updateStatistics";
 import { getUserDetails } from "./controllers/account/getUser";
-import initInsert from "./mongoInserts.ts/initInsert";
-import scheduledRefreshMerchantItems from "./scheduled-tasks/merchants/refreshMerchantsItems";
 import { merchantBuyItem } from "./controllers/game/merchants/merchantBuyItem";
 import { merchantSellItem } from "./controllers/game/merchants/merchantSellItem";
 import { changeRealm } from "./controllers/game/realms/changeRealm";
@@ -36,12 +34,15 @@ import { dungeonEnemyTurn } from "./controllers/game/dungeon-battle/dungeonEnemy
 import { dungeonBattleEnd } from "./controllers/game/dungeon-battle/dungeonBattleEnd";
 import { getRanking } from "./controllers/game/ranking/ranking";
 import { getCharacterPreview } from "./controllers/game/ranking/characterPreview";
+import scheduledCharacterTasks from "./scheduled-tasks/scheduledCharacterTasks";
+import { singleInsert } from "./mongoInserts.ts/single-inserts/singleInsert";
+import initInsert from "./mongoInserts.ts/initInsert";
 
 const uri = process.env.MONGO_CONNECTION_URL;
-// const sslCert = process.env.CERT_PATH;
-const sslCert = undefined;
-// const sslKey = process.env.KEY_PATH;
-const sslKey = undefined;
+const sslCert = process.env.CERT_PATH;
+// const sslCert = undefined;
+const sslKey = process.env.KEY_PATH;
+// const sslKey = undefined;
 
 if(!uri) throw new Error(".env file is not created")
 
@@ -52,8 +53,9 @@ mongoose.connect(uri, {
 });
 mongoose.connection.on("connected", function () {
   console.log("connected to mongo");
-  scheduledRefreshMerchantItems();
+  scheduledCharacterTasks();
   // initInsert(); // insert necessery data to database
+  // singleInsert();
 });
 
 const app = express();

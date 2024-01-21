@@ -36,6 +36,10 @@ const updatedValuesSchema = new mongoose.Schema({
     required: true,
     default: 0,
   },
+  critChance: {
+    type: Number,
+    default: 0,
+  },
   statistics: {
     melee: { type: Number, required: false },
     distance: { type: Number, required: false },

@@ -6,7 +6,7 @@ export const armourerItems = [
   },
   {
     minLevel: 10,
-    maxLevel: 15,
+    maxLevel: 100,
     itemsId: [1303, 1304, 1305, 1306, 1103, 1104, 1105, 1106, 1503, 1504, 1505, 1506],
   },
 ];
