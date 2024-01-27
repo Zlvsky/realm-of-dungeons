@@ -10,6 +10,7 @@ import GameStage from "./game-context/GameStage";
 import loadFontsForPixi from "../utils/loaders/loadFontsForPixi";
 import HudBorders from "./components/borders/HudBorders";
 import { useNavigate } from "react-router-dom";
+import loadSpritesheets from "./spritesheets/loadSpritesheets";
 
 PIXI.BaseTexture.defaultOptions.scaleMode = PIXI.SCALE_MODES.LINEAR;
 const ROOT_WIDTH = 1666;
@@ -47,6 +48,7 @@ function Game() {
   }, [])
 
   useEffect(() => {
+    loadSpritesheets();
     function updateSize() {
       const width = window.innerWidth;
       const height = window.innerHeight;

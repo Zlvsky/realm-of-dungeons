@@ -143,10 +143,10 @@ export const characterAttack = async (req: Request, res: Response) => {
         await addExperienceToStat(character, "weapon");
         
         if (isCrit) {
-          realmDungeon.battle.textLogs.push(`You critically dealt ${attackDamage} damage`);
+          realmDungeon.battle.textLogs.push(`You critically dealt ${attackDamage.dmg} damage`);
           dataToReturn.text = `-${attackDamage} CRITICAL!`;
         } else {
-          realmDungeon.battle.textLogs.push(`You dealt ${attackDamage} damage`);
+          realmDungeon.battle.textLogs.push(`You dealt ${attackDamage.dmg} damage`);
           dataToReturn.text = `-${attackDamage}`;
         }
         

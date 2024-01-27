@@ -1,12 +1,11 @@
 import { Container, Graphics, Sprite, Text } from "@pixi/react";
 import { TextStyle } from "pixi.js";
 import goldIcon from "../../../../assets/images/icons/gui/gold-icon.png";
-import ActionButton from "./components/ActionButton";
+import ActionButton from "../../../components/items/item-preview/components/ActionButton";
 import { IItem } from "../../../../interfaces/MainInterface";
 import { useCallback } from "react";
 
 interface IItemPreview {
-  position: [number, number];
   itemData: IItem;
   action?: "BUY" | "SELL";
   value?: number;
@@ -29,16 +28,15 @@ const Box = ({ width, height }: any) => {
   return <Graphics x={0} y={0} draw={boxFrame} />;
 };
 
-function ItemPreview({
-  position,
+function MerchantItemPreview({
   itemData,
   action,
   value,
   handleAction,
 }: IItemPreview) {
-  let boxHeight = 340;
-  if (value !== undefined) boxHeight = 390;
-  const boxWidth = 325;
+  let boxHeight = 180;
+  if (value !== undefined) boxHeight = 180;
+  const boxWidth = 485;
 
   const ItemImage = () => {
     return (
@@ -46,8 +44,7 @@ function ItemPreview({
         image={itemData.image}
         width={80}
         height={80}
-        anchor={0.5}
-        position={[boxWidth / 2, 40 + 20]}
+        position={[0, 0]}
       />
     );
   };
@@ -56,9 +53,8 @@ function ItemPreview({
     return (
       <Text
         text={itemData.name}
-        anchor={0.5}
-        x={boxWidth / 2}
-        y={120}
+        x={100}
+        y={0}
         style={
           new TextStyle({
             align: "center",
@@ -85,8 +81,8 @@ function ItemPreview({
       return (
         <Text
           text={valueText}
-          x={20}
-          y={175}
+          x={100}
+          y={55}
           style={
             new TextStyle({
               align: "center",
@@ -105,8 +101,8 @@ function ItemPreview({
       <>
         <Text
           text={`Type: ${itemData.type}`}
-          x={20}
-          y={150}
+          x={100}
+          y={30}
           style={
             new TextStyle({
               align: "center",
@@ -132,8 +128,8 @@ function ItemPreview({
           <Text
             key={index}
             text={capitalizeFirstLetter(statistic[0]) + ": +" + statistic[1]}
-            x={20}
-            y={200 + index * 25}
+            x={100}
+            y={80 + index * 25}
             style={
               new TextStyle({
                 align: "center",
@@ -150,42 +146,14 @@ function ItemPreview({
     );
   };
 
-  const ItemDescription = () => {
-    const statsLength = itemData?.statistics
-      ? Object.keys(itemData.statistics).length
-      : 0;
-    const yPosition = 200 + statsLength * 25;
-    return (
-      <Text
-        text={itemData?.description}
-        x={20}
-        y={yPosition}
-        style={
-          new TextStyle({
-            align: "left",
-            fontFamily: "Almendra",
-            fontSize: 20,
-            fontWeight: "100",
-            fontStyle: "italic",
-            fill: ["#ffffff"],
-            letterSpacing: 0.5,
-            wordWrap: true,
-            wordWrapWidth: boxWidth - 20,
-          })
-        }
-      />
-    );
-  };
-
   const ItemRequiredLevel = () => {
     const requiredLevel = itemData?.requiredLevel;
     if (!requiredLevel) return null;
     return (
       <Text
         text={`Required level: ${requiredLevel}`}
-        x={boxWidth / 2}
-        y={300}
-        anchor={[0.5, 0]}
+        x={0}
+        y={130}
         style={
           new TextStyle({
             align: "center",
@@ -204,26 +172,18 @@ function ItemPreview({
   const ItemPrice = () => {
     if (value === undefined) return null;
 
-    const priceGraphics = useCallback((g: any) => {
-      g.clear();
-      g.lineStyle(1, 0x656565);
-      g.lineTo(boxWidth - 40, 0);
-      g.endFill();
-    }, []);
-
     return (
-      <Container position={[20, 0]}>
-        <Graphics x={0} y={330} draw={priceGraphics} interactive={true} />
+      <Container position={[320, 120]}>
         <Sprite
           image={goldIcon}
           width={40}
           height={40}
-          position={[0, boxHeight - 50]}
+          position={[0,0]}
         />
         <Text
           text={`Price: ${value}`}
           x={50}
-          y={boxHeight - 40}
+          y={10}
           style={
             new TextStyle({
               align: "center",
@@ -240,23 +200,26 @@ function ItemPreview({
   };
 
   return (
-    <Container position={position}>
+    <Container position={[287, 60]}>
       <Box width={boxWidth} height={boxHeight} />
-      <ItemImage />
-      <ItemName />
-      <ItemValues />
-      <ItemStats />
-      <ItemDescription />
-      <ItemRequiredLevel />
-      <ItemPrice />
-      <ActionButton
-        action={action}
-        handleAction={handleAction}
-        boxWidth={boxWidth}
-        boxHeight={boxHeight}
-      />
+      <Container position={[10, 10]}>
+        <ItemImage />
+        <ItemName />
+        <ItemValues />
+        <ItemStats />
+        <ItemRequiredLevel />
+        <ItemPrice />
+        <Container position={[0, 350]}>
+          <ActionButton
+            action={action}
+            handleAction={handleAction}
+            boxWidth={boxWidth}
+            boxHeight={boxHeight}
+          />
+        </Container>
+      </Container>
     </Container>
   );
 }
 
-export default ItemPreview;
+export default MerchantItemPreview;

@@ -83,6 +83,7 @@ export interface ICharacter extends mongoose.Document {
   dungeons: IDungeon[],
   statistics: IStatistics;
   owner: mongoose.Types.ObjectId;
+  guild: mongoose.Types.ObjectId | null;
   equipment: [
     {
       type: string;

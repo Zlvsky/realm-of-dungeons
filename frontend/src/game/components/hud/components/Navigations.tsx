@@ -21,27 +21,11 @@ const commonProps = {
 const buttonsData = [
   {
     image: questsBtn,
-    stage: "quests",
-  },
-  {
-    image: dungeonBtn,
-    stage: "dungeon",
-  },
-  {
-    image: portalsBtn,
-    stage: "portals",
+    stage: "village",
   },
   {
     image: heroBtn,
     stage: "hero",
-  },
-  {
-    image: merchantsBtn,
-    stage: "merchants",
-  },
-  {
-    image: trainersBtn,
-    stage: "trainers",
   },
   {
     image: templeBtn,
@@ -51,6 +35,10 @@ const buttonsData = [
     image: rankingBtn,
     stage: "ranking",
   },
+  {
+    image: rankingBtn,
+    stage: "guild",
+  },
 ];
 
 function Navigations() {
@@ -59,7 +47,7 @@ function Navigations() {
         dispatch(setCurrentStage(stage))
     }
     return (
-      <Container position={[0, 180]}>
+      <Container position={[0, 150]}>
         {/* <Container>
           <Sprite
             image={heroBtn}

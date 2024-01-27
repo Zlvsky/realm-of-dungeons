@@ -10,11 +10,24 @@ export const guildSchema: Schema<IGuild> = new mongoose.Schema({
   },
   members: [
     {
-      title: { type: String, default: "MEMBER", enum: ["MEMBER", "OFFICER", "LEADER"] },
+      title: {
+        type: String,
+        default: "MEMBER",
+        enum: ["MEMBER", "OFFICER", "LEADER"],
+      },
       characterId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Character",
       },
+    },
+  ],
+  reputation: { type: Number, default: 0 },
+  description: { type: String, default: "" },
+  chatLogs: [
+    {
+      sender: { type: String, required: true },
+      message: { type: String, required: true },
+      timestamp: { type: Date, default: Date.now },
     },
   ],
 });

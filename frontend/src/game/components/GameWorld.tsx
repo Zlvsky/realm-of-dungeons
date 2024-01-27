@@ -10,6 +10,8 @@ import Portals from "../pages/portals/Portals";
 import Trainers from "../pages/trainers/Trainers";
 import Dungeon from "../pages/dungeon/Dungeon";
 import Ranking from "../pages/ranking/Ranking";
+import Guild from "../pages/guild/Guild";
+import Village from "../pages/village/Village";
 
 function GameWorld() {
   const dimensions = useSelector(getGameDimensions);
@@ -27,12 +29,14 @@ function GameWorld() {
   const CurrentStage = useMemo(() => {
     if ((stage === "quests" && !isDungeonBattleStarted) || isQuestBattleStarted) return <Quests />;
     if ((stage === "dungeon" && !isQuestBattleStarted) || isDungeonBattleStarted) return <Dungeon />;
+    if (stage === "village") return <Village />;
     if (stage === "portals") return <Portals />;
     if (stage === "hero") return <Hero />;
     if (stage === "temple") return <Temple />;
     if (stage === "ranking") return <Ranking currentHeroId={hero?._id} />;
     if (stage === "merchants" || stage === "merchant_shop" ) return <Merchants stage={stage} />;
     if (stage === "trainers" || stage === "single_trainer") return <Trainers stage={stage} />;
+    if (stage === "guild") return <Guild />;
     return <></>;
   }, [stage, isQuestBattleStarted]);
 

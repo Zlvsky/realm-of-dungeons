@@ -32,6 +32,11 @@ const CharacterSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  guild: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Guild",
+    default: null,
+  },
   realms: realmsSchema,
   progression: progressionSchema,
   availableQuests: [availableQuestsSchema],
