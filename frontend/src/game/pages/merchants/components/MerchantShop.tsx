@@ -8,9 +8,9 @@ import fetchHero from '../../../../utils/fetchers/fetchHero';
 import { merchantBuy, merchantSell } from '../../../../client/appClient';
 import displayError from '../../../../utils/notifications/errors';
 import { Container, Text } from '@pixi/react';
-import HeroInventorySlots from '../../merchant-shop/components/hero/HeroInventorySlots';
-import HeroItems from '../../merchant-shop/components/hero/HeroItems';
-import MerchantItems from '../../merchant-shop/components/merchant/MerchantItems';
+import HeroInventorySlots from '../../../components/merchant/HeroInventorySlots';
+import HeroItems from '../../../components/merchant/HeroItems';
+import MerchantItems from '../../../components/merchant/MerchantItems';
 import { TextStyle } from 'pixi.js';
 import MerchantItemPreview from './MerchantItemPreview';
 

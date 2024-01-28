@@ -7,7 +7,7 @@ import HeroInfo from '../../../hero/components/HeroInfo';
 import HeroStats from '../../../hero/components/HeroStats';
 import { equipmentSlots } from '../../../hero/helpers/slots';
 import EmpyEquipmentSlots from '../../../hero/components/EmpyEquipmentSlots';
-import Item from '../../../merchant-shop/components/Item';
+import Item from '../../../../components/merchant/Item';
 import { getEquipmentPosition } from '../../../hero/helpers/getEquipmentPosition';
 import ItemSlot from '../../../hero/components/ItemSlot';
 

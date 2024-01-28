@@ -4,11 +4,7 @@ import merchantsBg from "../../../assets/images/game-world/merchants.jpg";
 import BuildingLabels from "./components/BuildingLabels";
 import MerchantShop from "./components/MerchantShop";
 
-interface IMerchants {
-  stage: "merchants" | "merchant_shop";
-}
-
-function Merchants({ stage }: IMerchants) {
+function Merchants() {
   const [currentMerchant, setCurrentMerchant] = useState("");
 
   return (

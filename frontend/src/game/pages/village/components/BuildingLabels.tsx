@@ -19,7 +19,7 @@ function BuildingLabels() {
           y={200}
           hitArea={[-130, -50, 350, 270]}
           text="Tavern"
-          onclick={() => changeStage("quests")}
+          onclick={() => changeStage("tavern")}
         />
         <HoveredLabel
           x={570}

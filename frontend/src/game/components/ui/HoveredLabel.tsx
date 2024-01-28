@@ -1,5 +1,5 @@
-import { Container, Text } from '@pixi/react';
-import { Polygon, Rectangle, TextStyle } from 'pixi.js';
+import { Text } from '@pixi/react';
+import { Rectangle, TextStyle } from 'pixi.js';
 import { useRef } from 'react';
 
 function HoveredLabel({ x, y, hitArea, text, onclick }:any ) {

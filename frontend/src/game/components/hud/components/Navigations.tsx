@@ -24,6 +24,10 @@ const buttonsData = [
     stage: "village",
   },
   {
+    image: questsBtn,
+    stage: "tavern",
+  },
+  {
     image: heroBtn,
     stage: "hero",
   },

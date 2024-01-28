@@ -19,10 +19,11 @@ interface INpcPopup {
     | "traveller.jpg"
     | "witch.jpg";
   title: string;
+  description?: string;
   children: React.ReactNode;
 }
 
-function NpcPopup( {setTrigger, npc, title, children }: INpcPopup ) {
+function NpcPopup( {setTrigger, npc, title, description, children }: INpcPopup ) {
     const npcTextures = Assets.cache.get('/spritesheets/npc/npc.json')?.textures;
     const startX = (canvasWidth - rectWidth) / 2;
     const startY = (canvasHeight - rectHeight) / 2;
@@ -53,8 +54,25 @@ function NpcPopup( {setTrigger, npc, title, children }: INpcPopup ) {
         );
     }
 
+    const NpcDescription = () => {
+        const titleStyle = new TextStyle({
+          fontFamily: "MedievalSharp",
+          fontSize: 23,
+          fill: "#ffffff",
+          letterSpacing: 0,
+        });
+
+        return (
+          <Text
+            text={description}
+            style={titleStyle}
+            x={130}
+            y={60}
+          />
+        );
+    }
+
     const exitStyle = new TextStyle({
-      fontFamily: "Intern",
       fontSize: 48,
       fill: "#8F2424",
       stroke: "#000000",
@@ -97,6 +115,9 @@ function NpcPopup( {setTrigger, npc, title, children }: INpcPopup ) {
         <Container position={[60, 60]}>
           <NpcAvatar />
           <NpcTitle />
+          {description && (
+            <NpcDescription />
+          )}
           {children}
         </Container>
       </Container>

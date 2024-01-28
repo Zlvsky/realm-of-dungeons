@@ -6,23 +6,23 @@ function BuildingLabels({setCurrentMerchant}: any) {
   return (
     <Container position={[0, 0]} interactive>
       <HoveredLabel
-        x={170}
-        y={400}
-        hitArea={[-130, -50, 350, 270]}
+        x={270}
+        y={470}
+        hitArea={[-130, -100, 350, 270]}
         text="Armory"
         onclick={() => setCurrentMerchant("Armourer")}
       />
       <HoveredLabel
-        x={900}
-        y={380}
-        hitArea={[-50, -100, 350, 270]}
+        x={810}
+        y={430}
+        hitArea={[-50, 0, 200, 270]}
         text="Alchemist"
         onclick={() => setCurrentMerchant("Alchemist")}
       />
       <HoveredLabel
-        x={1130}
-        y={490}
-        hitArea={[-130, -50, 350, 270]}
+        x={1030}
+        y={450}
+        hitArea={[-40, -50, 350, 270]}
         text="Magic Shop"
         onclick={() => setCurrentMerchant("Witch")}
       />

@@ -2,16 +2,15 @@ import { Container } from "@pixi/react";
 import { useSelector } from 'react-redux';
 import { getCurrentStage, getGameDimensions, getHero } from '../../redux/reducers/gameSlice';
 import Hero from "../pages/hero/Hero";
-import Quests from "../pages/quests/Quests";
 import Temple from '../pages/temple/Temple';
 import Merchants from "../pages/merchants/Merchants";
 import { useMemo } from "react";
 import Portals from "../pages/portals/Portals";
 import Trainers from "../pages/trainers/Trainers";
-import Dungeon from "../pages/dungeon/Dungeon";
 import Ranking from "../pages/ranking/Ranking";
 import Guild from "../pages/guild/Guild";
 import Village from "../pages/village/Village";
+import Tavern from "../pages/tavern/Tavern";
 
 function GameWorld() {
   const dimensions = useSelector(getGameDimensions);
@@ -27,8 +26,8 @@ function GameWorld() {
   const isDungeonBattleStarted = realmDungeon?.battle?.isBattleStarted;
 
   const CurrentStage = useMemo(() => {
-    if ((stage === "quests" && !isDungeonBattleStarted) || isQuestBattleStarted) return <Quests />;
-    if ((stage === "dungeon" && !isQuestBattleStarted) || isDungeonBattleStarted) return <Dungeon />;
+    if ((stage === "tavern" && !isDungeonBattleStarted) || isQuestBattleStarted) return <Tavern />;
+    if ((stage === "tavern" && !isQuestBattleStarted) || isDungeonBattleStarted) return <Tavern />;
     if (stage === "village") return <Village />;
     if (stage === "portals") return <Portals />;
     if (stage === "hero") return <Hero />;
