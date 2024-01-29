@@ -29,11 +29,11 @@ function GameWorld() {
     if ((stage === "tavern" && !isDungeonBattleStarted) || isQuestBattleStarted) return <Tavern />;
     if ((stage === "tavern" && !isQuestBattleStarted) || isDungeonBattleStarted) return <Tavern />;
     if (stage === "village") return <Village />;
-    if (stage === "portals") return <Portals />;
+    if (stage === "elder") return <Village npc={"elder"} />;
     if (stage === "hero") return <Hero />;
     if (stage === "temple") return <Temple />;
     if (stage === "ranking") return <Ranking currentHeroId={hero?._id} />;
-    if (stage === "merchants" || stage === "merchant_shop" ) return <Merchants stage={stage} />;
+    if (stage === "merchants" || stage === "merchant_shop" ) return <Merchants />;
     if (stage === "trainers" || stage === "single_trainer") return <Trainers stage={stage} />;
     if (stage === "guild") return <Guild />;
     return <></>;

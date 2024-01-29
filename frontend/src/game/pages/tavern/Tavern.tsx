@@ -1,7 +1,7 @@
 import { useState } from "react"; 
 import { Container, Sprite } from '@pixi/react';
 
-import TavernBg from "../../../assets/images/game-world/tavern.jpg";
+import TavernBg from "../../../assets/images/game-world/tavernup.jpg";
 import SelectQuest from "./components/quests/SelectQuest";
 import { useSelector } from "react-redux";
 import { getHero } from "../../../redux/reducers/gameSlice";
