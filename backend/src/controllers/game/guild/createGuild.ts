@@ -24,10 +24,10 @@ export const createGuild = async (req: Request, res: Response) => {
   if (character.guild) 
     return res.status(403).json({ message: "You are already in Guild" });
 
-  if (character.generalValues.gold < 15)
+  if (character.generalValues.gold < 50)
     return res.status(400).json({ message: "Not enough gold" });
 
-  character.generalValues.gold -= 15!; 
+  character.generalValues.gold -= 50!; 
 
   try {
     const guild = new Guild({

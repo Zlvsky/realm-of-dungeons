@@ -23,6 +23,26 @@ export const guildSchema: Schema<IGuild> = new mongoose.Schema({
   ],
   reputation: { type: Number, default: 0 },
   description: { type: String, default: "" },
+  requests: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Character",
+    },
+  ],
+  invites: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Character",
+    },
+  ],
+  treasury: {
+    gold: { type: Number, default: 0 },
+  },
+  statistics: {
+    level: { type: Number, default: 1 },
+    xpLevel: { type: Number, default: 1 },
+    goldLevel: { type: Number, default: 1 },
+  },
   chatLogs: [
     {
       sender: { type: String, required: true },

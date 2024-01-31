@@ -9,6 +9,16 @@ export interface IGuild {
   };
   reputation: number;
   description: string;
+  requests: mongoose.Types.ObjectId[];
+  invites: mongoose.Types.ObjectId[];
+  treasury: {
+    gold: number;
+  };
+  statistics: {
+    level: number;
+    xpLevel: number;
+    goldLevel: number;
+  };
   chatLogs: {
     sender: string;
     message: string;
