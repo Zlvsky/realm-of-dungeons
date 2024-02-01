@@ -37,6 +37,7 @@ import { getCharacterPreview } from "./controllers/game/ranking/characterPreview
 import scheduledCharacterTasks from "./scheduled-tasks/scheduledCharacterTasks";
 import { singleInsert } from "./mongoInserts.ts/single-inserts/singleInsert";
 import initInsert from "./mongoInserts.ts/initInsert";
+import { createGuild } from "./controllers/game/guild/createGuild";
 
 const uri = process.env.MONGO_CONNECTION_URL;
 // const sslCert = process.env.CERT_PATH;
@@ -131,6 +132,9 @@ app.post("/api/trainer/fee", getTrainingFee);
 // RANKING
 app.get("/api/ranking/:currentPage", getRanking);
 app.get("/api/character/preview/:characterId", getCharacterPreview);
+
+// GUILD
+app.post("/api/guild/create", createGuild);
 
 // ADMIN PANEL - todo
 // app.use(express.static(path.join(__dirname, "admin-panel", "dist")));

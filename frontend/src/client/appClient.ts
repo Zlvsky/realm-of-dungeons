@@ -35,6 +35,7 @@ import { dungeonEnemyTurnService } from "./services/game/dungeons/enemy/dungeonE
 import { dungeonBattleEndService } from "./services/game/dungeons/dungeonBattleEndService";
 import { rankingService } from "./services/game/ranking/rankingService";
 import { characterPreviewService } from "./services/game/ranking/characterPreviewService";
+import { createGuildService } from "./services/game/guild/createGuildService";
 
 // REGISTER AND LOGIN
 export async function register(body: signUpInterface) {
@@ -178,4 +179,10 @@ export async function rankingRequest(currentPage: number) {
 
 export async function characterPreviewRequest(characterId: string) {
   return await characterPreviewService(characterId);
+}
+
+// GUILD
+
+export async function createGuildRequest(guildName: string) {
+  return await createGuildService(guildName);
 }

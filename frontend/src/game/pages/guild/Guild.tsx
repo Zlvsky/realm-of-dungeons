@@ -4,9 +4,13 @@ import { Container, Text, TilingSprite } from "@pixi/react";
 import BgPattern from "../../../assets/images/dark_wall.png";
 import { TextStyle } from "pixi.js";
 import CreateGuild from "./components/CreateGuild";
+import { useSelector } from "react-redux";
+import { getHero } from "../../../redux/reducers/gameSlice";
 
 
 function Guild() {
+  const hero = useSelector(getHero);
+
   return (
     <Container position={[0, 2]}>
       <TilingSprite
@@ -30,7 +34,9 @@ function Guild() {
           })
         }
       />
-      <CreateGuild />
+      {!hero?.guild && (
+        <CreateGuild />
+      )}
     </Container>
   );
 }

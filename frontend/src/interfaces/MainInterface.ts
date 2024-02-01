@@ -96,6 +96,7 @@ export interface ICharacter {
     armor: number;
     statistics: IStatistics;
   };
+  guild?: string | null;
   extras: {
     availableHeals: number;
     healRenewDate: string | null;

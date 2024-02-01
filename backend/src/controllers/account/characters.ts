@@ -18,6 +18,8 @@ import getStaticItemsForMerchant from "../../gameUtils/merchants/getStaticItems"
 
 const router = express.Router();
 
+const regex = /^[0-9]*[a-zA-Z]+(\s?[a-zA-Z0-9]+)*$/;
+
 const statisticProgression = (baseStatistics: any, stat: string) => {
   const statLevel: number = baseStatistics[stat];
 
@@ -42,6 +44,10 @@ export const createCharacter = async (req: Request, res: Response) => {
 
   if (character)
     return res.status(400).json({ message: "Character name already taken" });
+
+  if (!regex.test(req.body.nickname))
+    return res.status(400).json({ message: "Invalid character name" });
+
 
   try {
     // Create new character object

@@ -7,6 +7,11 @@ import IconWithText from '../../../../components/common/text/IconWithText';
 
 import GoldIcon from "../../../../assets/images/icons/gui/gold-icon.png";
 import AcceptBtn from "../../../../assets/images/acceptbtn.png";
+import { createGuildRequest } from "../../../../client/appClient";
+import displayError from "../../../../utils/notifications/errors";
+import { useDispatch } from "react-redux";
+import fetchHero from "../../../../utils/fetchers/fetchHero";
+import { setHero } from "../../../../redux/reducers/gameSlice";
 
 
 const textStyle = new TextStyle({
@@ -28,6 +33,12 @@ function CreateGuild() {
     const containerRef = useRef<any>(null);
     const [guildName, setGuildName] = useState("");
 
+    const dispatch = useDispatch();
+
+    const updateHero = (data: any) => {
+      dispatch(setHero(data));
+    };
+
     const createFrame = useCallback((g: any) => {
       g.clear();
 
@@ -46,6 +57,12 @@ function CreateGuild() {
     const handleGenerateTextInput = useCallback(() => {
       generateTextInput(containerRef, setGuildName);
     }, [])
+
+    const handleCreateGuild = async () => {
+      const response = await createGuildRequest(guildName);
+      if (response.status !== 200) return displayError(dispatch, response);
+      fetchHero(updateHero);
+    }
 
     useEffect(() => {
         if (!containerRef.current) return;
@@ -72,7 +89,7 @@ function CreateGuild() {
             y={-63}
             cursor={isCorrectName ? "default" : "pointer"}
             interactive={isCorrectName ? false : true}
-            // onpointerdown={handleAcceptDestination}
+            onpointerdown={handleCreateGuild}
           />
         </DisabledFilter>
       );};
