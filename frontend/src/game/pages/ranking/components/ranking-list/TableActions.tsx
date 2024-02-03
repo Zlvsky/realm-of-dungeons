@@ -10,7 +10,7 @@ const commonProps = {
   interactive: true,
 };
 
-function TableActions({ totalPages, currentPage, setCurrentPage}: any) {
+function TableActions({ totalPages, currentPage, setCurrentPage, maxWidth=650, y=810 }: any) {
     const backToFirst = () => {
         if (!totalPages) return;
         setCurrentPage(1);
@@ -34,7 +34,7 @@ function TableActions({ totalPages, currentPage, setCurrentPage}: any) {
     }
 
     return (
-      <Container position={[0, 810]}>
+      <Container position={[0, y]}>
         <Sprite
           image={nav2Btn}
           onpointertap={() => {}}
@@ -52,7 +52,7 @@ function TableActions({ totalPages, currentPage, setCurrentPage}: any) {
         <Sprite
           image={navBtn}
           onpointertap={() => {}}
-          x={600}
+          x={maxWidth - 50}
           angle={180}
           anchor={[0, 1]}
           {...commonProps}
@@ -61,7 +61,7 @@ function TableActions({ totalPages, currentPage, setCurrentPage}: any) {
         <Sprite
           image={nav2Btn}
           onpointertap={() => {}}
-          x={650}
+          x={maxWidth}
           angle={180}
           anchor={[0, 1]}
           {...commonProps}

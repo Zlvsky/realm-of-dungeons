@@ -45,7 +45,7 @@ const generateTextInput = (ref: any, setGuildName: Function) => {
   });
 
   // input.placeholder = "Guild name...";
-  input.position.set(115, 140);
+  input.position.set(140, 140);
 
   input.on("input", (text: string) => {
     setGuildName(text);

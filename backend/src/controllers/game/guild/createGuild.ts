@@ -63,11 +63,9 @@ export const createGuild = async (req: Request, res: Response) => {
 
     await guild.save();
 
-    character.guild = guild._id;
-
     await Character.findOneAndUpdate(
           { _id: characterId },
-          { $set: { 'guild': guild._id } }),
+          { $set: { 'guild.memberOf': guild._id } }),
 
     res.status(200).json(character);
   } catch (err) {

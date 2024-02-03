@@ -2,16 +2,16 @@ import { useState } from "react";
 import { Container, Graphics, Sprite, Text, withFilters } from '@pixi/react';
 import { ColorMatrixFilter, TextStyle } from 'pixi.js';
 import { useCallback, useRef, useEffect } from 'react';
-import generateTextInput from './TextInput';
-import IconWithText from '../../../../components/common/text/IconWithText';
+import generateTextInput from '../common/TextInput';
+import IconWithText from '../../../../../components/common/text/IconWithText';
 
-import GoldIcon from "../../../../assets/images/icons/gui/gold-icon.png";
-import AcceptBtn from "../../../../assets/images/acceptbtn.png";
-import { createGuildRequest } from "../../../../client/appClient";
-import displayError from "../../../../utils/notifications/errors";
+import GoldIcon from "../../../../../assets/images/icons/gui/gold-icon.png";
+import AcceptBtn from "../../../../../assets/images/acceptbtn.png";
+import { createGuildRequest } from "../../../../../client/appClient";
+import displayError from "../../../../../utils/notifications/errors";
 import { useDispatch } from "react-redux";
-import fetchHero from "../../../../utils/fetchers/fetchHero";
-import { setHero } from "../../../../redux/reducers/gameSlice";
+import fetchHero from "../../../../../utils/fetchers/fetchHero";
+import { setHero } from "../../../../../redux/reducers/gameSlice";
 
 
 const textStyle = new TextStyle({
@@ -22,7 +22,7 @@ const textStyle = new TextStyle({
   fill: ["#ffffff"],
 });
 
-const rectWidth = 550;
+const rectWidth = 600;
 const rectHeight = 300;
 
 const DisabledFilter: any = withFilters(Container, {
@@ -115,17 +115,17 @@ function CreateGuild() {
         <Text
           text={"It seems like you are not member in any Guild."}
           y={60}
-          x={10}
+          x={30}
           style={textStyle}
         />
         <Text
           text={"If you wish to create one, pay a fee and name your guild"}
           y={85}
-          x={10}
+          x={30}
           style={textStyle}
         />
 
-        <Container position={[220, 240]}>
+        <Container position={[280, 240]}>
           <Text text={`Fee:`} x={0} y={0} style={textStyle} />
           <IconWithText
             text={"50"}

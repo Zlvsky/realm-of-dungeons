@@ -80,10 +80,13 @@ export interface ICharacter extends mongoose.Document {
     finishedQuests: number;
     quests: IQuest[];
   }[];
-  dungeons: IDungeon[],
+  dungeons: IDungeon[];
   statistics: IStatistics;
   owner: mongoose.Types.ObjectId;
-  guild: mongoose.Types.ObjectId | null;
+  guild: {
+    memberOf: mongoose.Types.ObjectId | null;
+    invites: mongoose.Types.ObjectId[];
+  };
   equipment: [
     {
       type: string;

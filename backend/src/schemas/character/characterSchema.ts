@@ -33,9 +33,18 @@ const CharacterSchema = new mongoose.Schema({
     required: true,
   },
   guild: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Guild",
-    default: null,
+    memberOf: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Guild",
+      default: null,
+    },
+    invites: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Guild",
+        default: null,
+      },
+    ],
   },
   realms: realmsSchema,
   progression: progressionSchema,

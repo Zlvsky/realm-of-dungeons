@@ -3,9 +3,10 @@ import { Container, Text, TilingSprite } from "@pixi/react";
 
 import BgPattern from "../../../assets/images/dark_wall.png";
 import { TextStyle } from "pixi.js";
-import CreateGuild from "./components/CreateGuild";
 import { useSelector } from "react-redux";
 import { getHero } from "../../../redux/reducers/gameSlice";
+import GuildScreen from "./components/GuildScreen";
+import NoGuildScreen from "./components/NoGuildScreen";
 
 
 function Guild() {
@@ -19,24 +20,7 @@ function Guild() {
         height={935}
         tilePosition={{ x: 0, y: 0 }}
       />
-      <Text
-        text={"Guild"}
-        anchor={0.5}
-        x={1316 / 2}
-        y={100}
-        style={
-          new TextStyle({
-            align: "center",
-            fontFamily: "Almendra",
-            fontSize: 30,
-            letterSpacing: 1,
-            fill: ["#ffffff"],
-          })
-        }
-      />
-      {!hero?.guild && (
-        <CreateGuild />
-      )}
+      {hero?.guild?.memberOf ? <GuildScreen /> : <NoGuildScreen hero={hero!} />}
     </Container>
   );
 }
