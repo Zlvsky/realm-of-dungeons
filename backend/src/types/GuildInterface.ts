@@ -6,7 +6,7 @@ export interface IGuild {
   members: {
     title: "MEMBER" | "OFFICER" | "LEADER";
     characterId: mongoose.Types.ObjectId;
-  };
+  }[];
   reputation: number;
   description: string;
   requests: mongoose.Types.ObjectId[];

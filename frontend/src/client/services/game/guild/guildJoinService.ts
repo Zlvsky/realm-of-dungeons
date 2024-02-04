@@ -1,11 +1,11 @@
 import postRequest from "../../../requests/postRequest";
 
-export const createGuildService = async (guildName: string) => {
+export const guildJoinService = async (guildId: string) => {
   const result = await postRequest({
-    url: "/guild/create",
+    url: "/guild/join",
     params: {
       characterId: localStorage.getItem("hero"),
-      guildName: guildName,
+      guildId: guildId,
     },
   });
   return result;

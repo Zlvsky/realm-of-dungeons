@@ -6,9 +6,10 @@ import { Container, Graphics, Text } from '@pixi/react';
 import { IHeroProp } from '../../../../../interfaces/ComponentsInterfaces';
 import { guildInvitesRequest } from '../../../../../client/appClient';
 import displayError from '../../../../../utils/notifications/errors';
+import { ISelectedGuild } from '../NoGuildScreen';
 
 interface IInvitesList extends IHeroProp {
-  selectedGuild: string | null;
+  selectedGuild: ISelectedGuild | null;
   setSelectedGuild: any;
 }
 
@@ -64,19 +65,19 @@ const GuildInvites = ({ selectedGuild ,setSelectedGuild }: any) => {
   return (
     <Container position={[30, 60]}>
       <Text text={"Guild name"} style={headerTextStyle} />
-      {invites.map((invite: any, index: number) => {
+      {invites.map((guild: any, index: number) => {
         return (
           <Container key={"invite_" + index} position={[0, 30 * (index + 1)]}>
             <Text
-              text={invite.name}
+              text={guild.name}
               y={0}
               x={0}
               style={
-                selectedGuild === invite._id ? guildActiveStyle : guildStyle
+                selectedGuild?._id === guild._id ? guildActiveStyle : guildStyle
               }
               interactive
               cursor="pointer"
-              onpointertap={() => setSelectedGuild(invite._id)}
+              onpointertap={() => setSelectedGuild({...guild, type: "INVITE"})}
             />
           </Container>
         );

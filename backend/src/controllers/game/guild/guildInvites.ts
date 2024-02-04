@@ -33,8 +33,12 @@ export const getGuildInvites = async (req: Request, res: Response) => {
     if (character.guild.invites.length === 0) return res.status(200).json({items: []});
 
     const ivnites = await Guild.find({ _id: { $in: character.guild.invites } })
-      .select("_id name")
+      .select("_id name leader members reputation description statistics")
       .limit(6)
+      .populate({
+        path: "leader",
+        select: "nickname",
+      })
       .exec();
 
     const response = {

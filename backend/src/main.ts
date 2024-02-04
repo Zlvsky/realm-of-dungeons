@@ -40,6 +40,7 @@ import initInsert from "./mongoInserts.ts/initInsert";
 import { createGuild } from "./controllers/game/guild/createGuild";
 import { getGuildInvites } from "./controllers/game/guild/guildInvites";
 import { getGuildsList } from "./controllers/game/guild/guildsList";
+import { declineGuildInvite, joinGuild, requestJoinGuild } from "./controllers/game/guild/guildJoinActions";
 
 const uri = process.env.MONGO_CONNECTION_URL;
 // const sslCert = process.env.CERT_PATH;
@@ -138,7 +139,11 @@ app.get("/api/character/preview/:characterId", getCharacterPreview);
 // GUILD
 app.post("/api/guild/create", createGuild);
 app.get("/api/guild/hero/:characterId/invites", getGuildInvites);
-app.get("/api/guild/list/:currentPage", getGuildsList);
+app.post("/api/guild/list/", getGuildsList);
+
+app.post("/api/guild/join/request", requestJoinGuild);
+app.post("/api/guild/join", joinGuild);
+app.post("/api/guild/join/decline", declineGuildInvite);
 
 // ADMIN PANEL - todo
 // app.use(express.static(path.join(__dirname, "admin-panel", "dist")));

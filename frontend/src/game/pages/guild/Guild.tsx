@@ -1,8 +1,6 @@
-import { useState } from "react";
-import { Container, Text, TilingSprite } from "@pixi/react";
+import { Container, TilingSprite } from "@pixi/react";
 
 import BgPattern from "../../../assets/images/dark_wall.png";
-import { TextStyle } from "pixi.js";
 import { useSelector } from "react-redux";
 import { getHero } from "../../../redux/reducers/gameSlice";
 import GuildScreen from "./components/GuildScreen";
