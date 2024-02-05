@@ -85,6 +85,7 @@ export interface ICharacter extends mongoose.Document {
   owner: mongoose.Types.ObjectId;
   guild: {
     memberOf: mongoose.Types.ObjectId | null;
+    memberType:"MEMBER" | "OFFICER" | "LEADER" | null;
     invites: mongoose.Types.ObjectId[];
   };
   equipment: [

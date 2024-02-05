@@ -38,6 +38,11 @@ const CharacterSchema = new mongoose.Schema({
       ref: "Guild",
       default: null,
     },
+    memberType: {
+      type: String,
+      default: null,
+      enum: ["MEMBER", "OFFICER", "LEADER", null],
+    },
     invites: [
       {
         type: mongoose.Schema.Types.ObjectId,

@@ -10,53 +10,55 @@ import EmpyEquipmentSlots from '../../../hero/components/EmpyEquipmentSlots';
 import Item from '../../../../components/merchant/Item';
 import { getEquipmentPosition } from '../../../hero/helpers/getEquipmentPosition';
 import ItemSlot from '../../../hero/components/ItemSlot';
+import HeroActions from './HeroActions';
 
-function HeroPreview({ heroId }: any) {
-    const [heroData, setHeroData] = useState<any>(null);
+function HeroPreview({ heroId, currentHeroId }: any) {
+  const [heroData, setHeroData] = useState<any>(null);
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const fetchHeroPreview = async () => {
-        const response = await characterPreviewRequest(heroId);
-        if (response.status !== 200) return displayError(dispatch, response);
-        setHeroData(response.data);
-    }
+  const fetchHeroPreview = async () => {
+    const response = await characterPreviewRequest(heroId);
+    if (response.status !== 200) return displayError(dispatch, response);
+    setHeroData(response.data);
+  };
 
-    useEffect(() => {
-        fetchHeroPreview();
-    }, [heroId]);
+  useEffect(() => {
+    fetchHeroPreview();
+  }, [heroId]);
 
-    if (!heroData) return null;
+  if (!heroData) return null;
 
-    return (
-      <Container position={[758, 100]}>
-        <HeroInfo hero={heroData} />
-        <HeroStats hero={heroData} />
-        {equipmentSlots.map((position, index) => (
-          <ItemSlot
-            key={index}
-            x={position.x}
-            y={position.y}
-            itemType={""}
-            itemSubType={""}
-            slotType={position.type}
-          />
-        ))}
-        <EmpyEquipmentSlots heroEquipment={heroData.equipment} />
-        {heroData.equipment.map((item: any, index: number) => {
-          if (item.item !== null)
-            return (
-              <Item
-                key={"equip" + index}
-                itemData={item}
-                itemPosition={getEquipmentPosition(item.type, item.type)}
-                itemSpot={"EQUIPMENT"}
-                anchor={0.5}
-              />
-            );
-        })}
-      </Container>
-    );
+  return (
+    <Container position={[758, 100]}>
+      <HeroInfo hero={heroData} />
+      <HeroStats hero={heroData} />
+      {equipmentSlots.map((position, index) => (
+        <ItemSlot
+          key={index}
+          x={position.x}
+          y={position.y}
+          itemType={""}
+          itemSubType={""}
+          slotType={position.type}
+        />
+      ))}
+      <EmpyEquipmentSlots heroEquipment={heroData.equipment} />
+      {heroData.equipment.map((item: any, index: number) => {
+        if (item.item !== null)
+          return (
+            <Item
+              key={"equip" + index}
+              itemData={item}
+              itemPosition={getEquipmentPosition(item.type, item.type)}
+              itemSpot={"EQUIPMENT"}
+              anchor={0.5}
+            />
+          );
+      })}
+      <HeroActions heroId={heroId} currentHeroId={currentHeroId} />
+    </Container>
+  );
 }
 
 export default HeroPreview;

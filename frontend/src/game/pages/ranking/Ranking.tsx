@@ -17,8 +17,12 @@ function Ranking({ currentHeroId }: any) {
           height={935}
           tilePosition={{ x: 0, y: 0 }}
         />
-        <RankingList selectedHero={selectedHero} setSelectedHero={setSelectedHero} currentHeroId={currentHeroId} />
-        <HeroPreview heroId={selectedHero} />
+        <RankingList
+          selectedHero={selectedHero}
+          setSelectedHero={setSelectedHero}
+          currentHeroId={currentHeroId}
+        />
+        <HeroPreview heroId={selectedHero} currentHeroId={currentHeroId} />
       </Container>
     );
 }

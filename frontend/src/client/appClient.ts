@@ -41,6 +41,8 @@ import { guildsListService } from "./services/game/guild/guildsListService";
 import { guildRequestService } from "./services/game/guild/guildRequestService";
 import { guildJoinService } from "./services/game/guild/guildJoinService";
 import { guildInviteDeclineService } from "./services/game/guild/guildInviteDeclineService";
+import { inviteToGuildService } from "./services/game/guild/inviteToGuildService";
+import { guildInfoService } from "./services/game/guild/guildInfoService";
 
 // REGISTER AND LOGIN
 export async function register(body: signUpInterface) {
@@ -210,4 +212,12 @@ export async function guildJoinRequest(guildId: string) {
 
 export async function guildInviteDeclineRequest(guildId: string) {
   return await guildInviteDeclineService(guildId);
+}
+
+export async function inviteToGuildRequest(invitedCharacterId: string) {
+  return await inviteToGuildService(invitedCharacterId);
+}
+
+export async function guildInfoRequest() {
+  return await guildInfoService();
 }

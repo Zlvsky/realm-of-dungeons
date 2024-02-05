@@ -98,6 +98,7 @@ export interface ICharacter {
   };
   guild: {
     memberOf?: string | null;
+    memberType: "MEMBER" | "OFFICER" | "LEADER" | null;
     invites: string[];
   };
   extras: {

@@ -18,7 +18,11 @@ function Guild() {
         height={935}
         tilePosition={{ x: 0, y: 0 }}
       />
-      {hero?.guild?.memberOf ? <GuildScreen /> : <NoGuildScreen hero={hero!} />}
+      {hero?.guild?.memberOf ? (
+        <GuildScreen hero={hero!} />
+      ) : (
+        <NoGuildScreen hero={hero!} />
+      )}
     </Container>
   );
 }

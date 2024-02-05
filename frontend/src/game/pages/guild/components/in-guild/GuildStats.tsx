@@ -3,7 +3,7 @@ import { TextStyle } from "pixi.js";
 import { useCallback } from "react";
 import { GuildProp } from "../../../../../interfaces/GuildInterface";
 
-const rectWidth = 370;
+const rectWidth = 350;
 const rectHeight = 500;
 
 const HeaderStyle = new TextStyle({
@@ -22,7 +22,7 @@ const textStyle = new TextStyle({
   fill: ["#bcbcbc"],
 });
 
-function GuildMembers({ guild }: GuildProp) {
+function GuildStats({ guild }: GuildProp) {
   const createFrame = useCallback((g: any) => {
     g.clear();
 
@@ -39,7 +39,7 @@ function GuildMembers({ guild }: GuildProp) {
   }, []);
 
   return (
-    <Container position={[940, 100]}>
+    <Container position={[50, 100]}>
       <Graphics draw={createFrame} />
       <Text text={"Guild Level"} x={30} y={30} style={HeaderStyle} />
       <Text
@@ -66,4 +66,4 @@ function GuildMembers({ guild }: GuildProp) {
   );
 }
 
-export default GuildMembers;
+export default GuildStats;
