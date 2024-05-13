@@ -1,2 +1,6 @@
 /// <reference types="vite/client" />
-declare module "pixi-text-input";
+declare module "./TextInputCore" {
+  // Specify the type explicitly
+  const TextInputCore: any;
+  export default TextInputCore;
+}

@@ -22,6 +22,10 @@ const textStyle = new TextStyle({
   fill: ["#bcbcbc"],
 });
 
+const getMemberText = () => {
+  
+}
+
 function GuildMembers({ guild }: GuildProp) {
   const createFrame = useCallback((g: any) => {
     g.clear();
@@ -37,31 +41,26 @@ function GuildMembers({ guild }: GuildProp) {
 
     g.endFill();
   }, []);
+  
+
 
   return (
     <Container position={[940, 100]}>
       <Graphics draw={createFrame} />
-      <Text text={"Guild Level"} x={30} y={30} style={HeaderStyle} />
       <Text
-        text={guild.statistics.level.toString()}
-        x={30}
-        y={60}
-        style={textStyle}
+        text={"Members"}
+        x={rectWidth / 2}
+        y={30}
+        anchor={[0.5, 0]}
+        style={HeaderStyle}
       />
-      <Text text={"Treasury Level"} x={30} y={120} style={HeaderStyle} />
-      <Text
-        text={guild.statistics.goldLevel.toString()}
-        x={30}
-        y={150}
-        style={textStyle}
-      />
-      <Text text={"Library Level"} x={30} y={210} style={HeaderStyle} />
-      <Text
-        text={guild.statistics.xpLevel.toString()}
-        x={30}
-        y={240}
-        style={textStyle}
-      />
+      {guild.members.map((member) => {
+        return (
+          <Container>
+            
+          </Container>
+        )
+      })}
     </Container>
   );
 }

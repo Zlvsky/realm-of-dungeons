@@ -1,6 +1,5 @@
-import { Input } from '@pixi/ui';
-import { Graphics } from 'pixi.js';
-import TextInput from "pixi-text-input";
+// @ts-ignore
+import TextInputCore from "./TextInputCore";
 
 const generateTextInput = (ref: any, setGuildName: Function) => {
   // const input = new Input({
@@ -27,7 +26,7 @@ const generateTextInput = (ref: any, setGuildName: Function) => {
   //     right: 10,
   //   }
   // });
-  const input = new TextInput({
+  const input = new TextInputCore({
     input: {
       fontSize: "20px",
       fontFamily: "Almendra",
